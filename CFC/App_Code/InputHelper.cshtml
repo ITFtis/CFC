@@ -1,0 +1,190 @@
+﻿@using CFC.Models.Prj
+
+@*燃料計算*@
+@helper GenFuelInput(IEnumerable<Fuel_properties> fps)
+{
+    foreach (Fuel_properties fp in fps)
+    {
+        <div class="rule-row rule-row-basic fuel-row row">
+            <div class="col-4">@fp.Name</div>
+            <div class="col-5 col-input-full">
+                <input type='number' class="form-control fuel-input" name='@fp.Id' />
+            </div>
+            <div class="col-3">@fp.Unit</div>
+        </div>
+    }
+}
+@*電力計算*@
+@helper GenElecInput(IEnumerable<Elec_properties> properties)
+{
+    <div class="rule-row rule-row-basic">
+        <div class="col-name">用量</div>
+        <div class="col-input">
+            <input type="number" class="form-control" data-type="elec" id="elecVolume" value="0">
+        </div>
+        <div id="electUnit" class="col-unit">@properties.First().Unit</div>
+    </div>
+    <div class="rule-row">
+        <div class="col-name">係數年份</div>
+        <div class="col-input">
+            <select class="form-control col-name long" data-val="true" name="elecYear" id="elecYear">
+                @foreach (var electProperty in properties)
+                {
+                    <option data-unit="@electProperty.Unit" value="@electProperty.year">@electProperty.year</option>
+                }
+            </select>
+        </div>
+    </div>
+}
+
+@*設備計算*@
+@helper GenRefrigerantInput(IEnumerable<Refrigerant_type> types, IEnumerable<Refrigerant_equip> properties)
+{
+
+    <div class="rule-row long rule-row-basic refrigerant-row">
+        <div class="col-name">
+            <i class="fa fa-trash" hidden style="cursor:pointer" onclick="removeItem(this)" aria-hidden="true"></i>
+            項目
+        </div>
+        <select class="form-control col-name long" data-val="true" name="quipType">
+            <option value="null">--請選擇--</option>
+            @foreach (var re in properties)
+            {
+                <option value="@re.Id">@re.Name</option>
+            }
+        </select>
+
+        <div class="col-group">
+            <div class="col-name">冷媒種類</div>
+            <div class="col-input long">
+                <select class="form-control" data-val="true" name="refrigeType">
+                    <option value="null">--請選擇--</option>
+                    @foreach (var type in types)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-group">
+            <div class="col-name">填充量</div>
+            <div class="col-input long">
+                <input type='number' class="form-control" name="refrigeVolume" value="0">
+            </div>
+            <div class="col-unit">公斤</div>
+        </div>
+    </div>
+}
+
+@* 其他逸散氣體 *@
+@helper GenEscapeInput(IEnumerable<Escape_type> types, IEnumerable<Escape_properties> propterties)
+{
+    <div class="rule-row long escape-row">
+        <div class="col-group" style="flex-basis:100%">
+            <div class="col-name">
+                <i class="fa fa-trash" hidden style="cursor:pointer" onclick="removeItem(this)" aria-hidden="true"></i>
+                排放類型
+            </div>
+            <div class="col-input long">
+                <select class="form-control" data-val="true" onchange="changeSubSelection(this)" name="escapeType">
+                    <option value="null">--請選擇--</option>
+                    @foreach (var type in types) //順序在上一層取資料時已經排序了
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="col-name">原料</div>
+            <div class="col-input long">
+                <select class="form-control" data-val="true" onchange="changeUnit(this)" name="escpaeItem">
+                    <option value="null">--請選擇--</option>
+                    @foreach (var property in propterties) //順序在上一層取資料時已經排序了
+                    {
+                        <option data-unit="@property.Unit" data-type="@property.Type" value="@property.Id">@property.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-group">
+            <div class="col-name">填充量</div>
+            <div class="col-input long">
+                <input type='number' class="form-control" name="escpaeVolume" value="0">
+            </div>
+            <div class="col-unit" style="flex-basis:4.5em"></div>
+        </div>
+    </div>
+}
+
+@* 蒸氣計算 *@
+@helper EvapeInput()
+{
+    <div class="rule-row rule-row-advance evapeInput">
+        <div class="col-name">用量</div>
+        <div class="col-input">
+            <input type="number" class="form-control" name="evapVolume" id="evap-volume" value="0">
+        </div>
+        <div class="col-unit">公噸/年</div>
+    </div>
+    <div class="rule-row evapeInput">
+        <div class="col-name">係數</div>
+        <div class="col-input">
+            <input type="number" class="form-control coe" name="evapCoe" id="evap-coe" value="0" min="0">
+        </div>
+        <div class="col-unit" style="font-size: 0.7rem;flex-basis:30%;">公噸CO2/公噸蒸氣(向供應商取得)</div>
+    </div>
+}
+
+@* 特殊製程 *@
+@helper CreateionInput(IEnumerable<Specific_type> types, IEnumerable<Specific_properties> properties)
+{
+    <div class="rule-row long rule-row-advance advance-row">
+        <div class="col-group" style="flex-basis:100%">
+            <div class="col-name"><i class="fa fa-trash" hidden style="cursor:pointer" onclick="removeItem(this)" aria-hidden="true"></i>製程</div>
+            <div class="col-input long">
+                <select class="form-control" data-val="true" onchange="changeSubSelection(this)" name="advanceType">
+                    <option value="null">--請選擇--</option>
+                    @foreach (var type in types) //順序在上一層取資料時已經排序了
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-name">原料</div>
+            <div class="col-input long">
+                <select class="form-control" data-val="true" onchange="changeUnit(this)" name="advanceItem">
+                    <option value="null">--請選擇--</option>
+                    @foreach (var property in properties) //順序在上一層取資料時已經排序了
+                    {
+                        <option data-unit="@property.Unit" data-type="@property.Type" value="@property.Id">@property.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-group" style="flex-basis:80%">
+            <div class="col-name">填充量</div>
+            <div class="col-input long">
+                <input type='number' class="form-control" value="0" name="advanceVolume">
+            </div>
+            <div class="col-unit" style="flex-basis:8.5em"></div>
+        </div>
+    </div>
+}
+
+
+@* 類別三 *@
+
+@helper Type3Inputs(Type3Mark[] markes)
+{
+
+    foreach (var mark in markes)
+    {
+        <div class="rule-row rule-row-advance evapeInput row">
+            <div class="col-4 s-name">@mark.name</div>
+            <div class="s-input col-4">
+                <input type="number" class="form-control" name="@mark.title" data-type="type3" value="0" min="0">
+            </div>
+            <div class="col s-unit">公噸CO2e/年</div>
+        </div>
+    }
+}

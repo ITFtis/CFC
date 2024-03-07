@@ -1,0 +1,133 @@
+﻿@model CFC.Models.Prj.User_Properties_Advance
+@using (Html.BeginForm("Login", "CFC", new { login = true }, FormMethod.Post))
+{
+    @Html.ValidationSummary(false, null, new { @class = "text-danger font-weight-bold" })
+    @Html.TextBoxFor(m => m.Id, new {@id="accountInput", @class = "", @placeholder = "請輸入使用者帳號" })
+    @Html.TextBoxFor(m => m.Pass, new {@type="password" ,@id= "passInput", @class = "", @placeholder = "請輸入設定密碼" })
+    <div class="bttn-group">
+        <div class="container">
+            <div class="row">
+                <div class="col multBut"><button class="btn-red btn"> 登 入</button></div>
+                <div class="col multBut"><button type="button" class="btn-success btn"> 會 員 申 請</button></div>
+            </div>
+        </div>
+        <button class="btn-green btn">訪客登入</button>
+        <div class="counter-wrap">
+            瀏覽人次<div class="counter">
+                @{ var spanstr = "";}
+                @foreach (var c in ViewBag.RecordCount)
+                {
+                    spanstr += "<span>" + c + "</span>";
+                    @*@<span>@c</span>  用這方式標籤斷行會增加span間空間  *@
+                }
+                @Html.Raw(spanstr)
+            </div>
+        </div>
+    </div>
+}
+
+
+<style>
+    .btn {
+        cursor: pointer;
+    }
+
+    .validation-summary-errors ul {
+        display: inline-flex;
+        color: red;
+    }
+
+    .busy-indicator-s {
+        top: 0;
+        left: 0;
+        position: fixed;
+        text-align: center;
+        z-index: 19999;
+        background-color: rgba(80,80,80,0.4);
+        color: white;
+        width: 100%;
+        height: 100%;
+        min-height: 30px;
+        bottom: 0;
+        border-radius: 3px;
+        display: flex;
+        justify-content: center;
+        /*align-items:center;*/
+    }
+
+    .multBut {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .login-block button {
+        font-size: 16px;
+    }
+
+    .modalView {
+        height: 70vh;
+        width: 70vw;
+        background: white;
+        text-align: center;
+        padding: 6vh 0 0px 0px;
+        margin: 7vh 0 0 15vw;
+        border-radius: 12px;
+    }
+
+        .modalView .input {
+            padding-bottom: 7px;
+            text-align: right;
+        }
+
+            .modalView .input input {
+                text-align: left;
+            }
+
+        .modalView .title {
+            padding-bottom: 0vh;
+            margin-bottom: 3vh;
+            width: 90%;
+            border-bottom: solid;
+            border-color: rgb(194 182 182);
+            margin-left: 5%;
+        }
+
+    .mustInfo {
+        color: red;
+    }
+
+    #errorMes {
+        text-align: left;
+    }
+
+</style>
+<script>
+    window.linkmessage = "";
+    $(".btn-red").on('click', function (event) {
+        if (window.location != window.parent.location)
+            window.open('https://pj.ftis.org.tw/CFCv2');
+        //event.preventDefault();
+        //window.linkmessage = '驗證中.';
+        ////helper.misc.showBusyIndicator(undefined, { content: '驗證中.' });
+        //this.submit(); //now submit the form
+    });
+	$(".btn-green").on('click', function () {
+        //helper.misc.showBusyIndicator(undefined, { content: '訪客登入中.' });
+
+        if (window.location != window.parent.location)
+            window.open('https://pj.ftis.org.tw/CFCv2');
+
+        window.linkmessage = '訪客登入中.';
+		location.href = '@(Url.Action("Guest"))';
+		return false;
+    });
+
+    // 帳號申請
+    $(".btn-success").on("click", function () {
+        $(".modalView").modal("show");
+    });
+
+    $(window).on('beforeunload', function () {
+        helper.misc.showBusyIndicator(undefined, { content: window.linkmessage ? window.linkmessage : undefined });
+    });
+</script>

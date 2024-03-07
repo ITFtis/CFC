@@ -1,0 +1,15 @@
+﻿@model CFC.Models.Prj.Refrigerant_equip
+@using Dou.Misc.Extension
+<div name="form" action="" class="form-horizontal data-edit-form-group row">
+    <div class="col-6">
+        @Html.DataEditContainer("Id", "編碼")
+        @Html.DataEditContainer("Name", "設備名稱")
+        @Html.DataEditContainer("EscapeRate", "逸散率% (平均)")
+        @Html.DataEditContainer("MinValue", "最小單位數")
+        @Html.DataEditContainer("MaxValue", "最大單位數")
+        @Html.DataEditContainer("displayOrder", "順序")
+    </div>
+    <div class="col-6">
+        @Html.DataEditContainer("EquipTypeMap", "對應冷媒")
+    </div>
+</div>

@@ -1,0 +1,227 @@
+﻿@model CFC.Models.Prj.User_Properties_Advance
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Html.Partial("LoginScriptLinkPartial")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Scripts/gis/b3/dou/css")
+    @Styles.Render("~/Content/css/site")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/dou/js")
+    <title>登入頁</title>
+
+    <style>
+        .w100 {
+            width: 100%
+        }
+
+        .notice-info {
+            font-size: 0.7rem;
+            color: red;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="all-wrap login-page">
+        <div class="main-wrap">
+            <header>
+                <div class="logo">
+                    <h1><a href="">經濟部工業局碳排金好算</a></h1>
+                </div>
+            </header>
+            <main>
+                <div class="login-block">
+                    <h2>系統登入</h2>
+                    @Html.Partial("LoginFormPartial")
+                </div>
+                <div class="bgs-01 bgs"></div>
+                <div class="bgs-02 bgs"></div>
+                <div class="bgs-03 bgs"></div>
+                <div class="bgs-04 bgs"></div>
+                <div class="bgs-05 bgs"></div>
+                <div class="bgs-06 bgs"></div>
+            </main>
+        </div>
+        <!--會員登入畫面-->
+        <!-- Modal -->
+        <div class="modal is-hide modalView">
+            <div class="container-fluid">
+                <div class="row title">
+                    <h4>申請新用戶</h4>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>使用者帳號
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Id" /></div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>設定密碼
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Pass" /></div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>統一編號
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" /></div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>公司全稱
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Name" /></div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>工廠登記證
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="IndustryId" /></div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>工廠縣市別
+                    </div>
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">
+                        <select id="CountyId" class="w100">@getSelections((IEnumerable<CFC.Models.Prj.Global_City>)ViewBag.City)</select>
+                    </div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">
+                        <span class="mustInfo">*</span>廠區
+                    </div>
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">
+                        <select id="IndustrialAreaId" class="w100">@getSelections((IEnumerable<CFC.Models.Prj.Global_IndustrialArea>)ViewBag.IndustrialArea)</select>
+                    </div>
+                </div>
+
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>行業別
+                    </div>
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">
+                        <select id="IndustrialTypeId" class="w100">@getSelections((IEnumerable<CFC.Models.Prj.Global_Industrial>)ViewBag.IndustrailTypes)</select>
+                    </div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>企業規模
+                    </div>
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">
+                        <select id="CompanySize" class="w100">
+                            <option value="中小企業">中小企業</option>
+                            <option value="大企業">大企業</option>
+                        </select>
+                        <br />
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-end text-right">
+                    <div class="col-2"></div>
+                    <div class="col-10">
+                        <span class="notice-info">本標準所稱中小企業，為中華民國境內依法辦理公司登記或商業登記，實收資本額在新台幣一億元以下，或經常僱用員工數未滿二百人之事業。</span>
+                    </div>
+                </div>
+                <br />
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>聯絡人
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Contact" /></div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>連絡人電話
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="PhoneNumber" /></div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>E-MAIL
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Email" /></div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <h5 class="mustInfo" id="errorMes"></h5>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                <button type="button" class="btn btn-primary">申請帳號</button>
+            </div>
+
+        </div>
+
+
+        <!--頁尾-->
+        <footer>
+            <div class="footer-logo"></div>
+            <div class="footer-txt-wrap">
+                <div class="ft ft1">本網站由『經濟部產業發展署 中小型製造業低碳輔導計畫』委辦『財團法人台灣產業服務基金會』維護管理</div>
+                <div class="ft ft2">服務時間：AM8:30~PM5:30</div>
+                <div class="ft ft3">服務信箱：mo@ftis.org.tw</div>
+                <div class="ft ft2">服務電話：02-2784-5720 </div>
+
+                <div class="ft ft1">※版權所有，非經同意，請勿轉載 建議最佳螢幕解析度1024X768以上，IE6以上瀏覽軟體</div>
+            </div>
+        </footer>
+    </div>
+</body>
+<script>
+    //檢查內申請內容
+    $(".modalView .modal-footer .btn-primary").on("click", function () {
+        $("#errorMes").empty();
+
+        fetch(window.siteroot + "CFC/CreateUser", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Id: $("#Id").val(),
+                Pass: $("#Pass").val(),
+                UniformNumber: $("#UniformNumber").val(),
+                Name: $("#Name").val(),
+                IndustryId: $("#IndustryId").val(),
+                CountyId: $("#CountyId").val(),
+                IndustrialAreaId: $("#IndustrialAreaId").val(),
+                IndustrialTypeId: $("#IndustrialTypeId").val(),
+                CompanySize: $("#CompanySize").val(),
+                Contact: $("#Contact").val(),
+                PhoneNumber: $("#PhoneNumber").val(),
+                Email: $("#Email").val()
+            })
+        }).then(e => e.json())
+            .then(response => {
+                if (response.success) { 
+                    alert(response.desc);
+                    $("#accountInput").val($("#account").val());
+                    $("#passInput").val($("#pass").val());
+                    $(".modal-footer .btn-secondary").trigger("click");
+                }
+                else {
+                    $("#errorMes").append(response.desc)
+                }
+            });
+    });
+    
+
+    window.siteroot = "@Url.Content("~/")";
+</script>
+</html>
+
+
+@helper getSelections(IEnumerable<CFC.Models.Prj.GlobalBase> options)
+{
+    foreach (var option in options)
+    {
+        <option value="@option.Id">@option.Name</option>
+    }
+}

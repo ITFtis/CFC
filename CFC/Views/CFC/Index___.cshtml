@@ -1,0 +1,282 @@
+﻿@model CFC.Models.Prj.User_Input
+@using CFC.Models.Prj
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Html.Partial("IndexScriptLinkPartial")
+    <title>首頁</title>
+</head>
+<body>
+    @GenDomInput()
+    <div class="all-wrap index-page">
+        <div class="main-wrap">
+            <header>
+                <div class="logo">
+                    <h1><a href="">經濟部工業局碳排金好算</a></h1>
+                </div>
+                <div class="login-info">
+                    <div class="login-account"><span>登記編號: </span>guest</div>
+                    @Html.ActionLink("登出", "Logoff", null, new { @class = "btn-green btn-s" })@*<button class="btn-green btn-s">登出</button>*@
+                </div>
+            </header>
+            <main>
+                <div class="inner-content-wrap">
+                    <div class="count-rule-group">
+                        <div class="count-rule-block">
+                            <h2>燃料計算</h2>
+                            <div class="rule-set-group flex-block">
+                                <div class="rule-block col-4-1">
+                                    <h3>固態燃料</h3>
+                                    <div class="rule-set">
+                                        <div class="rule-row">
+                                            <div class="col-name">燃料煤</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公噸/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">無煙煤</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公噸/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">焦炭</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公噸/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">原料煤</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公噸/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">自產煤</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公噸/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">油頁岩</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公噸/年</div>
+                                        </div>
+                                    </div>
+                                    <div class="show-more-btn"></div>
+                                </div>
+                                <div class="rule-block col-4-1">
+                                    <h3>液態燃料(固定源)</h3>
+                                    <div class="rule-set">
+                                        <div class="rule-row">
+                                            <div class="col-name">蒸餘油</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">液化石油氣</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">其他油品</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">車用汽油</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">航空燃油</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                    </div>
+                                    <div class="show-more-btn"></div>
+                                </div>
+                                <div class="rule-block col-4-1">
+                                    <h3>液態燃料(移動源)</h3>
+                                    <div class="rule-set">
+                                        <div class="rule-row">
+                                            <div class="col-name">液化天然氣</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">km3/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">液化石油氣</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">柴油</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">車用汽油</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">航空燃油</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">煤油</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">航空汽油</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">潤滑油</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">公秉/年</div>
+                                        </div>
+                                    </div>
+                                    <div class="show-more-btn"></div>
+                                </div>
+                                <div class="rule-block col-4-1">
+                                    <h3>氣態燃料</h3>
+                                    <div class="rule-set">
+                                        <div class="rule-row">
+                                            <div class="col-name">天然氣</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">km3/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">高爐氣</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">km3/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">焦爐氣</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">km3/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">煉油氣</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">km3/年</div>
+                                        </div>
+                                        <div class="rule-row">
+                                            <div class="col-name">乙烷</div>
+                                            <div class="col-input"><input type="text"></div>
+                                            <div class="col-unit">km3/年</div>
+                                        </div>
+                                    </div>
+                                    <div class="show-more-btn"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex-block">
+                            <div class="count-rule-block col-4-1">
+                                <h2>電力計算</h2>
+                                <div class="rule-set-group">
+                                    <div class="rule-block">
+                                        <div class="rule-set">
+                                            <div class="rule-row">
+                                                <div class="col-name">用量</div>
+                                                <div class="col-input"><input type="text"></div>
+                                                <div class="col-unit">千度/年</div>
+                                            </div>
+                                            <div class="rule-row">
+                                                <div class="col-name">係數年份</div>
+                                                <div class="col-input">
+                                                    <select name="" id="">
+                                                        <option value="">109</option>
+                                                        <option value="">108</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="count-rule-block col-4-3">
+                                <h2>冷煤逸散計算</h2>
+                                <div class="rule-set-group">
+                                    <div class="rule-block">
+                                        <div class="rule-set long">
+                                            <div class="rule-row long">
+                                                <div class="col-name long">電冰箱</div>
+                                                <div class="col-group">
+                                                    <div class="col-name">冷媒種類</div>
+                                                    <div class="col-input long">
+                                                        <select name="" id="">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-group">
+                                                    <div class="col-name">填充量</div>
+                                                    <div class="col-input long"><input type="text"></div>
+                                                    <div class="col-unit">公斤</div>
+                                                </div>
+                                            </div>
+                                            <div class="rule-row long">
+                                                <div class="col-name long">大型冷凍(藏)庫</div>
+                                                <div class="col-group">
+                                                    <div class="col-name">冷媒種類</div>
+                                                    <div class="col-input long">
+                                                        <select name="" id="">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-group">
+                                                    <div class="col-name">填充量</div>
+                                                    <div class="col-input long"><input type="text"></div>
+                                                    <div class="col-unit">公斤</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="show-more-btn"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="count-btn-group">
+                        <button class="btn-gray btn-s">清空</button>
+                        <button class="btn-red btn-s">計算</button>
+                        <button class="btn-green btn-s">檢視</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <footer>
+            <div class="footer-logo"></div>
+            <div class="footer-txt-wrap">
+                <div class="ft ft1">本網站由『經濟部工業局 產業能效提升暨管理計畫』委辦『財團法人台灣產業服務基金會』維護管理</div>
+                <div class="ft ft2">服務時間：AM8:30~PM5:30</div>
+                <div class="ft ft3">服務信箱：m508106010@ftis.org.tw</div>
+                <div class="ft ft2">服務電話：02-7705-5139 </div>
+                <div class="ft ft3">傳真：02-23253922</div>
+                <div class="ft ft1">※版權所有，非經同意，請勿轉載 建議最佳螢幕解析度1024X768以上，IE6以上瀏覽軟體</div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+@helper GenFuelInput(IEnumerable<Fuel_properties> fps)
+{
+    var mps = Model.GetType().GetProperties().Where(x => x.CanRead).ToList();
+    foreach (Fuel_properties fp in fps)
+    {
+        var p = mps.FirstOrDefault(x => x.Name == fp.Id);
+        if (p != null)
+        {
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label text-right" for="@fp.Id">@fp.Name</label>
+                <input type='number' class=" form-control col-sm-4 " name='@fp.Id' value='@p.GetValue(Model, null)' data-dval="@GetDefaultValue(fp.Id)">
+                <label class="col-sm-4 col-form-label text-left">@fp.Unit</label>
+            </div>
+
+        }
+    }
+}

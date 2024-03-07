@@ -1,0 +1,206 @@
+﻿@using CFC.Models.Prj
+
+@{
+    var inputs = ViewBag.ProjectInputs as IEnumerable<User_Input_Advance>;
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-12 text-center">專案名稱</div>
+        <div class="col-md-4 d-none d-md-block">儲存時間點</div>
+        <div class="col-md-2 d-none d-md-block"></div>
+    </div>
+
+    @if (inputs.Count() == 0)
+    {
+        <div class="red-hint">目前無歷史紀錄</div>
+    }
+    else
+    {
+        <div class="projectList">
+            @getProjectContent(inputs)
+        </div>
+    }
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        // 關閉畫面
+        $(".viewProject-cover .close-btn").on("click", function () {
+            $(".viewProject-cover").attr("style", "display:none");
+        });
+
+
+        // 載入專案資料
+        $(".projectList .project-row .showProject").on("click", function () {
+            $(".count-btn-group .btn-gray").click(); //清除既有資料
+
+            //取得專案資料
+            fetch(window.siteroot + "CFC/GetProject", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    UserID: $(this).attr("data-userId"),
+                    RowID: $(this).attr("data-projectId"),
+                }),
+            }).then(e => e.json()).then(response => {
+                if (!response.success)
+                    alert(response.desc);
+                else {
+                    var data = response.data;
+
+                    // 專案相關
+                    $("#CalRowID").attr("value", response.data.RowID);
+                    $("#UserID").attr("value", response.data.UserID);
+
+                    // 燃料係數
+                    $(".calCoeGroup .coeButton").attr("class", "coeButton ");
+
+
+                    // 燃料
+                    $(data.fuelInputs).each((index, item) => {
+                        $('.fuel-input[name="${fuelID}"]'.replace("${fuelID}", item.FuelId)).val(item.UseVolume)
+                    });
+
+                    // 電力
+                    $("#elecYear").val(data.electInput.elecYear);
+                    $("#elecVolume").val(data.electInput.elecVolume)
+
+                    //冷媒
+                    $(data.refrigerantInputs).each((index, item) => {
+                        if (index == 0)
+                            $(".new-refrigerant").click();
+                        $('select[name="refrigeType"]').eq(index).val(item.RefrigerantType);
+                        $('select[name="quipType"]').eq(index).val(item.RefrigerantEquip);
+                        $('input[name="refrigeVolume"]').eq(index).val(item.UseVolume);
+                    });
+
+                    // 逸散氣體
+                    $(data.escapeInputs).each((index, item) => {
+                        if (index == 0)
+                            $(".new-escape").click();
+                        $('select[name="escapeType"]').eq(index).val(item.EscapeType);
+                        $('select[name="escpaeItem"]').eq(index).val(item.EscapeId);
+                        $('input[name="escpaeVolume"]').eq(index).val(item.UseVolume);
+                    });
+
+                    // 蒸氣
+                    $("#evap-coe").val(data.steamInput.SteamCoe);
+                    $("#evap-volume").val(data.steamInput.SteamVolume)
+
+                    // 特殊製程
+                    $(data.specialInputs).each((index, item) => {
+                        if (index == 0)
+                            $(".new-specific").click();
+                        $('select[name="advanceType"]').eq(index).val(item.CreateType);
+                        $('select[name="advanceItem"]').eq(index).val(item.CreateId);
+                        $('input[name="advanceVolume"]').eq(index).val(item.UseVolume);
+                    });
+
+                    // 其他範疇
+                    $.each($(".type3-block input"), function (index, item) {
+                        var $_this = $(item);
+                        var name = $_this.attr("name");
+                        console.log(name + "\t" + data[name]);
+                        $_this.val(data[name]);
+                    });
+
+                    // 關閉面板
+                    $(".viewProject-block .close-btn").click();
+                }
+            });
+        })
+
+
+        // 刪除專案
+        $(".projectList .project-row .deleteProject").on("click", function () {
+            var comfirm = window.confirm("刪除後無法復原，確認刪除嗎?");
+            console.log(comfirm);
+            if (comfirm) {
+                window.fetch(window.siteroot + "CFC/DeleteProject", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        UserID: $(this).attr("data-userId"),
+                        RowID: $(this).attr("data-projectId"),
+                    })
+                }).then(e => e.json())
+                    .then(response => {
+                        alert(response.desc);
+                        window.location.reload();
+                    });
+            }
+        });
+
+        // 編輯專案
+        $(".projectList .project-row .editProject").on("click", function () {
+
+            window.fetch(window.siteroot + "CFC/EditProject", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    UserID: $(this).attr("data-userId"),
+                    RowID: $(this).attr("data-projectId"),
+                })
+            }).then(e => e.json())
+                .then(response => {
+
+                    // 讀取錯誤
+                    if (!response.success)
+                        alert(response.desc);
+
+                    // 正常顯示
+                    $(".saveProject-cover #projectName").val(response.data.ProjectName);
+                    $(".saveProject-cover #IndustrialAddress").val(response.data.ProjectAddress);
+                    $(".saveProject-cover #IndustrialNo").val(response.data.ProjectIndustrialID);
+                    $(".saveProject-cover #projectCity").val(response.data.ProjectCity);
+                    $(".saveProject-cover #projectIndustrialType").val(response.data.ProjectIndustrialType);
+                    $(".viewProject-block .close-btn").click();
+
+                    //帶入輸入數值
+                    $(this).parent().find(".showProject").click();
+                    $(".saveProject-cover").attr("style", "");
+                });
+
+        });
+    })
+</script>
+
+@helper getProjectContent(IEnumerable<User_Input_Advance> inputs)
+{
+    foreach (var input in inputs)
+    {
+        <div class="row project-row" data-id="@input.ProjectIndustrialID">
+            <div class="col-md-6 col-4 cell">
+                @input.ProjectName
+            </div>
+            <div class="col-md-4 d-none d-md-block cell">
+                @input.Date.ToString("yyyy/MM/dd HH:mm")
+            </div>
+            <div class="col-md-2 col-8 btn-container">
+                <button class="btn-green btn-s showProject" data-projectId="@input.RowID" data-userId="@input.UserID" style="max-width: 100%; width: 40px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-spreadsheet" viewBox="0 0 16 16">
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v4h10V2a1 1 0 0 0-1-1H4zm9 6h-3v2h3V7zm0 3h-3v2h3v-2zm0 3h-3v2h2a1 1 0 0 0 1-1v-1zm-4 2v-2H6v2h3zm-4 0v-2H3v1a1 1 0 0 0 1 1h1zm-2-3h2v-2H3v2zm0-3h2V7H3v2zm3-2v2h3V7H6zm3 3H6v2h3v-2z" />
+                    </svg>
+                </button>
+                <button class="btn-orange btn-s editProject" data-projectId="@input.RowID" data-userId="@input.UserID" style="max-width: 100%; width: 40px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+                    </svg>
+                </button>
+                <button class="btn-red btn-s deleteProject" data-projectId="@input.RowID" data-userId="@input.UserID" style="max-width:100%;width:40px">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    }
+}

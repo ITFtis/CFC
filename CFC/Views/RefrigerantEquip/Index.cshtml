@@ -1,0 +1,107 @@
+﻿<script src="~/Scripts/gis/other/tableDragger/table-dragger.js"></script>
+@using Dou.Misc.Extension
+@using CFC.Controllers.Api
+@using Newtonsoft.Json
+
+@{
+        var var_options = "options_" + Guid.NewGuid().ToString().Replace("-", "");
+        var _containerId = "container_" + Guid.NewGuid().ToString().Replace("-", "");
+}
+@Html.DataManagerOptionsJavascript("#" + _containerId, var_options)
+<style>
+    .modal-body .bootstrap-table .fixed-table-container .table thead th .th-inner, .modal-body .table td {
+        padding: 0.55rem 0.75rem !important;
+    }
+    .add-ref{
+        position:absolute;
+        top:0;
+        right:1rem;
+    }
+    .modal-body .bootstrap-table .fixed-table-container .table tbody tr.selected td {
+        background-color: rgba(0, 0, 0, 0);
+    }
+</style>
+<div id="@_containerId"><table></table></div>
+<script>
+    $(document).ready(function () {
+        var reftypes =@Html.Raw(Json.Encode(@DateViewController.AllRefrigerantType.Select(s => new { s.Id, s.Name })));
+        var startTableDraggerTimerFlag;
+        @(var_options).fields.push({
+            title: "冷媒清單",
+            field: "EquipTypeMap",
+            visible: false,
+            editFormtter: {
+                editContent: function ($_fieldContainer, row) {//第一層Dom僅能1個
+                    
+                    $('<div><span class="btn btn-info btn-sm add-ref">新增種類</span><table></table></div>').appendTo($_fieldContainer).find('.btn').on('click', function () {
+                        var _cds= $_fieldContainer.find('table').bootstrapTable('getData');
+                        var _html = '<select class="form-control">';
+                        $.each(reftypes, function () {
+                            var _this = this;
+                            if ($.grep(_cds, function (_d) { return _this.Id == _d.Refrigerant_typeId;  }).length==0)
+                                 _html += '<option value="' + _this.Id + '">' + _this.Name+'</option>';
+                        });
+                        _html += '</select>';
+                        if (_html.indexOf('option') < 0)
+                            helper.jspanel.jspAlertMsg(undefined, { content: '已無冷媒種類可新增!!' });
+                        else {
+                            var _stype;
+                            helper.jspanel.jspConfirmYesNo(undefined, { tile: '選擇冷媒種類', content: _html, classes: 'select-ref' }, function (r) {
+                                if (r)
+                                    $_fieldContainer.find('table').bootstrapTable('append', { Refrigerant_equipId: row.Id, Refrigerant_typeId: _stype, displayOrder: 99, Checked: true });
+                            });
+                            $('.select-ref select').on('change', function () {
+                                _stype =$(this).val();
+                            }).trigger('change');
+                        }
+                    });
+                },
+                getValue: function ($editEle, row) {
+
+                    var rds = $.grep($editEle.find('table').bootstrapTable('getData'), function (_d) {return _d.Checked });
+                    $.each(rds, function (i, e) {
+                        e.displayOrder = i + 1;
+                    });
+                    return rds;
+
+                },
+                setValue: function ($editEle, v, row) {
+                    v.sort(function (a, b) { return a.displayOrder - b.displayOrder; });
+                    var $_t = $editEle.find('table').bootstrapTable({
+                        striped: true,
+                        columns: [
+                            { field: 'Checked', title: '選取', checkbox: true },
+                            //{ field: 'Refrigerant_equipId', title: 'EquipId' },
+                            { field: 'Refrigerant_typeId', title: '冷媒種類', formatter: function (v, r) { return $.grep(reftypes, function (r) { return v == r.Id; })[0].Name } },
+                            { field: 'displayOrder', title: '順序', class: 'sort-hander', showInList: true, align: 'center', formatter: function () { return '<span class="glyphicon glyphicon-sort"></span>'; } }
+                        ],
+                        data: v,
+                        onResetView: function () { //排序功能
+                            setTimeout(function () {
+                                $_t.bootstrapTable('checkAll');
+                                $_t.find('input[name="btSelectAll"]').remove();
+                            });
+                            if (startTableDraggerTimerFlag)
+                                clearTimeout(startTableDraggerTimerFlag);
+                            startTableDraggerTimerFlag = setTimeout(function () {
+                                if ($_t.find('.sort-hander').length == 0)
+                                    return;
+                                var dragger = tableDragger($_t[0], { mode: 'row', dragHandler: '.sort-hander', onlyBody: true, mirrorContainer:document.body});//, dragHandler: '.th-inner',onlyBody: true,animation: 300});
+                                var cdatas = $editEle.find('table').bootstrapTable('getData');
+                                dragger.on('drag', function () {
+                                    cdatas = $editEle.find('table').bootstrapTable('getData');
+                                });
+                                dragger.on('drop', function (from, to) {
+                                    var element = cdatas[from - 1];
+                                    cdatas.splice(from - 1, 1);
+                                    cdatas.splice(to - 1, 0, element);
+                                });
+                            }, 100);
+                        }
+                    });
+                }
+            }
+        });
+        $("#@_containerId > table").DouEditableTable(@var_options);
+    });
+</script>

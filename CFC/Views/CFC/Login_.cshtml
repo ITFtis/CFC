@@ -1,0 +1,199 @@
+﻿@model CFC.Models.Prj.User_Properties
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    @Styles.Render("~/Scripts/gis/b3/style/css")
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/css/site")
+    @Styles.Render("~/dou/css/other")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/dou/js/other")
+    @*<script src="~/Scripts/gis/helper.js"></script>*@
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <title>中小企業碳盤查計算機</title>
+    <style>
+
+        body, body > .container-fluid {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+        body > .container-fluid{
+            position:fixed;
+            display:flex;
+            flex-direction:column;
+
+        }
+        .container-fluid {
+            padding: 0 !important;
+            padding: 10vh 10vw !important;
+        }
+        .container-main {
+            display: flex;
+            background-color: #CBF0FD;
+            padding: 0 !important;
+            box-shadow: 0 0 .3rem #aaa;
+            border-radius: .3rem;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            height: calc( 100% - 4rem ) /*4rem foolter高度*/
+        }
+        .container-footer {
+            background-color: #00416F;
+            color: white;
+            flex: 1;
+            box-shadow: 0 0 .3rem #aaa;
+            border-radius: .3rem;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+        }
+        .login-images-container {
+            display: flex;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+        .login-images-container > div {
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+        .top-c {
+            height: 18vh;
+        }
+        .login-logo {
+            background-image: url( @(Url.Content("~/Images/login-logo.png")) );
+
+        }
+        .prj-name {
+            background-image: url( @(Url.Content("~/Images/prj-name.png")) );
+        }
+        .login-bk {
+            background-image: url( @(Url.Content("~/Images/bk.png")) );
+            height: calc( 62vh - 4rem ); /*4rem foolter高度*/
+            /*background-size: cover !important;*/
+        }
+        .login-container{
+            padding:5% 3%;
+            flex:1;
+            max-width:360px;
+        }
+        .login-container > form{
+            background-color:white;
+            height:100%;
+            border-radius: .6rem;
+            background-color:#f3f9fe;
+            padding:.5rem;
+            position:relative;
+        }
+        .login-container > form > .form-group{
+            padding-top:10px;
+        }
+        .login-container > form input {
+            border-top-width: 0;
+            border-right-width: 0;
+            border-left-width: 0;
+            border-bottom-width: 3px;
+        }
+        .bttn-group {
+            position: absolute;
+            width: 100%;
+            padding: 0 15px 0 0;
+            bottom: 1.5rem;
+        }
+        .bttn-group .btn{
+            margin-top:1rem;
+        }
+        @@media (max-width: 576px) {
+            .login-bk {
+                display: none;
+            }
+
+            .container-main {
+                /*display: block;*/
+                flex-direction: column;
+                height: 100%;
+                border-top-left-radius: inherit;
+                border-top-right-radius: inherit;
+            }
+            .container-footer{
+                display:none;
+            }
+            .login-images-container {
+                height: auto !important;
+                flex: inherit;
+            }
+            .login-container {
+                max-width: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="container container-main">
+            <div class="col-77 login-images-container">
+                <div class="col-4 login-logo top-c"></div>
+                @*<img class="col-4 login-logo" src="@(Url.Content("~/Images/login-logo.png"))">*@
+                <div class="col-8 prj-name top-c"></div>
+                <div class="col-12 login-bk"></div>
+            </div>
+            <div class="col-57 login-container">
+
+                @************重設User controller****************@
+                @using (Html.BeginForm("Login", "CFC", new { login = true }, FormMethod.Post))
+                {
+                    <h4 class="login-text-info text-center">系統登入</h4>
+                    @Html.ValidationSummary(false, null, new { @class = "text-danger font-weight-bold" })
+                    @*if (ViewBag.ErrorMessage != null)
+                        {
+                            <label style="color:red">警示: @ViewBag.ErrorMessage</label>
+                        }*@
+                    <div class="form-group">
+                        @*@Html.LabelFor(m => m.Id, new { @class = " control-label" })*@
+
+                        @Html.TextBoxFor(m => m.IndustryId, new { @class = "form-control", @placeholder = "請輸入工廠登記編號" })
+
+                    </div>
+                    <div class="bttn-group">
+                        <button type="submit" class="btn btn-success col-sm-12" click="onSubmit"> 登 入<i class="glyphicon glyphicon-user"></i></button>
+                        <div class="btn btn-primary col-sm-12"> 訪客登入<i class="glyphicon glyphicon-user" style="color:lightgray"></i></div>
+                    </div>
+                    @*<button type="submit" class="btn btn-success g-recaptcha " data-sitekey="6Le1DR0UAAAAAHgYU7rUqhudItCmOXIbZEYAFctd" data-badge="bottomright" data-size="invisible" data-callback='onSubmit'> 送 出<i class="glyphicon glyphicon-user"></i></button>*@
+                    <div class="clearfix"></div>
+                }
+            </div>
+
+        </div>
+        <div class="container container-footer text-left">
+            <div>
+                版權所有(C)@DateTime.Now.Year 本網站由經濟部工業局 產業能效提升暨管理計畫 專案委辦。
+            </div>
+            <div>
+                財團法人台灣產業服務基金會維護管理 意見箱 : m508106010@ftis.org.tw TEL:02-7704-5139 FAX:02-23253922
+            </div>
+        </div>
+    </div>
+    <script>
+        function onSubmit(token) {
+            helper.misc.showBusyIndicator(undefined,{content:'驗證中.'});
+            $("form")[0].submit();
+        }
+        $(".btn-primary").on('click', function () {
+            helper.misc.showBusyIndicator(undefined, { content: '驗證中.' });
+            location.href = '@(Url.Action("Guest"))';
+        });
+    </script>
+</body>
+</html>
+
+
+

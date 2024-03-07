@@ -1,0 +1,279 @@
+﻿@model CFC.Models.Prj.User_InputAdvance
+@using CFC.Models.Prj
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Scripts/gis/b3/style/css")
+    @Styles.Render("~/Content/css/site")
+    @Styles.Render("~/Content/prj/cfc")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/dou/js/other")
+    @Scripts.Render("~/Scripts/prj/cfc")
+    <title>中小企業碳盤查計算機</title>
+    <style>
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="user-porfile col-12">
+            <div>
+                <label style="margin-bottom:0;"><i class="glyphicon glyphicon-user"></i><label class="m-hide">登記編號:</label><label>@ViewBag.NO</label></label>
+                <div class="btn btn-outline-info">@Html.ActionLink("登出", "Logoff")</div>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid body-content">
+        @using (Html.BeginForm("Index", "CFC", new { finput = true }, FormMethod.Post, new { @class = "input-paras" }))
+        {
+            <div class="form-group">@Html.Hidden("UserId", Model.UserId)</div>
+            @*@Html.TextBoxFor(m => m.Id, new { @class = "form-control", @placeholder = "請輸入統一編號" })*@
+            @GenMainAccordionCard()
+        }
+        <div class="cal-result">
+            <label class="reult-message">-</label>
+            <table class="result-table-b">
+                <tr><td rowspan="2" width="20%" class="d-label radius-t-l"></td><td colspan="3">直接排放</td><td rowspan="2">能源間接排放</td><td rowspan="2" class="radius-t-r">總排放量</td></tr>
+                <tr><td>固定排放</td><td>移動排放</td><td>逸散排放</td></tr>
+                <tr><td rowspan="2">排放當量<br><label class="">(公噸CO2e/年)</label></td><td colspan="3" class="d-content"><label name="R1_3"> -</label></td><td rowspan="2" class="d-content"><label name="R4">-</label></td><td rowspan="2" class="d-content"><label name="R5">-</label></td></tr>
+                <tr><td class="d-content"><label name="R1">-</label></td><td class="d-content"><label name="R2">-</label></td><td class="d-content"><label name="R3">-</label></td></tr>
+                <tr><td rowspan="2" class="radius-b-l">占比(%)</td><td colspan="3" class="d-content "><label name="R1_3_R">-</label></td><td rowspan="2" class="d-content"><label name="R4_R">-</label><label>%</label></td><td rowspan="2" class="d-content radius-b-r"><label class="TR">100</label><label>%</label></td></tr>
+                <tr><td class="d-content"><label name="R1_R">-</label><label>%</label></td><td class="d-content"><label name="R2_R">-</label><label>%</label></td><td class="d-content"><label name="R3_R">-</label><label>%</label></td></tr>
+            </table>
+            <table class="result-table-s result-table-s-1">
+                <tr><td class="radius-t-l"></td><td>排放當量<br><label class="small-font">(公噸CO2e/年)</label></td><td class=" radius-t-r">百分比(%)</td></tr>
+                <tr><td>總排放量</td><td colspan="2" class="d-content"><label name="R5">-</label></td></tr>
+                <tr><td>直接排放</td><td class="d-content"><label name="R1_3">-</label></td><td class="d-content"><label name="R1_3_R">-</label></td></tr>
+                <tr><td class="radius-b-l">間接排放</td><td class="d-content"><label name="R4">-</label></td><td class="d-content radius-b-r"><label name="R4_R">-</label></td></tr>
+            </table>
+            <table class="result-table-s result-table-s-2">
+                <tr><td colspan="3" class="radius-t-l radius-t-r">直接排放</td></tr>
+                <tr><td></td><td>排放當量<br><label class="small-font">(公噸CO2e/年)</label></td><td>百分比(%)</td></tr>
+                <tr><td>固定排放</td><td class="d-content"><label name="R1">-</label></td><td class="d-content"><label name="R1_R">-</label></td></tr>
+                <tr><td>移動排放</td><td class="d-content"><label name="R2">-</label></td><td class="d-content"><label name="R2_R">-</label></td></tr>
+                <tr><td class="radius-b-l">逸散排放</td><td class="d-content"><label name="R3">-</label></td><td class="d-content radius-b-r"><label name="R3_R">-</label></td></tr>
+            </table>
+            <div style="height:1px;"></div>
+        </div>
+    </div>
+    <footer>
+        <div class="btn btn-primary btn-view" data-toggle="button" aria-pressed="false" autocomplete="off"> 檢 視 <i class="glyphicon glyphicon-eye-open"></i> </div>
+        <div class="btn btn-success btn-cal"> 計 算 <i class="glyphicon glyphicon-ok"></i></div>
+        <div class="btn btn-info btn-cancel"> 清 空 <i class="glyphicon glyphicon-erase"></i></div>
+        <div class="btn btn-primary btn-return"> 返 回<i class="glyphicon glyphicon-share-alt"></i></div>
+    </footer>
+</body>
+</html>
+@helper GenMainAccordionCard()
+{
+    <div class="accordion" id="accordion-main-container">
+        @GenFuelCard("accordion-main-container")
+        @GenElecCard("accordion-main-container")
+        @GenRefrigerantCard("accordion-main-container")
+    </div>
+}
+
+@*燃料計算*@
+@helper GenFuelCard(string pid)
+{
+    var id = "fuel";
+    <div class="card">
+        <div class="card-header" id="card-header-@id">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#card-collapse-@id" aria-expanded="true" aria-controls="card-collapse-@id">
+                    燃料計算
+                </button>
+            </h2>
+        </div>
+
+        <div id="card-collapse-@id" class="collapse" aria-labelledby="card-header-@id" data-parent="#@pid">
+            <div class="card-body">
+                @GenFuelSubAccordion()
+            </div>
+        </div>
+    </div>
+}
+
+@helper GenFuelSubAccordion()
+{
+
+    string acc_id = "accordion-fuel-container";
+
+    <div class="accordion" id="@acc_id">
+        <div class="card">
+            <div class="card-header" id="card-header-fuel1">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#card-collapse-fuel1" aria-expanded="true" aria-controls="card-collapse-fuel1">
+                        固態燃料
+                    </button>
+                </h2>
+            </div>
+
+            <div id="card-collapse-fuel1" class="collapse" aria-labelledby="card-header-fuel1" data-parent="#@acc_id">
+                <div class="card-body">
+                    @GenFuelInput(ViewBag.FuelProperties_solid as IEnumerable<Fuel_properties>)
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="card-header-fuel2">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#card-collapse-fuel2" aria-expanded="true" aria-controls="card-collapse-fuel2">
+                        液態燃料(固定源)
+                    </button>
+                </h2>
+            </div>
+
+            <div id="card-collapse-fuel2" class="collapse" aria-labelledby="card-header-fuel2" data-parent="#@acc_id">
+                <div class="card-body">
+                    @GenFuelInput(ViewBag.FuelProperties_staticFluid as IEnumerable<Fuel_properties>)
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="card-header-fuel3">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#card-collapse-fuel3" aria-expanded="true" aria-controls="card-collapse-fuel3">
+                        液態燃料(移動源)
+                    </button>
+                </h2>
+            </div>
+
+            <div id="card-collapse-fuel3" class="collapse" aria-labelledby="card-header-fuel3" data-parent="#@acc_id">
+                <div class="card-body">
+                    @GenFuelInput(ViewBag.FuelProperties_dynamicFluid as IEnumerable<Fuel_properties>)
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="card-header-fuel4">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#card-collapse-fuel4" aria-expanded="true" aria-controls="card-collapse-fuel4">
+                        氣態燃料
+                    </button>
+                </h2>
+            </div>
+
+            <div id="card-collapse-fuel4" class="collapse" aria-labelledby="card-header-fuel4" data-parent="#@acc_id">
+                <div class="card-body">
+                    @GenFuelInput(ViewBag.FuelProperties_gas as IEnumerable<Fuel_properties>)
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@helper GenFuelInput(IEnumerable<Fuel_properties> fps)
+{
+    var mps = Model.GetType().GetProperties().Where(x => x.CanRead).ToList();
+    foreach (Fuel_properties fp in fps)
+    {
+        var p = mps.FirstOrDefault(x => x.Name == fp.Id);
+        if (p != null)
+        {
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label text-right" for="@fp.Id">@fp.Name</label>
+                <input type='number' class=" form-control col-sm-4 " name='@fp.Id' value='@p.GetValue(Model, null)' data-dval="@GetDefaultValue(fp.Id)">
+                <label class="col-sm-4 col-form-label text-left">@fp.Unit</label>
+            </div>
+
+        }
+    }
+}
+
+@*電力計算*@
+@helper GenElecCard(string pid)
+{
+    var id = "elec";
+    <div class="card">
+        <div class="card-header" id="card-header-@id">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#card-collapse-@id" aria-expanded="true" aria-controls="card-collapse-@id">
+                    電力計算
+                </button>
+            </h2>
+        </div>
+
+        <div id="card-collapse-@id" class="collapse" aria-labelledby="card-header-@id" data-parent="#@pid">
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label label-title" for="elecVolume">用量</label>
+                    @*<div class="input-group col-sm-4 ">*@
+                    <input type='number' class=" form-control col-sm-3 " name='elecVolume' value='@Model.elecVolume' data-dval='@GetDefaultValue("elecVolume")'>
+                    <label class="col-sm-2 col-form-label">@((ViewBag.ElecProperties as IEnumerable<Elec_properties>).First().Unit)</label>
+                    @Html.DropDownListFor(m => m.elecYear, (ViewBag.ElecProperties as IEnumerable<Elec_properties>).Select(s => new SelectListItem { Text = s.year + "", Value = s.year + "" }), new { @class = "form-control col-sm-3", data_dval = GetDefaultValue("elecYear") })
+                    <label class="col-sm-2 col-form-label">係數年份</label>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@*冷媒計算*@
+@helper GenRefrigerantCard(string pid)
+{
+    var id = "refrigerant";
+    <div class="card">
+        <div class="card-header" id="card-header-@id">
+            <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#card-collapse-@id" aria-expanded="true" aria-controls="card-collapse-@id">
+                    冷媒逸散計算
+                </button>
+            </h2>
+        </div>
+
+        <div id="card-collapse-@id" class="collapse" aria-labelledby="card-header-@id" data-parent="#@pid">
+            <div class="card-body">
+                @GenRefrigerantInput()
+            </div>
+        </div>
+    </div>
+}
+@helper GenRefrigerantInput()
+{
+    var res = ViewBag.RefrigerantEquip as IEnumerable<Refrigerant_equip>;
+    var rts = ViewBag.RefrigerantType as IEnumerable<Refrigerant_type>;
+    var mps = Model.GetType().GetProperties().Where(x => x.CanRead).ToList();
+    foreach (Refrigerant_equip re in res)
+    {
+        var p = mps.FirstOrDefault(x => x.Name == re.Id);
+        if (p != null)
+        {
+            var t = Model.GetType().GetProperty(p.Name + "_T").GetValue(Model, null);
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label label-title" for="@re.Id">@re.Name</label>
+                @*@Html.DropDownListFor(m => m.elecYear, (ViewBag.ElecProperties as IEnumerable<Elec_properties>).Select(s => new SelectListItem { Text = s.year + "", Value = s.year + "" }), new { @class = "form-control col-sm-4" })*@
+                <label class="col-sm-2 col-form-label text-right">冷媒種類</label>
+                <select class="form-control col-sm-2" data-val="true" id="@(re.Id)_T" name="@(re.Id)_T" data-dval="@GetDefaultValue(re.Id+"_T")">
+                    @foreach (Refrigerant_type rt in rts)
+                    {
+                        <option value="@rt.Id" @(t != null && (t + "") == rt.Id ? "selected" : "")>@rt.Name</option>
+                    }
+                </select>
+                <label class="col-sm-2 col-form-label text-right">填充量</label>
+                <input type='number' class=" form-control col-sm-2 " name='@re.Id' value='@p.GetValue(Model, null)' data-dval="@GetDefaultValue(re.Id)">
+                <label class="col-sm-2 col-form-label">公斤</label>
+            </div>
+
+        }
+    }
+}
+
+@functions{
+    public object GetDefaultValue(string f)
+    {
+        return Model.GetType().GetProperty(f).GetValue(ViewBag.DefaultModel);
+    }
+}
+<script>
+    var site_root = '@(Url.Content("~/"))';
+</script>
+
+

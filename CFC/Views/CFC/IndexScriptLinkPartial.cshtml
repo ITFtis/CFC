@@ -1,0 +1,169 @@
+﻿
+@Styles.Render("~/Content/css")
+@Styles.Render("~/Scripts/gis/b3/style/css")
+@Styles.Render("~/Content/css/site")
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/dou/js/other")
+
+<link rel="stylesheet" href="~/Content/prj/css/style.css">
+<script>
+    var site_root = '@(Url.Content("~/"))';
+
+</script>
+@Scripts.Render("~/Scripts/prj/cfc")
+@*<script src="~/Scripts/prj/cfc_n.js"></script>*@
+@*<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/gis/helper.js"></script>
+    <script src="~/Scripts/prj/cfc.js"></script>*@
+
+<style>
+    .rule-block select {
+        padding-top: 2px;
+    }
+
+    .rule-block .show-more-btn.close {
+        float: none !important;
+    }
+
+    .rule-block .rule-set.show-all {
+        max-height: none;
+    }
+
+    .count-rule-group.view .rule-row:not(.view) {
+        display: none;
+    }
+
+    .count-rule-group.view .show-more-btn {
+        display: none;
+    }
+
+    .count-btn-group .btn-green:not(.active) {
+        color: #88beac;
+    }
+
+    body .all-wrap > .cover {
+        display: none;
+        /*transition:all ease-in*/
+    }
+
+    body.show-cal .all-wrap > .cover {
+        display: flex !important;
+    }
+
+    .cover .close-btn, .btn-s, .saveProject-cover .close-btn, .viewProject-cover .close-btn {
+        cursor: pointer;
+    }
+
+    .count-result-content .red-hint {
+        display: none;
+    }
+
+    .count-result-content.err-message .red-hint {
+        display: block;
+    }
+
+    .count-result-content:not(.err-message) {
+        padding-top: 1rem;
+    }
+
+    .import-remind {
+        color: red;
+    }
+
+    .reminder-info .modal-body {
+        padding: 1rem 1rem 1rem 2.2rem;
+        font-size:1.5rem;
+    }
+    .reminder-info .modal-title{
+        font-size:1.6rem;
+    }
+    .login-info a {
+        color: white;
+    }
+    .login-info button:hover a {
+        color: #337980;
+    }
+
+    .busy-indicator-s {
+        top: 0;
+        left: 0;
+        position: fixed;
+        text-align: center;
+        z-index: 19999;
+        background-color: rgba(80,80,80,0.4);
+        color: white;
+        width: 100%;
+        height: 100%;
+        min-height: 30px;
+        bottom: 0;
+        border-radius: 3px;
+        display: flex;
+        justify-content: center;
+    }
+    .btn-alert-info {
+        display:none !important;
+        cursor: pointer;
+        /*color: burlywood;*/
+        background-image: url('@Url.Content("~/Images/i_icon_03.png")') ;
+        width: 1em;
+        height: 1em;
+        /* background-repeat: round; */
+        background-size: cover;
+        display: inline-block;
+    }
+    .btn-alert-info:hover {
+        background-image:url('@Url.Content("~/Images/i_icon_04.png")')
+    }
+    .p-alert-info li{
+        display:block;
+    }
+    .streamline header, .streamline footer{
+        display:none;
+    }
+    .streamline .index-page{
+        background-image:none;
+    }
+    .streamline .rule-block {
+        border: 1px #ccc solid;
+    }
+
+    .info-subtitile{
+        padding-left:50px;
+    }
+
+    .info-remark {
+        text-align:center;
+        padding-left:75px;
+    }
+
+    .tip-container {
+        width:100%;
+        height:60vh;
+        text-align:center;
+    }
+
+    .tip-img {
+        height:100%;
+        width:auto;
+        max-width : 80%;
+    }
+
+    .download-container, .savePoject-container, .viewPoject-container {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        padding-top: 10vh;
+    }
+
+        .download-container button, .savePoject-container button, .viewPoject-container button {
+            width: 100%;
+        }
+</style>
+<script>
+        window.siteroot = "@Url.Content("~/")";
+</script>
+
+
