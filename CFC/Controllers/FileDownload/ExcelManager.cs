@@ -11,7 +11,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
+using System.Web;
 using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -57,16 +59,52 @@ namespace CFC.Controllers.FileDownload
 
 
                 // 取得回傳路徑
-               string siteRoot = WebConfigurationManager.AppSettings["SiteRoot"].ToString(); 
+                string ppp = "File/ExcelCreater/tempFolder/" + newTemptAdd;
+                
+                ////string siteRoot = WebConfigurationManager.AppSettings["SiteRoot"].ToString();                
+                ////string fileAdd = siteRoot + ppp;
+                
+                //to(ODF轉檔路徑)
+                string from = WebConfigurationManager.AppSettings["FileRoot"].ToString() + ppp;
+                string to_noExt = Path.GetDirectoryName(from) + "/" + Path.GetFileNameWithoutExtension(from);
+                string to = "";
 
+                //轉ODF
+                switch (Path.GetExtension(from))
+                {
+                    case ".xlsx":
+                        to = to_noExt + ".ods";                        
+                        break;
+                    default: 
+                        break;
+                }
 
-                return new ReturnModel { isSucess = true, fileAdd = siteRoot + "File/ExcelCreater/tempFolder/" + newTemptAdd };
+                if (to == "")
+                {
+                    return new ReturnModel { isSucess = false, fileAdd = "查無ODF轉換程式碼：" + from };
+                }
+                else
+                {
+                    bool done = ODFHelper.ExcelToODF(from, to_noExt);
+                    if (!done)
+                    {
+                        return new ReturnModel { isSucess = false, fileAdd = "ODF轉換失敗" };
+                    }
+                    else
+                    {
+                        string fileAdd = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(to);
+                        //string fileAdd = Cm.PhysicalToUrl(to);
+                        return new ReturnModel { isSucess = true, fileAdd = fileAdd };
+                    }
+                }
+
+                //return new ReturnModel { isSucess = true, fileAdd = fileAdd };
             }
             catch (Exception e) {
                 return new ReturnModel { isSucess = false, fileAdd = e.Message };
             }
         }
-
+        
 
         /*
             統計資訊相關

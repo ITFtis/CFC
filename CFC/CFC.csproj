@@ -267,6 +267,8 @@
     <Compile Include="Models\Prj\User_Properties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="_core\Cm.cs" />
+    <Compile Include="_core\ODFHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\Log4netConfig.xml" />
