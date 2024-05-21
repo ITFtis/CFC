@@ -101,6 +101,8 @@ namespace CFC.Controllers.FileDownload
                 //return new ReturnModel { isSucess = true, fileAdd = fileAdd };
             }
             catch (Exception e) {
+                Logger.Log.For(null).Error("下載錯誤：" + e.Message);
+                Logger.Log.For(null).Error(e.StackTrace);
                 return new ReturnModel { isSucess = false, fileAdd = e.Message };
             }
         }

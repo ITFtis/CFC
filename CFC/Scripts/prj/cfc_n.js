@@ -118,6 +118,8 @@ $(document).ready(function () {
 
     // 下載細部內容
     $(".download-container .download-cal").on("click", function () {
+
+        helper.misc.showBusyIndicator();
         fetch(site_root + 'api/DataPrint/Detail', {
             method: "POST",
             headers: {
@@ -129,11 +131,13 @@ $(document).ready(function () {
             })
         }).then(e => e.json())
             .then(response => {
+                helper.misc.hideBusyIndicator();
                 if (!response.isSucess)
                     alert("檔案產製失敗，請洽管理人員。");
 
                 console.log(response.fileAdd);
-                window.open(response.fileAdd);
+                //window.open(response.fileAdd);
+                location.href = response.fileAdd;
             });
     });
 
