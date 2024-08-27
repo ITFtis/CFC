@@ -60,38 +60,39 @@
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>使用者帳號
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Id" /></div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Id" title="Id"/></div>
                 </div>
                 <div class="row input">
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>設定密碼
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Pass" /></div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Pass" title="Pass"/></div>
                 </div>
                 <div class="row input">
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>統一編號
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" /></div>
+                    <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" title="UniformNumber"/></div>
                 </div>
                 <div class="row input">
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>公司全稱
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Name" /></div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Name" title="Name" /></div>
                 </div>
                 <div class="row input">
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>工廠登記證
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="IndustryId" /></div>
+                    <div class="col-sm-6 col-12"><input type="text" id="IndustryId" title="IndustryId"/></div>
                 </div>
                 <div class="row input">
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>工廠縣市別
                     </div>
                     <div class="col-sm-6 col-12 d-flex justify-content-end">
-                        <select id="CountyId" class="w100">@getSelections((IEnumerable<CFC.Models.Prj.Global_City>)ViewBag.City)</select>
+                        <!--by Ivan, add title="CountryId"-->
+                        <select id="CountyId" class="w100" title="CountyId">@getSelections((IEnumerable<CFC.Models.Prj.Global_City>)ViewBag.City)</select>
                     </div>
                 </div>
                 <div class="row input">
@@ -99,7 +100,7 @@
                         <span class="mustInfo">*</span>廠區
                     </div>
                     <div class="col-sm-6 col-12 d-flex justify-content-end">
-                        <select id="IndustrialAreaId" class="w100">@getSelections((IEnumerable<CFC.Models.Prj.Global_IndustrialArea>)ViewBag.IndustrialArea)</select>
+                        <select id="IndustrialAreaId" class="w100" title="IndustrialAreaId">@getSelections((IEnumerable<CFC.Models.Prj.Global_IndustrialArea>)ViewBag.IndustrialArea)</select>
                     </div>
                 </div>
 
@@ -108,7 +109,7 @@
                         <span class="mustInfo">*</span>行業別
                     </div>
                     <div class="col-sm-6 col-12 d-flex justify-content-end">
-                        <select id="IndustrialTypeId" class="w100">@getSelections((IEnumerable<CFC.Models.Prj.Global_Industrial>)ViewBag.IndustrailTypes)</select>
+                        <select id="IndustrialTypeId" class="w100" title="IndustrialTypeId">@getSelections((IEnumerable<CFC.Models.Prj.Global_Industrial>)ViewBag.IndustrailTypes)</select>
                     </div>
                 </div>
                 <div class="row input">
@@ -116,7 +117,7 @@
                         <span class="mustInfo">*</span>企業規模
                     </div>
                     <div class="col-sm-6 col-12 d-flex justify-content-end">
-                        <select id="CompanySize" class="w100">
+                        <select id="CompanySize" class="w100" title="CompanySize">
                             <option value="中小企業">中小企業</option>
                             <option value="大企業">大企業</option>
                         </select>
@@ -134,25 +135,26 @@
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>聯絡人
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Contact" /></div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Contact" title="Contact" /></div>
                 </div>
                 <div class="row input">
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>連絡人電話
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="PhoneNumber" /></div>
+                    <div class="col-sm-6 col-12"><input type="text" id="PhoneNumber" title="=PhoneNumber"/></div>
                 </div>
                 <div class="row input">
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>E-MAIL
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Email" /></div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Email" title="Email"/></div>
                 </div>
 
 
             </div>
             <div class="modal-footer">
-                <h5 class="mustInfo" id="errorMes"></h5>
+                <!--by Ivan, 20240827 因Freego偵查，註解-->
+                <!--<h5 class="mustInfo" id="errorMes"></h5>-->
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
                 <button type="button" class="btn btn-primary">申請帳號</button>
             </div>

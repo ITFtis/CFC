@@ -2,8 +2,13 @@
 @using (Html.BeginForm("Login", "CFC", new { login = true }, FormMethod.Post))
 {
     @Html.ValidationSummary(false, null, new { @class = "text-danger font-weight-bold" })
-    @Html.TextBoxFor(m => m.Id, new {@id="accountInput", @class = "", @placeholder = "請輸入使用者帳號" })
-    @Html.TextBoxFor(m => m.Pass, new {@type="password" ,@id= "passInput", @class = "", @placeholder = "請輸入設定密碼" })
+
+    //by Ivan, 20240827 因Freego, 補上 @title = "帳號輸入" 及  @title = "密碼輸入"
+    //@Html.TextBoxFor(m => m.Id, new {@id="accountInput", @class = "", @placeholder = "請輸入使用者帳號" })
+    @Html.TextBoxFor(m => m.Id, new { @id = "accountInput", @class = "", @title = "帳號輸入", @placeholder = "請輸入使用者帳號" })
+
+    //@Html.TextBoxFor(m => m.Pass, new { @type = "password", @id = "passInput", @class = "", @placeholder = "請輸入設定密碼" })
+    @Html.TextBoxFor(m => m.Pass, new { @type = "password", @id = "passInput", @class = "", @title = "密碼輸入", @placeholder = "請輸入設定密碼" })
     <div class="bttn-group">
         <div class="container">
             <div class="row">
@@ -99,7 +104,6 @@
     #errorMes {
         text-align: left;
     }
-
 </style>
 <script>
     window.linkmessage = "";
