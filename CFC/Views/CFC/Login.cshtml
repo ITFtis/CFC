@@ -26,6 +26,7 @@
             color: red;
             font-weight: 600;
         }
+
     </style>
 </head>
 <body>
@@ -49,109 +50,131 @@
                 <div class="bgs-06 bgs"></div>
             </main>
         </div>
+
         <!--會員登入畫面-->
         <!-- Modal -->
         <div class="modal is-hide modalView">
             <div class="container-fluid">
+
                 <div class="row title">
                     <h4>申請新用戶</h4>
                 </div>
+
                 <div class="row input">
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>使用者帳號
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Id" title="Id"/></div>
+                    <div class="col-sm-6 col-12"><input type="text" pattern="[A-Za-z0-9]+" id="Id" title="Id" /></div>
                 </div>
+
+
                 <div class="row input">
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>設定密碼
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Pass" title="Pass"/></div>
-                </div>
-                <div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>統一編號
-                    </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" title="UniformNumber"/></div>
-                </div>
-                <div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>公司全稱
-                    </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Name" title="Name" /></div>
-                </div>
-                <div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>工廠登記證
-                    </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="IndustryId" title="IndustryId"/></div>
-                </div>
-                <div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>工廠縣市別
-                    </div>
-                    <div class="col-sm-6 col-12 d-flex justify-content-end">
-                        <!--by Ivan, add title="CountryId"-->
-                        <select id="CountyId" class="w100" title="CountyId">@getSelections((IEnumerable<CFC.Models.Prj.Global_City>)ViewBag.City)</select>
-                    </div>
-                </div>
-                <div class="row input">
-                    <div class="col-sm-6 col-12 d-flex justify-content-end">
-                        <span class="mustInfo">*</span>廠區
-                    </div>
-                    <div class="col-sm-6 col-12 d-flex justify-content-end">
-                        <select id="IndustrialAreaId" class="w100" title="IndustrialAreaId">@getSelections((IEnumerable<CFC.Models.Prj.Global_IndustrialArea>)ViewBag.IndustrialArea)</select>
-                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" pattern="[A-Za-z0-9]+" id="Pass" title="Pass" /></div>
                 </div>
 
                 <div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>行業別
+                    <div class="col-sm-6 col-12">選項</div>
+                        <div class="col-sm-6 col-12">
+                            <label>
+                                <input type="radio" id="radio_manu" name="option" value="option1" checked>
+                                製造業　　
+                            </label>
+
+                            <label>
+                                <input type="radio" id="radio_not_manu" name="option" value="option1">
+                                非製造業
+                            </label>
+                        </div>
                     </div>
-                    <div class="col-sm-6 col-12 d-flex justify-content-end">
-                        <select id="IndustrialTypeId" class="w100" title="IndustrialTypeId">@getSelections((IEnumerable<CFC.Models.Prj.Global_Industrial>)ViewBag.IndustrailTypes)</select>
-                    </div>
-                </div>
-                <div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>企業規模
-                    </div>
-                    <div class="col-sm-6 col-12 d-flex justify-content-end">
-                        <select id="CompanySize" class="w100" title="CompanySize">
-                            <option value="中小企業">中小企業</option>
-                            <option value="大企業">大企業</option>
-                        </select>
-                        <br />
-                    </div>
-                </div>
-                <div class="row d-flex justify-content-end text-right">
-                    <div class="col-2"></div>
-                    <div class="col-10">
-                        <span class="notice-info">本標準所稱中小企業，為中華民國境內依法辦理公司登記或商業登記，實收資本額在新台幣一億元以下，或經常僱用員工數未滿二百人之事業。</span>
-                    </div>
-                </div>
-                <br />
-                <div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>聯絡人
-                    </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Contact" title="Contact" /></div>
-                </div>
-                <div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>連絡人電話
-                    </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="PhoneNumber" title="=PhoneNumber"/></div>
-                </div>
-                <div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>E-MAIL
-                    </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Email" title="Email"/></div>
-                </div>
 
 
-            </div>
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>統一編號
+                        </div>
+                        <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" title="UniformNumber" /></div>
+                    </div>
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>公司全稱
+                        </div>
+                        <div class="col-sm-6 col-12"><input type="text" id="Name" title="Name" /></div>
+                    </div>
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>工廠登記證
+                        </div>
+                        <div class="col-sm-6 col-12"><input type="text" id="IndustryId" title="IndustryId" /></div>
+                    </div>
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>工廠縣市別
+                        </div>
+                        <div class="col-sm-6 col-12 d-flex justify-content-end">
+                            <!--by Ivan, add title="CountryId"-->
+                            <select id="CountyId" class="w100" title="CountyId">@getSelections((IEnumerable<CFC.Models.Prj.Global_City>)ViewBag.City)</select>
+                        </div>
+                    </div>
+                    <div class="row input">
+                        <div class="col-sm-6 col-12 d-flex justify-content-end">
+                            <span class="mustInfo">*</span>廠區
+                        </div>
+                        <div class="col-sm-6 col-12 d-flex justify-content-end">
+                            <select id="IndustrialAreaId" class="w100" title="IndustrialAreaId">@getSelections((IEnumerable<CFC.Models.Prj.Global_IndustrialArea>)ViewBag.IndustrialArea)</select>
+                        </div>
+                    </div>
+
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>行業別
+                        </div>
+                        <div class="col-sm-6 col-12 d-flex justify-content-end">
+                            <select id="IndustrialTypeId" class="w100" title="IndustrialTypeId">@getSelections((IEnumerable<CFC.Models.Prj.Global_Industrial>)ViewBag.IndustrailTypes)</select>
+                        </div>
+                    </div>
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>企業規模
+                        </div>
+                        <div class="col-sm-6 col-12 d-flex justify-content-end">
+                            <select id="CompanySize" class="w100" title="CompanySize">
+                                <option value="中小企業">中小企業</option>
+                                <option value="大企業">大企業</option>
+                            </select>
+                            <br />
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-end text-right">
+                        <div class="col-2"></div>
+                        <div class="col-10">
+                            <span class="notice-info">本標準所稱中小企業，為中華民國境內依法辦理公司登記或商業登記，實收資本額在新台幣一億元以下，或經常僱用員工數未滿二百人之事業。</span>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>聯絡人
+                        </div>
+                        <div class="col-sm-6 col-12"><input type="text" id="Contact" title="Contact" /></div>
+                    </div>
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>連絡人電話
+                        </div>
+                        <div class="col-sm-6 col-12"><input type="text" id="PhoneNumber" title="=PhoneNumber" /></div>
+                    </div>
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>E-MAIL
+                        </div>
+                        <div class="col-sm-6 col-12"><input type="text" id="Email" title="Email" /></div>
+                    </div>
+
+
+                </div>
             <div class="modal-footer">
                 <!--by Ivan, 20240827 因Freego偵查，註解-->
                 <!--<h5 class="mustInfo" id="errorMes"></h5>-->
@@ -177,6 +200,17 @@
     </div>
 </body>
 <script>
+
+    document.getElementById('Id').addEventListener('input', function (event)
+    {
+      this.value = this.value.replace(/[^A-Za-z0-9]/g, '');
+    });
+
+    document.getElementById('Pass').addEventListener('input', function (event)
+    {
+      this.value = this.value.replace(/[^A-Za-z0-9]/g, '');
+    });
+
     //檢查內申請內容
     $(".modalView .modal-footer .btn-primary").on("click", function () {
         $("#errorMes").empty();

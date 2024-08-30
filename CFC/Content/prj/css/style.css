@@ -195,6 +195,16 @@ body {
     margin-right: 27px;
 }
 
+.login-paramsAdd {
+    background-repeat: no-repeat;
+    height: 20px;
+    line-height: 20px;
+    padding-left: 25px;
+    font-weight: 600;
+    color: #3A6466;
+    margin-right: 5px;
+}
+
 .projectList {
     padding: 5px 0 0 0;
 }

@@ -22,7 +22,25 @@
                     {
                         <button class="btn-s btn-third" name="showHisProject" style="width:auto;">查看歷史專案</button>
                     }
+
+                    <div class="login-paramsAdd" >　係數選擇:</div>
+                    @if (!ViewBag.IsGuest)
+                    {
+                        <div class="calCoeGroup">
+                            <button class="coeButton coeActive" style=" border-radius: 10px 0 0 10px" id="AR4">AR4</button>
+                            <button class="coeButton" id="AR5">AR5</button>
+                            <button class="coeButton" style="border-radius: 0 10px 10px 0;" id="AR6">AR6</button>
+                        </div>
+                    }
+                    else
+                    {
+                        //訪客預設AR4
+                        <div class="calCoeGroup">
+                            <button class="coeButton coeActive" style=" border-radius: 10px 0 0 10px" id="AR4">AR4</button>
+                        </div>
+                    }
                 </div>
+                
             </header>
             <header>
                 <br />
@@ -36,6 +54,8 @@
                         <div style="display:none" id="UserID" value="@ViewBag.UserID"></div>
                         <!--第一列-->
 
+                        <!--20240830移到最上班, 所以這裡註解掉-->
+                        <!--
                         <div class="type-title type-primary-color" style="width:50vw">
                             <h2 style="display: flex;">
                                 類別一　係數選擇:
@@ -57,6 +77,8 @@
                             </h2>
 
                         </div>
+                        -->
+
                         <!-- 燃料計算 -->
                         <div class="count-rule-block">
                             <h2 class="type-subtitle">
