@@ -43,8 +43,11 @@ namespace CFC.Controllers.CFC
             // 取得cookie內使用者資訊(僅會記錄30分鐘)
             Boolean isGuest = m.Id == CFCDataController.GUEST;
 
-            ViewBag.UserID = m.Id;
-            ViewBag.UserName = m.Name;
+            //ViewBag.UserID = m.Id;
+            //ViewBag.UserName = m.Name;
+            ViewBag.UserID = Session["loginUserId"];
+            ViewBag.UserName = Session["loginUserName"];
+
             ViewBag.IsGuest = isGuest;
             if (STREAMLINE == m.Name)
                 ViewBag.STREAMLINE = m.Name;
@@ -145,7 +148,12 @@ namespace CFC.Controllers.CFC
                             IsPersistent = false,//rememberMe,
                             AllowRefresh = true
                         }, identity);
-                        return RedirectToAction("Index", new User_Properties_Advance { Name = loginUser.Name, Id = loginUser.Id });
+                        Session["loginUserId"] = loginUser.Id;
+                        Session["loginUserName"] = loginUser.Name;
+                        //return RedirectToAction("Index", new User_Properties_Advance { Name = loginUser.Name, Id = loginUser.Id });
+                        return RedirectToAction("Index");
+                        //寫SESSION, 給48行讀取
+
                     }
 
                     // 登入失敗

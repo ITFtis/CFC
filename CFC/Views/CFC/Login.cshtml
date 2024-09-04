@@ -64,7 +64,8 @@
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>使用者帳號
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" pattern="[A-Za-z0-9]+" id="Id" title="Id" /></div>
+                    <!--<div class="col-sm-6 col-12"><input type="text" pattern="[A-Za-z0-9]+" id="Id" title="Id" /></div>-->
+                    <div class="col-sm-6 col-12"><input type="text" id="Id" title="Id" /></div>
                 </div>
 
 
@@ -72,7 +73,8 @@
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>設定密碼
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" pattern="[A-Za-z0-9]+" id="Pass" title="Pass" /></div>
+                    <!--<div class="col-sm-6 col-12"><input type="text" pattern="[A-Za-z0-9]+" id="Pass" title="Pass" /></div> -->
+                    <div class="col-sm-6 col-12"><input type="text" id="Pass" title="Pass" /></div>
                 </div>
 
                 <div class="row input">
@@ -201,6 +203,7 @@
 </body>
 <script>
 
+    /*
     document.getElementById('Id').addEventListener('input', function (event)
     {
       this.value = this.value.replace(/[^A-Za-z0-9]/g, '');
@@ -210,6 +213,7 @@
     {
       this.value = this.value.replace(/[^A-Za-z0-9]/g, '');
     });
+    */
 
     //檢查內申請內容
     $(".modalView .modal-footer .btn-primary").on("click", function () {
