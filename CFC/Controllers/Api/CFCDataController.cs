@@ -71,6 +71,8 @@ namespace CFC.Controllers.Api
                             cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
                         else
                             cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
+
+                        
                     }
                 }
 
