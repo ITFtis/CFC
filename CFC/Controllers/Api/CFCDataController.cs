@@ -67,10 +67,32 @@ namespace CFC.Controllers.Api
                         fuelProperty.ARType = (RType)Enum.Parse(typeof(RType), input.calModel, false);
 
                         // 計算碳排
+                        //20250905, 改成要依據AR4、AR5、AR6，來乘上相關的系數
                         if (fuelProperty.FuelType == "dynamicFluid")
-                            cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
+                        {
+                            //cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
+                            if (fuelProperty.ARType == RType.AR4)
+                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R4;
+                            else if (fuelProperty.ARType == RType.AR5)
+                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R5;
+                            else if (fuelProperty.ARType == RType.AR6)
+                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R6;
+                            else
+                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
+                        }
                         else
-                            cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
+                        {
+                            //cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
+                            if (fuelProperty.ARType == RType.AR4)
+                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R4;
+                            else if (fuelProperty.ARType == RType.AR5)
+                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R5;
+                            else if (fuelProperty.ARType == RType.AR6)
+                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R6;
+                            else
+                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
+
+                        }
 
                         
                     }
@@ -86,7 +108,14 @@ namespace CFC.Controllers.Api
                         var type = DateViewController.AllRefrigerantType.Where(e => e.Id == refrigeInput.RefrigerantType).FirstOrDefault();
                         if (equip == null || type == null) continue;
 
-                        cr.R3 += Convert.ToDecimal(refrigeInput.UseVolume) * (decimal)equip.EscapeRate * (decimal)type.GWP * (decimal)0.001;
+                        //20250905, 改成要依據AR4、AR5、AR6，來乘上相關的系數
+                        //cr.R3 += Convert.ToDecimal(refrigeInput.UseVolume) * (decimal)equip.EscapeRate * (decimal)type.GWP * (decimal)0.001;
+                        if (input.calModel=="AR4")
+                            cr.R3 += Convert.ToDecimal(refrigeInput.UseVolume) * (decimal)equip.EscapeRate * (decimal)type.GWP  * (decimal)0.001;
+                        else if (input.calModel == "AR5")
+                            cr.R3 += Convert.ToDecimal(refrigeInput.UseVolume) * (decimal)equip.EscapeRate * (decimal)type.GWP_AR5 * (decimal)0.001;
+                        else if (input.calModel == "AR6")
+                            cr.R3 += Convert.ToDecimal(refrigeInput.UseVolume) * (decimal)equip.EscapeRate * (decimal)type.GWP_AR6 * (decimal)0.001;
                     }
                 }
 
@@ -95,7 +124,16 @@ namespace CFC.Controllers.Api
                 {
                     var property = DateViewController.AllEscapeProperties.FirstOrDefault(e => e.Id.Equals(escapeInput.EscapeId));
                     if (property != null)
-                        cr.R3 = cr.R3 + Convert.ToDecimal(property.Co2e) * Convert.ToDecimal(escapeInput.UseVolume);
+                    {
+                        //20250905, 改成要依據AR4、AR5、AR6，來乘上相關的系數
+                        //cr.R3 = cr.R3 + Convert.ToDecimal(property.Co2e) * Convert.ToDecimal(escapeInput.UseVolume);
+                        if (input.calModel == "AR4")
+                            cr.R3 = cr.R3 + Convert.ToDecimal(property.CO2GWP) * Convert.ToDecimal(escapeInput.UseVolume);
+                        else if(input.calModel == "AR5")
+                            cr.R3 = cr.R3 + Convert.ToDecimal(property.CO2GWP_AR5) * Convert.ToDecimal(escapeInput.UseVolume);
+                        else if (input.calModel == "AR6")
+                            cr.R3 = cr.R3 + Convert.ToDecimal(property.CO2GWP_AR6) * Convert.ToDecimal(escapeInput.UseVolume);
+                    }
                 }
 
                 //(特殊製程 - 直接排放 - 固定)
