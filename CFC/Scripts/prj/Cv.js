@@ -30,6 +30,21 @@
             _opt.tableOptions.url = undefined;
             _opt.editformSize = { minWidth: 700 };
 
+            _opt.addServerData =
+                function (row, callback) {
+                    transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Add', callback);
+                };
+
+            _opt.updateServerData =
+                function (row, callback) {
+                    transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Update', callback);
+                };
+
+            _opt.deleteServerData =
+                function (row, callback) {
+                    transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Delete', callback);
+                };
+
             //實體Dou js
             $_d1Table = $_d1EditDataContainer.DouEditableTable(_opt);
         });
