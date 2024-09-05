@@ -72,25 +72,43 @@ namespace CFC.Controllers.Api
                         {
                             //cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
                             if (fuelProperty.ARType == RType.AR4)
-                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R4;
+                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * 
+                                    (fuelProperty.CO2 * fuelProperty.GCO2R4 + 
+                                      fuelProperty.CH4 * fuelProperty.GCH4R4 +
+                                      fuelProperty.NO2 * fuelProperty.GNO2R4 );
                             else if (fuelProperty.ARType == RType.AR5)
-                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R5;
+                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) *
+                                     (fuelProperty.CO2 * fuelProperty.GCO2R5 +
+                                      fuelProperty.CH4 * fuelProperty.GCH4R5 +
+                                      fuelProperty.NO2 * fuelProperty.GNO2R5);
                             else if (fuelProperty.ARType == RType.AR6)
-                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R6;
-                            else
-                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
+                                cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) *
+                                     (fuelProperty.CO2 * fuelProperty.GCO2R6 +
+                                      fuelProperty.CH4 * fuelProperty.GCH4R6 +
+                                      fuelProperty.NO2 * fuelProperty.GNO2R6);
+                            //else
+                            //    cr.R2 = cr.R2 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
                         }
                         else
                         {
                             //cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
                             if (fuelProperty.ARType == RType.AR4)
-                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R4;
+                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) *
+                                   (fuelProperty.CO2 * fuelProperty.GCO2R4 +
+                                    fuelProperty.CH4 * fuelProperty.GCH4R4 +
+                                    fuelProperty.NO2 * fuelProperty.GNO2R4);
                             else if (fuelProperty.ARType == RType.AR5)
-                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R5;
+                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) *
+                                   (fuelProperty.CO2 * fuelProperty.GCO2R5 +
+                                    fuelProperty.CH4 * fuelProperty.GCH4R5 +
+                                    fuelProperty.NO2 * fuelProperty.GNO2R5);
                             else if (fuelProperty.ARType == RType.AR6)
-                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e * fuelProperty.GCO2R6;
-                            else
-                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
+                                cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) *
+                                    (fuelProperty.CO2 * fuelProperty.GCO2R6 +
+                                     fuelProperty.CH4 * fuelProperty.GCH4R6 +
+                                     fuelProperty.NO2 * fuelProperty.GNO2R6);
+                            //else
+                            //    cr.R1 = cr.R1 + Convert.ToDecimal(inputFuel.UseVolume) * fuelProperty.Co2e;
 
                         }
 
@@ -128,11 +146,29 @@ namespace CFC.Controllers.Api
                         //20250905, 改成要依據AR4、AR5、AR6，來乘上相關的系數
                         //cr.R3 = cr.R3 + Convert.ToDecimal(property.Co2e) * Convert.ToDecimal(escapeInput.UseVolume);
                         if (input.calModel == "AR4")
-                            cr.R3 = cr.R3 + Convert.ToDecimal(property.CO2GWP) * Convert.ToDecimal(escapeInput.UseVolume);
+                            cr.R3 = cr.R3 + 
+                                (Convert.ToDecimal(property.CO2 * Convert.ToDecimal(property.CO2GWP) + property.N2O * Convert.ToDecimal(property.N2OGWP) +
+                                                   property.CH4 * Convert.ToDecimal(property.CH4GWP) + property.NF3 * Convert.ToDecimal(property.NF3GWP) + 
+                                                   property.HFCs * Convert.ToDecimal(property.HFCsGWP) + property.PFCs * Convert.ToDecimal(property.PFCsGWP) +
+                                                   property.SF6 * Convert.ToDecimal(property.SF6GWP) )
+                                )
+                                * Convert.ToDecimal(escapeInput.UseVolume);
                         else if(input.calModel == "AR5")
-                            cr.R3 = cr.R3 + Convert.ToDecimal(property.CO2GWP_AR5) * Convert.ToDecimal(escapeInput.UseVolume);
+                            cr.R3 = cr.R3 +
+                               (Convert.ToDecimal(property.CO2 * Convert.ToDecimal(property.CO2GWP_AR5) + property.N2O * Convert.ToDecimal(property.N2OGWP_AR5) +
+                                                  property.CH4 * Convert.ToDecimal(property.CH4GWP_AR5) + property.NF3 * Convert.ToDecimal(property.NF3GWP_AR5) +
+                                                  property.HFCs * Convert.ToDecimal(property.HFCsGWP_AR5) + property.PFCs * Convert.ToDecimal(property.PFCsGWP_AR5) +
+                                                  property.SF6 * Convert.ToDecimal(property.SF6GWP_AR5))
+                               )
+                               * Convert.ToDecimal(escapeInput.UseVolume);
                         else if (input.calModel == "AR6")
-                            cr.R3 = cr.R3 + Convert.ToDecimal(property.CO2GWP_AR6) * Convert.ToDecimal(escapeInput.UseVolume);
+                            cr.R3 = cr.R3 +
+                               (Convert.ToDecimal(property.CO2 * Convert.ToDecimal(property.CO2GWP_AR6) + property.N2O * Convert.ToDecimal(property.N2OGWP_AR6) +
+                                                  property.CH4 * Convert.ToDecimal(property.CH4GWP_AR6) + property.NF3 * Convert.ToDecimal(property.NF3GWP_AR6) +
+                                                  property.HFCs * Convert.ToDecimal(property.HFCsGWP_AR6) + property.PFCs * Convert.ToDecimal(property.PFCsGWP_AR6) +
+                                                  property.SF6 * Convert.ToDecimal(property.SF6GWP_AR6))
+                               )
+                               * Convert.ToDecimal(escapeInput.UseVolume);
                     }
                 }
 
