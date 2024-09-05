@@ -1362,19 +1362,27 @@ $.toggleSliderPanel = function (classmode, $panel, defaultshow, $othertrigger) {
     var genBootstrapTabpanel = function ($_container, _id, _classes, _heads, _contents, _istabsbelow) {
         var id = _id || 'tabpanel' + helper.misc.geguid();
 
-        var $_tabpanel = $('<div id="'+id+'" class="' + (_classes ? _classes : '') + '">');
+        var $_tabpanel = $('<div id="' + id + '" class="' + (_classes ? _classes : '') + '">');
         var $_ul = $('<ul class="nav nav-tabs" role="tablist">').appendTo($_tabpanel);
         var $_content = $('<div class="tab-content">').appendTo($_tabpanel);
         if (_istabsbelow)
             $_ul.appendTo($_tabpanel);
-        
-        var _showClass = $.fn.tooltip &&  $.fn.tooltip.Constructor &&  $.fn.tooltip.Constructor.VERSION && $.fn.tooltip.Constructor.VERSION.indexOf('3.')>=0?'active':'show';
+
+        var _showClass = $.fn.tooltip && $.fn.tooltip.Constructor && $.fn.tooltip.Constructor.VERSION && $.fn.tooltip.Constructor.VERSION.indexOf('3.') >= 0 ? 'active' : 'show';
 
         for (var _idx = 0; _idx < _heads.length; _idx++) {
-            $('<div role="tabpanel" class="tab-pane' + (_idx == 0 ? ' ' + _showClass : '') + '" id="' + id + '_' + _idx + '">' + _contents[_idx] + '</div>').appendTo($_content);
-            $('<li role="presentation" class="nav-item' + (_idx == 0 ? ' ' + _showClass : '') + '"><a class="nav-link" href="#' + id + '_' + _idx + '" role="tab" data-toggle="tab">' + _heads[_idx] + '</a></li>').appendTo($_ul);
-            //$('<div role="tabpanel" class="tab-pane' + (_idx == 0 ? ' ' : '') + '" id="' + id + '_' + _idx + '">' + _contents[_idx] + '</div>').appendTo($_content);
-            //$('<li role="presentation" class="nav-item' + (_idx == 0 ? ' ' : '') + '"><a class="nav-link" href="#' + id + '_' + _idx + '" role="tab" data-toggle="tab">' + _heads[_idx] + '</a></li>').appendTo($_ul);
+            //$('<div role="tabpanel" class="tab-pane' + (_idx == 0 ? ' ' + _showClass : '') + '" id="' + id + '_' + _idx + '">' + _contents[_idx] + '</div>').appendTo($_content);
+            //$('<li role="presentation" class="nav-item' + (_idx == 0 ? ' ' + _showClass : '') + '"><a class="nav-link" href="#' + id + '_' + _idx + '" role="tab" data-toggle="tab" data-bs-toggle="tab">' + _heads[_idx] + '</a></li>').appendTo($_ul);
+            if (!_contents[_idx])
+                _contents[_idx] = '建構中';
+            var $_tab = $('<div role="tabpanel" class="tab-pane" id="' + id + '_' + _idx + '"></div>').appendTo($_content);
+            if (_contents[_idx] instanceof jQuery)
+                _contents[_idx].appendTo($_tab);
+            else
+                $_tab.html(_contents[_idx]);
+            //$('<div role="tabpanel" class="tab-pane" id="' + id + '_' + _idx + '">' + _contents[_idx] + '</div>').appendTo($_content);
+
+            $('<li role="presentation" class="nav-item"><a class="nav-link" href="#' + id + '_' + _idx + '" role="tab" data-toggle="tab" data-bs-toggle="tab">' + _heads[_idx] + '</a></li>').appendTo($_ul);
         }
         if ($_container) {
             $_tabpanel.appendTo($_container);
