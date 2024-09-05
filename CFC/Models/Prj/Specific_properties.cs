@@ -137,6 +137,52 @@ namespace CFC.Models.Prj
         [Display(Name = "三氟化氮(NF3)GWP")]
         public double NF3GWP { get; set; }
 
+
+
+        [Display(Name = "二氧化碳GWP_AR5")]
+        public double CO2GWP_AR5 { get; set; }
+
+        [Display(Name = "甲烷GWP_AR5")]
+        public double CH4GWP_AR5 { get; set; }
+
+        [Display(Name = "氧化亞氮GWP_AR5")]
+        public double N2OGWP_AR5 { get; set; }
+
+        [Display(Name = "氫氟(HFCs)GWP_AR5")]
+        public double HFCsGWP_AR5 { get; set; }
+
+        [Display(Name = "全氟(PFCS)GWP_AR5")]
+        public double PFCsGWP_AR5 { get; set; }
+
+        [Display(Name = "六氟化硫(SF6)GWP_AR5")]
+        public double SF6GWP_AR5 { get; set; }
+
+        [Display(Name = "三氟化氮(NF3)GWP_AR5")]
+        public double NF3GWP_AR5 { get; set; }
+
+
+
+        [Display(Name = "二氧化碳GWP_AR6")]
+        public double CO2GWP_AR6 { get; set; }
+
+        [Display(Name = "甲烷GWP_AR6")]
+        public double CH4GWP_AR6 { get; set; }
+
+        [Display(Name = "氧化亞氮GWP_AR6")]
+        public double N2OGWP_AR6 { get; set; }
+
+        [Display(Name = "氫氟(HFCs)GWP_AR6")]
+        public double HFCsGWP_AR6 { get; set; }
+
+        [Display(Name = "全氟(PFCS)GWP_AR6")]
+        public double PFCsGWP_AR6 { get; set; }
+
+        [Display(Name = "六氟化硫(SF6)GWP_AR6")]
+        public double SF6GWP_AR6 { get; set; }
+
+        [Display(Name = "三氟化氮(NF3)GWP_AR6")]
+        public double NF3GWP_AR6 { get; set; }
+
         /// <summary>
         /// 順序
         /// </summary>

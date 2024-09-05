@@ -36,6 +36,13 @@ namespace CFC.Models.Prj
         /// </summary>
         [Display(Name = "HFCs GWP")]
         public decimal GWP { get; set; }
+
+        [Display(Name = "HFCs GWP AR5")]
+        public decimal GWP_AR5 { get; set; }
+
+        [Display(Name = "HFCs GWP AR6")]
+        public decimal GWP_AR6 { get; set; }
+
         /// <summary>
         /// 順序
         /// </summary>
