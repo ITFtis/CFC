@@ -33,3 +33,49 @@ ADD CO2GWP_AR5 FLOAT DEFAULT 0,
     PFCsGWP_AR6 FLOAT DEFAULT 0,
     SF6GWP_AR6 FLOAT DEFAULT 0,
     NF3GWP_AR6 FLOAT DEFAULT 0;
+
+update [CFC_test].[dbo].[Escape_properties]
+set
+      [CO2GWP_AR5]=0
+      ,[CH4GWP_AR5]=0
+      ,[N2OGWP_AR5]=0
+      ,[HFCsGWP_AR5]=0
+      ,[PFCsGWP_AR5]=0
+      ,[SF6GWP_AR5]=0
+      ,[NF3GWP_AR5]=0
+      ,[CO2GWP_AR6]=0
+      ,[CH4GWP_AR6]=0
+      ,[N2OGWP_AR6]=0
+      ,[HFCsGWP_AR6]=0
+      ,[PFCsGWP_AR6]=0
+      ,[SF6GWP_AR6]=0
+      ,[NF3GWP_AR6]=0;
+
+update  [CFC_test].[dbo].[Specific_properties]
+set      [CO2GWP_AR5]=0
+      ,[CH4GWP_AR5]=0
+      ,[N2OGWP_AR5]=0
+      ,[HFCsGWP_AR5]=0
+      ,[PFCsGWP_AR5]=0
+      ,[SF6GWP_AR5]=0
+      ,[NF3GWP_AR5]=0
+      ,[CO2GWP_AR6]=0
+      ,[CH4GWP_AR6]=0
+      ,[N2OGWP_AR6]=0
+      ,[HFCsGWP_AR6]=0
+      ,[PFCsGWP_AR6]=0
+      ,[SF6GWP_AR6]=0
+      ,[NF3GWP_AR6]=0;
+
+CREATE TABLE [dbo].[User_Properties_Advance_Detail] (
+    [Id] VARCHAR(100) NOT NULL,
+    [IndustryName] VARCHAR(100) NULL,
+    [IndustryId] VARCHAR(8) NULL,
+    [IndustryCity] VARCHAR(30) NULL,
+    [IndustryDistrict] VARCHAR(30) NULL,
+    [IndustryAddress] VARCHAR(100) NULL,
+    [IndustrialAreaId] VARCHAR(5) NULL,
+    [IndustrialTypeId] VARCHAR(10) NULL,
+    [CreateTime] DATETIME DEFAULT GETDATE(),
+	[CreateUserId] VARCHAR(100) NOT NULL
+);
