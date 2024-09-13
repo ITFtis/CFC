@@ -10,26 +10,27 @@
     SetTabs3();
 
     setTimeout(function () {
-        //Reset 類別按鈕
-        ResetDivClass();
+        //Reset頁籤內容
+        ResetTabContent();
     }, 100);
 
     $('#divClass button').click(function () {
 
-        //Remove class selected on all buttons
-        //$(this).parents().find('button').removeClass('selected').removeClass("btn-primary").addClass("btn-default");
-        $(this).siblings().removeClass('selected').removeClass("btn-primary")
-        $(this).addClass("btn-default");
+        //////Remove class selected on all buttons
+        ////$(this).siblings().removeClass('selected').removeClass("btn-primary")
+        ////$(this).addClass("btn-default");
+
+        //Remove class selected
+        $(this).siblings('.selected').removeClass('selected').removeClass("btn-primary").addClass("btn-default");
 
         //Add class the clicked button
-        $(this).removeClass("btn-default");
-        $(this).addClass('selected').addClass("btn-primary");
+        $(this).removeClass("btn-default").addClass('selected').addClass("btn-primary");
 
         //Update the hidden field of the value    
         $(this).parents('fieldset').find('input[type="hidden"]').val($(this).text());
 
-        //Reset 類別按鈕
-        ResetDivClass();
+        //Reset頁籤內容
+        ResetTabContent();
     })
 
     function SetTabs1() {
@@ -173,8 +174,8 @@
     }
 })
 
-//Reset 類別按鈕
-function ResetDivClass() {
+//Reset頁籤內容
+function ResetTabContent() {
     $('[name="cvTabs"]').hide();
     $('.tabPanel').hide();
     var btn = $('#divClass').find('button.selected')[0];
