@@ -27,10 +27,10 @@ namespace CFC.Controllers.PrjNew
         }
 
         /// <summary>
-        /// 取得標籤清單(類別一)
+        /// 燃料計算 取得標籤(類別一)
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult GetTabClass1List()
+        public virtual ActionResult GetTabFuelList()
         {
             Dou.Models.DB.IModelEntity<Fuel_properties> Fuel = new Dou.Models.DB.ModelEntity<Fuel_properties>(new DouModelContext());
 
@@ -54,10 +54,10 @@ namespace CFC.Controllers.PrjNew
         }
 
         /// <summary>
-        /// 取得標籤清單(類別二)
+        /// 電力計算 取得標籤(類別二)
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult GetTabClass2List()
+        public virtual ActionResult GetTabElecList()
         {
             Dou.Models.DB.IModelEntity<Elec_properties> Elec = new Dou.Models.DB.ModelEntity<Elec_properties>(new DouModelContext());
 

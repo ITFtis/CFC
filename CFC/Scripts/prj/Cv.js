@@ -1,30 +1,36 @@
 ﻿$(document).ready(function () {
-   
-    var $_oform = $("#_tabs");
 
-    $_d1EditDataContainer = $('<table>').appendTo($_oform.parent());
-    $_d2EditDataContainer = $('<table>').appendTo($_oform.parent());
-    $_d3EditDataContainer = $('<table>').appendTo($_oform.parent());
+    //設定Tabs1
+    SetTabs1();
 
-    //1-n 類別一
-    SetDouDa1();
+    function SetTabs1() {
 
-    //1-n 類別二
-    SetDouDa2();
+        var $_oform = $("#_tabs1");
 
-    //1-n 類別三-六
-    SetDouDa3();
+        $_d1EditDataContainer = $('<table>').appendTo($_oform.parent());
+        $_d2EditDataContainer = $('<table>').appendTo($_oform.parent());
+        $_d3EditDataContainer = $('<table>').appendTo($_oform.parent());
 
-    helper.bootstrap.genBootstrapTabpanel($_d2EditDataContainer.parent(), undefined, undefined,
-        ['類別一', '類別二', '類別三-六'],
-        [$_d1EditDataContainer, $_d2EditDataContainer, $_d3EditDataContainer]);
+        //1-n 燃料計算
+        SetFuel();
 
-    //類別一
-    function SetDouDa1() {
+        //1-n 電力計算
+        SetElec();
 
-        $.getJSON(window.siteroot + 'Cv/GetTabClass1List', function (_opt) { //取model option
+        //1-n 其它項目(3-6)
+        SetOther3_6();
 
-            _opt.title = '類別一';
+        helper.bootstrap.genBootstrapTabpanel($_d2EditDataContainer.parent(), undefined, undefined,
+            ['燃料計算', '電力計算', '其它項目(3-6)'],
+            [$_d1EditDataContainer, $_d2EditDataContainer, $_d3EditDataContainer]);
+    }
+
+    //燃料計算
+    function SetFuel() {
+
+        $.getJSON(window.siteroot + 'Cv/GetTabFuelList', function (_opt) { //取model option
+
+            _opt.title = '燃料計算';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -47,12 +53,12 @@
         });
     };
 
-    //類別二
-    function SetDouDa2() {
+    //電力計算
+    function SetElec() {
 
-        $.getJSON(window.siteroot + 'Cv/GetTabClass2List', function (_opt) { //取model option
+        $.getJSON(window.siteroot + 'Cv/GetTabElecList', function (_opt) { //取model option
 
-            _opt.title = '類別二';
+            _opt.title = '電力計算';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -75,8 +81,8 @@
         });
     };
 
-    //類別三-六
-    function SetDouDa3() {
+    //其它項目(3-6)
+    function SetOther3_6() {
 
     }
 })
