@@ -54,6 +54,32 @@ namespace CFC.Controllers.PrjNew
         }
 
         /// <summary>
+        /// 冷媒設備 取得標籤(類別一)
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabRefrigerantEquipList()
+        {
+            Dou.Models.DB.IModelEntity<Refrigerant_equip> Fuel = new Dou.Models.DB.ModelEntity<Refrigerant_equip>(new DouModelContext());
+
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Refrigerant_equip>();
+
+            foreach (var field in opts.fields)
+                field.visible = false;
+
+            opts.GetFiled("Id").visible = true;
+            opts.GetFiled("Name").visible = true;
+            opts.GetFiled("EscapeRate").visible = true;
+            opts.GetFiled("MinValue").visible = true;
+            opts.GetFiled("MaxValue").visible = true;
+            opts.GetFiled("displayOrder").visible = true;
+            opts.datas = Fuel.GetAll();
+
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
+
+        /// <summary>
         /// 電力計算 取得標籤(類別二)
         /// </summary>
         /// <returns></returns>
