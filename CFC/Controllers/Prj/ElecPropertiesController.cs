@@ -35,25 +35,5 @@ namespace CFC.Controllers.Prj
             return GetModelEntity().GetAll().OrderByDescending(e => e.year).ToArray();
         }
 
-        /// <summary>
-        /// 取得標籤清單
-        /// </summary>
-        /// <returns></returns>
-        public virtual ActionResult GetTabList()
-        {
-            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Elec_properties>();
-
-            ////全部欄位排序
-            //foreach (var field in opts.fields)
-            //    field.sortable = true;
-
-            //opts.GetFiled("Wyear").visible = false;
-            opts.datas = this.GetAllData();
-
-            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
-            return Content(jstr, "application/json");
-        }
-
     }
 }

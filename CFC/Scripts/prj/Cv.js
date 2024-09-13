@@ -22,7 +22,7 @@
     //類別一
     function SetDouDa1() {
 
-        $.getJSON(window.siteroot + 'FuelProperties/GetTabList', function (_opt) { //取model option
+        $.getJSON(window.siteroot + 'Cv/GetTabClass1List', function (_opt) { //取model option
 
             _opt.title = '類別一';
 
@@ -30,18 +30,15 @@
             _opt.tableOptions.url = undefined;
             _opt.editformSize = { minWidth: 700 };
 
-            _opt.addServerData =
-                function (row, callback) {
+            _opt.addServerData = function (row, callback) {
                     transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Add', callback);
                 };
 
-            _opt.updateServerData =
-                function (row, callback) {
+            _opt.updateServerData = function (row, callback) {
                     transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Update', callback);
                 };
 
-            _opt.deleteServerData =
-                function (row, callback) {
+            _opt.deleteServerData = function (row, callback) {
                     transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Delete', callback);
                 };
 
@@ -53,13 +50,25 @@
     //類別二
     function SetDouDa2() {
 
-        $.getJSON(window.siteroot + 'ElecProperties/GetTabList', function (_opt) { //取model option
+        $.getJSON(window.siteroot + 'Cv/GetTabClass2List', function (_opt) { //取model option
 
             _opt.title = '類別二';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
             _opt.editformSize = { minWidth: 700 };
+
+            _opt.addServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'ElecProperties/Add', callback);
+            };
+
+            _opt.updateServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'ElecProperties/Update', callback);
+            };
+
+            _opt.deleteServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'ElecProperties/Delete', callback);
+            };
 
             //實體Dou js
             $_d2Table = $_d2EditDataContainer.DouEditableTable(_opt);

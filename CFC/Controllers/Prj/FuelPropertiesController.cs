@@ -40,30 +40,6 @@ namespace CFC.Controllers.Prj
         {
            return GetModelEntity().GetAll().OrderBy(s=>s.displayOrder).ToArray();
         }
-
-        /// <summary>
-        /// 取得標籤清單
-        /// </summary>
-        /// <returns></returns>
-        public virtual ActionResult GetTabList()
-        {
-            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Fuel_properties>();
-
-            foreach (var field in opts.fields)
-                field.visible = false;
-
-            opts.GetFiled("Id").visible = true;
-            opts.GetFiled("FuelType").visible = true;
-            opts.GetFiled("Name").visible = true;
-            opts.GetFiled("Unit").visible = true;
-            opts.GetFiled("CO2").visible = true;
-            opts.GetFiled("CH4").visible = true;
-            opts.GetFiled("NO2").visible = true;
-            opts.datas = this.GetAllData();
-
-            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
-            return Content(jstr, "application/json");
-        }
+      
     }
 }
