@@ -3,6 +3,7 @@ using CFC.Models.Prj;
 using Dou.Controllers;
 using Dou.Misc;
 using Dou.Models.DB;
+using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,7 @@ namespace CFC.Controllers.PrjNew
             Dou.Models.DB.IModelEntity<Fuel_properties> model = new Dou.Models.DB.ModelEntity<Fuel_properties>(new DouModelContext());
 
             var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Fuel_properties>();
+            opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
                 field.visible = false;
@@ -62,6 +64,7 @@ namespace CFC.Controllers.PrjNew
             Dou.Models.DB.IModelEntity<Refrigerant_equip> model = new Dou.Models.DB.ModelEntity<Refrigerant_equip>(new DouModelContext());
 
             var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Refrigerant_equip>();
+            opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
                 field.visible = false;
@@ -88,6 +91,7 @@ namespace CFC.Controllers.PrjNew
             Dou.Models.DB.IModelEntity<Escape_type> model = new Dou.Models.DB.ModelEntity<Escape_type>(new DouModelContext());
 
             var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Escape_type>();
+            opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
                 field.visible = false;
@@ -111,6 +115,7 @@ namespace CFC.Controllers.PrjNew
             Dou.Models.DB.IModelEntity<Escape_properties> model = new Dou.Models.DB.ModelEntity<Escape_properties>(new DouModelContext());
 
             var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Escape_properties>();
+            opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
                 field.visible = false;
@@ -137,6 +142,67 @@ namespace CFC.Controllers.PrjNew
         }
 
         /// <summary>
+        /// (類別一)製程種類
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabSpecificTypeList()
+        {
+            Dou.Models.DB.IModelEntity<Specific_type> model = new Dou.Models.DB.ModelEntity<Specific_type>(new DouModelContext());
+
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Specific_type>();
+            opts.ctrlFieldAlign = "left";
+
+            foreach (var field in opts.fields)
+                field.visible = false;
+
+            opts.GetFiled("Id").visible = true;
+            opts.GetFiled("Name").visible = true;
+            opts.GetFiled("displayOrder").visible = true;
+            opts.datas = model.GetAll();
+
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
+
+        /// <summary>
+        /// (類別一)製程原料
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabSpecificPropertiesList()
+        {
+            Dou.Models.DB.IModelEntity<Specific_properties> model = new Dou.Models.DB.ModelEntity<Specific_properties>(new DouModelContext());
+
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Specific_properties>();
+            opts.ctrlFieldAlign = "left";
+
+            foreach (var field in opts.fields)
+                field.visible = false;
+
+            opts.GetFiled("Id").visible = true;
+            opts.GetFiled("Type").visible = true;
+            //opts.GetFiled("TypeName").visible = true;
+            opts.GetFiled("Name").visible = true;
+            opts.GetFiled("Unit").visible = true;
+            opts.GetFiled("Co2e").visible = true;
+            opts.GetFiled("CO2").visible = true;
+            opts.GetFiled("CH4").visible = true;
+            opts.GetFiled("N2O").visible = true;
+            opts.GetFiled("HFCs").visible = true;
+            opts.GetFiled("PFCs").visible = true;
+            opts.GetFiled("SF6").visible = true;
+            opts.GetFiled("NF3").visible = true;
+            opts.GetFiled("displayOrder").visible = true;
+            opts.GetFiled("CoeSource").visible = true;
+
+            opts.datas = model.GetAll();
+
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
+
+        /// <summary>
         /// (類別二)電力計算
         /// </summary>
         /// <returns></returns>
@@ -145,6 +211,7 @@ namespace CFC.Controllers.PrjNew
             Dou.Models.DB.IModelEntity<Elec_properties> model = new Dou.Models.DB.ModelEntity<Elec_properties>(new DouModelContext());
 
             var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Elec_properties>();
+            opts.ctrlFieldAlign = "left";
 
             ////全部欄位排序
             //foreach (var field in opts.fields)

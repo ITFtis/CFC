@@ -41,6 +41,8 @@
         $_dRefrigerantEquipContainer = $('<table>').appendTo($_oform.parent());
         $_dSetEscapeTypeContainer = $('<table>').appendTo($_oform.parent());
         $_dSetEscapePropertiesContainer = $('<table>').appendTo($_oform.parent());
+        $_dSetSpecificTypeContainer = $('<table>').appendTo($_oform.parent());
+        $_dSetSpecificPropertiesContainer = $('<table>').appendTo($_oform.parent());
         $_temp = $('<table>').appendTo($_oform.parent());
 
         //1-n 燃料計算
@@ -55,12 +57,17 @@
         //1-n 逸散氣體
         SetEscapeProperties();
 
-        //////1-n 其它項目(3-6)
-        ////SetOther3_6();
+        //1-n 製程種類
+        SetSpecificType();
+
+        //1-n 製程原料
+        SetSpecificProperties();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_1", "tabPanel",
-            ['燃料計算', '冷媒設備', '逸散種類', '逸散種類', '空空1'],
-            [$_dFuelContainer, $_dRefrigerantEquipContainer, $_dSetEscapeTypeContainer, $_dSetEscapePropertiesContainer, $_temp]);
+            ['燃料計算', '冷媒設備', '逸散種類',
+                '逸散種類', '製程種類', '製程原料'],
+            [$_dFuelContainer, $_dRefrigerantEquipContainer, $_dSetEscapeTypeContainer,
+                $_dSetEscapePropertiesContainer, $_dSetSpecificTypeContainer, $_dSetSpecificPropertiesContainer]);
     }
 
     function SetTabs2() {
@@ -201,6 +208,62 @@
 
             //實體Dou js
             $_dSetEscapePropertiesContainer.DouEditableTable(_opt);
+        });
+    };
+
+    //製程種類
+    function SetSpecificType() {
+
+        $.getJSON(window.siteroot + 'Cv/GetTabSpecificTypeList', function (_opt) { //取model option
+
+            _opt.title = '逸散種類';
+
+            //取消自動抓後端資料
+            _opt.tableOptions.url = undefined;
+            _opt.editformSize = { minWidth: 700 };
+
+            _opt.addServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'SpecificType/Add', callback);
+            };
+
+            _opt.updateServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'SpecificType/Update', callback);
+            };
+
+            _opt.deleteServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'SpecificType/Delete', callback);
+            };
+
+            //實體Dou js
+            $_dSetSpecificTypeContainer.DouEditableTable(_opt);
+        });
+    };
+
+    //製程原料
+    function SetSpecificProperties() {
+
+        $.getJSON(window.siteroot + 'Cv/GetTabSpecificPropertiesList', function (_opt) { //取model option
+
+            _opt.title = '逸散氣體';
+
+            //取消自動抓後端資料
+            _opt.tableOptions.url = undefined;
+            _opt.editformSize = { minWidth: 700 };
+
+            _opt.addServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'SpecificProperties/Add', callback);
+            };
+
+            _opt.updateServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'SpecificProperties/Update', callback);
+            };
+
+            _opt.deleteServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'SpecificProperties/Delete', callback);
+            };
+
+            //實體Dou js
+            $_dSetSpecificPropertiesContainer.DouEditableTable(_opt);
         });
     };
 
