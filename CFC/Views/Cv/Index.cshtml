@@ -3,9 +3,18 @@
 @using Dou.Misc.Extension
 @Html.MenuMap()
 
-@*類別一*@
-<div id="_tabs1">
+<div id="divClass" class="pt-2 pb-3">
+    <button id="tab1" type="button" class="btn btn-primary">類別一</button>
+    <button id="tab2" type="button" class="btn btn-default">類別二</button>
+    <button id="tab3" type="button" class="btn btn-default">類別三~6</button>
 </div>
+
+
+@*類別一*@
+<div id="_tabs" name="cvTabs">
+</div>
+
+
 
 <script>
         window.siteroot = "@Url.Content("~/")";

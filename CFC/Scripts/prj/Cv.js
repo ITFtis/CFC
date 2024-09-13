@@ -1,28 +1,77 @@
 ﻿$(document).ready(function () {
 
+    $('#divClass button').click(function () {
+
+        //Remove class selected on all buttons
+        //$(this).parents().find('button').removeClass('selected').removeClass("btn-primary").addClass("btn-default");
+        $(this).siblings().removeClass('selected').removeClass("btn-primary")
+        $(this).addClass("btn-default");
+
+        //Add class the clicked button
+        $(this).removeClass("btn-default");
+        $(this).addClass('selected').addClass("btn-primary");
+
+        //Update the hidden field of the value    
+        $(this).parents('fieldset').find('input[type="hidden"]').val($(this).text());
+
+        //Reset 類別按鈕
+        ResetDivClass();
+    })
+
     //設定Tabs1
     SetTabs1();
 
+    //設定Tabs2
+    SetTabs2();
+
+    //設定Tabs3
+    SetTabs3();
+
     function SetTabs1() {
 
-        var $_oform = $("#_tabs1");
+        var $_oform = $("#_tabs");
 
-        $_d1EditDataContainer = $('<table>').appendTo($_oform.parent());
-        $_d2EditDataContainer = $('<table>').appendTo($_oform.parent());
-        $_d3EditDataContainer = $('<table>').appendTo($_oform.parent());
+        $_dFuelContainer = $('<table>').appendTo($_oform.parent());
+        $_temp = $('<table>').appendTo($_oform.parent());
 
         //1-n 燃料計算
         SetFuel();
 
+        //////1-n 其它項目(3-6)
+        ////SetOther3_6();
+
+        helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_1", "tabPanel",
+            ['燃料計算', '空空1'],
+            [$_dFuelContainer, $_temp]);
+    }
+
+    function SetTabs2() {
+
+        var $_oform = $("#_tabs");
+
+        $_dElecContainer = $('<table>').appendTo($_oform.parent());
+        $_temp = $('<table>').appendTo($_oform.parent());
+
         //1-n 電力計算
         SetElec();
 
-        //1-n 其它項目(3-6)
-        SetOther3_6();
+        helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_2", "tabPanel",
+            ['電力計算', '空空2'],
+            [$_dElecContainer, $_temp]);
+    }
 
-        helper.bootstrap.genBootstrapTabpanel($_d2EditDataContainer.parent(), undefined, undefined,
-            ['燃料計算', '電力計算', '其它項目(3-6)'],
-            [$_d1EditDataContainer, $_d2EditDataContainer, $_d3EditDataContainer]);
+    function SetTabs3() {
+
+        var $_oform = $("#_tabs");
+
+        $_temp = $('<table>').appendTo($_oform.parent());
+
+        //////1-n 其它項目(3-6)
+        ////SetOther3_6();
+
+        helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_3", "tabPanel",
+            ['3-6其它項目'],
+            [$_temp]);
     }
 
     //燃料計算
@@ -49,7 +98,7 @@
                 };
 
             //實體Dou js
-            $_d1Table = $_d1EditDataContainer.DouEditableTable(_opt);
+            $_dFuelContainer.DouEditableTable(_opt);
         });
     };
 
@@ -77,7 +126,7 @@
             };
 
             //實體Dou js
-            $_d2Table = $_d2EditDataContainer.DouEditableTable(_opt);
+            $_dElecContainer.DouEditableTable(_opt);
         });
     };
 
@@ -86,3 +135,21 @@
 
     }
 })
+
+//Reset 類別按鈕
+function ResetDivClass() {
+    $('[name="cvTabs"]').hide();
+    $('.tabPanel').hide();
+    var btn = $('#divClass').find('button.selected')[0];
+    if (btn != null) {
+        if (btn.id == 'tab1') {
+            $('#tabPanel_1').show();
+        }
+        else if (btn.id == 'tab2') {
+            $('#tabPanel_2').show();
+        }
+        else if (btn.id == 'tab3') {
+            $('#tabPanel_3').show();
+        }
+    }
+}
