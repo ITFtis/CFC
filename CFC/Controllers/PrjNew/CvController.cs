@@ -27,12 +27,12 @@ namespace CFC.Controllers.PrjNew
         }
 
         /// <summary>
-        /// 燃料計算 取得標籤(類別一)
+        /// (類別一)燃料計算
         /// </summary>
         /// <returns></returns>
         public virtual ActionResult GetTabFuelList()
         {
-            Dou.Models.DB.IModelEntity<Fuel_properties> Fuel = new Dou.Models.DB.ModelEntity<Fuel_properties>(new DouModelContext());
+            Dou.Models.DB.IModelEntity<Fuel_properties> model = new Dou.Models.DB.ModelEntity<Fuel_properties>(new DouModelContext());
 
             var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Fuel_properties>();
 
@@ -46,7 +46,7 @@ namespace CFC.Controllers.PrjNew
             opts.GetFiled("CO2").visible = true;
             opts.GetFiled("CH4").visible = true;
             opts.GetFiled("NO2").visible = true;
-            opts.datas = Fuel.GetAll();
+            opts.datas = model.GetAll();
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -54,12 +54,12 @@ namespace CFC.Controllers.PrjNew
         }
 
         /// <summary>
-        /// 冷媒設備 取得標籤(類別一)
+        /// (類別一)冷媒設備
         /// </summary>
         /// <returns></returns>
         public virtual ActionResult GetTabRefrigerantEquipList()
         {
-            Dou.Models.DB.IModelEntity<Refrigerant_equip> Fuel = new Dou.Models.DB.ModelEntity<Refrigerant_equip>(new DouModelContext());
+            Dou.Models.DB.IModelEntity<Refrigerant_equip> model = new Dou.Models.DB.ModelEntity<Refrigerant_equip>(new DouModelContext());
 
             var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Refrigerant_equip>();
 
@@ -72,7 +72,7 @@ namespace CFC.Controllers.PrjNew
             opts.GetFiled("MinValue").visible = true;
             opts.GetFiled("MaxValue").visible = true;
             opts.GetFiled("displayOrder").visible = true;
-            opts.datas = Fuel.GetAll();
+            opts.datas = model.GetAll();
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -80,12 +80,69 @@ namespace CFC.Controllers.PrjNew
         }
 
         /// <summary>
-        /// 電力計算 取得標籤(類別二)
+        /// (類別一)逸散種類
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabEscapeTypeList()
+        {
+            Dou.Models.DB.IModelEntity<Escape_type> model = new Dou.Models.DB.ModelEntity<Escape_type>(new DouModelContext());
+
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Escape_type>();
+
+            foreach (var field in opts.fields)
+                field.visible = false;
+
+            opts.GetFiled("Id").visible = true;
+            opts.GetFiled("Name").visible = true;
+            opts.GetFiled("displayOrder").visible = true;
+            opts.datas = model.GetAll();
+
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
+
+        /// <summary>
+        /// (類別一)逸散氣體
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabEscapePropertiesList()
+        {
+            Dou.Models.DB.IModelEntity<Escape_properties> model = new Dou.Models.DB.ModelEntity<Escape_properties>(new DouModelContext());
+
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Escape_properties>();
+
+            foreach (var field in opts.fields)
+                field.visible = false;
+
+            opts.GetFiled("Id").visible = true;
+            opts.GetFiled("Type").visible = true;
+            //opts.GetFiled("TypeName").visible = true;
+            opts.GetFiled("Name").visible = true;
+            opts.GetFiled("Unit").visible = true;
+            opts.GetFiled("Co2e").visible = true;
+            opts.GetFiled("CO2").visible = true;
+            opts.GetFiled("CH4").visible = true;
+            opts.GetFiled("N2O").visible = true;
+            opts.GetFiled("HFCs").visible = true;
+            opts.GetFiled("PFCs").visible = true;
+            opts.GetFiled("SF6").visible = true;
+            opts.GetFiled("NF3").visible = true;
+            opts.GetFiled("displayOrder").visible = true;
+            opts.datas = model.GetAll();
+
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
+
+        /// <summary>
+        /// (類別二)電力計算
         /// </summary>
         /// <returns></returns>
         public virtual ActionResult GetTabElecList()
         {
-            Dou.Models.DB.IModelEntity<Elec_properties> Elec = new Dou.Models.DB.ModelEntity<Elec_properties>(new DouModelContext());
+            Dou.Models.DB.IModelEntity<Elec_properties> model = new Dou.Models.DB.ModelEntity<Elec_properties>(new DouModelContext());
 
             var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Elec_properties>();
 
@@ -94,7 +151,7 @@ namespace CFC.Controllers.PrjNew
             //    field.sortable = true;
 
             //opts.GetFiled("Wyear").visible = false;
-            opts.datas = Elec.GetAll();
+            opts.datas = model.GetAll();
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
