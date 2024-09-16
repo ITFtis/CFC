@@ -299,5 +299,48 @@ namespace CFC.Controllers.PrjNew
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
             return Content(jstr, "application/json");
         }
+
+        /// <summary>
+        /// 類別3-6項目
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabCalsPropertiesList()
+        {
+            Dou.Models.DB.IModelEntity<Cals_properties> model = new Dou.Models.DB.ModelEntity<Cals_properties>(new DouModelContext());
+
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Cals_properties>();
+            opts.ctrlFieldAlign = "left";
+
+
+            foreach (var field in opts.fields)
+            {
+                field.visible = false;
+                field.visibleEdit = false;
+            }
+
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Type", "Name", "Unit", "DisplayOrder" });
+
+            ////係數option
+            //fs.AddRange(new List<string>() { });
+
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
+
+            var datas = model.GetAll().ToList();
+            if (datas.Count() == 0)
+                opts.datas = new List<Cals_properties>() { new Cals_properties { Id = "無資料，不可修改" } };
+            else
+                opts.datas = datas.OrderBy(a => a.DisplayOrder);
+
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
     }
 }
