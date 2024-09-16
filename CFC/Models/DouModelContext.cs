@@ -58,6 +58,8 @@ namespace CFC.Models
 
         public virtual DbSet<SYS_FACTORY> SysFactory { get; set; } //工廠
 
+        public virtual DbSet<SYS_COMPANY> SysCompany { get; set; } //工廠
+
         public virtual DbSet<G_USER_FACTORY> UserFactory { get; set; } //會員跟工廠的關聯
 
         public virtual DbSet<Cals_type> CalsType { get; set; } //3-6類別
