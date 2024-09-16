@@ -46,7 +46,7 @@ namespace CFC.Controllers.PrjNew
 
             //欄位控制
             List<string> fs = new List<string>();
-            fs.AddRange(new List<string>() { "Id", "FuelType", "Name", "Unit" });
+            fs.AddRange(new List<string>() { "Id", "FuelType", "Name", "Unit", "displayOrder" });
             
             //係數option
             fs.AddRange(new List<string>() { "CO2", "CH4", "NO2" });
@@ -77,14 +77,25 @@ namespace CFC.Controllers.PrjNew
             opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
+            {
                 field.visible = false;
+                field.visibleEdit = false;
+            }
 
-            opts.GetFiled("Id").visible = true;
-            opts.GetFiled("Name").visible = true;
-            opts.GetFiled("EscapeRate").visible = true;
-            opts.GetFiled("MinValue").visible = true;
-            opts.GetFiled("MaxValue").visible = true;
-            opts.GetFiled("displayOrder").visible = true;
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Name", "EscapeRate", "displayOrder" });
+
+            //係數option
+            fs.AddRange(new List<string>() { "MinValue", "MaxValue"});
+
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
+
             opts.datas = model.GetAll();
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
