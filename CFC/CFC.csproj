@@ -217,6 +217,9 @@
     <Compile Include="Controllers\Manager\LoggerController.cs" />
     <Compile Include="Controllers\Manager\RoleController.cs" />
     <Compile Include="Controllers\Manager\UserController.cs" />
+    <Compile Include="Controllers\PrjNew\ArController.cs" />
+    <Compile Include="Controllers\PrjNew\CvController.cs" />
+    <Compile Include="Controllers\PrjNew\GContentController.cs" />
     <Compile Include="Controllers\Prj\ElecPropertiesController.cs" />
     <Compile Include="Controllers\Prj\EscapePropertiesController.cs" />
     <Compile Include="Controllers\Prj\SpecificPropertiesController.cs" />
@@ -1488,6 +1491,7 @@
     <Content Include="Scripts\popper.min.js.map" />
     <Content Include="Scripts\prj\cfc.js" />
     <Content Include="Scripts\prj\cfc_n.js" />
+    <Content Include="Scripts\prj\Cv.js" />
     <Content Include="Scripts\README.md" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
@@ -1616,11 +1620,14 @@
     <Content Include="App_Code\InputHelper.cshtml" />
     <Content Include="Views\CFC\ProjectSave.cshtml" />
     <Content Include="Views\CFC\ProjectView.cshtml" />
+    <Content Include="Views\Cv\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="File\ExcelCreater\tempFolder\" />
+    <Folder Include="Views\Ar\" />
     <Folder Include="Views\DataPrint\" />
+    <Folder Include="Views\GContent\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
