@@ -103,5 +103,6 @@ namespace CFC.Models.Prj
         public string ProjectAddress { get; set; }//專案地址
         public string ProjectCity { get; set; }//專案縣市
         public string ProjectIndustrialType { get; set; }//專案行業別
+
     }
 }

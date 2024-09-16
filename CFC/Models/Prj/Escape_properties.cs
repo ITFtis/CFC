@@ -83,6 +83,48 @@ namespace CFC.Models.Prj
             }
         }
 
+        public decimal Co2e_AR4
+        {
+            get
+            {
+                return this.CO2 * Convert.ToDecimal(this.CO2GWP) +
+                    this.N2O * Convert.ToDecimal(this.N2OGWP) +
+                    this.CH4 * Convert.ToDecimal(this.CH4GWP) +
+                    this.NF3 * Convert.ToDecimal(this.NF3GWP) +
+                    this.HFCs * Convert.ToDecimal(this.HFCsGWP) +
+                    this.PFCs * Convert.ToDecimal(this.PFCsGWP) +
+                    this.SF6 * Convert.ToDecimal(this.SF6GWP);
+            }
+        }
+
+        public decimal Co2e_AR5
+        {
+            get
+            {
+                return this.CO2 * Convert.ToDecimal(this.CO2GWP_AR5) +
+                    this.N2O * Convert.ToDecimal(this.N2OGWP_AR5) +
+                    this.CH4 * Convert.ToDecimal(this.CH4GWP_AR5) +
+                    this.NF3 * Convert.ToDecimal(this.NF3GWP_AR5) +
+                    this.HFCs * Convert.ToDecimal(this.HFCsGWP_AR5) +
+                    this.PFCs * Convert.ToDecimal(this.PFCsGWP_AR5) +
+                    this.SF6 * Convert.ToDecimal(this.SF6GWP_AR5);
+            }
+        }
+
+        public decimal Co2e_AR6
+        {
+            get
+            {
+                return this.CO2 * Convert.ToDecimal(this.CO2GWP_AR6) +
+                    this.N2O * Convert.ToDecimal(this.N2OGWP_AR6) +
+                    this.CH4 * Convert.ToDecimal(this.CH4GWP_AR6) +
+                    this.NF3 * Convert.ToDecimal(this.NF3GWP_AR6) +
+                    this.HFCs * Convert.ToDecimal(this.HFCsGWP_AR6) +
+                    this.PFCs * Convert.ToDecimal(this.PFCsGWP_AR6) +
+                    this.SF6 * Convert.ToDecimal(this.SF6GWP_AR6);
+            }
+        }
+
         /// <summary>
         /// 二氧化碳排放係數
         /// </summary>

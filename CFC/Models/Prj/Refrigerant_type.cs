@@ -31,6 +31,11 @@ namespace CFC.Models.Prj
         [Display(Name = "冷媒名稱")]
         public string Name { get; set; }
 
+        public decimal GWP_AR4
+        {
+            get { return GWP; }
+        }
+
         /// <summary>
         /// 暖化係數
         /// </summary>

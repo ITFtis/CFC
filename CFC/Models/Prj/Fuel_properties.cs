@@ -58,6 +58,22 @@ namespace CFC.Models.Prj
 
         }
 
+        public decimal Co2e_AR4
+        {
+            get { return GCO2R4 * CO2 + GCH4R4 * CH4 + GNO2R4 * NO2; }
+        }
+
+        public decimal Co2e_AR5
+        {
+            get { return GCO2R5 * CO2 + GCH4R5 * CH4 + GNO2R5 * NO2; }
+        }
+
+        public decimal Co2e_AR6
+        {
+            get { return GCO2R6 * CO2 + GCH4R6 * CH4 + GNO2R6 * NO2; }
+        }
+
+
         [Display(Name = "二氧化碳係數")]
         public decimal CO2 { get; set; }
 

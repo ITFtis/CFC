@@ -23,6 +23,7 @@ namespace CFC.Models
         // 針對您要包含在模型中的每種實體類型新增 DbSet。如需有關設定和使用
         // Code First 模型的詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=390109。
 
+        
         public virtual DbSet<User_Properties> UserProperties { get; set; }
         public virtual DbSet<Fuel_properties> FuelProperties { get; set; }
         public virtual DbSet<Fuel_volume> FuelVolumes { get; set; }
@@ -54,6 +55,8 @@ namespace CFC.Models
         public virtual DbSet<Global_Industrial> GlobalIndustrial { get; set; }
         public virtual DbSet<Global_City> GlobalCity { get; set; } //縣市別
         public virtual DbSet<Global_IndustrialArea> GlobalIndustrialArea { get; set; } //工業園區
+
+        public virtual DbSet<SYS_FACTORY> SysFactory { get; set; } //工廠
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {              

@@ -91,5 +91,17 @@ namespace CFC.Models.Prj
         [Display(Name = "聯絡email")]
         public string Email { get; set; }
 
+        /// <summary>
+        /// xxx
+        /// </summary>
+        [NotMapped]
+        [Display(Name = "工廠")]
+        public List<SYS_FACTORY> FactoryList { get; set; }
+    }
+
+    public class Fac
+    {
+        public string name { get; set; }
+        public string sid { get; set; }
     }
 }

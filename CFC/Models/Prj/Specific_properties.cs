@@ -92,6 +92,51 @@ namespace CFC.Models.Prj
             }
         }
 
+        public decimal Co2e_AR4
+        {
+            get
+            {
+                return
+                    CO2 * Convert.ToDecimal(CO2GWP) +
+                    CH4 * Convert.ToDecimal(CH4GWP) +
+                    N2O * Convert.ToDecimal(N2OGWP) +
+                    HFCs * Convert.ToDecimal(HFCsGWP) +
+                    PFCs * Convert.ToDecimal(PFCsGWP) +
+                    SF6 * Convert.ToDecimal(SF6GWP) +
+                    NF3 * Convert.ToDecimal(NF3GWP);
+            }
+        }
+
+        public decimal Co2e_AR5
+        {
+            get
+            {
+                return
+                    CO2 * Convert.ToDecimal(CO2GWP_AR5) +
+                    CH4 * Convert.ToDecimal(CH4GWP_AR5) +
+                    N2O * Convert.ToDecimal(N2OGWP_AR5) +
+                    HFCs * Convert.ToDecimal(HFCsGWP_AR5) +
+                    PFCs * Convert.ToDecimal(PFCsGWP_AR5) +
+                    SF6 * Convert.ToDecimal(SF6GWP_AR5) +
+                    NF3 * Convert.ToDecimal(NF3GWP_AR5);
+            }
+        }
+
+        public decimal Co2e_AR6
+        {
+            get
+            {
+                return
+                    CO2 * Convert.ToDecimal(CO2GWP_AR6) +
+                    CH4 * Convert.ToDecimal(CH4GWP_AR6) +
+                    N2O * Convert.ToDecimal(N2OGWP_AR6) +
+                    HFCs * Convert.ToDecimal(HFCsGWP_AR6) +
+                    PFCs * Convert.ToDecimal(PFCsGWP_AR6) +
+                    SF6 * Convert.ToDecimal(SF6GWP_AR6) +
+                    NF3 * Convert.ToDecimal(NF3GWP_AR6);
+            }
+        }
+
         /// <summary>
         /// 二氧化碳排放係數
         /// </summary>
