@@ -35,5 +35,17 @@ namespace CFC.Controllers.Prj
             return GetModelEntity().GetAll().OrderByDescending(e => e.year).ToArray();
         }
 
+        protected override void AddDBObject(IModelEntity<Elec_properties> dbEntity, IEnumerable<Elec_properties> objs)
+        {
+            var f = objs.First();
+
+            int x = 0;
+            if (!int.TryParse(f.year, out x))
+            {
+                throw new Exception("年份限定數字");
+            }
+
+            base.AddDBObject(dbEntity, objs);
+        }
     }
 }

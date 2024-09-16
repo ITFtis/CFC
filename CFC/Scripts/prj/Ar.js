@@ -38,7 +38,7 @@
         var $_oform = $("#_tabs");
 
         $_dFuelContainer = $('<table>').appendTo($_oform.parent());
-        $_dRefrigerantEquipContainer = $('<table>').appendTo($_oform.parent());
+        $_dRefrigerantTypeContainer = $('<table>').appendTo($_oform.parent());
         $_dSetEscapeTypeContainer = $('<table>').appendTo($_oform.parent());
         $_dSetEscapePropertiesContainer = $('<table>').appendTo($_oform.parent());
         $_dSetSpecificTypeContainer = $('<table>').appendTo($_oform.parent());
@@ -48,8 +48,8 @@
         //1-n 燃料計算
         SetFuel();
 
-        //1-n 冷媒設備
-        SetRefrigerantEquip();
+        //1-n 冷媒種類
+        SetRefrigerantType();
 
         //1-n 逸散種類
         SetEscapeType();
@@ -64,9 +64,9 @@
         SetSpecificProperties();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_1", "tabPanel",
-            ['燃料計算', '冷媒設備', '逸散種類',
+            ['燃料計算', '冷媒種類', '逸散種類',
                 '逸散氣體', '製程種類', '製程原料'],
-            [$_dFuelContainer, $_dRefrigerantEquipContainer, $_dSetEscapeTypeContainer,
+            [$_dFuelContainer, $_dRefrigerantTypeContainer, $_dSetEscapeTypeContainer,
                 $_dSetEscapePropertiesContainer, $_dSetSpecificTypeContainer, $_dSetSpecificPropertiesContainer]);
     }
 
@@ -74,12 +74,15 @@
 
         var $_oform = $("#_tabs");
 
+        $_dElecContainer = $('<table>').appendTo($_oform.parent());
         $_temp = $('<table>').appendTo($_oform.parent());
 
+        //1-n 電力計算
+        SetElec();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_2", "tabPanel",
-            ['空空'],
-            [$_temp]);
+            ['電力計算', '空空2'],
+            [$_dElecContainer, $_temp]);
     }
 
     function SetTabs3() {
@@ -99,7 +102,7 @@
     //燃料計算
     function SetFuel() {
 
-        $.getJSON(window.siteroot + 'Cv/GetTabFuelList', function (_opt) { //取model option
+        $.getJSON(window.siteroot + 'Ar/GetTabFuelList', function (_opt) { //取model option
 
             _opt.title = '燃料計算';
 
@@ -108,16 +111,16 @@
             _opt.editformSize = { minWidth: 700 };
 
             _opt.addServerData = function (row, callback) {
-                    transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Add', callback);
-                };
+                transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Add', callback);
+            };
 
             _opt.updateServerData = function (row, callback) {
-                    transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Update', callback);
-                };
+                transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Update', callback);
+            };
 
             _opt.deleteServerData = function (row, callback) {
-                    transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Delete', callback);
-                };
+                transactionDouClientDataToServer(row, window.siteroot + 'FuelProperties/Delete', callback);
+            };
 
             //實體Dou js
             $_dFuelContainer.DouEditableTable(_opt);
@@ -125,9 +128,9 @@
     };
 
     //冷媒設備
-    function SetRefrigerantEquip() {
+    function SetRefrigerantType() {
 
-        $.getJSON(window.siteroot + 'Cv/GetTabRefrigerantEquipList', function (_opt) { //取model option
+        $.getJSON(window.siteroot + 'Ar/GetTabRefrigerantTypeList', function (_opt) { //取model option
 
             _opt.title = '冷媒設備';
 
@@ -136,26 +139,26 @@
             _opt.editformSize = { minWidth: 700 };
 
             _opt.addServerData = function (row, callback) {
-                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantEquip/Add', callback);
+                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantType/Add', callback);
             };
 
             _opt.updateServerData = function (row, callback) {
-                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantEquip/Update', callback);
+                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantType/Update', callback);
             };
 
             _opt.deleteServerData = function (row, callback) {
-                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantEquip/Delete', callback);
+                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantType/Delete', callback);
             };
 
             //實體Dou js
-            $_dRefrigerantEquipContainer.DouEditableTable(_opt);
+            $_dRefrigerantTypeContainer.DouEditableTable(_opt);
         });
     };
 
     //逸散種類
     function SetEscapeType() {
 
-        $.getJSON(window.siteroot + 'Cv/GetTabEscapeTypeList', function (_opt) { //取model option
+        $.getJSON(window.siteroot + 'Ar/GetTabEscapeTypeList', function (_opt) { //取model option
 
             _opt.title = '逸散種類';
 
@@ -183,7 +186,7 @@
     //逸散氣體
     function SetEscapeProperties() {
 
-        $.getJSON(window.siteroot + 'Cv/GetTabEscapePropertiesList', function (_opt) { //取model option
+        $.getJSON(window.siteroot + 'Ar/GetTabEscapePropertiesList', function (_opt) { //取model option
 
             _opt.title = '逸散氣體';
 
@@ -211,7 +214,7 @@
     //製程種類
     function SetSpecificType() {
 
-        $.getJSON(window.siteroot + 'Cv/GetTabSpecificTypeList', function (_opt) { //取model option
+        $.getJSON(window.siteroot + 'Ar/GetTabSpecificTypeList', function (_opt) { //取model option
 
             _opt.title = '逸散種類';
 
@@ -239,7 +242,7 @@
     //製程原料
     function SetSpecificProperties() {
 
-        $.getJSON(window.siteroot + 'Cv/GetTabSpecificPropertiesList', function (_opt) { //取model option
+        $.getJSON(window.siteroot + 'Ar/GetTabSpecificPropertiesList', function (_opt) { //取model option
 
             _opt.title = '逸散氣體';
 
@@ -261,6 +264,34 @@
 
             //實體Dou js
             $_dSetSpecificPropertiesContainer.DouEditableTable(_opt);
+        });
+    };
+
+    //電力計算
+    function SetElec() {
+
+        $.getJSON(window.siteroot + 'Ar/GetTabElecList', function (_opt) { //取model option
+
+            _opt.title = '電力計算';
+
+            //取消自動抓後端資料
+            _opt.tableOptions.url = undefined;
+            _opt.editformSize = { minWidth: 700 };
+
+            _opt.addServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'ElecProperties/Add', callback);
+            };
+
+            _opt.updateServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'ElecProperties/Update', callback);
+            };
+
+            _opt.deleteServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'ElecProperties/Delete', callback);
+            };
+
+            //實體Dou js
+            $_dElecContainer.DouEditableTable(_opt);
         });
     };
 

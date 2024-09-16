@@ -2,6 +2,7 @@
 using CFC.Models.Prj;
 using Dou.Controllers;
 using Dou.Misc;
+using Dou.Misc.Extension;
 using Dou.Models.DB;
 using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
@@ -46,7 +47,7 @@ namespace CFC.Controllers.PrjNew
 
             //欄位控制
             List<string> fs = new List<string>();
-            fs.AddRange(new List<string>() { "Id", "FuelType", "Name", "Unit" });
+            fs.AddRange(new List<string>() { "Id", "FuelType", "Name", "Unit", "displayOrder" });
             
             //係數option
             fs.AddRange(new List<string>() { "CO2", "CH4", "NO2" });
@@ -58,7 +59,7 @@ namespace CFC.Controllers.PrjNew
                 opts.GetFiled(str).visibleEdit = true;
             }
 
-            opts.datas = model.GetAll();
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -77,15 +78,26 @@ namespace CFC.Controllers.PrjNew
             opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
+            {
                 field.visible = false;
+                field.visibleEdit = false;
+            }
 
-            opts.GetFiled("Id").visible = true;
-            opts.GetFiled("Name").visible = true;
-            opts.GetFiled("EscapeRate").visible = true;
-            opts.GetFiled("MinValue").visible = true;
-            opts.GetFiled("MaxValue").visible = true;
-            opts.GetFiled("displayOrder").visible = true;
-            opts.datas = model.GetAll();
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Name", "EscapeRate", "displayOrder" });
+
+            //係數option
+            fs.AddRange(new List<string>() { "MinValue", "MaxValue"});
+
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
+
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -104,12 +116,26 @@ namespace CFC.Controllers.PrjNew
             opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
+            {
                 field.visible = false;
+                field.visibleEdit = false;
+            }
 
-            opts.GetFiled("Id").visible = true;
-            opts.GetFiled("Name").visible = true;
-            opts.GetFiled("displayOrder").visible = true;
-            opts.datas = model.GetAll();
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Name", "displayOrder"});
+
+            //////係數option
+            ////fs.AddRange(new List<string>() { });
+
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
+
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -128,23 +154,26 @@ namespace CFC.Controllers.PrjNew
             opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
+            {
                 field.visible = false;
+                field.visibleEdit = false;
+            }
 
-            opts.GetFiled("Id").visible = true;
-            opts.GetFiled("Type").visible = true;
-            //opts.GetFiled("TypeName").visible = true;
-            opts.GetFiled("Name").visible = true;
-            opts.GetFiled("Unit").visible = true;
-            opts.GetFiled("Co2e").visible = true;
-            opts.GetFiled("CO2").visible = true;
-            opts.GetFiled("CH4").visible = true;
-            opts.GetFiled("N2O").visible = true;
-            opts.GetFiled("HFCs").visible = true;
-            opts.GetFiled("PFCs").visible = true;
-            opts.GetFiled("SF6").visible = true;
-            opts.GetFiled("NF3").visible = true;
-            opts.GetFiled("displayOrder").visible = true;
-            opts.datas = model.GetAll();
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Type", "Name", "Unit", "displayOrder" });
+
+            //係數option
+            fs.AddRange(new List<string>() { "CO2", "CH4", "N2O", "HFCs", "PFCs", "SF6", "NF3" });
+
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
+
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -163,12 +192,26 @@ namespace CFC.Controllers.PrjNew
             opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
+            {
                 field.visible = false;
+                field.visibleEdit = false;
+            }
 
-            opts.GetFiled("Id").visible = true;
-            opts.GetFiled("Name").visible = true;
-            opts.GetFiled("displayOrder").visible = true;
-            opts.datas = model.GetAll();
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Name", "displayOrder"});
+
+            ////係數option
+            //fs.AddRange(new List<string>() { });
+
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
+
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -186,53 +229,33 @@ namespace CFC.Controllers.PrjNew
             var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Specific_properties>();
             opts.ctrlFieldAlign = "left";
 
+
             foreach (var field in opts.fields)
+            {
                 field.visible = false;
+                field.visibleEdit = false;
+            }
 
-            opts.GetFiled("Id").visible = true;
-            opts.GetFiled("Type").visible = true;
-            //opts.GetFiled("TypeName").visible = true;
-            opts.GetFiled("Name").visible = true;
-            opts.GetFiled("Unit").visible = true;
-            opts.GetFiled("Co2e").visible = true;
-            opts.GetFiled("CO2").visible = true;
-            opts.GetFiled("CH4").visible = true;
-            opts.GetFiled("N2O").visible = true;
-            opts.GetFiled("HFCs").visible = true;
-            opts.GetFiled("PFCs").visible = true;
-            opts.GetFiled("SF6").visible = true;
-            opts.GetFiled("NF3").visible = true;
-            opts.GetFiled("displayOrder").visible = true;
-            opts.GetFiled("CoeSource").visible = true;
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Type", "Name", "Unit", "displayOrder" });
 
-            opts.datas = model.GetAll();
+            //係數option
+            fs.AddRange(new List<string>() { "CO2", "CH4", "N2O", "HFCs", "PFCs", "SF6", "NF3", "CoeSource"});
 
-            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
-            return Content(jstr, "application/json");
-        }
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
 
-        /// <summary>
-        /// (類別二)電力計算
-        /// </summary>
-        /// <returns></returns>
-        public virtual ActionResult GetTabElecList()
-        {
-            Dou.Models.DB.IModelEntity<Elec_properties> model = new Dou.Models.DB.ModelEntity<Elec_properties>(new DouModelContext());
-
-            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Elec_properties>();
-            opts.ctrlFieldAlign = "left";
-
-            ////全部欄位排序
-            //foreach (var field in opts.fields)
-            //    field.sortable = true;
-
-            //opts.GetFiled("Wyear").visible = false;
-            opts.datas = model.GetAll();
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
             return Content(jstr, "application/json");
         }
+
     }
 }

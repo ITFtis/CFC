@@ -35,26 +35,26 @@ namespace CFC.Controllers.Prj
             return base.GetData(paras);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Add(IEnumerable<Escape_properties> objs) {
-            var dbCon =  new Dou.Models.DB.ModelEntity<Escape_properties>(new DouModelContext());
+        ////[HttpPost]
+        ////public async Task<ActionResult> Add(IEnumerable<Escape_properties> objs) {
+        ////    var dbCon =  new Dou.Models.DB.ModelEntity<Escape_properties>(new DouModelContext());
 
-            foreach (var obj in objs) {
-                await dbCon.AddAsync(new Escape_properties
-                {
-                    Id = obj.Id,
-                    Name = obj.Name,
-                    Type = obj.TypeName, //這邊回來的是Type ID
-                    displayOrder = obj.displayOrder,
-                    Unit = obj.Unit,
-                    CO2 = obj.CO2,
-                    CH4 = obj.CH4,
-                    N2O = obj.N2O,
-                });
-            }
+        ////    foreach (var obj in objs) {
+        ////        await dbCon.AddAsync(new Escape_properties
+        ////        {
+        ////            Id = obj.Id,
+        ////            Name = obj.Name,
+        ////            Type = obj.Type, //obj.TypeName, //這邊回來的是Type ID
+        ////            displayOrder = obj.displayOrder,
+        ////            Unit = obj.Unit,
+        ////            CO2 = obj.CO2,
+        ////            CH4 = obj.CH4,
+        ////            N2O = obj.N2O,
+        ////        });
+        ////    }
 
-            return await Task.FromResult(Json(new { Success = "True" , Desc= "新增成功" }, JsonRequestBehavior.AllowGet));
-        }
+        ////    return await Task.FromResult(Json(new { Success = "True" , Desc= "新增成功" }, JsonRequestBehavior.AllowGet));
+        ////}
 
         internal IEnumerable<Escape_properties> GetAllData()
         {
