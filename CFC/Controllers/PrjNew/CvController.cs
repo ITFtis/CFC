@@ -115,11 +115,25 @@ namespace CFC.Controllers.PrjNew
             opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
+            {
                 field.visible = false;
+                field.visibleEdit = false;
+            }
 
-            opts.GetFiled("Id").visible = true;
-            opts.GetFiled("Name").visible = true;
-            opts.GetFiled("displayOrder").visible = true;
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Name", "displayOrder"});
+
+            //////係數option
+            ////fs.AddRange(new List<string>() { });
+
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
+
             opts.datas = model.GetAll();
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
@@ -139,22 +153,25 @@ namespace CFC.Controllers.PrjNew
             opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
+            {
                 field.visible = false;
+                field.visibleEdit = false;
+            }
 
-            opts.GetFiled("Id").visible = true;
-            opts.GetFiled("Type").visible = true;
-            //opts.GetFiled("TypeName").visible = true;
-            opts.GetFiled("Name").visible = true;
-            opts.GetFiled("Unit").visible = true;
-            opts.GetFiled("Co2e").visible = true;
-            opts.GetFiled("CO2").visible = true;
-            opts.GetFiled("CH4").visible = true;
-            opts.GetFiled("N2O").visible = true;
-            opts.GetFiled("HFCs").visible = true;
-            opts.GetFiled("PFCs").visible = true;
-            opts.GetFiled("SF6").visible = true;
-            opts.GetFiled("NF3").visible = true;
-            opts.GetFiled("displayOrder").visible = true;
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Type", "Name", "Unit", "displayOrder" });
+
+            //係數option
+            fs.AddRange(new List<string>() { "CO2", "CH4", "N2O", "HFCs", "PFCs", "SF6", "NF3" });
+
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
+
             opts.datas = model.GetAll();
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });

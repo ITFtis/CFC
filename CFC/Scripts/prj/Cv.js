@@ -65,7 +65,7 @@
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_1", "tabPanel",
             ['燃料計算', '冷媒設備', '逸散種類',
-                '逸散種類', '製程種類', '製程原料'],
+                '逸散氣體', '製程種類', '製程原料'],
             [$_dFuelContainer, $_dRefrigerantEquipContainer, $_dSetEscapeTypeContainer,
                 $_dSetEscapePropertiesContainer, $_dSetSpecificTypeContainer, $_dSetSpecificPropertiesContainer]);
     }

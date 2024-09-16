@@ -44,7 +44,7 @@ namespace CFC.Controllers.Prj
                 {
                     Id = obj.Id,
                     Name = obj.Name,
-                    Type = obj.TypeName, //這邊回來的是Type ID
+                    Type = obj.Type, //obj.TypeName, //這邊回來的是Type ID
                     displayOrder = obj.displayOrder,
                     Unit = obj.Unit,
                     CO2 = obj.CO2,
