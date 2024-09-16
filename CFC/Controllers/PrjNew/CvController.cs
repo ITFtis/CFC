@@ -39,15 +39,25 @@ namespace CFC.Controllers.PrjNew
             opts.ctrlFieldAlign = "left";
 
             foreach (var field in opts.fields)
+            {
                 field.visible = false;
+                field.visibleEdit = false;
+            }
 
-            opts.GetFiled("Id").visible = true;
-            opts.GetFiled("FuelType").visible = true;
-            opts.GetFiled("Name").visible = true;
-            opts.GetFiled("Unit").visible = true;
-            opts.GetFiled("CO2").visible = true;
-            opts.GetFiled("CH4").visible = true;
-            opts.GetFiled("NO2").visible = true;
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "FuelType", "Name", "Unit" });
+            
+            //係數option
+            fs.AddRange(new List<string>() { "CO2", "CH4", "NO2" });
+
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
+
             opts.datas = model.GetAll();
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
