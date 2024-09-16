@@ -191,6 +191,15 @@ namespace CFC.Controllers.CFC
             return Json(factoryProperties);
         }
 
+        [HttpPost]
+        public JsonResult GetCompanyProperties(string CompanyUniformNumber)
+        {
+            var CompanyProperties = DateViewController.All_SYS_COMPANY_properties.FirstOrDefault(e => e.COMP_UNIFORM_NUMBER.Equals(CompanyUniformNumber));
+
+            // 將資料轉換為 JSON 格式返回前端
+            return Json(CompanyProperties);
+        }
+
 
 
         // 新增用戶
@@ -227,25 +236,24 @@ namespace CFC.Controllers.CFC
             if (user.PhoneNumber == null || user.PhoneNumber.Trim() == "")
                 errorMes.Append("請填寫聯絡電話<br/>");
 
-            if (user.IndustrialAreaId == null || user.IndustrialAreaId.Trim() == "")
-                errorMes.Append("請填寫聯絡人職稱<br/>");
+            //if (user.IndustrialAreaId == null || user.IndustrialAreaId.Trim() == "")
+            //    errorMes.Append("請填寫聯絡人職稱<br/>");
 
-            if (user.CountyId == null || user.CountyId.Trim() == "")
-                errorMes.Append("請填寫公司地址<br/>");
+            //if (user.CountyId == null || user.CountyId.Trim() == "")
+            //    errorMes.Append("請填寫公司地址<br/>");
 
-            if (user.Email == null || user.Email.Trim() == "")
-                errorMes.Append("請填寫聯絡Email<br/>");
+            //if (user.Email == null || user.Email.Trim() == "")
+            //    errorMes.Append("請填寫聯絡Email<br/>");
 
-            if (user.IndustryId == null || user.IndustryId.Trim() == "")
-                errorMes.Append("請填寫帳號資料<br/>");
+            //if (user.IndustryId == null || user.IndustryId.Trim() == "")
+            //    errorMes.Append("請填寫帳號資料<br/>");
 
-            else if (user.IndustryId.Length != 8)
-                errorMes.Append("工商登記編號有問題<br/>");
+            //if (user.IndustryId.Length != 8)
+            //    errorMes.Append("工商登記編號有問題<br/>");
 
             // 任何有錯誤都拋出去
             if (errorMes.Length != 0)
                 return Json(new { success = false, desc = errorMes.ToString(), JsonRequestBehavior.AllowGet });
-
             // 紀錄一筆資訊
             else
             {
@@ -259,24 +267,60 @@ namespace CFC.Controllers.CFC
                     if (factoryProperties == null)
                     {
                         this.db.SysFactory.Add(cFactory);
-
                     }
                     else
                     {
                         var f = this.db.SysFactory.Where(a => a.FACTORY_REGISTRATION == factoryProperties.FACTORY_REGISTRATION).First();
-                        f.FACTORY_NAME = "11122";
+                        f.FACTORY_NAME = cFactory.FACTORY_NAME;
+                        f.FACTORY_CITY = cFactory.FACTORY_CITY;
+                        f.FACTORY_DISTRICT = cFactory.FACTORY_DISTRICT; ;
+                        f.FACTORY_ADDRESS = cFactory.FACTORY_ADDRESS;
+                        f.FACTORY_INDUSTRIAL = cFactory.FACTORY_INDUSTRIAL;
+                        f.FACTORY_INDUSTRIAL_AREA = f.FACTORY_INDUSTRIAL_AREA;
+                        f.UDate = DateTime.Now.ToString("yyyymmddhhmmss");
+                        f.UId = cFactory.UId;
                     }
+
+                    //會員與工廠的關聯
+                    G_USER_FACTORY uf = new G_USER_FACTORY();
+                    uf.USER_ID = user.Id;
+                    uf.FACTORY_REGISTRATION = cFactory.FACTORY_REGISTRATION;
+                    uf.BDate = cFactory.BDate;
+                    uf.BId = cFactory.BId;
+                    this.db.UserFactory.Add(uf);
+
                     //console.log(factories[i].FACTORY_NAME); // 取出工廠名稱
                     //console.log(factories[i].FACTORY_REGISTRATION); // 取出工廠登記證
                     //console.log(factories[i].FACTORY_CITY); // 取出工廠所在縣市
-                                                            // ...繼續取出其他欄位
+                    // ...繼續取出其他欄位
                 }
 
-
-
                 this.db.userPropertiesAdvance.Add(user);
-                
-                this.db.SaveChanges();
+
+                try
+                {
+                    this.db.SaveChanges();
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+                {
+                    foreach (var validationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Console.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                        }
+                    }
+                    throw; // 可選：重新拋出異常以便進一步處理
+                }
+
+                //for (int i = 0; i < user.FactoryList.Count; i++)
+                //{
+                //    SYS_FACTORY cFactory = (SYS_FACTORY)(user.FactoryList[i]);
+
+
+
+                //}
+                //this.db.SaveChanges();
 
                 // 然後登入
                 return Json(new { success = true, desc = "新增成功，請重新登入", JsonRequestBehavior.AllowGet });

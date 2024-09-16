@@ -58,8 +58,14 @@ namespace CFC.Models
 
         public virtual DbSet<SYS_FACTORY> SysFactory { get; set; } //工廠
 
+        public virtual DbSet<G_USER_FACTORY> UserFactory { get; set; } //會員跟工廠的關聯
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {              
+        {
+            // 定義組合鍵 USER_ID 和 FACTORY_REGISTRATION
+            modelBuilder.Entity<G_USER_FACTORY>()
+                .HasKey(uf => new { uf.USER_ID, uf.FACTORY_REGISTRATION });
+
 
             // 類別1 燃料
             modelBuilder.Entity<Fuel_properties>()

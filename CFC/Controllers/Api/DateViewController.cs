@@ -163,6 +163,19 @@ namespace CFC.Controllers.Api
             }
         }
 
+        internal static IEnumerable<SYS_COMPANY> All_SYS_COMPANY_properties
+        {
+            get
+            {
+                IEnumerable<SYS_COMPANY> datas = DouHelper.Misc.GetCache<IEnumerable<SYS_COMPANY>>(5 * 1000); //先不cache
+                if (datas == null)
+                {
+                    datas = new SYS_COMPANYController().GetAllData();
+                }
+                return datas;
+            }
+        }
+
         #endregion
 
         #region 計算資料

@@ -74,14 +74,14 @@
                         <span class="mustInfo">*</span>設定密碼
                     </div>
                     <!--<div class="col-sm-6 col-12"><input type="text" pattern="[A-Za-z0-9]+" id="Pass" title="Pass" /></div> -->
-                    <div class="col-sm-6 col-12"><input type="text" id="Pass" title="Pass" /></div>
+                    <div class="col-sm-6 col-12"><input type="password" id="Pass" title="Pass" /></div>
                 </div>
 
                 <div class="row input">
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>統一編號
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" title="UniformNumber" /></div>
+                    <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" title="UniformNumber" onchange="getCompanyInfoDB()"/></div>
                 </div>
                 <div class="row input">
                     <div class="col-sm-6 col-12">
@@ -438,6 +438,43 @@
             //    document.getElementById(`factoryPark${factoryIndex}`).value = sFactory.factoryPark;
             //    document.getElementById(`factoryIndustry${factoryIndex}`).value = sFactory.factoryIndustry;
             //}
+
+        }
+
+
+        //找公司資料
+        function getCompanyInfoDB() {
+            const userCompanyUniformNumber = document.getElementById(`UniformNumber`).value;
+
+            var s = '';
+
+            fetch(window.siteroot + "CFC/GetCompanyProperties", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ CompanyUniformNumber: userCompanyUniformNumber }) // 替換為公司統一編號
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json(); // 解析 JSON 格式的回應
+                })
+                .then(data => {
+                    // 處理返回的資料
+                    console.log(data);
+                    // 在這裡可以進一步處理資料，例如更新頁面上的內容
+                    // 例如：
+                    document.getElementById(`Name`).value = data.COMP_NAME;
+                    document.getElementById(`CompanySize`).value = data.COMP_SIZE;
+
+                    
+
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
 
         }
 

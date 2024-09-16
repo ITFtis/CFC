@@ -228,6 +228,7 @@
     <Compile Include="Controllers\Prj\FuelPropertiesController.cs" />
     <Compile Include="Controllers\Prj\RefrigerantEquipController.cs" />
     <Compile Include="Controllers\Prj\RefrigerantTypeController.cs" />
+    <Compile Include="Controllers\Prj\SYS_COMPANYController.cs" />
     <Compile Include="Controllers\Prj\SYS_FACTORYController.cs" />
     <Compile Include="Controllers\Prj\UserPropertiesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -248,6 +249,7 @@
     <Compile Include="Models\Manager\User.cs" />
     <Compile Include="Models\Prj\Elec_properties.cs" />
     <Compile Include="Models\Prj\Fuel_volume.cs" />
+    <Compile Include="Models\Prj\G_USER_FACTORY.cs" />
     <Compile Include="Models\Prj\Refrigerant_value.cs" />
     <Compile Include="Models\Prj\Refrigerant_volume.cs" />
     <Compile Include="Models\Prj\Global_IndustrialArea.cs" />
