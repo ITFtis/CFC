@@ -20,6 +20,19 @@ namespace CFC.Models.Prj
     /// </summary>
     public partial class Fuel_properties
     {
+        public Fuel_properties()
+        {
+            GCO2R4 = 0;
+            GCH4R4 = 0;
+            GNO2R4 = 0;
+            GCO2R5 = 0;
+            GCH4R5 = 0;
+            GNO2R5 = 0;
+            GCO2R6 = 0;
+            GCH4R6 = 0;
+            GNO2R6 = 0;
+        }
+
         /// <summary>
         /// 編號
         /// </summary>
