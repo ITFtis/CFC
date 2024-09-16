@@ -64,43 +64,43 @@ namespace CFC.Controllers.PrjNew
             return Content(jstr, "application/json");
         }
 
-        /////// <summary>
-        /////// (類別一)冷媒設備
-        /////// </summary>
-        /////// <returns></returns>
-        ////public virtual ActionResult GetTabRefrigerantEquipList()
-        ////{
-        ////    Dou.Models.DB.IModelEntity<Refrigerant_equip> model = new Dou.Models.DB.ModelEntity<Refrigerant_equip>(new DouModelContext());
+        /// <summary>
+        /// (類別一)冷媒種類
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabRefrigerantTypeList()
+        {
+            Dou.Models.DB.IModelEntity<Refrigerant_type> model = new Dou.Models.DB.ModelEntity<Refrigerant_type>(new DouModelContext());
 
-        ////    var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Refrigerant_equip>();
-        ////    opts.ctrlFieldAlign = "left";
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Refrigerant_type>();
+            opts.ctrlFieldAlign = "left";
 
-        ////    foreach (var field in opts.fields)
-        ////    {
-        ////        field.visible = false;
-        ////        field.visibleEdit = false;
-        ////    }
+            foreach (var field in opts.fields)
+            {
+                field.visible = false;
+                field.visibleEdit = false;
+            }
 
-        ////    //欄位控制
-        ////    List<string> fs = new List<string>();
-        ////    fs.AddRange(new List<string>() { "Id", "Name", "EscapeRate", "displayOrder" });
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Name", "displayOrder" });
 
-        ////    //GWP option
-        ////    fs.AddRange(new List<string>() { "MinValue", "MaxValue" });
+            //GWP option
+            fs.AddRange(new List<string>() { "GWP", "GWP_AR5", "GWP_AR6" });
 
-        ////    //set
-        ////    foreach (var str in fs)
-        ////    {
-        ////        opts.GetFiled(str).visible = true;
-        ////        opts.GetFiled(str).visibleEdit = true;
-        ////    }
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
 
-        ////    opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
-        ////    var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-        ////    jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
-        ////    return Content(jstr, "application/json");
-        ////}
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
 
         /////// <summary>
         /////// (類別一)逸散種類

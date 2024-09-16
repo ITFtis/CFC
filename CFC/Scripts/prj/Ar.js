@@ -38,7 +38,7 @@
         var $_oform = $("#_tabs");
 
         $_dFuelContainer = $('<table>').appendTo($_oform.parent());
-        $_dRefrigerantEquipContainer = $('<table>').appendTo($_oform.parent());
+        $_dRefrigerantTypeContainer = $('<table>').appendTo($_oform.parent());
         $_dSetEscapeTypeContainer = $('<table>').appendTo($_oform.parent());
         $_dSetEscapePropertiesContainer = $('<table>').appendTo($_oform.parent());
         $_dSetSpecificTypeContainer = $('<table>').appendTo($_oform.parent());
@@ -48,8 +48,8 @@
         //1-n 燃料計算
         SetFuel();
 
-        //1-n 冷媒設備
-        SetRefrigerantEquip();
+        //1-n 冷媒種類
+        SetRefrigerantType();
 
         //1-n 逸散種類
         SetEscapeType();
@@ -64,9 +64,9 @@
         SetSpecificProperties();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_1", "tabPanel",
-            ['燃料計算', '冷媒設備', '逸散種類',
+            ['燃料計算', '冷媒種類', '逸散種類',
                 '逸散氣體', '製程種類', '製程原料'],
-            [$_dFuelContainer, $_dRefrigerantEquipContainer, $_dSetEscapeTypeContainer,
+            [$_dFuelContainer, $_dRefrigerantTypeContainer, $_dSetEscapeTypeContainer,
                 $_dSetEscapePropertiesContainer, $_dSetSpecificTypeContainer, $_dSetSpecificPropertiesContainer]);
     }
 
@@ -128,9 +128,9 @@
     };
 
     //冷媒設備
-    function SetRefrigerantEquip() {
+    function SetRefrigerantType() {
 
-        $.getJSON(window.siteroot + 'Ar/GetTabRefrigerantEquipList', function (_opt) { //取model option
+        $.getJSON(window.siteroot + 'Ar/GetTabRefrigerantTypeList', function (_opt) { //取model option
 
             _opt.title = '冷媒設備';
 
@@ -139,19 +139,19 @@
             _opt.editformSize = { minWidth: 700 };
 
             _opt.addServerData = function (row, callback) {
-                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantEquip/Add', callback);
+                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantType/Add', callback);
             };
 
             _opt.updateServerData = function (row, callback) {
-                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantEquip/Update', callback);
+                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantType/Update', callback);
             };
 
             _opt.deleteServerData = function (row, callback) {
-                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantEquip/Delete', callback);
+                transactionDouClientDataToServer(row, window.siteroot + 'RefrigerantType/Delete', callback);
             };
 
             //實體Dou js
-            $_dRefrigerantEquipContainer.DouEditableTable(_opt);
+            $_dRefrigerantTypeContainer.DouEditableTable(_opt);
         });
     };
 
