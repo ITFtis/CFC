@@ -181,10 +181,34 @@ namespace CFC.Controllers.CFC
             return PartialView("Index", new User_Properties_Advance());
         }
 
+
+        [HttpPost]
+        public JsonResult GetFactoryProperties(string FactoryRegistration)
+        {
+            var factoryProperties = DateViewController.All_SYS_FACTORY_properties.FirstOrDefault(e => e.FACTORY_REGISTRATION.Equals(FactoryRegistration));
+
+            // 將資料轉換為 JSON 格式返回前端
+            return Json(factoryProperties);
+        }
+
+
+
         // 新增用戶
         [HttpPost]
         public ActionResult CreateUser(User_Properties_Advance user)
         {
+            for (int i = 0; i < user.FactoryList.Count; i++)
+            {
+                SYS_FACTORY cFactory = (SYS_FACTORY)(user.FactoryList[i]);
+                this.db.SysFactory.Add(cFactory);
+                this.db.SaveChanges();
+                //console.log(factories[i].FACTORY_NAME); // 取出工廠名稱
+                //console.log(factories[i].FACTORY_REGISTRATION); // 取出工廠登記證
+                //console.log(factories[i].FACTORY_CITY); // 取出工廠所在縣市
+                // ...繼續取出其他欄位
+            }
+
+
             StringBuilder errorMes = new StringBuilder();
             if (user.Id == null || user.Id.Trim() == "")
                 errorMes.Append("請填寫帳號資料<br/>");
@@ -225,7 +249,33 @@ namespace CFC.Controllers.CFC
             // 紀錄一筆資訊
             else
             {
+                //這裡要先存FACTORY
+                //先判斷該登記證，若不存在, 就新增一筆, 若存在, 就更新
+                //var factoryProperties = DateViewController.All_SYS_FACTORY_properties.FirstOrDefault(e => e.FACTORY_REGISTRATION.Equals(FactoryRegistration));
+                for (int i = 0; i < user.FactoryList.Count; i++)
+                {
+                    SYS_FACTORY cFactory = (SYS_FACTORY)(user.FactoryList[i]);
+                    var factoryProperties = DateViewController.All_SYS_FACTORY_properties.FirstOrDefault(e => e.FACTORY_REGISTRATION.Equals(cFactory.FACTORY_REGISTRATION));
+                    if (factoryProperties == null)
+                    {
+                        this.db.SysFactory.Add(cFactory);
+
+                    }
+                    else
+                    {
+                        var f = this.db.SysFactory.Where(a => a.FACTORY_REGISTRATION == factoryProperties.FACTORY_REGISTRATION).First();
+                        f.FACTORY_NAME = "11122";
+                    }
+                    //console.log(factories[i].FACTORY_NAME); // 取出工廠名稱
+                    //console.log(factories[i].FACTORY_REGISTRATION); // 取出工廠登記證
+                    //console.log(factories[i].FACTORY_CITY); // 取出工廠所在縣市
+                                                            // ...繼續取出其他欄位
+                }
+
+
+
                 this.db.userPropertiesAdvance.Add(user);
+                
                 this.db.SaveChanges();
 
                 // 然後登入

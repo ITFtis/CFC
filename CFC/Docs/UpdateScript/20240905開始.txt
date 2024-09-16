@@ -79,3 +79,169 @@ CREATE TABLE [dbo].[User_Properties_Advance_Detail] (
     [CreateTime] DATETIME DEFAULT GETDATE(),
 	[CreateUserId] VARCHAR(100) NOT NULL
 );
+------------------
+CREATE TABLE [dbo].[SYS_COMPANY](
+	[COMP_ID] [int] IDENTITY(1,1) NOT NULL,
+	[COMP_NAME] [nvarchar](100) NOT NULL,
+	[COMP_UNIFORM_Number] [nvarchar](20) NOT NULL,
+	[COMP_SIZE] [nvarchar](50) NOT NULL,
+	[CREATE_TIME] [datetime] NOT NULL,
+	[CREATE_USERID] [nvarchar](50) NULL,
+	[UPDATE_TIME] [datetime] NULL,
+	[UPDATE_USERID] [nvarchar](50) NULL,
+ CONSTRAINT [PK__SYS_COMP__6065E2B2C4CA55AE] PRIMARY KEY CLUSTERED 
+(
+	[COMP_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[SYS_COMPANY] ADD  CONSTRAINT [DF__SYS_COMPA__CREAT__0A338187]  DEFAULT (getdate()) FOR [CREATE_TIME]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'自動遞增的主鍵' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_ID'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'公司名稱' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_NAME'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'統一編號' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_UNIFORM_Number'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'企業規模' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_SIZE'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'自動寫入建立時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'CREATE_TIME'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'建立的人員' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'CREATE_USERID'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改的時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'UPDATE_TIME'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改的人員' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'UPDATE_USERID'
+GO
+--------------------
+
+-- 建立 SYS_FACTORY 表格
+CREATE TABLE SYS_FACTORY (
+    FACTORY_ID INT IDENTITY(1,1) PRIMARY KEY,  -- 自動遞增的主鍵
+    FACTORY_NAME NVARCHAR(100) NOT NULL,       -- 工廠名稱
+    FACTORY_REGISTRATION NVARCHAR(50) NOT NULL, -- 登記證
+    FACTORY_CITY NVARCHAR(50) NOT NULL,        -- 地址縣市
+    FACTORY_DISTRICT NVARCHAR(50) NOT NULL,    -- 地址鄉鎮市區
+    FACTORY_ADDRESS NVARCHAR(200) NOT NULL,    -- 地址詳細地址
+    FACTORY_AREA NVARCHAR(100),                -- 工業區
+    FACTORY_TYPE NVARCHAR(100),                -- 產業別
+    CREATE_TIME DATETIME DEFAULT GETDATE(),    -- 自動寫入建立時間
+    CREATE_USERID NVARCHAR(50) NOT NULL,       -- 建立的人員
+    UPDATE_TIME DATETIME,                      -- 修改的時間
+    UPDATE_USERID NVARCHAR(50)                 -- 修改的人員
+);
+
+-- 為每個欄位添加註解
+-- 表格註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'工廠資料表', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY';
+
+-- FACTORY_ID 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'主鍵，自動遞增的工廠編號', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'FACTORY_ID';
+
+-- FACTORY_NAME 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'工廠名稱', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'FACTORY_NAME';
+
+-- FACTORY_REGISTRATION 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'登記證號碼', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'FACTORY_REGISTRATION';
+
+-- FACTORY_CITY 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'工廠地址所在的縣市', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'FACTORY_CITY';
+
+-- FACTORY_DISTRICT 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'工廠地址所在的鄉鎮市區', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'FACTORY_DISTRICT';
+
+-- FACTORY_ADDRESS 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'工廠地址詳細地址', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'FACTORY_ADDRESS';
+
+-- FACTORY_AREA 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'工廠所在的工業區', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'FACTORY_AREA';
+
+-- FACTORY_TYPE 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'工廠的產業類型', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'FACTORY_TYPE';
+
+-- CREATE_TIME 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'建立時間，自動寫入當前時間', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'CREATE_TIME';
+
+-- CREATE_USERID 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'建立該工廠資料的使用者 ID', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'CREATE_USERID';
+
+-- UPDATE_TIME 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'修改該工廠資料的時間', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'UPDATE_TIME';
+
+-- UPDATE_USERID 註解
+EXEC sp_addextendedproperty 
+    @name = N'MS_Description', 
+    @value = N'修改該工廠資料的使用者 ID', 
+    @level0type = N'SCHEMA', @level0name = N'dbo', 
+    @level1type = N'TABLE',  @level1name = N'SYS_FACTORY', 
+    @level2type = N'COLUMN', @level2name = N'UPDATE_USERID';
+--------------------------------
+

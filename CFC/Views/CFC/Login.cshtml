@@ -78,108 +78,179 @@
                 </div>
 
                 <div class="row input">
-                    <div class="col-sm-6 col-12">選項</div>
-                        <div class="col-sm-6 col-12">
-                            <label>
-                                <input type="radio" id="radio_manu" name="option" value="option1" checked>
-                                製造業　　
-                            </label>
-
-                            <label>
-                                <input type="radio" id="radio_not_manu" name="option" value="option1">
-                                非製造業
-                            </label>
-                        </div>
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>統一編號
                     </div>
-
-
-                    <div class="row input">
-                        <div class="col-sm-6 col-12">
-                            <span class="mustInfo">*</span>統一編號
-                        </div>
-                        <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" title="UniformNumber" /></div>
-                    </div>
-                    <div class="row input">
-                        <div class="col-sm-6 col-12">
-                            <span class="mustInfo">*</span>公司全稱
-                        </div>
-                        <div class="col-sm-6 col-12"><input type="text" id="Name" title="Name" /></div>
-                    </div>
-                    <div class="row input">
-                        <div class="col-sm-6 col-12">
-                            <span class="mustInfo">*</span>工廠登記證
-                        </div>
-                        <div class="col-sm-6 col-12"><input type="text" id="IndustryId" title="IndustryId" /></div>
-                    </div>
-                    <div class="row input">
-                        <div class="col-sm-6 col-12">
-                            <span class="mustInfo">*</span>工廠縣市別
-                        </div>
-                        <div class="col-sm-6 col-12 d-flex justify-content-end">
-                            <!--by Ivan, add title="CountryId"-->
-                            <select id="CountyId" class="w100" title="CountyId">@getSelections((IEnumerable<CFC.Models.Prj.Global_City>)ViewBag.City)</select>
-                        </div>
-                    </div>
-                    <div class="row input">
-                        <div class="col-sm-6 col-12 d-flex justify-content-end">
-                            <span class="mustInfo">*</span>廠區
-                        </div>
-                        <div class="col-sm-6 col-12 d-flex justify-content-end">
-                            <select id="IndustrialAreaId" class="w100" title="IndustrialAreaId">@getSelections((IEnumerable<CFC.Models.Prj.Global_IndustrialArea>)ViewBag.IndustrialArea)</select>
-                        </div>
-                    </div>
-
-                    <div class="row input">
-                        <div class="col-sm-6 col-12">
-                            <span class="mustInfo">*</span>行業別
-                        </div>
-                        <div class="col-sm-6 col-12 d-flex justify-content-end">
-                            <select id="IndustrialTypeId" class="w100" title="IndustrialTypeId">@getSelections((IEnumerable<CFC.Models.Prj.Global_Industrial>)ViewBag.IndustrailTypes)</select>
-                        </div>
-                    </div>
-                    <div class="row input">
-                        <div class="col-sm-6 col-12">
-                            <span class="mustInfo">*</span>企業規模
-                        </div>
-                        <div class="col-sm-6 col-12 d-flex justify-content-end">
-                            <select id="CompanySize" class="w100" title="CompanySize">
-                                <option value="中小企業">中小企業</option>
-                                <option value="大企業">大企業</option>
-                            </select>
-                            <br />
-                        </div>
-                    </div>
-                    <div class="row d-flex justify-content-end text-right">
-                        <div class="col-2"></div>
-                        <div class="col-10">
-                            <span class="notice-info">本標準所稱中小企業，為中華民國境內依法辦理公司登記或商業登記，實收資本額在新台幣一億元以下，或經常僱用員工數未滿二百人之事業。</span>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row input">
-                        <div class="col-sm-6 col-12">
-                            <span class="mustInfo">*</span>聯絡人
-                        </div>
-                        <div class="col-sm-6 col-12"><input type="text" id="Contact" title="Contact" /></div>
-                    </div>
-                    <div class="row input">
-                        <div class="col-sm-6 col-12">
-                            <span class="mustInfo">*</span>連絡人電話
-                        </div>
-                        <div class="col-sm-6 col-12"><input type="text" id="PhoneNumber" title="=PhoneNumber" /></div>
-                    </div>
-                    <div class="row input">
-                        <div class="col-sm-6 col-12">
-                            <span class="mustInfo">*</span>E-MAIL
-                        </div>
-                        <div class="col-sm-6 col-12"><input type="text" id="Email" title="Email" /></div>
-                    </div>
-
-
+                    <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" title="UniformNumber" /></div>
                 </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>單位名稱
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Name" title="Name" /></div>
+                </div>
+
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>企業規模
+                    </div>
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">
+                        <!--<select id="CompanySize" class="w100" title="CompanySize">-->
+                        <select id="CompanySize" style="width: 190px;" title="CompanySize">
+                            <option value="中小企業">中小企業</option>
+                            <option value="大企業">大企業</option>
+                        </select>
+                        <br />
+                    </div>
+                </div>
+
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>聯絡人
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Contact" title="Contact" /></div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>職稱
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Position" title="Position" /></div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>連絡人電話
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="PhoneNumber" title="=PhoneNumber" /></div>
+                </div>
+                <div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>E-MAIL
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Email" title="Email" /></div>
+                </div>
+
+                <div class="col-10">
+                    <span class="notice-info">本標準所稱中小企業，為中華民國境內依法辦理公司登記或商業登記，實收資本額在新台幣一億元以下，或經常僱用員工數未滿二百人之事業。</span>
+                </div>
+
+                <div class="row input">
+                    <div class="col-sm-6 col-12">行業別</div>
+                    <div class="col-sm-6 col-12">
+                        <label>
+                            <input type="radio" id="radio_manu" name="option" value="option1" checked>
+                            製造業　　
+                        </label>
+
+                        <label>
+                            <input type="radio" id="radio_not_manu" name="option" value="option1">
+                            非製造業
+                        </label>
+                    </div>
+                </div>
+
+                <div id="Manufacturing" style="display: initial;">
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>工廠數量
+                        </div>
+                        <div class="col-sm-6 col-12">
+                            <input type="number" min="0" pattern="[0-9]+" id="FactoryNum" title="FactoryNum" contextmenu="1"/>
+                            <button id="btnCreateFactory" onclick="generateForm()">產生工廠清單</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="factoriesForm">
+                    
+                </div>
+
+                @*<div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>統一編號
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" title="UniformNumber" /></div>
+                </div>*@
+                @*<div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>公司全稱
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Name" title="Name" /></div>
+                </div>*@
+                @*<div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>工廠登記證
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="IndustryId" title="IndustryId" /></div>
+                </div>*@
+                <!--<div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>工廠縣市別
+                    </div>
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">-->
+                        <!--by Ivan, add title="CountryId"-->
+                        <!--<select id="CountyId" class="w100" title="CountyId">@getSelections((IEnumerable<CFC.Models.Prj.Global_City>)ViewBag.City)</select>
+                    </div>
+                </div>-->
+                @*<div class="row input">
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">
+                        <span class="mustInfo">*</span>廠區
+                    </div>
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">
+                        <select id="IndustrialAreaId" class="w100" title="IndustrialAreaId">@getSelections((IEnumerable<CFC.Models.Prj.Global_IndustrialArea>)ViewBag.IndustrialArea)</select>
+                    </div>
+                </div>*@
+
+                @*<div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>行業別
+                    </div>
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">
+                        <select id="IndustrialTypeId" class="w100" title="IndustrialTypeId">@getSelections((IEnumerable<CFC.Models.Prj.Global_Industrial>)ViewBag.IndustrailTypes)</select>
+                    </div>
+                </div>*@
+                @*<div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>企業規模
+                    </div>
+                    <div class="col-sm-6 col-12 d-flex justify-content-end">
+                        <select id="CompanySize" class="w100" title="CompanySize">
+                            <option value="中小企業">中小企業</option>
+                            <option value="大企業">大企業</option>
+                        </select>
+                        <br />
+                    </div>
+                </div>*@
+                @*<div class="row d-flex justify-content-end text-right">
+                    <div class="col-2"></div>
+                    <div class="col-10">
+                        <span class="notice-info">本標準所稱中小企業，為中華民國境內依法辦理公司登記或商業登記，實收資本額在新台幣一億元以下，或經常僱用員工數未滿二百人之事業。</span>
+                    </div>
+                </div>*@
+                <br />
+                @*<div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>聯絡人
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Contact" title="Contact" /></div>
+                </div>*@
+                @*<div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>連絡人電話
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="PhoneNumber" title="=PhoneNumber" /></div>
+                </div>*@
+                @*<div class="row input">
+                    <div class="col-sm-6 col-12">
+                        <span class="mustInfo">*</span>E-MAIL
+                    </div>
+                    <div class="col-sm-6 col-12"><input type="text" id="Email" title="Email" /></div>
+                </div>*@
+
+
+            </div>
             <div class="modal-footer">
                 <!--by Ivan, 20240827 因Freego偵查，註解-->
-                <!--<h5 class="mustInfo" id="errorMes"></h5>-->
+                <h5 class="mustInfo" id="errorMes"></h5>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
                 <button type="button" class="btn btn-primary">申請帳號</button>
             </div>
@@ -200,8 +271,7 @@
             </div>
         </footer>
     </div>
-</body>
-<script>
+    <script>
 
     /*
     document.getElementById('Id').addEventListener('input', function (event)
@@ -215,9 +285,296 @@
     });
     */
 
+    // 台灣縣市與鄉鎮市區的資料
+        const taiwanCities = {
+            "台北市": ["中正區", "大同區", "中山區", "松山區", "大安區", "萬華區", "信義區", "士林區", "北投區", "內湖區", "南港區", "文山區"],
+            "新北市": ["板橋區", "新莊區", "中和區", "永和區", "土城區", "樹林區", "三峽區", "鶯歌區", "三重區", "蘆洲區", "五股區", "泰山區", "林口區", "八里區", "淡水區", "三芝區", "石門區", "金山區", "萬里區", "汐止區", "瑞芳區", "貢寮區", "平溪區", "雙溪區", "深坑區", "石碇區", "新店區", "坪林區", "烏來區"],
+            "桃園市": ["中壢區", "平鎮區", "龍潭區", "楊梅區", "新屋區", "觀音區", "桃園區", "龜山區", "八德區", "大溪區", "復興區", "大園區", "蘆竹區"],
+            "台中市": ["中區", "東區", "南區", "西區", "北區", "西屯區", "南屯區", "北屯區", "豐原區", "東勢區", "大甲區", "清水區", "沙鹿區", "梧棲區", "后里區", "神岡區", "潭子區", "大雅區", "新社區", "石岡區", "外埔區", "大安區", "烏日區", "大肚區", "龍井區", "霧峰區", "太平區", "大里區", "和平區"],
+            "台南市": ["中西區", "東區", "南區", "北區", "安平區", "安南區", "永康區", "歸仁區", "新化區", "左鎮區", "玉井區", "楠西區", "南化區", "仁德區", "關廟區", "龍崎區", "官田區", "麻豆區", "佳里區", "西港區", "七股區", "將軍區", "學甲區", "北門區", "新營區", "後壁區", "白河區", "東山區", "六甲區", "下營區", "柳營區", "鹽水區", "善化區", "大內區", "山上區", "安定區"],
+            "高雄市": ["楠梓區", "左營區", "鼓山區", "三民區", "鹽埕區", "前金區", "苓雅區", "新興區", "前鎮區", "旗津區", "小港區", "鳳山區", "林園區", "大寮區", "大樹區", "大社區", "仁武區", "鳥松區", "岡山區", "橋頭區", "燕巢區", "田寮區", "阿蓮區", "路竹區", "湖內區", "茄萣區", "永安區", "彌陀區", "梓官區", "旗山區", "美濃區", "六龜區", "甲仙區", "杉林區", "內門區", "茂林區", "桃源區", "那瑪夏區"],
+            "基隆市": ["中正區", "七堵區", "暖暖區", "仁愛區", "中山區", "安樂區", "信義區"],
+            "新竹市": ["東區", "北區", "香山區"],
+            "新竹縣": ["竹北市", "湖口鄉", "新豐鄉", "新埔鎮", "關西鎮", "芎林鄉", "寶山鄉", "竹東鎮", "五峰鄉", "橫山鄉", "尖石鄉", "北埔鄉", "峨眉鄉"],
+            "苗栗縣": ["苗栗市", "苑裡鎮", "通霄鎮", "竹南鎮", "頭份市", "後龍鎮", "卓蘭鎮", "大湖鄉", "公館鄉", "銅鑼鄉", "南庄鄉", "頭屋鄉", "三義鄉", "西湖鄉", "造橋鄉", "三灣鄉", "獅潭鄉", "泰安鄉"],
+            "彰化縣": ["彰化市", "鹿港鎮", "和美鎮", "線西鄉", "伸港鄉", "福興鄉", "秀水鄉", "花壇鄉", "芬園鄉", "員林市", "溪湖鎮", "田中鎮", "大村鄉", "埔鹽鄉", "埔心鄉", "永靖鄉", "社頭鄉", "二水鄉", "田尾鄉", "埤頭鄉", "芳苑鄉", "二林鎮", "大城鄉", "竹塘鄉", "溪州鄉"],
+            "南投縣": ["南投市", "埔里鎮", "草屯鎮", "竹山鎮", "集集鎮", "名間鄉", "鹿谷鄉", "中寮鄉", "魚池鄉", "國姓鄉", "水里鄉", "信義鄉", "仁愛鄉"],
+            "雲林縣": ["斗六市", "斗南鎮", "虎尾鎮", "西螺鎮", "土庫鎮", "北港鎮", "古坑鄉", "大埤鄉", "莿桐鄉", "林內鄉", "二崙鄉", "崙背鄉", "麥寮鄉", "東勢鄉", "褒忠鄉", "臺西鄉", "元長鄉", "四湖鄉", "口湖鄉", "水林鄉"],
+            "嘉義市": ["東區", "西區"],
+            "嘉義縣": ["太保市", "朴子市", "布袋鎮", "大林鎮", "民雄鄉", "溪口鄉", "新港鄉", "六腳鄉", "東石鄉", "義竹鄉", "鹿草鄉", "水上鄉", "中埔鄉", "竹崎鄉", "梅山鄉", "番路鄉", "大埔鄉", "阿里山鄉"],
+            "屏東縣": ["屏東市", "潮州鎮", "東港鎮", "恆春鎮", "萬丹鄉", "長治鄉", "麟洛鄉", "九如鄉", "里港鄉", "鹽埔鄉", "高樹鄉", "萬巒鄉", "內埔鄉", "竹田鄉", "新埤鄉", "枋寮鄉", "新園鄉", "崁頂鄉", "林邊鄉", "南州鄉", "佳冬鄉", "琉球鄉", "車城鄉", "滿州鄉", "枋山鄉", "三地門鄉", "霧台鄉", "瑪家鄉", "泰武鄉", "來義鄉", "春日鄉", "獅子鄉", "牡丹鄉"],
+            "宜蘭縣": ["宜蘭市", "羅東鎮", "蘇澳鎮", "頭城鎮", "礁溪鄉", "壯圍鄉", "員山鄉", "冬山鄉", "五結鄉", "三星鄉", "大同鄉", "南澳鄉"],
+            "花蓮縣": ["花蓮市", "鳳林鎮", "玉里鎮", "新城鄉", "吉安鄉", "壽豐鄉", "光復鄉", "豐濱鄉", "瑞穗鄉", "富里鄉", "秀林鄉", "萬榮鄉", "卓溪鄉"],
+            "台東縣": ["台東市", "成功鎮", "關山鎮", "卑南鄉", "鹿野鄉", "池上鄉", "東河鄉", "長濱鄉", "太麻里鄉", "大武鄉", "達仁鄉", "綠島鄉", "蘭嶼鄉", "延平鄉", "金峰鄉", "海端鄉"],
+            "澎湖縣": ["馬公市", "湖西鄉", "白沙鄉", "西嶼鄉", "望安鄉", "七美鄉"],
+            "金門縣": ["金城鎮", "金沙鎮", "金湖鎮", "金寧鄉", "烈嶼鄉", "烏坵鄉"],
+            "連江縣": ["南竿鄉", "北竿鄉", "莒光鄉", "東引鄉"]
+        };
+
+
+        function generateForm() {
+
+            
+            const numFactories = document.getElementById('FactoryNum').value;
+            const factoriesForm = document.getElementById('factoriesForm');
+
+            // 清空之前的表單
+            factoriesForm.innerHTML = '';
+
+            if (numFactories <= 0)
+                return;
+
+            // 根據輸入的工廠數量動態生成表單
+            for (let i = 1; i <= numFactories; i++) {
+                // 創建一個div來包裝每個工廠的資料
+
+                
+                const factoryDiv = document.createElement('div');
+                factoryDiv.classList.add('factory');
+                factoryDiv.innerHTML = `
+                        <hr>
+                        <h5>工廠 ${i}</h5>
+                        <span class="mustInfo">*</span><label for="factoryReg${i}">登記證：</label>
+                        <input type="text" id="factoryReg${i}" title="factoryReg${i}" name="factoryReg${i}" onchange="getFactoryInfoDB(${i})" placeholder="輸入工廠登記證">
+
+                        <label for="factoryName${i}">名稱：</label>
+                        <input type="text" id="factoryName${i}" name="factoryName${i}" placeholder="輸入工廠名稱">
+
+                        <label for="factoryAddress${i}">地址：</label>
+
+                        <select id="factoryCity${i}" name="factoryCity${i}" onchange="updateDistricts(${i})">
+                            <option value="">選擇縣市</option>
+                        </select>
+
+                        <select id="factoryDistrict${i}" name="factoryDistrict${i}">
+                            <option value="">請先選擇縣市</option>
+                        </select>
+                        <input type="text" id="factoryAddress${i}" name="factoryAddress${i}" placeholder="地址">
+
+                        <label for="factoryIndustryArea${i}">工業區：</label>
+                        <!--<input type="text" id="factoryPark${i}" name="factoryIndustryArea${i}" placeholder="輸入工業區">   原本ID是IndustrialAreaId-->
+                        <select id="factoryIndustryArea${i}" name="factoryIndustryArea${i}"  title="IndustrialArea">@getSelections((IEnumerable<CFC.Models.Prj.Global_IndustrialArea>)ViewBag.IndustrialArea)</select>
+
+                        <label for="factoryIndustry${i}">產業別：</label>
+                        <!--<input type="text" id="factoryIndustry${i}" name="factoryIndustry${i}" placeholder="輸入產業別"> 原本ID是IndustrialTypeId -->
+                        <select id="factoryIndustry${i}" name="factoryIndustry${i}" title="factoryIndustry">@getSelections((IEnumerable<CFC.Models.Prj.Global_Industrial>)ViewBag.IndustrailTypes)</select>
+                    `;
+
+                // 將創建的工廠div添加到表單中
+                factoriesForm.appendChild(factoryDiv);
+
+                // 在需要時呼叫該函數，例如：
+                removeFirstOption(`factoryIndustry${i}`);
+
+                // 動態填充縣市的選項
+                const citySelect = document.getElementById(`factoryCity${i}`);
+                for (const city in taiwanCities) {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                }
+            }
+        }
+
+        // 移除 select 元件的第一個選項
+        function removeFirstOption(selectId) {
+            const selectElement = document.getElementById(selectId);
+            if (selectElement && selectElement.options.length > 0) {
+                selectElement.remove(0); // 移除第一個選項
+            }
+        }
+
+        //找Factory
+        function getFactoryInfoDB(factoryIndex) {
+            const userFactoryRegistration = document.getElementById(`factoryReg${factoryIndex}`).value;
+            //if (DateViewController.AllUserProperties.FirstOrDefault(e => e.FACTORY_ID.Equals(FactoryRegistration)) != null)
+
+            var s = '';
+
+            fetch(window.siteroot + "CFC/GetFactoryProperties", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ FactoryRegistration: userFactoryRegistration }) // 替換為實際的工廠ID
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok ' + response.statusText);
+                    }
+                    return response.json(); // 解析 JSON 格式的回應
+                })
+                .then(data => {
+                    // 處理返回的資料
+                    console.log(data);
+                    // 在這裡可以進一步處理資料，例如更新頁面上的內容
+                    // 例如：
+                    document.getElementById(`factoryName${factoryIndex}`).value = data.FACTORY_NAME;
+                    document.getElementById(`factoryCity${factoryIndex}`).value = data.FACTORY_CITY;
+
+                    var event = new Event('change');
+                    document.getElementById(`factoryCity${factoryIndex}`).dispatchEvent(event);
+
+                    document.getElementById(`factoryDistrict${factoryIndex}`).value = data.FACTORY_DISTRICT;
+
+                    document.getElementById(`factoryAddress${factoryIndex}`).value = data.FACTORY_ADDRESS;
+                    document.getElementById(`factoryIndustryArea${factoryIndex}`).value = data.FACTORY_INDUSTRIAL_AREA;
+                    document.getElementById(`factoryIndustry${factoryIndex}`).value = data.FACTORY_INDUSTRIAL;
+                    
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+
+            
+
+            //var sFactory = DateViewController.All_SYS_FACTORY_properties
+            //    .FirstOrDefault(e => e.FACTORY_ID.Equals(FactoryRegistration));
+            //if (sFactory != null) {
+            //    document.getElementById(`factoryName${factoryIndex}`).value = sFactory.factoryName;
+            //    document.getElementById(`factoryCity${factoryIndex}`).value = sFactory.factoryCity;
+            //    document.getElementById(`factoryAddress${factoryIndex}`).value = sFactory.factoryAddress;
+            //    document.getElementById(`factoryPark${factoryIndex}`).value = sFactory.factoryPark;
+            //    document.getElementById(`factoryIndustry${factoryIndex}`).value = sFactory.factoryIndustry;
+            //}
+
+        }
+
+
+        // 更新鄉鎮市區選項的函數
+        function updateDistricts(factoryIndex) {
+            const citySelect = document.getElementById(`factoryCity${factoryIndex}`);
+            const districtSelect = document.getElementById(`factoryDistrict${factoryIndex}`);
+            const selectedCity = citySelect.value;
+
+            // 清空現有的鄉鎮市區選項
+            districtSelect.innerHTML = '<option value="">選擇鄉鎮市區</option>';
+
+            // 根據選擇的縣市更新鄉鎮市區
+            if (taiwanCities[selectedCity]) {
+                const districts = taiwanCities[selectedCity];
+                districts.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // 取得radio按鈕和div
+            const radioManu = document.getElementById('radio_manu');
+            const manufacturingDiv = document.getElementById('Manufacturing');
+
+            // 預設隱藏 Manufacturing 的 div
+            manufacturingDiv.style.display = 'initial';
+            factoriesForm.style.display = 'initial';
+
+            // 監聽 radio_manu 的選擇變化
+            document.querySelectorAll('input[name="option"]').forEach(function (radio) {
+                radio.addEventListener('change', function () {
+                    if (radioManu.checked) {
+                        manufacturingDiv.style.display = 'initial'; // 顯示 div
+                        factoriesForm.style.display = 'initial';
+                    } else {
+                        manufacturingDiv.style.display = 'none'; // 隱藏 div
+                        factoriesForm.style.display = 'none';
+                    }
+                });
+            });
+
+            // 初始化時檢查 radio_manu 是否被選中
+            if (radioManu.checked) {
+                manufacturingDiv.style.display = 'initial'; // 如果已選中則顯示
+            } else {
+                manufacturingDiv.style.display = 'none'; // 否則隱藏
+            }
+        });
+
+        document.getElementById('FactoryNum').addEventListener('input', function (event) {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        function getFactory() {
+            //把factory組起來
+            //工廠資訊的陣列
+            //debugger;
+            var factories = [];
+            const numFactories = document.getElementById(`FactoryNum`).value || '0'; //若是空值, 就給0
+            
+
+            // 使用迴圈動態生成多組工廠資料
+            for (let i = 1; i <= numFactories; i++) {
+
+                factoryName = document.getElementById('factoryName' + i.toString()).value; //名稱
+                factoryReg = document.getElementById('factoryReg' + i.toString()).value;  //登記證
+                factoryCity = document.getElementById('factoryCity' + i.toString()).value; //縣市
+                factoryDistrict = document.getElementById('factoryDistrict' + i.toString()).value; //鄉鎮區
+                factoryAddress = document.getElementById('factoryAddress' + i.toString()).value; //地址
+                factoryIndustryArea = document.getElementById('factoryIndustryArea' + i.toString()).value; //工業區
+                factoryIndustry = document.getElementById('factoryIndustry' + i.toString()).value; //產業別
+
+                var fac = {};
+                fac.FACTORY_NAME = factoryName;
+                fac.FACTORY_REGISTRATION = factoryReg;
+                fac.FACTORY_CITY = factoryCity;
+                fac.FACTORY_DISTRICT = factoryDistrict;
+                fac.FACTORY_ADDRESS = factoryAddress;
+                fac.FACTORY_INDUSTRIAL_AREA = factoryIndustryArea;
+                fac.FACTORY_INDUSTRIAL = factoryIndustry;
+
+                let now = new Date();
+                let year = now.getFullYear();
+                let month = (now.getMonth() + 1).toString().padStart(2, '0'); // 月份從 0 開始，+1 後補足兩位
+                let day = now.getDate().toString().padStart(2, '0');
+                let hours = now.getHours().toString().padStart(2, '0'); // 24 小時制
+                let minutes = now.getMinutes().toString().padStart(2, '0');
+                let seconds = now.getSeconds().toString().padStart(2, '0');
+                let formattedDate = `${year}${month}${day}${hours}${minutes}${seconds}`;
+
+                fac.BDate = formattedDate;
+                fac.BId = '';
+                factories.push(fac);
+
+                //// 動態生成工廠資訊
+                //factories.push({
+                //    factoryName: factoryName,
+                //    factoryReg: factoryReg,
+                //    factoryCity: factoryCity,
+                //    factoryDistrict: factoryDistrict,
+                //    factoryAddress: factoryAddress,
+                //    factoryPark: factoryPark,
+                //    factoryIndustry: factoryIndustry
+                //});
+               
+            }
+            //let Jsonfactory = JSON.stringify({ factories }, null, 2);
+            return factories;
+            
+        }
     //檢查內申請內容
     $(".modalView .modal-footer .btn-primary").on("click", function () {
         $("#errorMes").empty();
+
+        //debugger;
+        //let s = getFactory();
+
+        //var aryFac = [];
+
+        //var fac = {};
+        //fac.name = "1";
+        //fac.sid = "01801111";
+        //aryFac.push(fac);
+
+        //var fac2 = {};
+        //fac2.name = "2";
+        //fac2.sid = "01802222";
+        //aryFac.push(fac2);
+
+        // 呼叫函式並接收回傳的陣列
+        const aryFac = getFactory();
 
         fetch(window.siteroot + "CFC/CreateUser", {
             method: "POST",
@@ -236,11 +593,12 @@
                 CompanySize: $("#CompanySize").val(),
                 Contact: $("#Contact").val(),
                 PhoneNumber: $("#PhoneNumber").val(),
-                Email: $("#Email").val()
+                Email: $("#Email").val(),
+                FactoryList: aryFac
             })
         }).then(e => e.json())
             .then(response => {
-                if (response.success) { 
+                if (response.success) {
                     alert(response.desc);
                     $("#accountInput").val($("#account").val());
                     $("#passInput").val($("#pass").val());
@@ -251,10 +609,12 @@
                 }
             });
     });
-    
+
 
     window.siteroot = "@Url.Content("~/")";
-</script>
+    </script>
+</body>
+
 </html>
 
 

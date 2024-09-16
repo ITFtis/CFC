@@ -3,9 +3,11 @@
         log: function () { }
     }
 }
+
 if (jQuery && jQuery.fn.jquery == '1.9.1') {
     alert('不支援使用jquery'+jQuery.fn.jquery+'版本，請更新!!' );//bootstrap-table 1.15.1後版本有問題
 }
+
 String.format = function () {
     // The string containing the format items (e.g. "{0}")
     // will and always has to be the first argument.

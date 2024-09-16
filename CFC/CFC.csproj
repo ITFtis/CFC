@@ -225,6 +225,7 @@
     <Compile Include="Controllers\Prj\FuelPropertiesController.cs" />
     <Compile Include="Controllers\Prj\RefrigerantEquipController.cs" />
     <Compile Include="Controllers\Prj\RefrigerantTypeController.cs" />
+    <Compile Include="Controllers\Prj\SYS_FACTORYController.cs" />
     <Compile Include="Controllers\Prj\UserPropertiesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -259,12 +260,15 @@
     <Compile Include="Models\Prj\Refrigerant_map.cs" />
     <Compile Include="Models\Prj\Escape_type.cs" />
     <Compile Include="Models\Prj\Refrigerant_type.cs" />
+    <Compile Include="Models\Prj\SYS_COMPANY.cs" />
+    <Compile Include="Models\Prj\SYS_FACTORY.cs" />
     <Compile Include="Models\Prj\Type3Mark.cs" />
     <Compile Include="Models\Prj\User_Project_Log.cs" />
     <Compile Include="Models\Prj\User_Input_Advance.cs" />
     <Compile Include="Models\Prj\User_Input.cs" />
     <Compile Include="Models\Prj\User_Properties_Advance.cs" />
     <Compile Include="Models\Prj\User_Properties.cs" />
+    <Compile Include="Models\UserFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="_core\Cm.cs" />

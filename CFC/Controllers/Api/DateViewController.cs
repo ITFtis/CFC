@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Results;
+using System.Web.Mvc;
 
 namespace CFC.Controllers.Api
 {
@@ -146,6 +148,21 @@ namespace CFC.Controllers.Api
                 return datas;
             }
         }
+
+        
+        internal static IEnumerable<SYS_FACTORY> All_SYS_FACTORY_properties
+        {
+            get
+            {
+                IEnumerable<SYS_FACTORY> datas = DouHelper.Misc.GetCache<IEnumerable<SYS_FACTORY>>(5 * 1000); //先不cache
+                if (datas == null)
+                {
+                    datas = new SYS_FACTORYController().GetAllData();
+                }
+                return datas;
+            }
+        }
+
         #endregion
 
         #region 計算資料
