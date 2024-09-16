@@ -102,181 +102,189 @@ namespace CFC.Controllers.PrjNew
             return Content(jstr, "application/json");
         }
 
-        /////// <summary>
-        /////// (類別一)逸散種類
-        /////// </summary>
-        /////// <returns></returns>
-        ////public virtual ActionResult GetTabEscapeTypeList()
-        ////{
-        ////    Dou.Models.DB.IModelEntity<Escape_type> model = new Dou.Models.DB.ModelEntity<Escape_type>(new DouModelContext());
+        /// <summary>
+        /// (類別一)逸散種類
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabEscapeTypeList()
+        {
+            Dou.Models.DB.IModelEntity<Escape_type> model = new Dou.Models.DB.ModelEntity<Escape_type>(new DouModelContext());
 
-        ////    var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Escape_type>();
-        ////    opts.ctrlFieldAlign = "left";
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Escape_type>();
+            opts.ctrlFieldAlign = "left";
 
-        ////    foreach (var field in opts.fields)
-        ////    {
-        ////        field.visible = false;
-        ////        field.visibleEdit = false;
-        ////    }
+            foreach (var field in opts.fields)
+            {
+                field.visible = false;
+                field.visibleEdit = false;
+            }
 
-        ////    //欄位控制
-        ////    List<string> fs = new List<string>();
-        ////    fs.AddRange(new List<string>() { "Id", "Name", "displayOrder" });
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Name", "displayOrder" });
 
-        ////    //////GWP option
-        ////    ////fs.AddRange(new List<string>() { });
+            //////GWP option
+            ////fs.AddRange(new List<string>() { });
 
-        ////    //set
-        ////    foreach (var str in fs)
-        ////    {
-        ////        opts.GetFiled(str).visible = true;
-        ////        opts.GetFiled(str).visibleEdit = true;
-        ////    }
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
 
-        ////    opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
-        ////    var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-        ////    jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
-        ////    return Content(jstr, "application/json");
-        ////}
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
 
-        /////// <summary>
-        /////// (類別一)逸散氣體
-        /////// </summary>
-        /////// <returns></returns>
-        ////public virtual ActionResult GetTabEscapePropertiesList()
-        ////{
-        ////    Dou.Models.DB.IModelEntity<Escape_properties> model = new Dou.Models.DB.ModelEntity<Escape_properties>(new DouModelContext());
+        /// <summary>
+        /// (類別一)逸散氣體
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabEscapePropertiesList()
+        {
+            Dou.Models.DB.IModelEntity<Escape_properties> model = new Dou.Models.DB.ModelEntity<Escape_properties>(new DouModelContext());
 
-        ////    var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Escape_properties>();
-        ////    opts.ctrlFieldAlign = "left";
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Escape_properties>();
+            opts.ctrlFieldAlign = "left";
 
-        ////    foreach (var field in opts.fields)
-        ////    {
-        ////        field.visible = false;
-        ////        field.visibleEdit = false;
-        ////    }
+            foreach (var field in opts.fields)
+            {
+                field.visible = false;
+                field.visibleEdit = false;
+            }
 
-        ////    //欄位控制
-        ////    List<string> fs = new List<string>();
-        ////    fs.AddRange(new List<string>() { "Id", "Type", "Name", "Unit", "displayOrder" });
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Type", "Name", "Unit", "displayOrder" });
 
-        ////    //GWP option
-        ////    fs.AddRange(new List<string>() { "CO2", "CH4", "N2O", "HFCs", "PFCs", "SF6", "NF3" });
+            //GWP option
+            fs.AddRange(new List<string>() {
+                "CO2GWP", "CH4GWP", "N2OGWP", "HFCsGWP", "PFCsGWP", "SF6GWP", "NF3GWP",
+                "CO2GWP_AR5", "CH4GWP_AR5", "N2OGWP_AR5", "HFCsGWP_AR5", "PFCsGWP_AR5", "SF6GWP_AR5", "NF3GWP_AR5",
+                "CO2GWP_AR6", "CH4GWP_AR6", "N2OGWP_AR6", "HFCsGWP_AR6", "PFCsGWP_AR6", "SF6GWP_AR6", "NF3GWP_AR6"
+            });
 
-        ////    //set
-        ////    foreach (var str in fs)
-        ////    {
-        ////        opts.GetFiled(str).visible = true;
-        ////        opts.GetFiled(str).visibleEdit = true;
-        ////    }
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
 
-        ////    opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
-        ////    var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-        ////    jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
-        ////    return Content(jstr, "application/json");
-        ////}
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
 
-        /////// <summary>
-        /////// (類別一)製程種類
-        /////// </summary>
-        /////// <returns></returns>
-        ////public virtual ActionResult GetTabSpecificTypeList()
-        ////{
-        ////    Dou.Models.DB.IModelEntity<Specific_type> model = new Dou.Models.DB.ModelEntity<Specific_type>(new DouModelContext());
+        /// <summary>
+        /// (類別一)製程種類
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabSpecificTypeList()
+        {
+            Dou.Models.DB.IModelEntity<Specific_type> model = new Dou.Models.DB.ModelEntity<Specific_type>(new DouModelContext());
 
-        ////    var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Specific_type>();
-        ////    opts.ctrlFieldAlign = "left";
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Specific_type>();
+            opts.ctrlFieldAlign = "left";
 
-        ////    foreach (var field in opts.fields)
-        ////    {
-        ////        field.visible = false;
-        ////        field.visibleEdit = false;
-        ////    }
+            foreach (var field in opts.fields)
+            {
+                field.visible = false;
+                field.visibleEdit = false;
+            }
 
-        ////    //欄位控制
-        ////    List<string> fs = new List<string>();
-        ////    fs.AddRange(new List<string>() { "Id", "Name", "displayOrder" });
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Name", "displayOrder" });
 
-        ////    ////GWP option
-        ////    //fs.AddRange(new List<string>() { });
+            ////GWP option
+            //fs.AddRange(new List<string>() { });
 
-        ////    //set
-        ////    foreach (var str in fs)
-        ////    {
-        ////        opts.GetFiled(str).visible = true;
-        ////        opts.GetFiled(str).visibleEdit = true;
-        ////    }
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
 
-        ////    opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
-        ////    var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-        ////    jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
-        ////    return Content(jstr, "application/json");
-        ////}
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
 
-        /////// <summary>
-        /////// (類別一)製程原料
-        /////// </summary>
-        /////// <returns></returns>
-        ////public virtual ActionResult GetTabSpecificPropertiesList()
-        ////{
-        ////    Dou.Models.DB.IModelEntity<Specific_properties> model = new Dou.Models.DB.ModelEntity<Specific_properties>(new DouModelContext());
+        /// <summary>
+        /// (類別一)製程原料
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabSpecificPropertiesList()
+        {
+            Dou.Models.DB.IModelEntity<Specific_properties> model = new Dou.Models.DB.ModelEntity<Specific_properties>(new DouModelContext());
 
-        ////    var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Specific_properties>();
-        ////    opts.ctrlFieldAlign = "left";
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Specific_properties>();
+            opts.ctrlFieldAlign = "left";
 
 
-        ////    foreach (var field in opts.fields)
-        ////    {
-        ////        field.visible = false;
-        ////        field.visibleEdit = false;
-        ////    }
+            foreach (var field in opts.fields)
+            {
+                field.visible = false;
+                field.visibleEdit = false;
+            }
 
-        ////    //欄位控制
-        ////    List<string> fs = new List<string>();
-        ////    fs.AddRange(new List<string>() { "Id", "Type", "Name", "Unit", "displayOrder" });
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "Id", "Type", "Name", "Unit", "displayOrder" });
 
-        ////    //GWP option
-        ////    fs.AddRange(new List<string>() { "CO2", "CH4", "N2O", "HFCs", "PFCs", "SF6", "NF3", "CoeSource" });
+            //GWP option
+            fs.AddRange(new List<string>() {
+                "CO2GWP", "CH4GWP", "N2OGWP", "HFCsGWP", "PFCsGWP", "SF6GWP", "NF3GWP",
+                "CO2GWP_AR5", "CH4GWP_AR5", "N2OGWP_AR5", "HFCsGWP_AR5", "PFCsGWP_AR5", "SF6GWP_AR5", "NF3GWP_AR5",
+                "CO2GWP_AR6", "CH4GWP_AR6", "N2OGWP_AR6", "HFCsGWP_AR6", "PFCsGWP_AR6", "SF6GWP_AR6", "NF3GWP_AR6",
+                "CoeSource" });
 
-        ////    //set
-        ////    foreach (var str in fs)
-        ////    {
-        ////        opts.GetFiled(str).visible = true;
-        ////        opts.GetFiled(str).visibleEdit = true;
-        ////    }
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
 
-        ////    opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
-        ////    var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-        ////    jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
-        ////    return Content(jstr, "application/json");
-        ////}
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
 
-        /////// <summary>
-        /////// (類別二)電力計算
-        /////// </summary>
-        /////// <returns></returns>
-        ////public virtual ActionResult GetTabElecList()
-        ////{
-        ////    Dou.Models.DB.IModelEntity<Elec_properties> model = new Dou.Models.DB.ModelEntity<Elec_properties>(new DouModelContext());
+        /// <summary>
+        /// (類別二)電力計算
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabElecList()
+        {
+            Dou.Models.DB.IModelEntity<Elec_properties> model = new Dou.Models.DB.ModelEntity<Elec_properties>(new DouModelContext());
 
-        ////    var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Elec_properties>();
-        ////    opts.ctrlFieldAlign = "left";
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Elec_properties>();
+            opts.ctrlFieldAlign = "left";
 
-        ////    ////全部欄位排序
-        ////    //foreach (var field in opts.fields)
-        ////    //    field.sortable = true;
+            ////全部欄位排序
+            //foreach (var field in opts.fields)
+            //    field.sortable = true;
 
-        ////    //opts.GetFiled("Wyear").visible = false;
-        ////    opts.datas = model.GetAll().AsEnumerable()
-        ////                .OrderBy(a => int.Parse(a.year));
+            //opts.GetFiled("Wyear").visible = false;
+            opts.datas = model.GetAll().AsEnumerable()
+                        .OrderBy(a => int.Parse(a.year));
 
-        ////    var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-        ////    jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
-        ////    return Content(jstr, "application/json");
-        ////}
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
     }
 }
