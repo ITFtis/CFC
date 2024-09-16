@@ -51,7 +51,7 @@ namespace CFC.Models.Prj
                 {
                     using (var db = new DouModelContext())
                     {
-                        _calsTypeSelects = db.CalsType.ToArray();
+                        _calsTypeSelects = db.CalsType.OrderBy(a => a.DisplayOrder).ToArray();
                     }
                 }
                 return _calsTypeSelects;
