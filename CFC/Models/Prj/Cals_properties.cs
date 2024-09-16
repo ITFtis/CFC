@@ -23,12 +23,9 @@ namespace CFC.Models.Prj
         /// <summary>
         /// 3-6類別
         /// </summary>
-        [Display(Name = "3-6類別")]
+        [Display(Name = "類別")]
         [ColumnDef(VisibleView = false, VisibleEdit = true, EditType = EditType.Select,
-            SelectSourceDbContextNamespace = "CFC.Models.DouModelContext, CFC",
-            SelectSourceModelNamespace = "CFC.Models.Prj.Cals_type, CFC",
-            SelectSourceModelValueField = "Id",
-            SelectSourceModelDisplayField = "Name")]
+            SelectItemsClassNamespace = CalsTypeSelectItems.AssemblyQualifiedName)]
         public string Type { get; set; }
 
         /// <summary>

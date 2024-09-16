@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -35,5 +36,36 @@ namespace CFC.Models.Prj
         /// </summary>
         [Display(Name = "順序")]
         public int DisplayOrder { get; set; }
+    }
+
+    public class CalsTypeSelectItems : Dou.Misc.Attr.SelectItemsClass
+    {
+        public const string AssemblyQualifiedName = "CFC.Models.Prj.CalsTypeSelectItems, CFC";
+
+        protected static IEnumerable<Cals_type> _calsTypeSelects;
+        internal static IEnumerable<Cals_type> CalsTypeSelects
+        {
+            get
+            {
+                if (_calsTypeSelects == null)
+                {
+                    using (var db = new DouModelContext())
+                    {
+                        _calsTypeSelects = db.CalsType.ToArray();
+                    }
+                }
+                return _calsTypeSelects;
+            }
+        }
+
+
+        public static void Reset()
+        {
+            _calsTypeSelects = null;
+        }
+        public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
+        {
+            return CalsTypeSelects.Select(s => new KeyValuePair<string, object>(s.Id.ToString(), s.IdText + "-" + s.Name));
+        }
     }
 }
