@@ -2,6 +2,7 @@
 using CFC.Models.Prj;
 using Dou.Controllers;
 using Dou.Misc;
+using Dou.Misc.Extension;
 using Dou.Models.DB;
 using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
@@ -58,7 +59,7 @@ namespace CFC.Controllers.PrjNew
                 opts.GetFiled(str).visibleEdit = true;
             }
 
-            opts.datas = model.GetAll();
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -96,7 +97,7 @@ namespace CFC.Controllers.PrjNew
                 opts.GetFiled(str).visibleEdit = true;
             }
 
-            opts.datas = model.GetAll();
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -134,7 +135,7 @@ namespace CFC.Controllers.PrjNew
                 opts.GetFiled(str).visibleEdit = true;
             }
 
-            opts.datas = model.GetAll();
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -172,7 +173,7 @@ namespace CFC.Controllers.PrjNew
                 opts.GetFiled(str).visibleEdit = true;
             }
 
-            opts.datas = model.GetAll();
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -210,7 +211,7 @@ namespace CFC.Controllers.PrjNew
                 opts.GetFiled(str).visibleEdit = true;
             }
 
-            opts.datas = model.GetAll();
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -249,7 +250,7 @@ namespace CFC.Controllers.PrjNew
                 opts.GetFiled(str).visibleEdit = true;
             }
 
-            opts.datas = model.GetAll();
+            opts.datas = model.GetAll().OrderBy(a => a.displayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
@@ -272,7 +273,8 @@ namespace CFC.Controllers.PrjNew
             //    field.sortable = true;
 
             //opts.GetFiled("Wyear").visible = false;
-            opts.datas = model.GetAll();
+            opts.datas = model.GetAll().AsEnumerable()
+                        .OrderBy(a => int.Parse(a.year));
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
