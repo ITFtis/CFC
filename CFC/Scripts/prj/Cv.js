@@ -89,14 +89,14 @@
         $_dSetCalsTypeContainer = $('<table>').appendTo($_oform.parent());
         $_dSetCalsPropertiesContainer = $('<table>').appendTo($_oform.parent());
 
-        //1-n 類別3-6
+        //1-n 3-6類別
         SetCalsType();
 
-        //1-n 類別3-6項目
+        //1-n 3-6類別項目
         SetCalsProperties();
 
         helper.bootstrap.genBootstrapTabpanel($_dSetCalsTypeContainer.parent(), "tabPanel_3", "tabPanel",
-            ['類別3-6', '類別3-6項目'],
+            ['3-6類別', '3-6類別項目'],
             [$_dSetCalsTypeContainer, $_dSetCalsPropertiesContainer]);
     }
 
@@ -268,11 +268,11 @@
         });
     };
 
-    //類別3-6
+    //3-6類別
     function SetCalsType() {
         $.getJSON(window.siteroot + 'Cv/GetTabCalsTypeList', function (_opt) { //取model option
 
-            _opt.title = '類別3-6';
+            _opt.title = '3-6類別';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -295,11 +295,11 @@
         });
     }
 
-    //類別3-6項目
+    //3-6類別項目
     function SetCalsProperties() {
         $.getJSON(window.siteroot + 'Cv/GetTabCalsPropertiesList', function (_opt) { //取model option
 
-            _opt.title = '類別3-6項目';
+            _opt.title = '3-6類別項目';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;

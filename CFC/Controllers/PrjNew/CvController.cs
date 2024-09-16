@@ -258,7 +258,7 @@ namespace CFC.Controllers.PrjNew
         }
 
         /// <summary>
-        /// 類別3-6
+        /// 3-6類別
         /// </summary>
         /// <returns></returns>
         public virtual ActionResult GetTabCalsTypeList()
@@ -301,7 +301,7 @@ namespace CFC.Controllers.PrjNew
         }
 
         /// <summary>
-        /// 類別3-6項目
+        /// 3-6類別項目
         /// </summary>
         /// <returns></returns>
         public virtual ActionResult GetTabCalsPropertiesList()
