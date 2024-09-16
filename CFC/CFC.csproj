@@ -220,6 +220,8 @@
     <Compile Include="Controllers\PrjNew\ArController.cs" />
     <Compile Include="Controllers\PrjNew\CvController.cs" />
     <Compile Include="Controllers\PrjNew\GContentController.cs" />
+    <Compile Include="Controllers\Prj\CalsPropertiesController.cs" />
+    <Compile Include="Controllers\Prj\CalsTypeController.cs" />
     <Compile Include="Controllers\Prj\ElecPropertiesController.cs" />
     <Compile Include="Controllers\Prj\EscapePropertiesController.cs" />
     <Compile Include="Controllers\Prj\SpecificPropertiesController.cs" />
@@ -247,6 +249,8 @@
     <Compile Include="Models\Joined\Calculate\UserInput_Advance.cs" />
     <Compile Include="Models\Manager\Role.cs" />
     <Compile Include="Models\Manager\User.cs" />
+    <Compile Include="Models\Prj\Cals_properties.cs" />
+    <Compile Include="Models\Prj\Cals_type.cs" />
     <Compile Include="Models\Prj\Elec_properties.cs" />
     <Compile Include="Models\Prj\Fuel_volume.cs" />
     <Compile Include="Models\Prj\G_USER_FACTORY.cs" />
@@ -1629,6 +1633,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="File\ExcelCreater\tempFolder\" />
+    <Folder Include="Views\CalsProperties\" />
+    <Folder Include="Views\CalsType\" />
     <Folder Include="Views\DataPrint\" />
     <Folder Include="Views\GContent\" />
   </ItemGroup>

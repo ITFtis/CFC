@@ -85,15 +85,15 @@
     function SetTabs3() {
 
         var $_oform = $("#_tabs");
+        
+        $_dSetCalsTypeContainer = $('<table>').appendTo($_oform.parent());
 
-        $_temp = $('<table>').appendTo($_oform.parent());
+        //1-n 類別3-6
+        SetCalsType();
 
-        //////1-n 其它項目(3-6)
-        ////SetOther3_6();
-
-        helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_3", "tabPanel",
-            ['3-6其它項目'],
-            [$_temp]);
+        helper.bootstrap.genBootstrapTabpanel($_dSetCalsTypeContainer.parent(), "tabPanel_3", "tabPanel",
+            ['類別3-6'],
+            [$_dSetCalsTypeContainer]);
     }
 
     //燃料計算
@@ -264,9 +264,31 @@
         });
     };
 
-    //其它項目(3-6)
-    function SetOther3_6() {
+    //類別3-6
+    function SetCalsType() {
+        $.getJSON(window.siteroot + 'Cv/GetTabCalsTypeList', function (_opt) { //取model option
 
+            _opt.title = '類別3-6';
+
+            //取消自動抓後端資料
+            _opt.tableOptions.url = undefined;
+            _opt.editformSize = { minWidth: 700 };
+
+            _opt.addServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsType/Add', callback);
+            };
+
+            _opt.updateServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsType/Update', callback);
+            };
+
+            _opt.deleteServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsType/Delete', callback);
+            };
+
+            //實體Dou js
+            $_dSetCalsTypeContainer.DouEditableTable(_opt);
+        });
     }
 })
 

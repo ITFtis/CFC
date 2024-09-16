@@ -60,6 +60,10 @@ namespace CFC.Models
 
         public virtual DbSet<G_USER_FACTORY> UserFactory { get; set; } //會員跟工廠的關聯
 
+        public virtual DbSet<Cals_type> CalsType { get; set; } //3-6類別
+
+        public virtual DbSet<Cals_properties> CalsProperties { get; set; } //3-6類別項目
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // 定義組合鍵 USER_ID 和 FACTORY_REGISTRATION
