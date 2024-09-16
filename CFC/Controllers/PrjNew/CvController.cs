@@ -257,28 +257,5 @@ namespace CFC.Controllers.PrjNew
             return Content(jstr, "application/json");
         }
 
-        /// <summary>
-        /// (類別二)電力計算
-        /// </summary>
-        /// <returns></returns>
-        public virtual ActionResult GetTabElecList()
-        {
-            Dou.Models.DB.IModelEntity<Elec_properties> model = new Dou.Models.DB.ModelEntity<Elec_properties>(new DouModelContext());
-
-            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Elec_properties>();
-            opts.ctrlFieldAlign = "left";
-
-            ////全部欄位排序
-            //foreach (var field in opts.fields)
-            //    field.sortable = true;
-
-            //opts.GetFiled("Wyear").visible = false;
-            opts.datas = model.GetAll().AsEnumerable()
-                        .OrderBy(a => int.Parse(a.year));
-
-            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
-            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
-            return Content(jstr, "application/json");
-        }
     }
 }
