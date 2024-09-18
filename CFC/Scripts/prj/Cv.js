@@ -318,7 +318,36 @@
             };
 
             //實體Dou js
-            $_dSetCalsPropertiesContainer.DouEditableTable(_opt);
+            $d = $_dSetCalsPropertiesContainer.DouEditableTable(_opt);
+
+            $('.btn-confirm').click(function () {
+
+                var conditions = GetFilterParams($d)
+                var paras;
+                if (conditions.length > 0) {
+                    paras = { key: 'filter', value: JSON.stringify(conditions) };
+                }
+
+                helper.misc.showBusyIndicator();
+                $.ajax({
+                    url: window.siteroot + 'Cv/GetTabCalsPropertiesList',
+                    datatype: "json",
+                    type: "POST",
+                    data: { paras: [paras] },
+                    success: function (_opt) {
+                        var datas = _opt.datas;
+                        $d.instance.tableReload(datas, false);
+                    },
+                    complete: function () {
+                        helper.misc.hideBusyIndicator();
+                    },
+                    error: function (xhr, status, error) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        alert(err.Message);
+                        helper.misc.hideBusyIndicator();
+                    }
+                });
+            });
         });
     }
 })

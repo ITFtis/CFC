@@ -280,6 +280,7 @@
     <Compile Include="Models\UserFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="_applyClass\KeyValueParams.cs" />
     <Compile Include="_core\Cm.cs" />
     <Compile Include="_core\ODFHelper.cs" />
   </ItemGroup>
@@ -1496,6 +1497,7 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\popper.min.js.map" />
     <Content Include="Scripts\prj\Ar.js" />
+    <Content Include="Scripts\prj\baseb.js" />
     <Content Include="Scripts\prj\cfc.js" />
     <Content Include="Scripts\prj\cfc_n.js" />
     <Content Include="Scripts\prj\Cv.js" />

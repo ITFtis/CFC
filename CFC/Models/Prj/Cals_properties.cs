@@ -24,7 +24,8 @@ namespace CFC.Models.Prj
         /// 3-6類別
         /// </summary>
         [Display(Name = "類別")]
-        [ColumnDef(VisibleView = false, VisibleEdit = true, EditType = EditType.Select,
+        [ColumnDef(VisibleView = false, VisibleEdit = true, 
+            EditType = EditType.Select, Filter = true,
             SelectItemsClassNamespace = CalsTypeSelectItems.AssemblyQualifiedName)]
         public string Type { get; set; }
 

@@ -304,7 +304,7 @@ namespace CFC.Controllers.PrjNew
         /// 3-6類別項目
         /// </summary>
         /// <returns></returns>
-        public virtual ActionResult GetTabCalsPropertiesList()
+        public virtual ActionResult GetTabCalsPropertiesList(params KeyValueParams[] paras)
         {
             Dou.Models.DB.IModelEntity<Cals_properties> model = new Dou.Models.DB.ModelEntity<Cals_properties>(new DouModelContext());
 
@@ -332,7 +332,15 @@ namespace CFC.Controllers.PrjNew
                 opts.GetFiled(str).visibleEdit = true;
             }
 
-            var datas = model.GetAll().ToList();
+            //datas
+            var query = model.GetAll();
+            var Type = KeyValue.GetFilterParaValue(paras, "Type");
+            if (!string.IsNullOrEmpty(Type))
+            {
+                query = query.Where(a => a.Type == Type);
+            }
+            var datas = query.ToList();
+
             if (datas.Count() == 0)
                 opts.datas = new List<Cals_properties>() { new Cals_properties { Id = "無資料，不可修改" } };
             else
