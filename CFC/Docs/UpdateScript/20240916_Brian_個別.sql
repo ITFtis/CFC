@@ -50,3 +50,4 @@ INSERT [dbo].[Cals_properties] ([Id], [Name], [Type], [Unit], [DisplayOrder]) VA
 INSERT [dbo].[Cals_properties] ([Id], [Name], [Type], [Unit], [DisplayOrder]) VALUES (N'FD1', N'其他排放', N'FD', N'公噸CO2e/年', 16)
 GO
 
+--3.圖文, 新增資料表(Sys_content, Sys_contentDetail) + 資料
