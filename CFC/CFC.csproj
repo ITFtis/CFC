@@ -219,7 +219,6 @@
     <Compile Include="Controllers\Manager\UserController.cs" />
     <Compile Include="Controllers\PrjNew\ArController.cs" />
     <Compile Include="Controllers\PrjNew\CvController.cs" />
-    <Compile Include="Controllers\PrjNew\GContentController.cs" />
     <Compile Include="Controllers\Prj\CalsPropertiesController.cs" />
     <Compile Include="Controllers\Prj\CalsTypeController.cs" />
     <Compile Include="Controllers\Prj\ElecPropertiesController.cs" />
@@ -230,6 +229,7 @@
     <Compile Include="Controllers\Prj\FuelPropertiesController.cs" />
     <Compile Include="Controllers\Prj\RefrigerantEquipController.cs" />
     <Compile Include="Controllers\Prj\RefrigerantTypeController.cs" />
+    <Compile Include="Controllers\Prj\SysContentController.cs" />
     <Compile Include="Controllers\Prj\SYS_COMPANYController.cs" />
     <Compile Include="Controllers\Prj\SYS_FACTORYController.cs" />
     <Compile Include="Controllers\Prj\UserPropertiesController.cs" />
@@ -270,6 +270,8 @@
     <Compile Include="Models\Prj\Escape_type.cs" />
     <Compile Include="Models\Prj\Refrigerant_type.cs" />
     <Compile Include="Models\Prj\SYS_COMPANY.cs" />
+    <Compile Include="Models\Prj\Sys_content.cs" />
+    <Compile Include="Models\Prj\Sys_contentDetail.cs" />
     <Compile Include="Models\Prj\SYS_FACTORY.cs" />
     <Compile Include="Models\Prj\Type3Mark.cs" />
     <Compile Include="Models\Prj\User_Project_Log.cs" />
@@ -1501,6 +1503,7 @@
     <Content Include="Scripts\prj\cfc.js" />
     <Content Include="Scripts\prj\cfc_n.js" />
     <Content Include="Scripts\prj\Cv.js" />
+    <Content Include="Scripts\prj\SysContent.js" />
     <Content Include="Scripts\README.md" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
@@ -1631,6 +1634,7 @@
     <Content Include="Views\CFC\ProjectView.cshtml" />
     <Content Include="Views\Cv\Index.cshtml" />
     <Content Include="Views\Ar\Index.cshtml" />
+    <Content Include="Views\SysContent\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1638,7 +1642,6 @@
     <Folder Include="Views\CalsProperties\" />
     <Folder Include="Views\CalsType\" />
     <Folder Include="Views\DataPrint\" />
-    <Folder Include="Views\GContent\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
