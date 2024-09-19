@@ -75,14 +75,13 @@
         var $_oform = $("#_tabs");
 
         $_dElecContainer = $('<table>').appendTo($_oform.parent());
-        $_temp = $('<table>').appendTo($_oform.parent());
 
         //1-n 電力計算
         SetElec();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_2", "tabPanel",
-            ['電力計算', '空空2'],
-            [$_dElecContainer, $_temp]);
+            ['電力計算'],
+            [$_dElecContainer]);
     }
 
     function SetTabs3() {
@@ -95,7 +94,7 @@
         ////SetOther3_6();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_3", "tabPanel",
-            ['3-6其它項目'],
+            ['空空2'],
             [$_temp]);
     }
 
