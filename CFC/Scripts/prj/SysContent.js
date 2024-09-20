@@ -40,13 +40,16 @@
 
             //Detail的編輯物件
             $_editDataContainer = $('<div style="background-color: #FFFFf1;padding: .5rem;border-radius: .5rem;">').appendTo($_oform.parent());
-            //實體Dou js
-            var $_detailTable = $('<table>').appendTo($_editDataContainer).DouEditableTable(_opt);
 
-            ////var $_detailTable = $('<table>').appendTo($_editDataContainer).DouEditableTable(_opt).
-            ////    on([$.dou.events.add, $.dou.events.update, $.dou.events.delete].join(' '), function () {
-            ////        hasChangeDetails = true;
-            ////    });
+            //實體Dou js
+            var $_detailTable = $('<table>').appendTo($_editDataContainer).DouEditableTable(_opt)
+                .on([$.dou.events.add, $.dou.events.update, $.dou.events.delete].join(' '), function () {
+                    //dou舊版(無資料處理)
+                    $('.syscontentcontroller .bootstrap-table').find('table .dou-field-Title:contains("無資料")').closest('tr').hide();
+                });
+
+            //dou舊版(無資料處理)
+            $('.syscontentcontroller .bootstrap-table').find('table .dou-field-Title:contains("無資料")').closest('tr').hide();
 
         });
     }
