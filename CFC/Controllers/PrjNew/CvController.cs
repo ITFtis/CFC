@@ -290,10 +290,11 @@ namespace CFC.Controllers.PrjNew
             }
 
             var datas = model.GetAll().ToList();
-            if (datas.Count() == 0)
-                opts.datas = new List<Cals_type>() { new Cals_type { Id = "無資料，不可修改" } };
-            else
-                opts.datas = datas.OrderBy(a => a.DisplayOrder);
+            opts.datas = datas.OrderBy(a => a.DisplayOrder);
+            ////if (datas.Count() == 0)
+            ////    opts.datas = new List<Cals_type>() { new Cals_type { Id = "無資料，不可修改" } };
+            ////else
+            ////    opts.datas = datas.OrderBy(a => a.DisplayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
