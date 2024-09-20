@@ -229,7 +229,7 @@
     <Compile Include="Controllers\Prj\FuelPropertiesController.cs" />
     <Compile Include="Controllers\Prj\RefrigerantEquipController.cs" />
     <Compile Include="Controllers\Prj\RefrigerantTypeController.cs" />
-    <Compile Include="Controllers\Prj\SysContentController.cs" />
+    <Compile Include="Controllers\PrjNew\SysContentController.cs" />
     <Compile Include="Controllers\Prj\SYS_COMPANYController.cs" />
     <Compile Include="Controllers\Prj\SYS_FACTORYController.cs" />
     <Compile Include="Controllers\Prj\UserPropertiesController.cs" />
