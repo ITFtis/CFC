@@ -340,12 +340,14 @@ namespace CFC.Controllers.PrjNew
             {
                 query = query.Where(a => a.Type == Type);
             }
+            
             var datas = query.ToList();
+            opts.datas = datas.OrderBy(a => a.DisplayOrder);
 
-            if (datas.Count() == 0)
-                opts.datas = new List<Cals_properties>() { new Cals_properties { Id = "無資料，不可修改" } };
-            else
-                opts.datas = datas.OrderBy(a => a.DisplayOrder);
+            ////if (datas.Count() == 0)
+            ////    opts.datas = new List<Cals_properties>() { new Cals_properties { Id = "無資料，不可修改" } };
+            ////else
+            ////    opts.datas = datas.OrderBy(a => a.DisplayOrder);
 
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
