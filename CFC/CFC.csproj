@@ -219,6 +219,7 @@
     <Compile Include="Controllers\Manager\UserController.cs" />
     <Compile Include="Controllers\PrjNew\ArController.cs" />
     <Compile Include="Controllers\PrjNew\CvController.cs" />
+    <Compile Include="Controllers\PrjNew\Sys_contentDetailController.cs" />
     <Compile Include="Controllers\Prj\CalsPropertiesController.cs" />
     <Compile Include="Controllers\Prj\CalsTypeController.cs" />
     <Compile Include="Controllers\Prj\ElecPropertiesController.cs" />
@@ -284,6 +285,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="_applyClass\KeyValueParams.cs" />
     <Compile Include="_core\Cm.cs" />
+    <Compile Include="_core\Constant.cs" />
     <Compile Include="_core\ODFHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1642,6 +1644,7 @@
     <Folder Include="Views\CalsProperties\" />
     <Folder Include="Views\CalsType\" />
     <Folder Include="Views\DataPrint\" />
+    <Folder Include="Views\Sys_contentDetail\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

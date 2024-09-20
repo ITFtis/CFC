@@ -26,5 +26,13 @@ namespace CFC.Controllers.Prj
         {
             return new Dou.Models.DB.ModelEntity<Sys_content>(new DouModelContext());
         }
+
+        public override DataManagerOptions GetDataManagerOptions()
+        {
+            var opts = base.GetDataManagerOptions();
+            opts.ctrlFieldAlign = "left";
+
+            return opts;
+        }
     }
 }
