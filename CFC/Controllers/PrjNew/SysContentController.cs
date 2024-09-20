@@ -34,5 +34,21 @@ namespace CFC.Controllers.Prj
 
             return opts;
         }
+
+        protected override void DeleteDBObject(IModelEntity<Sys_content> dbEntity, IEnumerable<Sys_content> objs)
+        {
+            var obj = objs.FirstOrDefault();
+
+            //DB沒關聯
+            var dbContext = new DouModelContext();
+
+            if (obj.Details != null)
+            {
+                Dou.Models.DB.IModelEntity<Sys_contentDetail> details = new Dou.Models.DB.ModelEntity<Sys_contentDetail>(dbContext);
+                details.Delete(obj.Details);
+            }
+
+            base.DeleteDBObject(dbEntity, objs);
+        }
     }
 }
