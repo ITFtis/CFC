@@ -8,6 +8,8 @@
             return;
         $.getJSON($.AppConfigOptions.baseurl + 'Sys_contentDetail/GetDataManagerOptionsJson', function (_opt) {
 
+            _opt.title = '細項';
+
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
 
