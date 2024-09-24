@@ -307,6 +307,7 @@
                 <h3>計算結果</h3>
                 <div class="count-result-content">
                     <div class="red-hint result-hint">無輸入計算參數資料!!</div>
+                    <label>選擇工廠：</label><select id="factoryDropdown" name="factoryDropdown"></select>
                     <div class="table-desktop cal-result">
                         <table class="result-table-b">
                             <tbody>
@@ -403,6 +404,8 @@
                     </div>
                     @if (!ViewBag.IsGuest)
                     {
+
+
                         <div class="download-container">
                             <button class="btn-green btn-s download-cal">下載計算</button>
                             <button class="btn-comfirm btn-s btn-second" name="saveProject">儲存專案</button>
@@ -447,6 +450,33 @@
             var selected = $("#elecYear").find(":selected");
             $("#electUnit").text(selected.attr("data-unit"));
         });
+
+        // 當頁面加載時獲取與該 USER 關聯的工廠
+        const userId = $("#UserID").attr("value");
+
+        fetch(window.siteroot + "CFC/GetFactoriesByUser", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ UserId: userId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                let dropdown = $('#factoryDropdown');
+                dropdown.empty();
+
+
+                data.forEach(factory => {
+                    dropdown.append($('<option></option>')
+                        .attr('value', factory.FACTORY_REGISTRATION)
+                        .text(factory.FACTORY_NAME));
+
+                });
+
+                // 自動觸發change事件
+                dropdown.trigger('change');
+            });
     });
 
     //貼心提醒視窗

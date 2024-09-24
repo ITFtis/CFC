@@ -1,6 +1,7 @@
 ﻿using CFC.Models;
 using CFC.Models.Prj;
 using OfficeOpenXml;
+using OfficeOpenXml.Drawing.Chart;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,23 @@ namespace CFC.Controllers.FileDownload.ExcelManagerF
     internal class StasticsManager
     {
         private DouModelContext db = new DouModelContext();
+
+        public void SetGraph(ExcelWorksheet sheet)
+        {
+            // 添加圓餅圖
+            var pieChart = sheet.Drawings.AddChart("PieChart", eChartType.Pie) as ExcelPieChart;
+
+            // 設定圖表的數據範圍
+            pieChart.Series.Add(sheet.Cells["T3:T8"], sheet.Cells["S3:S8"]);
+
+            // 設定圖表的標題
+            pieChart.Title.Text = "Category Distribution";
+
+            // 設定圖表的顯示位置 (X1, Y1, X2, Y2)
+            pieChart.SetPosition(12, 0, 10, 0);
+            pieChart.SetSize(400, 300);
+        }
+
         public void SetStatistics(ExcelWorksheet sheet , User_Input_Advance input) {
 
             var excelManager = new ExcelManager();
@@ -21,6 +39,7 @@ namespace CFC.Controllers.FileDownload.ExcelManagerF
             //燃料
             var fuelInputs = excelManager.GetFuelInputs(input);
             var fuelTotalCo2 = fuelInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e).Sum(); // CO2當量
+            //改成AR4、AR5、AR6
 
             // 冷媒逸散
             var refrigInputs = excelManager.GetRefrigInputs(input);

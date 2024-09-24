@@ -97,6 +97,25 @@ namespace CFC.Models.Prj
         [NotMapped]
         [Display(Name = "工廠")]
         public List<SYS_FACTORY> FactoryList { get; set; }
+
+        [NotMapped]
+        [Display(Name = "製造或非製造業")]
+        public string Manufacturing { get; set; }
+
+        [Display(Name = "縣市")]
+        public string CITY { get; set; }
+
+        [Display(Name = "鄉鎮市區")]
+        public string DISTRICT { get; set; }
+
+        [Display(Name = "地址")]
+        public string ADDRESS { get; set; }
+
+        [Display(Name = "單位性質")]
+        public string UNIT_TYPE { get; set; }
+
+        [Display(Name = "職稱")]
+        public string POSITION { get; set; }
     }
 
     public class Fac

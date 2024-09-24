@@ -24,84 +24,241 @@
         <div class="col-lg-8 col-12 input"><input class="form-control" type="text" id="projectName"></div>
     </div>
     <div class="row">
-        <div class="col-lg-4 col-6 title">廠址</div>
-        <div class="col-lg-8 col-12 input"><input class="form-control" type="text" id="IndustrialAddress"></div>
+        <div class="col-lg-4 col-6 title">選擇工廠</div>
+        <div class="col-lg-8 col-12 input"><select id="factoryDropdown" name="factoryDropdown"></select></div>
     </div>
+    <div class="row">
+        <!-- Display factory details here -->
+        <div class="col-lg-4 col-6 title">地址</div>
+        <div><label id="factoryCity"></label>　<label id="factoryDistrict"></label>　<label id="factoryAddress"></label></div>
+    </div>
+    <div class="row">
+        <!-- Display factory details here -->
+        <div class="col-lg-4 col-6 title">工業區</div>
+        <div><label id="factoryIndustrial"></label></div>
+    </div>
+    <div class="row">
+        <!-- Display factory details here -->
+        <div class="col-lg-4 col-6 title">產業類型</div>
+        <div><label id="factoryIndustrialArea"></label></div>
+    </div>
+    @*<div class="row">
+            <div class="col-lg-4 col-6 title">廠址</div>
+            <div class="col-lg-8 col-12 input"><input class="form-control" type="text" id="IndustrialAddress"></div>
+        </div>*@
     <div class="row">
         <div class="col-lg-4 col-6 title">工廠登記號</div>
-        <div class="col-lg-8 col-12 input"><input class="form-control" type="text" id="IndustrialNo"></div>
+        <div><label id="IndustrialNo"></label></div>
+        <!--<div class="col-lg-8 col-12 input"><input class="form-control" type="text" id="IndustrialNo"></div>-->
     </div>
+
     <div class="row">
-        <div class="col-lg-4 col-6 title">縣市別</div>
-        <div class="col-lg-8 col-12">
-            <select class="form-control input" id="projectCity">
-                @foreach (var city in ViewBag.Cities as IEnumerable<Global_City>)
-                {
-                    <option value="@city.Id">@city.Name</option>
-                }
-            </select>
+        <div class="col-lg-4 col-6 title">日期區間</div>
+        <!-- 開始日期 --><!-- 結束日期 -->
+        <div class="col-lg-4 col-6">
+            <input type="date" id="startDate" class="form-control" />~~
+            <input type="date" id="endDate" class="form-control" />
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-4 col-6 title">行業別</div>
-        <div class="col-lg-8 col-12">
-            <select class="form-control input" id="projectIndustrialType">
-                @foreach (var type in ViewBag.IndustriaTypes as IEnumerable<Global_Industrial>)
-                {
-                    <option value="@type.Id">@type.Name</option>
-                }
-            </select>
+
+        @*<div class="row">
+                <div class="col-lg-4 col-6 title">縣市別</div>
+                <div class="col-lg-8 col-12">
+                    <select class="form-control input" id="projectCity">
+                        @foreach (var city in ViewBag.Cities as IEnumerable<Global_City>)
+                        {
+                            <option value="@city.Id">@city.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>*@
+        @*<div class="row">
+                <div class="col-lg-4 col-6 title">行業別</div>
+                <div class="col-lg-8 col-12">
+                    <select class="form-control input" id="projectIndustrialType">
+                        @foreach (var type in ViewBag.IndustriaTypes as IEnumerable<Global_Industrial>)
+                        {
+                            <option value="@type.Id">@type.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>*@
+        <div class="savePoject-container">
+            <button class="btn-green btn-s save">儲存專案</button>
         </div>
     </div>
-    <div class="savePoject-container">
-        <button class="btn-green btn-s save">儲存專案</button>
-    </div>
-</div>
 
-<script>
-    $(document).ready(() => {
+    <script>
 
-        // 歷史專案紀錄
-        $("#projectLogs").on("change", () => {
-            var selected = $("#projectLogs").find(":selected");
-
-            $("#IndustrialAddress").val(selected.attr("data-Address"))
-            $("#IndustrialNo").val(selected.attr("data-IndustrialID"))
-            $("#projectCity").val(selected.attr("data-City"))
-            $("#projectIndustrialType").val(selected.attr("data-IndustrialType"))
+        document.getElementById('startDate').addEventListener('change', function () {
+            var startDate = this.value;
+            document.getElementById('endDate').min = startDate; // 設定結束日期的最小值
         });
 
-        // 關閉畫面
-        $(".saveProject-cover .close-btn").on("click", function () {
-            $(".saveProject-cover").attr("style", "display:none");
-            $(".saveProject-cover select , .saveProject-cover input").val(null);
+        document.getElementById('endDate').addEventListener('change', function () {
+            var endDate = this.value;
+            document.getElementById('startDate').max = endDate; // 設定開始日期的最大值
         });
 
+        function formatDate(date) {
+            var year = date.getFullYear();
+            var month = (date.getMonth() + 1).toString().padStart(2, '0'); // 月份從0開始，+1 修正
+            var day = date.getDate().toString().padStart(2, '0');
+            return year + month + day;
+        }
 
-        // 儲存專案
-        $(".savePoject-container .save").on("click", function () {
-            fetch(window.siteroot + "CFC/SaveProject", {
+        $(document).ready(() => {
+
+            // 當頁面加載時獲取與該 USER 關聯的工廠
+            const userId = $("#UserID").attr("value");
+
+            fetch(window.siteroot + "CFC/GetFactoriesByUser", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 },
-                body: JSON.stringify({
-                    RowID: $("#CalRowID").attr("value"),
-                    UserID: $("#UserID").attr("value"),
-                    ProjectName: $("#projectName").val(),
-                    ProjectIndustrialID: $("#IndustrialNo").val(),
-                    ProjectAddress: $("#IndustrialAddress").val(),
-                    ProjectCity: $("#projectCity").val(),
-                    ProjectIndustrialType: $("#projectIndustrialType").val(),
-                }),
-            }).then(e => e.json()).then(response => {
-                alert(response.desc);
-                if (response.success)
-                    window.location.reload();
+                body: JSON.stringify({ UserId: userId })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    let dropdown = $('#factoryDropdown');
+                    dropdown.empty();
+
+
+                    data.forEach(factory => {
+                        dropdown.append($('<option></option>')
+                            .attr('value', factory.FACTORY_REGISTRATION)
+                            .text(factory.FACTORY_NAME));
+
+                    });
+
+                    // 自動觸發change事件
+                    dropdown.trigger('change');
+                });
+
+            // 當選擇工廠時，顯示詳細資訊
+            $('#factoryDropdown').on('change', function () {
+
+                let selectedFactoryReg = $(this).val();
+
+                fetch(window.siteroot + "CFC/GetFactoryDetails", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ FactoryRegistration: selectedFactoryReg })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // 更新網頁中的工廠相關欄位資料
+                        $('#factoryCity').text(data.FACTORY_CITY);
+                        $('#factoryDistrict').text(data.FACTORY_DISTRICT);
+                        $('#factoryAddress').text(data.FACTORY_ADDRESS);
+                        $('#factoryIndustrial').text(data.FACTORY_INDUSTRIAL);
+                        $('#factoryIndustrialArea').text(data.FACTORY_INDUSTRIAL_AREA);
+                        $('#IndustrialNo').text(data.FACTORY_REGISTRATION);
+                    });
 
             });
+
+
+            // 歷史專案紀錄
+            $("#projectLogs").on("change", () => {
+                var selected = $("#projectLogs").find(":selected");
+
+                $("#IndustrialAddress").val(selected.attr("data-Address"))
+                $("#IndustrialNo").val(selected.attr("data-IndustrialID"))
+                $("#projectCity").val(selected.attr("data-City"))
+                $("#projectIndustrialType").val(selected.attr("data-IndustrialType"))
+            });
+
+            // 關閉畫面
+            $(".saveProject-cover .close-btn").on("click", function () {
+                $(".saveProject-cover").attr("style", "display:none");
+                $(".saveProject-cover select , .saveProject-cover input").val(null);
+
+                $('#factoryCity').text('');
+                $('#factoryDistrict').text('');
+                $('#factoryAddress').text('');
+                $('#factoryIndustrial').text('');
+                $('#factoryIndustrialArea').text('');
+                $('#IndustrialNo').text('');
+            });
+
+
+            // 儲存專案
+            $(".savePoject-container .save").on("click", function () {
+
+                var projectName = $("#projectName").val().trim(); // 移除空白字符
+                // 檢查是否有填寫值
+                if (!projectName) {
+                    alert("請填寫專案名稱！");
+                    return; // 若未填寫，中斷函數執行
+                }
+
+                var factoryValue = $("#factoryDropdown").val();
+                // 檢查下拉選單是否有選擇有效選項
+                if (!factoryValue || factoryValue === 'NG') {
+                    alert("請選擇工廠！");
+                    return; // 若未選擇有效選項，中斷函數執行
+                }
+
+                // 取得日期選擇器的值
+                var startDateValue = $("#startDate").val();
+                var endDateValue = $("#endDate").val();
+
+                // 檢查日期是否已選擇
+                if (!startDateValue || !endDateValue) {
+                    alert("請選擇完整的開始和結束日期！");
+                    return; // 若未選擇日期，中斷函數執行
+                }
+
+                // 將日期轉換成日期物件
+                var startDate = new Date(startDateValue);
+                var endDate = new Date(endDateValue);
+
+                // 將日期轉換成 YYYYMMDD 字串格式
+                var formattedStartDate = formatDate(startDate);
+                var formattedEndDate = formatDate(endDate);
+
+
+                let now = new Date();
+                let year = now.getFullYear();
+                let month = (now.getMonth() + 1).toString().padStart(2, '0'); // 月份從 0 開始，+1 後補足兩位
+                let day = now.getDate().toString().padStart(2, '0');
+                let hours = now.getHours().toString().padStart(2, '0'); // 24 小時制
+                let minutes = now.getMinutes().toString().padStart(2, '0');
+                let seconds = now.getSeconds().toString().padStart(2, '0');
+                let formattedDate = `${year}${month}${day}${hours}${minutes}${seconds}`;
+
+
+                fetch(window.siteroot + "CFC/SaveProject", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        RowID: $("#CalRowID").attr("value"),
+                        UserID: $("#UserID").attr("value"),
+                        ProjectName: $("#projectName").val(),
+                        FactoryRegistration: $("#factoryDropdown").val(),
+                        StartDate: formattedStartDate,
+                        EndDate: formattedEndDate,
+                        BDate: formattedDate,
+                        BId: $("#UserID").attr("value")
+                        //ProjectIndustrialID: $("#IndustrialNo").val(),
+                        //ProjectAddress: $("#IndustrialAddress").val(),
+                        //ProjectCity: $("#projectCity").val(),
+                        //ProjectIndustrialType: $("#projectIndustrialType").val(),
+                    }),
+                }).then(e => e.json()).then(response => {
+                    alert(response.desc);
+                    if (response.success)
+                        window.location.reload();
+
+                });
+            })
         })
-    })
 
 
-</script>
+    </script>

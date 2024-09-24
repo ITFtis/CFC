@@ -18,16 +18,17 @@ namespace CFC.Models.Prj
         /// <summary>
         /// 主鍵，自動遞增的公司編號
         /// </summary>
-        [Key]
-        [Display(Name = "主鍵，自動遞增的公司編號", Order = 0)]
-        [ColumnDef(Visible = false, VisibleEdit = false)]
-        //[ColumnDef(Visible = false)]
-        public string COMP_ID { get; set; }
+        //[Key]
+        //[Display(Name = "主鍵，自動遞增的公司編號", Order = 0)]
+        //[ColumnDef(Visible = false, VisibleEdit = false)]
+        ////[ColumnDef(Visible = false)]
+        //public int COMP_ID { get; set; }
 
         [Display(Name = "工廠名稱", Order = 1)]
         [ColumnDef(Visible = true, VisibleEdit = true)]
         public string COMP_NAME { get; set; }
 
+        [Key]
         [Display(Name = "統一編號")] 
         //[ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string COMP_UNIFORM_NUMBER { get; set; }

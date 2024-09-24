@@ -81,7 +81,7 @@
                     <div class="col-sm-6 col-12">
                         <span class="mustInfo">*</span>統一編號
                     </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" title="UniformNumber" onchange="getCompanyInfoDB()"/></div>
+                    <div class="col-sm-6 col-12"><input type="text" id="UniformNumber" title="UniformNumber" onchange="getCompanyInfoDB()" /></div>
                 </div>
                 <div class="row input">
                     <div class="col-sm-6 col-12">
@@ -129,9 +129,9 @@
                     <div class="col-sm-6 col-12"><input type="text" id="Email" title="Email" /></div>
                 </div>
 
-                <div class="col-10">
+                @*<div class="col-10">
                     <span class="notice-info">本標準所稱中小企業，為中華民國境內依法辦理公司登記或商業登記，實收資本額在新台幣一億元以下，或經常僱用員工數未滿二百人之事業。</span>
-                </div>
+                </div>*@
 
                 <div class="row input">
                     <div class="col-sm-6 col-12">行業別</div>
@@ -154,15 +154,62 @@
                             <span class="mustInfo">*</span>工廠數量
                         </div>
                         <div class="col-sm-6 col-12">
-                            <input type="number" min="0" pattern="[0-9]+" id="FactoryNum" title="FactoryNum" contextmenu="1"/>
+                            <input type="number" min="0" pattern="[0-9]+" id="FactoryNum" title="FactoryNum" contextmenu="1" />
                             <button id="btnCreateFactory" onclick="generateForm()">產生工廠清單</button>
                         </div>
                     </div>
                 </div>
 
-                <div id="factoriesForm">
-                    
+                <div id="NonManufacturing" style="display: none;">
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>單位性質
+                        </div>
+                        <div class="col-sm-6 col-12">
+                            <select id="UnitType" name="companyType" title="Company Type">
+                                <option value="一般公司">一般公司</option>
+                                <option value="管顧公司">管顧公司</option>
+                                <option value="法人">法人</option>
+                                <option value="學校">學校</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>地址
+                        </div>
+                        <div class="col-sm-6 col-12">
+                            <select id="NonManufacturing_factoryCity" name="NonManufacturing_factoryCity" onchange="NonManufacturing_updateDistricts()">
+                                <option value="">選擇縣市</option>
+                            </select>
+
+                            <select id="NonManufacturing_factoryDistrict" name="NonManufacturing_factoryDistrict">
+                                <option value="">請先選擇縣市</option>
+                            </select>
+                            <input type="text" id="NonManufacturing_factoryAddress" name="NonManufacturing_factoryAddress" placeholder="地址">
+                        </div>
+
+                    </div>
+
+                    <div class="row input">
+                        <div class="col-sm-6 col-12">
+                            <span class="mustInfo">*</span>產業別
+                        </div>
+                        <div class="col-sm-6 col-12">
+                            <select id="NonManufacturing_factoryIndustry" name="NonManufacturing_factoryIndustry" title="factoryIndustry">@getSelections((IEnumerable<CFC.Models.Prj.Global_Industrial>)ViewBag.IndustrailTypes)</select>
+                        </div>
+
+                    </div>
                 </div>
+
+
+
+                <div id="factoriesForm">
+
+                </div>
+
+
 
                 @*<div class="row input">
                     <div class="col-sm-6 col-12">
@@ -228,23 +275,23 @@
                 </div>*@
                 <br />
                 @*<div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>聯絡人
-                    </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Contact" title="Contact" /></div>
-                </div>*@
+            <div class="col-sm-6 col-12">
+                <span class="mustInfo">*</span>聯絡人
+            </div>
+            <div class="col-sm-6 col-12"><input type="text" id="Contact" title="Contact" /></div>
+        </div>*@
                 @*<div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>連絡人電話
-                    </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="PhoneNumber" title="=PhoneNumber" /></div>
-                </div>*@
+            <div class="col-sm-6 col-12">
+                <span class="mustInfo">*</span>連絡人電話
+            </div>
+            <div class="col-sm-6 col-12"><input type="text" id="PhoneNumber" title="=PhoneNumber" /></div>
+        </div>*@
                 @*<div class="row input">
-                    <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>E-MAIL
-                    </div>
-                    <div class="col-sm-6 col-12"><input type="text" id="Email" title="Email" /></div>
-                </div>*@
+            <div class="col-sm-6 col-12">
+                <span class="mustInfo">*</span>E-MAIL
+            </div>
+            <div class="col-sm-6 col-12"><input type="text" id="Email" title="Email" /></div>
+        </div>*@
 
 
             </div>
@@ -272,7 +319,19 @@
         </footer>
     </div>
     <script>
+        window.onload = function () {
 
+            const citySelect = document.getElementById(`NonManufacturing_factoryCity`);
+            if (citySelect != null) {
+                for (const city in taiwanCities) {
+                    const option = document.createElement('option');
+                    option.value = city;
+                    option.textContent = city;
+                    citySelect.appendChild(option);
+                }
+            }
+            
+        }
     /*
     document.getElementById('Id').addEventListener('input', function (event)
     {
@@ -311,6 +370,7 @@
             "連江縣": ["南竿鄉", "北竿鄉", "莒光鄉", "東引鄉"]
         };
 
+        
 
         function generateForm() {
 
@@ -375,6 +435,17 @@
                     citySelect.appendChild(option);
                 }
             }
+        }
+
+        // 只留 select 元件的第一個選項
+        function removeOptionExceptFirst(selectId) {
+            const selectElement = document.getElementById(selectId);
+
+            // 保留第一個選項，並移除其餘的選項
+            while (selectElement.options.length > 1) {
+                selectElement.remove(1);
+            }
+            
         }
 
         // 移除 select 元件的第一個選項
@@ -478,6 +549,26 @@
 
         }
 
+        // 更新鄉鎮市區選項的函數, 非製造業用的
+        function NonManufacturing_updateDistricts() {
+            const citySelect = document.getElementById(`NonManufacturing_factoryCity`);
+            const districtSelect = document.getElementById(`NonManufacturing_factoryDistrict`);
+            const selectedCity = citySelect.value;
+
+            // 清空現有的鄉鎮市區選項
+            districtSelect.innerHTML = '<option value="">選擇鄉鎮市區</option>';
+
+            // 根據選擇的縣市更新鄉鎮市區
+            if (taiwanCities[selectedCity]) {
+                const districts = taiwanCities[selectedCity];
+                districts.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
 
         // 更新鄉鎮市區選項的函數
         function updateDistricts(factoryIndex) {
@@ -505,6 +596,8 @@
             const radioManu = document.getElementById('radio_manu');
             const manufacturingDiv = document.getElementById('Manufacturing');
 
+            const NonManufacturingDiv = document.getElementById('NonManufacturing');
+
             // 預設隱藏 Manufacturing 的 div
             manufacturingDiv.style.display = 'initial';
             factoriesForm.style.display = 'initial';
@@ -515,9 +608,15 @@
                     if (radioManu.checked) {
                         manufacturingDiv.style.display = 'initial'; // 顯示 div
                         factoriesForm.style.display = 'initial';
+                        NonManufacturingDiv.style.display = 'none';
+                        
                     } else {
                         manufacturingDiv.style.display = 'none'; // 隱藏 div
                         factoriesForm.style.display = 'none';
+
+                        NonManufacturingDiv.style.display = 'initial';
+                        removeOptionExceptFirst('NonManufacturing_factoryIndustry');
+                        
                     }
                 });
             });
@@ -533,6 +632,25 @@
         document.getElementById('FactoryNum').addEventListener('input', function (event) {
             this.value = this.value.replace(/[^0-9]/g, '');
         });
+
+        function checkDuplicateFactoryRegs(numFactories) {
+            let factoryRegs = new Set(); // 用來儲存已出現過的登記證
+
+            for (let i = 1; i <= numFactories; i++) {
+                let factoryReg = document.getElementById('factoryReg' + i).value;  // 取得登記證
+
+                // 檢查是否已經存在於 Set 中
+                if (factoryRegs.has(factoryReg)) {
+                    alert(`登記證重複: ${factoryReg}`);
+                    //alert(`登記證重複: ${factoryReg} 已經存在於第 ${i} 個工廠`);
+                    return false;  // 停止函數的執行，程式不再繼續
+                } else {
+                    factoryRegs.add(factoryReg); // 如果不重複，則加入到 Set 中
+                }
+            }
+
+            return true;  // 如果沒有發現重複，則返回 true
+        }
 
         function getFactory() {
             //把factory組起來
@@ -611,7 +729,33 @@
         //aryFac.push(fac2);
 
         // 呼叫函式並接收回傳的陣列
-        const aryFac = getFactory();
+        let  manufacturing = '';
+        const radioManu = document.getElementById('radio_manu');
+
+        if (radioManu.checked) manufacturing = "Manufacturing";
+        else manufacturing = "NonManufacturing";
+
+        let aryFac = '';
+
+        if (manufacturing == "Manufacturing") {
+
+            // 呼叫函數
+            let numFactories = document.getElementById('FactoryNum').value;
+
+            if (!checkDuplicateFactoryRegs(numFactories)) {
+                // 如果函數返回 false，程式終止，不繼續執行其他操作
+                //alert(`登記證重複`);
+                console.log("發現重複，程式停止執行。");
+                return; // 阻止後續的程式繼續執行
+            }
+
+            aryFac = getFactory();
+        }
+
+        let cUnitType = '';
+        if (manufacturing == 'NonManufacturing')
+            cUnitType = $('#UnitType').val();
+                
 
         fetch(window.siteroot + "CFC/CreateUser", {
             method: "POST",
@@ -625,12 +769,20 @@
                 Name: $("#Name").val(),
                 IndustryId: $("#IndustryId").val(),
                 CountyId: $("#CountyId").val(),
-                IndustrialAreaId: $("#IndustrialAreaId").val(),
-                IndustrialTypeId: $("#IndustrialTypeId").val(),
+                IndustrialAreaId: '',
+                //IndustrialAreaId: $("#IndustrialAreaId").val(),
+                //IndustrialTypeId: $("#IndustrialTypeId").val(),
+                IndustrialTypeId: $("#NonManufacturing_factoryIndustry").val(),
                 CompanySize: $("#CompanySize").val(),
                 Contact: $("#Contact").val(),
                 PhoneNumber: $("#PhoneNumber").val(),
                 Email: $("#Email").val(),
+                ADDRESS: $('#NonManufacturing_factoryAddress').val(),
+                Manufacturing: manufacturing,
+                CITY: $('#NonManufacturing_factoryCity').val(),
+                DISTRICT: $('#NonManufacturing_factoryDistrict').val(),
+                UNIT_TYPE: cUnitType,
+                Position: $('#Position').val(),
                 FactoryList: aryFac
             })
         }).then(e => e.json())

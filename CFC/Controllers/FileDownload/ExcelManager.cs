@@ -8,6 +8,7 @@ using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,62 @@ namespace CFC.Controllers.FileDownload
     internal class ExcelManager
     {
         private DouModelContext db = new DouModelContext();
+
+        public List<VolumeViewModel> GetVolumeData(int rowId)
+        {
+            string query = @"
+                        SELECT CAST(ROW_NUMBER() OVER (ORDER BY Category, RowId) AS INT) AS IDX,  -- 生成自動遞增的 Key 值
+                               -- 這裡會包括 Category, RowId, UseVolume, Type, TypeID, TypeName, Name 等欄位
+                                CAST(Category AS VARCHAR(50)) AS Category,
+                                CAST(RowId AS VARCHAR(50)) AS RowId,
+                                CAST(UseVolume AS VARCHAR(50)) AS UseVolume,  -- 將 UseVolume 轉為字串
+                                CAST(Type AS VARCHAR(50)) AS Type,
+                                CAST(TypeID AS VARCHAR(50)) AS TypeID,
+                                CAST(TypeName AS VARCHAR(50)) AS TypeName,
+                                CAST(NAME AS VARCHAR(50)) AS NAME
+                FROM (
+                        SELECT '01_Fuel' AS Category, A.RowId, A.UseVolume,'' AS Type ,'' AS TypeName, A.FuelId AS TypeID, 
+                               B.Name AS Name
+                        FROM [dbo].[Fuel_volume] A 
+                        JOIN [dbo].[Fuel_properties] B 
+                        ON A.FuelId = B.Id 
+                        WHERE A.RowId = @p0
+                        UNION
+                        SELECT '02_Escape' AS Category, A.RowId, A.UseVolume, A.EscapeType AS Type, A.EscapeId AS TypeID, 
+                               B.Name AS TypeName, C.Name AS Name
+                        FROM [CFC_test].[dbo].[Escape_volume] A 
+                        JOIN [dbo].[Escape_type] B 
+                        ON A.EscapeType = B.Id 
+                        JOIN [dbo].[Escape_properties] C 
+                        ON A.EscapeId = C.Id
+                        WHERE A.RowId = @p0
+                        UNION
+                        SELECT '03_Refrigerant' AS Category, A.RowId, A.UseVolume, A.RefrigerantEquip AS Type, A.RefrigerantType AS TypeID,
+                               B.Name AS TypeName, C.Name AS Name
+                        FROM [CFC_test].[dbo].[Refrigerant_volume] A
+                        JOIN [dbo].[Refrigerant_equip] B
+                        ON A.RefrigerantEquip = B.Id
+                        JOIN [dbo].[Refrigerant_type] C
+                        ON A.RefrigerantType = C.Id
+                        WHERE A.RowId = @p0
+                        UNION
+                        SELECT '04_Specific' AS Category, A.RowId, A.UseVolume, A.CreateType AS Type, A.CreateId AS TypeID,
+                               B.Name AS TypeName, C.Name AS Name
+                        FROM [CFC_test].[dbo].[Specific_volume] A
+                        JOIN [dbo].[Specific_type] B
+                        ON A.CreateType = B.Id
+                        JOIN [dbo].[Specific_properties] C
+                        ON A.CreateId = C.Id
+                        WHERE A.RowId = @p0 
+                   ) AS CombinedResults
+               ORDER BY Category ASC ";
+
+            var result = db.Database.SqlQuery<VolumeViewModel>(query, rowId).ToList();
+
+            return result;
+        }
+
+
         public ReturnModel DownloadExcel(SaveProjectModel saveProject) {
 
             // 確認輸入資料是否正確
@@ -44,16 +101,88 @@ namespace CFC.Controllers.FileDownload
             var newFileInfo = new FileInfo(temptFileAdd).CopyTo(newTemptFolder + "\\" + newTemptAdd);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
+            //取得工廠資料
+            var factory = db.SysFactory
+                            //.Where(f => f.FACTORY_REGISTRATION == "78699002")
+                            .Where(f => f.FACTORY_REGISTRATION == saveProject.FactoryRegistration)
+                            .Select(f => new
+                            {
+                                f.FACTORY_NAME,
+                                f.FACTORY_REGISTRATION,
+                                f.FACTORY_CITY,
+                                f.FACTORY_DISTRICT,
+                                f.FACTORY_ADDRESS,
+                                f.FACTORY_INDUSTRIAL,
+                                f.FACTORY_INDUSTRIAL_AREA
+                            }).FirstOrDefault();
+
+            //找INDUSTRIAL中文名字
+            var factoryIndustrialName = db.GlobalIndustrial
+                .Where(f => f.Id == factory.FACTORY_INDUSTRIAL)
+                .Select(f => new
+                {
+                    f.Name
+                }).FirstOrDefault();
+
+            var factoryIndustrialAreaName = db.GlobalIndustrialArea
+                .Where(f => f.Id == factory.FACTORY_INDUSTRIAL_AREA)
+                .Select(f => new
+                {
+                    f.Name
+                }).FirstOrDefault();
+
+            //取得人員資料
+            var userInfo = db.userPropertiesAdvance
+                            .Where(f => f.Id == saveProject.UserID)
+                            .Select(f => new
+                            {
+                                f.Id,
+                                //f.Name, //單位名稱
+                                f.UniformNumber, //統一編號
+                                f.Contact,
+                                f.POSITION,
+                                f.PhoneNumber,
+                                f.Email,
+                                Manufacturing = string.IsNullOrEmpty(f.UNIT_TYPE) ? "製造業" : "非製造業", //行業別, 如果是製造業, 會是空的, 非製製業才有值
+                                f.UNIT_TYPE
+                            }).FirstOrDefault();
+
+            //取得公司資料
+            var company = db.SysCompany
+                            .Where(f => f.COMP_UNIFORM_NUMBER == userInfo.UniformNumber)
+                            .Select(f => new
+                            {
+                                f.COMP_NAME,
+                                f.COMP_UNIFORM_NUMBER,
+                                f.COMP_SIZE
+                            }).FirstOrDefault();
+
+            //取得所有輸入的類別
+            var totalCategory = this.GetVolumeData(saveProject.RowID);
+
             // 產製檔案內容
-            try {
+            try
+            {
                 ExcelPackage Ep = new ExcelPackage(newFileInfo);
 
-                
+                var userInfoSheet = Ep.Workbook.Worksheets["廠商資料"];
+                new ItemManger().SetUserInfo(userInfoSheet, factory, company, 
+                                             userInfo.Manufacturing, userInfo.UNIT_TYPE, userInfo.UniformNumber,
+                                             userInfo.Contact, userInfo.POSITION,userInfo.PhoneNumber, userInfo.Email,
+                                             factoryIndustrialName.Name, factoryIndustrialAreaName.Name);
+
+
+
                 var itemsSheet = Ep.Workbook.Worksheets["排放量計算"];
                 new ItemManger().SetItems(itemsSheet , userInput);
 
+
+                //var itemsSheet = Ep.Workbook.Worksheets["碳盤查彙整表"];
+                //new ItemManger().SetItems(itemsSheet, userInput);
+                //SetGraph
+
                 var stasticSheet = Ep.Workbook.Worksheets["碳盤查彙整表"];
-                new StasticsManager().SetStatistics(stasticSheet , userInput);
+                new StasticsManager().SetStatistics(stasticSheet, userInput);
 
                 Ep.Save();
 
@@ -119,6 +248,7 @@ namespace CFC.Controllers.FileDownload
                    join property in this.db.FuelProperties
                        on volume.FuelId equals property.Id
                    where volume.RowId == input.RowID
+                   orderby property.Name ascending // 根據 property 的 Name 進行升冪排序
                    select new FuelInput
                    {
                        volume = volume,
@@ -136,6 +266,7 @@ namespace CFC.Controllers.FileDownload
                        join property in this.db.RefrigerantType
                            on volumn.RefrigerantType equals property.Id
                        where volumn.RowId == input.RowID
+                       orderby property.Name ascending // 根據 property 的 Name 進行升冪排序
                        select new RefrigInput
                        {
                            volume = volumn,
@@ -151,6 +282,7 @@ namespace CFC.Controllers.FileDownload
                        join property in this.db.EscapeProperties
                         on volumn.EscapeId equals property.Id
                        where volumn.RowId == input.RowID
+                       orderby property.Name ascending // 根據 property 的 Name 進行升冪排序
                        select new ExcelManagerF.EscapeInput
                        {
                            volume = volumn,
@@ -164,6 +296,7 @@ namespace CFC.Controllers.FileDownload
                        join property in this.db.SpecificProperties
                        on volumn.CreateId equals property.Id
                        where volumn.RowId == input.RowID
+                       orderby property.Name ascending // 根據 property 的 Name 進行升冪排序
                        select new CreateInput
                        {
                            volume = volumn,

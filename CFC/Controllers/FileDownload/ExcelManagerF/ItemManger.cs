@@ -1,7 +1,9 @@
 ﻿using CFC.Models;
 using CFC.Models.Prj;
 using Microsoft.Ajax.Utilities;
+using Microsoft.Office.Interop.Excel;
 using OfficeOpenXml;
+using OfficeOpenXml.Drawing.Chart;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -15,6 +17,31 @@ namespace CFC.Controllers.FileDownload.ExcelManagerF
     internal class ItemManger
     {
         private DouModelContext db = new DouModelContext();
+
+        public void SetUserInfo(ExcelWorksheet sheet,  dynamic cFactory, dynamic cCompany, 
+                                string manufacturing, string unitType, string uniformNumber,
+                                string cContact, string cPosition, string cPhoneNumber, string cEmail,
+                                string factoryIndustrialName, string factoryIndustrialAreaName)
+        {
+            sheet.Cells[3, 3].Value = uniformNumber;
+            sheet.Cells[4, 3].Value = cCompany.COMP_NAME;
+            sheet.Cells[5, 3].Value = manufacturing;
+            sheet.Cells[6, 3].Value = cCompany.COMP_SIZE;
+            sheet.Cells[7, 3].Value = unitType;
+
+            sheet.Cells[10, 3].Value = cFactory.FACTORY_NAME;
+            sheet.Cells[11, 3].Value = cFactory.FACTORY_REGISTRATION;
+            sheet.Cells[12, 3].Value = cFactory.FACTORY_CITY + cFactory.FACTORY_DISTRICT + cFactory.FACTORY_ADDRESS;
+            sheet.Cells[13, 3].Value = factoryIndustrialAreaName;
+            sheet.Cells[14, 3].Value = factoryIndustrialName;
+
+            sheet.Cells[17, 3].Value = cContact;
+            sheet.Cells[18, 3].Value = cPosition;
+            sheet.Cells[19, 3].Value = cPhoneNumber;
+            sheet.Cells[20, 3].Value = cEmail;
+        }
+
+        
 
         public void SetItems(ExcelWorksheet sheet, User_Input_Advance input) {
             int currentIndex = 1;

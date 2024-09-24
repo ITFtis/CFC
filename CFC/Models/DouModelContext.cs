@@ -62,6 +62,8 @@ namespace CFC.Models
 
         public virtual DbSet<G_USER_FACTORY> UserFactory { get; set; } //會員跟工廠的關聯
 
+        public virtual DbSet<VolumeViewModel> VolumeViewModel { get; set; } 
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // 定義組合鍵 USER_ID 和 FACTORY_REGISTRATION

@@ -273,7 +273,7 @@
     <Compile Include="Models\Prj\User_Input.cs" />
     <Compile Include="Models\Prj\User_Properties_Advance.cs" />
     <Compile Include="Models\Prj\User_Properties.cs" />
-    <Compile Include="Models\UserFactory.cs" />
+    <Compile Include="Models\Prj\VolumeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="_core\Cm.cs" />

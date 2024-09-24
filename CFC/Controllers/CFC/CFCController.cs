@@ -52,11 +52,16 @@ namespace CFC.Controllers.CFC
             if (STREAMLINE == m.Name)
                 ViewBag.STREAMLINE = m.Name;
 
+            string userID = Convert.ToString(ViewBag.UserID);
+            m.Id = userID;
+
             // 專案儲存用
             ViewBag.IndustriaTypes = DateViewController.AllIndustrialType.OrderBy(e => e.DisplayOrder);
             ViewBag.Cities = DateViewController.AllCity.OrderBy(e => e.DisplayOrder);
-            ViewBag.ProjectLogs = this.db.UserProjects.Where(e => e.UserID == m.Id).ToList();
-            ViewBag.ProjectInputs = this.db.userInputAdvance.Where(e => e.UserID == m.Id && e.IsSave == true).ToList();
+            //ViewBag.ProjectLogs = this.db.UserProjects.Where(e => e.UserID == m.Id).ToList();
+            //ViewBag.ProjectInputs = this.db.userInputAdvance.Where(e => e.UserID == m.Id && e.IsSave == true).ToList();
+            ViewBag.ProjectLogs = this.db.UserProjects.Where(e => e.UserID == userID).ToList();
+            ViewBag.ProjectInputs = this.db.userInputAdvance.Where(e => e.UserID == userID && e.IsSave == true).ToList();
 
 
             // 燃料
@@ -181,6 +186,43 @@ namespace CFC.Controllers.CFC
             return PartialView("Index", new User_Properties_Advance());
         }
 
+        // 取得特定 USER 關聯的工廠清單
+        [HttpPost]
+        public JsonResult GetFactoriesByUser(string userId)
+        {
+            var factories = from uf in db.UserFactory
+                            join f in db.SysFactory on uf.FACTORY_REGISTRATION equals f.FACTORY_REGISTRATION
+                            where uf.USER_ID == userId
+                            select new
+                            {
+                                f.FACTORY_NAME,
+                                f.FACTORY_REGISTRATION
+                            };
+
+            return Json(factories.ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+
+        // 取得特定工廠的詳細資訊
+        [HttpPost]
+        public JsonResult GetFactoryDetails(string factoryRegistration)
+        {
+            var factory = db.SysFactory
+                            .Where(f => f.FACTORY_REGISTRATION == factoryRegistration)
+                            .Select(f => new
+                            {
+                                f.FACTORY_NAME,
+                                f.FACTORY_REGISTRATION,
+                                f.FACTORY_CITY,
+                                f.FACTORY_DISTRICT,
+                                f.FACTORY_ADDRESS,
+                                f.FACTORY_INDUSTRIAL,
+                                f.FACTORY_INDUSTRIAL_AREA
+                            }).FirstOrDefault();
+
+            return Json(factory, JsonRequestBehavior.AllowGet);
+        }
+
 
         [HttpPost]
         public JsonResult GetFactoryProperties(string FactoryRegistration)
@@ -206,16 +248,16 @@ namespace CFC.Controllers.CFC
         [HttpPost]
         public ActionResult CreateUser(User_Properties_Advance user)
         {
-            for (int i = 0; i < user.FactoryList.Count; i++)
-            {
-                SYS_FACTORY cFactory = (SYS_FACTORY)(user.FactoryList[i]);
-                this.db.SysFactory.Add(cFactory);
-                this.db.SaveChanges();
-                //console.log(factories[i].FACTORY_NAME); // 取出工廠名稱
-                //console.log(factories[i].FACTORY_REGISTRATION); // 取出工廠登記證
-                //console.log(factories[i].FACTORY_CITY); // 取出工廠所在縣市
-                // ...繼續取出其他欄位
-            }
+            //for (int i = 0; i < user.FactoryList.Count; i++)
+            //{
+            //    SYS_FACTORY cFactory = (SYS_FACTORY)(user.FactoryList[i]);
+            //    this.db.SysFactory.Add(cFactory);
+            //    this.db.SaveChanges();
+            //    //console.log(factories[i].FACTORY_NAME); // 取出工廠名稱
+            //    //console.log(factories[i].FACTORY_REGISTRATION); // 取出工廠登記證
+            //    //console.log(factories[i].FACTORY_CITY); // 取出工廠所在縣市
+            //    // ...繼續取出其他欄位
+            //}
 
 
             StringBuilder errorMes = new StringBuilder();
@@ -257,42 +299,68 @@ namespace CFC.Controllers.CFC
             // 紀錄一筆資訊
             else
             {
-                //這裡要先存FACTORY
-                //先判斷該登記證，若不存在, 就新增一筆, 若存在, 就更新
-                //var factoryProperties = DateViewController.All_SYS_FACTORY_properties.FirstOrDefault(e => e.FACTORY_REGISTRATION.Equals(FactoryRegistration));
-                for (int i = 0; i < user.FactoryList.Count; i++)
+                //var sCompany = this.db.SysCompany.Where(a => a.COMP_UNIFORM_NUMBER == user.UniformNumber).First();
+
+                //先把公司資料存起來統一編號存起來
+                if (this.db.SysCompany.Any(a => a.COMP_UNIFORM_NUMBER == user.UniformNumber))
                 {
-                    SYS_FACTORY cFactory = (SYS_FACTORY)(user.FactoryList[i]);
-                    var factoryProperties = DateViewController.All_SYS_FACTORY_properties.FirstOrDefault(e => e.FACTORY_REGISTRATION.Equals(cFactory.FACTORY_REGISTRATION));
-                    if (factoryProperties == null)
-                    {
-                        this.db.SysFactory.Add(cFactory);
-                    }
-                    else
-                    {
-                        var f = this.db.SysFactory.Where(a => a.FACTORY_REGISTRATION == factoryProperties.FACTORY_REGISTRATION).First();
-                        f.FACTORY_NAME = cFactory.FACTORY_NAME;
-                        f.FACTORY_CITY = cFactory.FACTORY_CITY;
-                        f.FACTORY_DISTRICT = cFactory.FACTORY_DISTRICT; ;
-                        f.FACTORY_ADDRESS = cFactory.FACTORY_ADDRESS;
-                        f.FACTORY_INDUSTRIAL = cFactory.FACTORY_INDUSTRIAL;
-                        f.FACTORY_INDUSTRIAL_AREA = f.FACTORY_INDUSTRIAL_AREA;
-                        f.UDate = DateTime.Now.ToString("yyyymmddhhmmss");
-                        f.UId = cFactory.UId;
-                    }
+                    var sCompany = this.db.SysCompany
+                        .Where(a => a.COMP_UNIFORM_NUMBER == user.UniformNumber)
+                        .First();
+                    // 使用 sCompany 進行後續操作
+                    sCompany.COMP_NAME = user.Name;
+                    sCompany.COMP_SIZE = user.CompanySize;
+                }
+                else
+                {
+                    SYS_COMPANY newCompany = new SYS_COMPANY();
+                    newCompany.COMP_NAME = user.Name;
+                    newCompany.COMP_SIZE = user.CompanySize;
+                    newCompany.COMP_UNIFORM_NUMBER = user.UniformNumber;
+                    this.db.SysCompany.Add(newCompany);
+                    
+                }
 
-                    //會員與工廠的關聯
-                    G_USER_FACTORY uf = new G_USER_FACTORY();
-                    uf.USER_ID = user.Id;
-                    uf.FACTORY_REGISTRATION = cFactory.FACTORY_REGISTRATION;
-                    uf.BDate = cFactory.BDate;
-                    uf.BId = cFactory.BId;
-                    this.db.UserFactory.Add(uf);
+                //製造業才有1對多個工廠的關係
+                if (user.Manufacturing == "Manufacturing")
+                {
+                    //這裡要先存FACTORY
+                    //先判斷該登記證，若不存在, 就新增一筆, 若存在, 就更新
+                    //var factoryProperties = DateViewController.All_SYS_FACTORY_properties.FirstOrDefault(e => e.FACTORY_REGISTRATION.Equals(FactoryRegistration));
+                    for (int i = 0; i < user.FactoryList.Count; i++)
+                    {
+                        SYS_FACTORY cFactory = (SYS_FACTORY)(user.FactoryList[i]);
+                        var factoryProperties = DateViewController.All_SYS_FACTORY_properties.FirstOrDefault(e => e.FACTORY_REGISTRATION.Equals(cFactory.FACTORY_REGISTRATION));
+                        if (factoryProperties == null)
+                        {
+                            this.db.SysFactory.Add(cFactory);
+                        }
+                        else
+                        {
+                            var f = this.db.SysFactory.Where(a => a.FACTORY_REGISTRATION == factoryProperties.FACTORY_REGISTRATION).First();
+                            f.FACTORY_NAME = cFactory.FACTORY_NAME;
+                            f.FACTORY_CITY = cFactory.FACTORY_CITY;
+                            f.FACTORY_DISTRICT = cFactory.FACTORY_DISTRICT; ;
+                            f.FACTORY_ADDRESS = cFactory.FACTORY_ADDRESS;
+                            f.FACTORY_INDUSTRIAL = cFactory.FACTORY_INDUSTRIAL;
+                            f.FACTORY_INDUSTRIAL_AREA = f.FACTORY_INDUSTRIAL_AREA;
+                            f.UDate = DateTime.Now.ToString("yyyymmddhhmmss");
+                            f.UId = cFactory.UId;
+                        }
 
-                    //console.log(factories[i].FACTORY_NAME); // 取出工廠名稱
-                    //console.log(factories[i].FACTORY_REGISTRATION); // 取出工廠登記證
-                    //console.log(factories[i].FACTORY_CITY); // 取出工廠所在縣市
-                    // ...繼續取出其他欄位
+                        //會員與工廠的關聯
+                        G_USER_FACTORY uf = new G_USER_FACTORY();
+                        uf.USER_ID = user.Id;
+                        uf.FACTORY_REGISTRATION = cFactory.FACTORY_REGISTRATION;
+                        uf.BDate = cFactory.BDate;
+                        uf.BId = cFactory.BId;
+                        this.db.UserFactory.Add(uf);
+
+                        //console.log(factories[i].FACTORY_NAME); // 取出工廠名稱
+                        //console.log(factories[i].FACTORY_REGISTRATION); // 取出工廠登記證
+                        //console.log(factories[i].FACTORY_CITY); // 取出工廠所在縣市
+                        // ...繼續取出其他欄位
+                    }
                 }
 
                 this.db.userPropertiesAdvance.Add(user);
@@ -336,11 +404,16 @@ namespace CFC.Controllers.CFC
                 return Json(new { success = false, desc = "查無此紀錄" }, JsonRequestBehavior.DenyGet);
 
             userInput.IsSave = true;
-            userInput.ProjectAddress = saveProject.ProjectAddress;
-            userInput.ProjectCity = saveProject.ProjectCity;
+            userInput.FACTORY_REGISTRATION = saveProject.FactoryRegistration;
+            userInput.StartDate = saveProject.StartDate;
+            userInput.EndDate = saveProject.EndDate;
+            //userInput.ProjectAddress = saveProject.ProjectAddress;
+            //userInput.ProjectCity = saveProject.ProjectCity;
             userInput.ProjectName = saveProject.ProjectName;
-            userInput.ProjectIndustrialType = saveProject.ProjectIndustrialType;
-            userInput.ProjectIndustrialID = saveProject.ProjectIndustrialID;
+            //userInput.ProjectIndustrialType = saveProject.ProjectIndustrialType;
+            //userInput.ProjectIndustrialID = saveProject.ProjectIndustrialID;
+            userInput.BDate = saveProject.BDate;
+            userInput.BId = saveProject.BId;
 
             try
             {

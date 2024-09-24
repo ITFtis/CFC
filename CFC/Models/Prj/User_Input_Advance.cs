@@ -64,6 +64,29 @@ namespace CFC.Models.Prj
         [Display(Name = "ARType")]
         public string ARType { get; set; }
 
+        [Display(Name = "工廠登記證")]
+        public string FACTORY_REGISTRATION { get; set; }
+
+        [Display(Name = "區間開始日期")]
+        public string StartDate { get; set; }
+
+        [Display(Name = "區間結束日期")]
+        public string EndDate { get; set; }
+
+
+        [Display(Name = "建檔日")]
+        public string BDate { get; set; }
+
+        [Display(Name = "建檔者ID")]
+        public string BId { get; set; }
+
+        [Display(Name = "修改日")]
+        public string UDate { get; set; }
+
+        [Display(Name = "修改者ID")]
+        public string UId { get; set; }
+
+
 
         // 類別3
         public double Tr01 { get; set; } // 類別3-運輸-上游原物料配送當量
