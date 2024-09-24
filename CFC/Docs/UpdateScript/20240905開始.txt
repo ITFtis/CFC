@@ -245,3 +245,20 @@ EXEC sp_addextendedproperty
     @level2type = N'COLUMN', @level2name = N'UPDATE_USERID';
 --------------------------------
 
+ALTER TABLE [CFC_test].[dbo].[User_Properties_Advance]
+ADD 
+    CITY NVARCHAR(50),
+    DISTRICT NVARCHAR(50),
+    ADDRESS NVARCHAR(200),
+    UNIT_TYPE NVARCHAR(50);
+
+ALTER TABLE [dbo].[User_Projects]
+ADD 
+    [FACTORY_REGISTRATION] NVARCHAR(20) NOT NULL,  -- 工廠登記號
+    [StartDate] NVARCHAR(8),                         -- 區間開始日期
+    [EndDate] NVARCHAR(8),                           -- 區間結束日期
+    [BDate] NVARCHAR(14),                         -- 建立日期
+    [BId] NVARCHAR(50),                     -- 建立者ID
+    [UDate] NVARCHAR(14),                      -- 更新日期
+    [UId] NVARCHAR(50),                      -- 更新者ID 
+
