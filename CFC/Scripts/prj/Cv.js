@@ -85,15 +85,19 @@
     function SetTabs3() {
 
         var $_oform = $("#_tabs");
+        
+        $_dSetCalsTypeContainer = $('<table>').appendTo($_oform.parent());
+        $_dSetCalsPropertiesContainer = $('<table>').appendTo($_oform.parent());
 
-        $_temp = $('<table>').appendTo($_oform.parent());
+        //1-n 3-6類別
+        SetCalsType();
 
-        //////1-n 其它項目(3-6)
-        ////SetOther3_6();
+        //1-n 3-6類別項目
+        SetCalsProperties();
 
-        helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_3", "tabPanel",
-            ['3-6其它項目'],
-            [$_temp]);
+        helper.bootstrap.genBootstrapTabpanel($_dSetCalsTypeContainer.parent(), "tabPanel_3", "tabPanel",
+            ['3-6類別', '3-6類別項目'],
+            [$_dSetCalsTypeContainer, $_dSetCalsPropertiesContainer]);
     }
 
     //燃料計算
@@ -264,9 +268,87 @@
         });
     };
 
-    //其它項目(3-6)
-    function SetOther3_6() {
+    //3-6類別
+    function SetCalsType() {
+        $.getJSON(window.siteroot + 'Cv/GetTabCalsTypeList', function (_opt) { //取model option
 
+            _opt.title = '3-6類別';
+
+            //取消自動抓後端資料
+            _opt.tableOptions.url = undefined;
+            _opt.editformSize = { minWidth: 700 };
+
+            _opt.addServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsType/Add', callback);
+            };
+
+            _opt.updateServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsType/Update', callback);
+            };
+
+            _opt.deleteServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsType/Delete', callback);
+            };
+
+            //實體Dou js
+            $_dSetCalsTypeContainer.DouEditableTable(_opt);
+        });
+    }
+
+    //3-6類別項目
+    function SetCalsProperties() {
+        $.getJSON(window.siteroot + 'Cv/GetTabCalsPropertiesList', function (_opt) { //取model option
+
+            _opt.title = '3-6類別項目';
+
+            //取消自動抓後端資料
+            _opt.tableOptions.url = undefined;
+            _opt.editformSize = { minWidth: 700 };
+
+            _opt.addServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsProperties/Add', callback);
+            };
+
+            _opt.updateServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsProperties/Update', callback);
+            };
+
+            _opt.deleteServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsProperties/Delete', callback);
+            };
+
+            //實體Dou js
+            $d = $_dSetCalsPropertiesContainer.DouEditableTable(_opt);
+
+            $('.btn-confirm').click(function () {
+
+                var conditions = GetFilterParams($d)
+                var paras;
+                if (conditions.length > 0) {
+                    paras = { key: 'filter', value: JSON.stringify(conditions) };
+                }
+
+                helper.misc.showBusyIndicator();
+                $.ajax({
+                    url: window.siteroot + 'Cv/GetTabCalsPropertiesList',
+                    datatype: "json",
+                    type: "POST",
+                    data: { paras: [paras] },
+                    success: function (_opt) {
+                        var datas = _opt.datas;
+                        $d.instance.tableReload(datas, false);
+                    },
+                    complete: function () {
+                        helper.misc.hideBusyIndicator();
+                    },
+                    error: function (xhr, status, error) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        alert(err.Message);
+                        helper.misc.hideBusyIndicator();
+                    }
+                });
+            });
+        });
     }
 })
 

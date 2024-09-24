@@ -219,7 +219,9 @@
     <Compile Include="Controllers\Manager\UserController.cs" />
     <Compile Include="Controllers\PrjNew\ArController.cs" />
     <Compile Include="Controllers\PrjNew\CvController.cs" />
-    <Compile Include="Controllers\PrjNew\GContentController.cs" />
+    <Compile Include="Controllers\PrjNew\Sys_contentDetailController.cs" />
+    <Compile Include="Controllers\Prj\CalsPropertiesController.cs" />
+    <Compile Include="Controllers\Prj\CalsTypeController.cs" />
     <Compile Include="Controllers\Prj\ElecPropertiesController.cs" />
     <Compile Include="Controllers\Prj\EscapePropertiesController.cs" />
     <Compile Include="Controllers\Prj\SpecificPropertiesController.cs" />
@@ -228,6 +230,7 @@
     <Compile Include="Controllers\Prj\FuelPropertiesController.cs" />
     <Compile Include="Controllers\Prj\RefrigerantEquipController.cs" />
     <Compile Include="Controllers\Prj\RefrigerantTypeController.cs" />
+    <Compile Include="Controllers\PrjNew\SysContentController.cs" />
     <Compile Include="Controllers\Prj\SYS_COMPANYController.cs" />
     <Compile Include="Controllers\Prj\SYS_FACTORYController.cs" />
     <Compile Include="Controllers\Prj\UserPropertiesController.cs" />
@@ -247,6 +250,8 @@
     <Compile Include="Models\Joined\Calculate\UserInput_Advance.cs" />
     <Compile Include="Models\Manager\Role.cs" />
     <Compile Include="Models\Manager\User.cs" />
+    <Compile Include="Models\Prj\Cals_properties.cs" />
+    <Compile Include="Models\Prj\Cals_type.cs" />
     <Compile Include="Models\Prj\Elec_properties.cs" />
     <Compile Include="Models\Prj\Fuel_volume.cs" />
     <Compile Include="Models\Prj\G_USER_FACTORY.cs" />
@@ -266,6 +271,8 @@
     <Compile Include="Models\Prj\Escape_type.cs" />
     <Compile Include="Models\Prj\Refrigerant_type.cs" />
     <Compile Include="Models\Prj\SYS_COMPANY.cs" />
+    <Compile Include="Models\Prj\Sys_content.cs" />
+    <Compile Include="Models\Prj\Sys_contentDetail.cs" />
     <Compile Include="Models\Prj\SYS_FACTORY.cs" />
     <Compile Include="Models\Prj\Type3Mark.cs" />
     <Compile Include="Models\Prj\User_Project_Log.cs" />
@@ -276,7 +283,9 @@
     <Compile Include="Models\Prj\VolumeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="_applyClass\KeyValueParams.cs" />
     <Compile Include="_core\Cm.cs" />
+    <Compile Include="_core\Constant.cs" />
     <Compile Include="_core\ODFHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1492,9 +1501,11 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\popper.min.js.map" />
     <Content Include="Scripts\prj\Ar.js" />
+    <Content Include="Scripts\prj\baseb.js" />
     <Content Include="Scripts\prj\cfc.js" />
     <Content Include="Scripts\prj\cfc_n.js" />
     <Content Include="Scripts\prj\Cv.js" />
+    <Content Include="Scripts\prj\SysContent.js" />
     <Content Include="Scripts\README.md" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
@@ -1625,12 +1636,15 @@
     <Content Include="Views\CFC\ProjectView.cshtml" />
     <Content Include="Views\Cv\Index.cshtml" />
     <Content Include="Views\Ar\Index.cshtml" />
+    <Content Include="Views\SysContent\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="File\ExcelCreater\tempFolder\" />
+    <Folder Include="Views\CalsProperties\" />
+    <Folder Include="Views\CalsType\" />
     <Folder Include="Views\DataPrint\" />
-    <Folder Include="Views\GContent\" />
+    <Folder Include="Views\Sys_contentDetail\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

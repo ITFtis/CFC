@@ -199,6 +199,14 @@ var transactionDouClientDataToServer = function (row, url, callback) {
         return _result;
     }
 
+    //字串轉function
+    var stringEval2Function = function (s) {
+        if (s && typeof s === 'string' && s.trim().startsWith('(function'))
+            return eval(s);
+        else
+            return s;
+    }
+
     $.edittable_defaultEdit = {
         "default": {
             editContent: function ($_fieldContainer) {
@@ -728,6 +736,15 @@ var transactionDouClientDataToServer = function (row, url, callback) {
             $.extend(true, this.settings, options);
             this.$rootParentContainer = typeof this.settings.rootParentContainer === "string" ? $(this.settings.rootParentContainer) : this.settings.rootParentContainer;
 
+            //如前端是呼叫Dou後端GetDataManagerOptionsJson，function會是是字串，需string轉成function
+            this.settings.addServerData = stringEval2Function(this.settings.addServerData);
+            this.settings.updateServerData = stringEval2Function(this.settings.updateServerData);
+            this.settings.deleteServerData = stringEval2Function(this.settings.deleteServerData);
+            if (this.settings.tableOptions) {
+                this.settings.tableOptions.formatNoMatches = stringEval2Function(this.settings.tableOptions.formatNoMatches);
+                this.settings.tableOptions.formatSearch = stringEval2Function(this.settings.tableOptions.formatSearch);
+                this.settings.tableOptions.responseHandler = stringEval2Function(this.settings.tableOptions.responseHandler);
+            }
 
             this.settings.datas = options.datas; //如options.datas=[] ,則extend後this.settings.datas的實體還是原this.settings.datas[]的實體
             this.settings.tableOptions.search = this.settings.search;

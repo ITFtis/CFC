@@ -62,7 +62,17 @@ namespace CFC.Models
 
         public virtual DbSet<G_USER_FACTORY> UserFactory { get; set; } //會員跟工廠的關聯
 
+<<<<<<< HEAD
         public virtual DbSet<VolumeViewModel> VolumeViewModel { get; set; } 
+=======
+        public virtual DbSet<Cals_type> CalsType { get; set; } //3-6類別
+
+        public virtual DbSet<Cals_properties> CalsProperties { get; set; } //3-6類別項目
+
+        public virtual DbSet<Sys_content> Sys_content { get; set; } //系統內容
+
+        public virtual DbSet<Sys_contentDetail> Sys_contentDetail { get; set; } //系統內容細項
+>>>>>>> f239201ba73cf21e499012d4ed37b84d86d0be69
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
