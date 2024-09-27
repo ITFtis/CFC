@@ -74,12 +74,21 @@
 
         var $_oform = $("#_tabs");
 
-        $_temp = $('<table>').appendTo($_oform.parent());
+        ////$_temp = $('<table>').appendTo($_oform.parent());
 
+
+        ////helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_2", "tabPanel",
+        ////    ['空空'],
+        ////    [$_temp]);
+
+        $_dElecContainer = $('<table>').appendTo($_oform.parent());
+
+        //1-n 電力計算
+        SetElec();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_2", "tabPanel",
-            ['空空'],
-            [$_temp]);
+            ['電力計算'],
+            [$_dElecContainer]);
     }
 
     function SetTabs3() {
@@ -265,6 +274,34 @@
 
             //實體Dou js
             $_dSetSpecificPropertiesContainer.DouEditableTable(_opt);
+        });
+    };
+
+    //電力計算
+    function SetElec() {
+
+        $.getJSON(window.siteroot + 'Cv/GetTabElecList', function (_opt) { //取model option
+
+            _opt.title = '電力計算';
+
+            //取消自動抓後端資料
+            _opt.tableOptions.url = undefined;
+            _opt.editformSize = { minWidth: 700 };
+
+            _opt.addServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'ElecProperties/Add', callback);
+            };
+
+            _opt.updateServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'ElecProperties/Update', callback);
+            };
+
+            _opt.deleteServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'ElecProperties/Delete', callback);
+            };
+
+            //實體Dou js
+            $_dElecContainer.DouEditableTable(_opt);
         });
     };
 

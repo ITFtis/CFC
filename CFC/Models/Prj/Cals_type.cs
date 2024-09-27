@@ -22,13 +22,13 @@ namespace CFC.Models.Prj
         /// <summary>
         /// 編號名稱
         /// </summary>
-        [Display(Name = "編號名稱")]
+        [Display(Name = "類別名稱(1)")]
         public string IdText { get; set; }
 
         /// <summary>
         /// 名稱
         /// </summary>
-        [Display(Name = "名稱")]
+        [Display(Name = "類別名稱(2)")]
         public string Name { get; set; }
 
         /// <summary>
