@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using DouHelper;
 
 namespace CFC.Models.Prj
 {
@@ -46,5 +47,32 @@ namespace CFC.Models.Prj
         /// </summary>
         [Display(Name = "順序")]
         public int DisplayOrder { get; set; }
+
+        static object lockGetAllDatas = new object();
+        public static IEnumerable<Cals_properties> GetAllDatas(int cachetimer = 0)
+        {
+            if (cachetimer == 0) cachetimer = Constant.cacheTime;
+
+            string key = "CFC.Models.Prj.Cals_properties";
+            var allData = DouHelper.Misc.GetCache<IEnumerable<Cals_properties>>(cachetimer, key);
+            lock (lockGetAllDatas)
+            {
+                if (allData == null)
+                {
+                    Dou.Models.DB.IModelEntity<Cals_properties> modle = new Dou.Models.DB.ModelEntity<Cals_properties>(new DouModelContext());
+                    allData = modle.GetAll().ToArray();
+
+                    DouHelper.Misc.AddCache(allData, key);
+                }
+            }
+
+            return allData;
+        }
+
+        public static void ResetGetAllDatas()
+        {
+            string key = "CFC.Models.Prj.Cals_properties";
+            Misc.ClearCache(key);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -30,6 +31,18 @@ namespace CFC.Models.Prj
         /// </summary>
         [Display(Name = "順序")]
         public int DisplayOrder { get; set; }
+
+        /// <summary>
+        /// 3-6類別項目
+        /// </summary>
+        [NotMapped]
+        public ICollection<Cals_properties> Details
+        {
+            get
+            {
+                return Cals_properties.GetAllDatas().Where(a => a.Type == this.Id).ToList();
+            }
+        }
     }
 
     public class CalsTypeSelectItems : Dou.Misc.Attr.SelectItemsClass
