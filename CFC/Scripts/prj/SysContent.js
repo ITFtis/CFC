@@ -31,7 +31,7 @@
 
             //編輯後給detail.MasterId
             _opt.beforeCreateEditDataForm = function (drow, callback) {
-                drow.MapId = row.Id;
+                drow.ContentId = row.Id;
 
                 callback();
             };

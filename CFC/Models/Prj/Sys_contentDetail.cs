@@ -22,7 +22,7 @@ namespace CFC.Models.Prj
 
         [Display(Name = "對應系統內容編號")]
         [ColumnDef(Visible = false, VisibleEdit = false)]
-        public int MapId { get; set; }
+        public int ContentId { get; set; }
 
         [Display(Name = "標題")]
         public string Title { get; set; }
