@@ -6,7 +6,7 @@
         hasChangeDetails = false;
         if (row.Id == undefined)
             return;
-        $.getJSON($.AppConfigOptions.baseurl + 'Sys_contentDetail/GetDataManagerOptionsJson', function (_opt) {
+        $.getJSON($.AppConfigOptions.baseurl + 'SysContentDetail/GetDataManagerOptionsJson', function (_opt) {
 
             _opt.title = '細項';
 
@@ -18,15 +18,15 @@
             _opt.datas = row.Details;
 
             _opt.addServerData = function (row, callback) {
-                transactionDouClientDataToServer(row, window.siteroot + 'Sys_contentDetail/Add', callback);
+                transactionDouClientDataToServer(row, window.siteroot + 'SysContentDetail/Add', callback);
             };
 
             _opt.updateServerData = function (row, callback) {
-                transactionDouClientDataToServer(row, window.siteroot + 'Sys_contentDetail/Update', callback);
+                transactionDouClientDataToServer(row, window.siteroot + 'SysContentDetail/Update', callback);
             };
 
             _opt.deleteServerData = function (row, callback) {
-                transactionDouClientDataToServer(row, window.siteroot + 'Sys_contentDetail/Delete', callback);
+                transactionDouClientDataToServer(row, window.siteroot + 'SysContentDetail/Delete', callback);
             };
 
             //編輯後給detail.MasterId
