@@ -316,7 +316,7 @@ namespace CFC.Controllers.PrjNew
 
             //欄位控制
             List<string> fs = new List<string>();
-            fs.AddRange(new List<string>() { "Id", "IdText", "Name", "DisplayOrder" });
+            fs.AddRange(new List<string>() { "Id", "Name", "DisplayOrder" });
 
             ////係數option
             //fs.AddRange(new List<string>() { });

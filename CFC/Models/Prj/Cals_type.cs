@@ -20,15 +20,9 @@ namespace CFC.Models.Prj
         public string Id { get; set; }
 
         /// <summary>
-        /// 編號名稱
-        /// </summary>
-        [Display(Name = "類別名稱(1)")]
-        public string IdText { get; set; }
-
-        /// <summary>
         /// 名稱
         /// </summary>
-        [Display(Name = "類別名稱(2)")]
+        [Display(Name = "名稱")]
         public string Name { get; set; }
 
         /// <summary>
@@ -65,7 +59,7 @@ namespace CFC.Models.Prj
         }
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
-            return CalsTypeSelects.Select(s => new KeyValuePair<string, object>(s.Id.ToString(), s.IdText + "-" + s.Name));
+            return CalsTypeSelects.Select(s => new KeyValuePair<string, object>(s.Id.ToString(), s.Name));
         }
     }
 }
