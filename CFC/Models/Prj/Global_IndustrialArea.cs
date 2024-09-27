@@ -25,5 +25,8 @@ namespace CFC.Models.Prj
         [Key]
         [Display(Name = "工業園區")]
         public override string Id { get; set; }
+
+        [Display(Name = "縣市")]
+        public string CityName { get; set; }
     }
 }

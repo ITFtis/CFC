@@ -114,6 +114,11 @@ $(document).ready(function () {
         $(".viewProject-cover").attr("style", "");
     });
 
+    // 會員資料修改
+    $('.download-container button[name="momberModify"] , .login-info button[name="memberModify"]').on("click", function () {
+        $(".memberModify-cover").attr("style", "");
+    });
+
 
 
     // 下載細部內容

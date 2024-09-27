@@ -52,12 +52,29 @@
                 else {
                     var data = response.data;
 
+                    //AR4, AR5, AR6
+                    // 假設 data.calModel 已經有值
+                    if (data.calModel == "AR4") {
+                        // 確保其他按鈕的 coeActive 類別被移除
+                        $('#AR5, #AR6').removeClass('coeActive');
+                        // 將 AR4 按鈕加上 coeActive 類別
+                        $('#AR4').addClass('coeActive');    
+                    } else if (data.calModel == "AR5") {
+                        $('#AR4, #AR6').removeClass('coeActive');
+                        $('#AR5').addClass('coeActive');
+                        
+                    } else if (data.calModel == "AR6") {
+                        $('#AR4, #AR5').removeClass('coeActive');
+                        $('#AR6').addClass('coeActive');
+                        
+                    }
+
                     // 專案相關
                     $("#CalRowID").attr("value", response.data.RowID);
                     $("#UserID").attr("value", response.data.UserID);
 
                     // 燃料係數
-                    $(".calCoeGroup .coeButton").attr("class", "coeButton ");
+                    //$(".calCoeGroup .coeButton").attr("class", "coeButton ");
 
 
                     // 燃料

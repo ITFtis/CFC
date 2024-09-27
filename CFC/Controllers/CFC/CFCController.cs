@@ -92,16 +92,16 @@ namespace CFC.Controllers.CFC
 
             // 類別3
             ViewBag.Type3 = new Type3Mark[] {
-                new Type3Mark{name = "類別三-運輸-上游原物料配送當量" , title="Tr01" },
+                new Type3Mark{name = "類別三-運輸-上游原物料配送" , title="Tr01" },
                 new Type3Mark{name = "類別三-運輸-商務旅遊" , title="Tr02" },
                 new Type3Mark{name = "類別三-運輸-員工通勤" , title="Tr03" },
-                new Type3Mark{name = "類別三-運輸-下游運輸及配送" , title="Tr04" },
+                new Type3Mark{name = "類別三-運輸-下游的運輸及配送" , title="Tr04" },
                 new Type3Mark{name = "類別四-組織使用產品-採購" , title="Cp01" },
                 new Type3Mark{name = "類別四-組織使用產品-資本" , title="Cp02" },
                 new Type3Mark{name = "類別四-組織使用產品-能源相關活動" , title="Cp03" },
                 new Type3Mark{name = "類別四-組織使用產品-營運廢棄物" , title="Cp04" },
                 new Type3Mark{name = "類別四-組織使用產品-上游資產租賃" , title="Cp05" },
-                new Type3Mark{name = "類別五-使用組織產品-加工" , title="Us01" },
+                //new Type3Mark{name = "類別五-使用組織產品-加工" , title="Us01" },
                 new Type3Mark{name = "類別五-使用組織產品-使用" , title="Us02" },
                 new Type3Mark{name = "類別五-使用組織產品-報廢" , title="Us03" },
                 new Type3Mark{name = "類別五-使用組織產品-下游租賃" , title="Us04" },
@@ -402,6 +402,8 @@ namespace CFC.Controllers.CFC
 
             if (userInput == null)
                 return Json(new { success = false, desc = "查無此紀錄" }, JsonRequestBehavior.DenyGet);
+
+            
 
             userInput.IsSave = true;
             userInput.FACTORY_REGISTRATION = saveProject.FactoryRegistration;

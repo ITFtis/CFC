@@ -2,6 +2,7 @@
 using CFC.Models;
 using CFC.Models.Api;
 using CFC.Models.Prj;
+using Microsoft.Office.Interop.Excel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OfficeOpenXml;
@@ -158,12 +159,14 @@ namespace CFC.Controllers.FileDownload
                             }).FirstOrDefault();
 
             //取得所有輸入的類別
-            var totalCategory = this.GetVolumeData(saveProject.RowID);
+            //var totalCategory = this.GetVolumeData(saveProject.RowID);
 
             // 產製檔案內容
             try
             {
                 ExcelPackage Ep = new ExcelPackage(newFileInfo);
+
+                
 
                 var userInfoSheet = Ep.Workbook.Worksheets["廠商資料"];
                 new ItemManger().SetUserInfo(userInfoSheet, factory, company, 
@@ -174,15 +177,21 @@ namespace CFC.Controllers.FileDownload
 
 
                 var itemsSheet = Ep.Workbook.Worksheets["排放量計算"];
-                new ItemManger().SetItems(itemsSheet , userInput);
+                List<string[]> allCategory = new ItemManger().SetItems(itemsSheet , userInput);
 
+
+                var allCategorySheet = Ep.Workbook.Worksheets["排放源鑑別"];
+                new ItemManger().cleanAllCategory(allCategorySheet);
+                new ItemManger().setAllCategory(allCategorySheet, allCategory);
 
                 //var itemsSheet = Ep.Workbook.Worksheets["碳盤查彙整表"];
                 //new ItemManger().SetItems(itemsSheet, userInput);
                 //SetGraph
 
                 var stasticSheet = Ep.Workbook.Worksheets["碳盤查彙整表"];
-                new StasticsManager().SetStatistics(stasticSheet, userInput);
+                //new StasticsManager().SetStatistics(stasticSheet, userInput);
+
+                new StasticsManager().SetGraph(stasticSheet);
 
                 Ep.Save();
 

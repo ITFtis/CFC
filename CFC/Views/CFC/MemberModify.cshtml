@@ -330,7 +330,7 @@
                     citySelect.appendChild(option);
                 }
             }
-
+            
         }
     /*
     document.getElementById('Id').addEventListener('input', function (event)
@@ -370,11 +370,11 @@
             "連江縣": ["南竿鄉", "北竿鄉", "莒光鄉", "東引鄉"]
         };
 
-
+        
 
         function generateForm() {
 
-
+            
             const numFactories = document.getElementById('FactoryNum').value;
             const factoriesForm = document.getElementById('factoriesForm');
 
@@ -388,7 +388,7 @@
             for (let i = 1; i <= numFactories; i++) {
                 // 創建一個div來包裝每個工廠的資料
 
-
+                
                 const factoryDiv = document.createElement('div');
                 factoryDiv.classList.add('factory');
                 factoryDiv.innerHTML = `
@@ -445,7 +445,7 @@
             while (selectElement.options.length > 1) {
                 selectElement.remove(1);
             }
-
+            
         }
 
         // 移除 select 元件的第一個選項
@@ -492,13 +492,13 @@
                     document.getElementById(`factoryAddress${factoryIndex}`).value = data.FACTORY_ADDRESS;
                     document.getElementById(`factoryIndustryArea${factoryIndex}`).value = data.FACTORY_INDUSTRIAL_AREA;
                     document.getElementById(`factoryIndustry${factoryIndex}`).value = data.FACTORY_INDUSTRIAL;
-
+                    
                 })
                 .catch(error => {
                     console.error('There has been a problem with your fetch operation:', error);
                 });
 
-
+            
 
             //var sFactory = DateViewController.All_SYS_FACTORY_properties
             //    .FirstOrDefault(e => e.FACTORY_ID.Equals(FactoryRegistration));
@@ -540,7 +540,7 @@
                     document.getElementById(`Name`).value = data.COMP_NAME;
                     document.getElementById(`CompanySize`).value = data.COMP_SIZE;
 
-
+                    
 
                 })
                 .catch(error => {
@@ -589,29 +589,6 @@
                     districtSelect.appendChild(option);
                 });
             }
-            ////////////
-
-
-            //依據縣市來更新工業區
-            var industryAreaDropdown = $(`#factoryIndustryArea${factoryIndex}`); // 取得對應的工業區下拉框
-
-             var industrialAreas = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.IndustrialArea));
-
-            // 清空工業區的選單
-            industryAreaDropdown.empty();
-            industryAreaDropdown.append('<option value="0">選擇工業區</option>');
-
-            // 根據選擇的 CityName 過濾工業區
-            var filteredAreas = industrialAreas.filter(function (area) {
-                return area.CityName === selectedCity; // 過濾 CityName 符合的工業區
-            });
-
-            // 動態添加符合條件的工業區到下拉選單
-            filteredAreas.forEach(function (area) {
-                industryAreaDropdown.append('<option value="' + area.Id + '">' + area.Name + '</option>');
-            });
-
-            ///////////////////////
         }
 
         document.addEventListener('DOMContentLoaded', function () {
@@ -632,14 +609,14 @@
                         manufacturingDiv.style.display = 'initial'; // 顯示 div
                         factoriesForm.style.display = 'initial';
                         NonManufacturingDiv.style.display = 'none';
-
+                        
                     } else {
                         manufacturingDiv.style.display = 'none'; // 隱藏 div
                         factoriesForm.style.display = 'none';
 
                         NonManufacturingDiv.style.display = 'initial';
                         removeOptionExceptFirst('NonManufacturing_factoryIndustry');
-
+                        
                     }
                 });
             });
@@ -681,7 +658,7 @@
             //debugger;
             var factories = [];
             const numFactories = document.getElementById(`FactoryNum`).value || '0'; //若是空值, 就給0
-
+            
 
             // 使用迴圈動態生成多組工廠資料
             for (let i = 1; i <= numFactories; i++) {
@@ -726,11 +703,11 @@
                 //    factoryPark: factoryPark,
                 //    factoryIndustry: factoryIndustry
                 //});
-
+               
             }
             //let Jsonfactory = JSON.stringify({ factories }, null, 2);
             return factories;
-
+            
         }
     //檢查內申請內容
     $(".modalView .modal-footer .btn-primary").on("click", function () {
@@ -778,7 +755,7 @@
         let cUnitType = '';
         if (manufacturing == 'NonManufacturing')
             cUnitType = $('#UnitType').val();
-
+                
 
         fetch(window.siteroot + "CFC/CreateUser", {
             method: "POST",

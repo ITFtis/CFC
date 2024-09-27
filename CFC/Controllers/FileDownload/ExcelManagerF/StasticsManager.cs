@@ -38,20 +38,48 @@ namespace CFC.Controllers.FileDownload.ExcelManagerF
             //==========================================
             //燃料
             var fuelInputs = excelManager.GetFuelInputs(input);
-            var fuelTotalCo2 = fuelInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e).Sum(); // CO2當量
+            //var fuelTotalCo2 = fuelInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e).Sum(); // CO2當量
+            double fuelTotalCo2 = 0;
             //改成AR4、AR5、AR6
+            if (input.ARType == "AR4")
+                fuelTotalCo2 = fuelInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e_AR4).Sum(); // CO2當量
+            else if (input.ARType == "AR5")
+                fuelTotalCo2 = fuelInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e_AR5).Sum(); // CO2當量
+            else if (input.ARType == "AR6")
+                fuelTotalCo2 = fuelInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e_AR6).Sum(); // CO2當量
 
             // 冷媒逸散
             var refrigInputs = excelManager.GetRefrigInputs(input);
-            var refrigTotalCo2 = refrigInputs.Select(e => e.volume.UseVolume * e.equip.EscapeRate * (double)e.property.GWP).Sum();// CO2當量
+            //var refrigTotalCo2 = refrigInputs.Select(e => e.volume.UseVolume * e.equip.EscapeRate * (double)e.property.GWP).Sum();// CO2當量
+            double refrigTotalCo2 = 0;
+            if (input.ARType == "AR4")
+                refrigTotalCo2 = refrigInputs.Select(e => e.volume.UseVolume * e.equip.EscapeRate * (double)e.property.GWP_AR4).Sum();// CO2當量
+            else if (input.ARType == "AR5")
+                refrigTotalCo2 = refrigInputs.Select(e => e.volume.UseVolume * e.equip.EscapeRate * (double)e.property.GWP_AR5).Sum();// CO2當量
+            else if (input.ARType == "AR6")
+                refrigTotalCo2 = refrigInputs.Select(e => e.volume.UseVolume * e.equip.EscapeRate * (double)e.property.GWP_AR6).Sum();// CO2當量
 
             // 其他逸散
             var escapeInputs = excelManager.GetEscapeInputs(input);
-            var escapeTotalCO2 = escapeInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e).Sum(); //CO2當量
+            //var escapeTotalCO2 = escapeInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e).Sum(); //CO2當量
+            double escapeTotalCO2 = 0;
+            if (input.ARType == "AR4")
+                escapeTotalCO2 = escapeInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e_AR4).Sum(); //CO2當量
+            else if (input.ARType == "AR5")
+                escapeTotalCO2 = escapeInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e_AR5).Sum(); //CO2當量
+            else if (input.ARType == "AR6")
+                escapeTotalCO2 = escapeInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e_AR6).Sum(); //CO2當量
 
             //製程
             var createInputs = excelManager.GetCreateInputs(input);
-            var createTotalCO2 = createInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e).Sum();//CO2 當量
+            //var createTotalCO2 = createInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e).Sum();//CO2 當量
+            double createTotalCO2 = 0;
+            if (input.ARType == "AR4")
+                createTotalCO2 = createInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e_AR4).Sum();//CO2 當量
+            else if (input.ARType == "AR5")
+                createTotalCO2 = createInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e_AR5).Sum();//CO2 當量
+            else if (input.ARType == "AR6")
+                createTotalCO2 = createInputs.Select(e => e.volume.UseVolume * (double)e.property.Co2e_AR6).Sum();//CO2 當量
 
             // 類別二
             //===========================================

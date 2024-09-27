@@ -1637,6 +1637,7 @@
     <Content Include="Views\Cv\Index.cshtml" />
     <Content Include="Views\Ar\Index.cshtml" />
     <Content Include="Views\SysContent\Index.cshtml" />
+    <Content Include="Views\CFC\MemberModify.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,6 +16,10 @@
             <!--banner-->
             <header>
                 <div class="login-info">
+                    @if (!ViewBag.IsGuest)
+                    {
+                        <!--<button class="btn-s btn-third" name="memberModify" style="width:auto;">帳號修改</button>-->
+                    }
                     <div class="login-account"><span>登記公司名稱: </span>@ViewBag.UserName</div>
                     <button class="btn-green btn-s">@Html.ActionLink("登出", "Logoff")</button>
                     @if (!ViewBag.IsGuest)
@@ -23,7 +27,7 @@
                         <button class="btn-s btn-third" name="showHisProject" style="width:auto;">查看歷史專案</button>
                     }
 
-                    <div class="login-paramsAdd">　係數選擇:</div>
+                    <div class="login-paramsAdd">　IPCC AR版本選擇</div>
                     @if (!ViewBag.IsGuest)
                     {
                         <div class="calCoeGroup">
@@ -40,7 +44,7 @@
                         </div>
                     }
                 </div>
-                
+
             </header>
             <header>
                 <br />
@@ -53,32 +57,30 @@
                     <div class="count-rule-group">
                         <div style="display:none" id="UserID" value="@ViewBag.UserID"></div>
                         <!--第一列-->
-
                         <!--20240830移到最上班, 所以這裡註解掉-->
                         <!--
-                        <div class="type-title type-primary-color" style="width:50vw">
-                            <h2 style="display: flex;">
-                                類別一　係數選擇:
-                                @if (!ViewBag.IsGuest)
-                                {
-                                    <div class="calCoeGroup">
-                                        <button class="coeButton coeActive" style=" border-radius: 10px 0 0 10px" id="AR4">AR4</button>
-                                        <button class="coeButton" id="AR5">AR5</button>
-                                        <button class="coeButton" style="border-radius: 0 10px 10px 0;" id="AR6">AR6</button>
-                                    </div>
-                                }
-                                else
-                                {
-                                    //訪客預設AR4
-                                    <div class="calCoeGroup">
-                                        <button class="coeButton coeActive" style=" border-radius: 10px 0 0 10px" id="AR4">AR4</button>
-                                    </div>
-                                }
-                            </h2>
+                    <div class="type-title type-primary-color" style="width:50vw">
+                        <h2 style="display: flex;">
+                            類別一　係數選擇:
+                            @if (!ViewBag.IsGuest)
+                            {
+                                <div class="calCoeGroup">
+                                    <button class="coeButton coeActive" style=" border-radius: 10px 0 0 10px" id="AR4">AR4</button>
+                                    <button class="coeButton" id="AR5">AR5</button>
+                                    <button class="coeButton" style="border-radius: 0 10px 10px 0;" id="AR6">AR6</button>
+                                </div>
+                            }
+                            else
+                            {
+                                //訪客預設AR4
+                                <div class="calCoeGroup">
+                                    <button class="coeButton coeActive" style=" border-radius: 10px 0 0 10px" id="AR4">AR4</button>
+                                </div>
+                            }
+                        </h2>
 
-                        </div>
-                        -->
-
+                    </div>
+                    -->
                         <!-- 燃料計算 -->
                         <div class="count-rule-block">
                             <h2 class="type-subtitle">
@@ -307,7 +309,7 @@
                 <h3>計算結果</h3>
                 <div class="count-result-content">
                     <div class="red-hint result-hint">無輸入計算參數資料!!</div>
-                    <label>選擇工廠：</label><select id="factoryDropdown" name="factoryDropdown"></select>
+                    <label>選擇工廠：</label><select id="factoryDropdownM" name="factoryDropdownM"></select>
                     <div class="table-desktop cal-result">
                         <table class="result-table-b">
                             <tbody>
@@ -440,6 +442,20 @@
                 </div>
             </div>
         }
+
+        @if (!ViewBag.IsGuest)
+        {
+            <div class="memberModify-cover" style="display:none;">
+                <div class="memberModify-block">
+                    <div class="close-btn"></div>
+                    <h3>會員資料修改</h3>
+                    <div class="count-result-content">
+                        @*@Html.Partial("MemberModify")*@
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 </body>
 <script>
     var site_root = "@Url.Content("~/")";
@@ -463,7 +479,7 @@
         })
             .then(response => response.json())
             .then(data => {
-                let dropdown = $('#factoryDropdown');
+                let dropdown = $('#factoryDropdownM');
                 dropdown.empty();
 
 
