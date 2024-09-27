@@ -45,27 +45,27 @@
         $_dSetSpecificPropertiesContainer = $('<table>').appendTo($_oform.parent());
         $_temp = $('<table>').appendTo($_oform.parent());
 
-        //1-n 燃料計算
+        //1-n (1)燃料計算
         SetFuel();
 
-        //1-n 冷媒種類
+        //1-n (2)冷媒種類
         SetRefrigerantType();
 
-        //1-n 逸散種類
+        //1-n (3)逸散種類
         SetEscapeType();
 
-        //1-n 逸散氣體
+        //1-n (3)逸散氣體
         SetEscapeProperties();
 
-        //1-n 製程種類
+        //1-n (4)製程種類
         SetSpecificType();
 
-        //1-n 製程原料
+        //1-n (4)製程原料
         SetSpecificProperties();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_1", "tabPanel",
-            ['燃料計算', '冷媒種類', '逸散種類',
-                '逸散氣體', '製程種類', '製程原料'],
+            ['(1)燃料計算', '(2)冷媒種類', '(3)逸散種類',
+                '(3)逸散氣體', '(4)製程種類', '(4)製程原料'],
             [$_dFuelContainer, $_dRefrigerantTypeContainer, $_dSetEscapeTypeContainer,
                 $_dSetEscapePropertiesContainer, $_dSetSpecificTypeContainer, $_dSetSpecificPropertiesContainer]);
     }
@@ -76,11 +76,11 @@
 
         $_dElecContainer = $('<table>').appendTo($_oform.parent());
 
-        //1-n 電力計算
+        //1-n (1)電力計算
         SetElec();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_2", "tabPanel",
-            ['電力計算'],
+            ['(1)電力計算'],
             [$_dElecContainer]);
     }
 
@@ -108,12 +108,12 @@
             [$_dSetCalsTypeContainer, $_dSetCalsPropertiesContainer]);
     }
 
-    //燃料計算
+    //(1)燃料計算
     function SetFuel() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabFuelList', function (_opt) { //取model option
 
-            _opt.title = '燃料計算';
+            _opt.title = '(1)燃料計算';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -164,12 +164,12 @@
         });
     };
 
-    //逸散種類
+    //(3)逸散種類
     function SetEscapeType() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabEscapeTypeList', function (_opt) { //取model option
 
-            _opt.title = '逸散種類';
+            _opt.title = '(3)逸散種類';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -192,12 +192,12 @@
         });
     };
 
-    //逸散氣體
+    //(3)逸散氣體
     function SetEscapeProperties() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabEscapePropertiesList', function (_opt) { //取model option
 
-            _opt.title = '逸散氣體';
+            _opt.title = '(3)逸散氣體';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -220,12 +220,12 @@
         });
     };
 
-    //製程種類
+    //(4)製程種類
     function SetSpecificType() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabSpecificTypeList', function (_opt) { //取model option
 
-            _opt.title = '逸散種類';
+            _opt.title = '(3)逸散種類';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -248,12 +248,12 @@
         });
     };
 
-    //製程原料
+    //(4)製程原料
     function SetSpecificProperties() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabSpecificPropertiesList', function (_opt) { //取model option
 
-            _opt.title = '逸散氣體';
+            _opt.title = '(3)逸散氣體';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -276,12 +276,12 @@
         });
     };
 
-    //電力計算
+    //(1)電力計算
     function SetElec() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabElecList', function (_opt) { //取model option
 
-            _opt.title = '電力計算';
+            _opt.title = '(1)電力計算';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
