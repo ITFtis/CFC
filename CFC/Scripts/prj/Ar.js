@@ -45,27 +45,27 @@
         $_dSetSpecificPropertiesContainer = $('<table>').appendTo($_oform.parent());
         $_temp = $('<table>').appendTo($_oform.parent());
 
-        //1-n 燃料計算
+        //1-n (1)燃料計算
         SetFuel();
 
-        //1-n 冷媒種類
+        //1-n (2)冷媒種類
         SetRefrigerantType();
 
-        //1-n 逸散種類
+        //1-n (3)逸散種類
         SetEscapeType();
 
-        //1-n 逸散氣體
+        //1-n (3)逸散氣體
         SetEscapeProperties();
 
-        //1-n 製程種類
+        //1-n (4)製程種類
         SetSpecificType();
 
-        //1-n 製程原料
+        //1-n (4)製程原料
         SetSpecificProperties();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_1", "tabPanel",
-            ['燃料計算', '冷媒種類', '逸散種類',
-                '逸散氣體', '製程種類', '製程原料'],
+            ['(1)燃料計算', '(2)冷媒種類', '(3)逸散種類',
+                '(3)逸散氣體', '(4)製程種類', '(4)製程原料'],
             [$_dFuelContainer, $_dRefrigerantTypeContainer, $_dSetEscapeTypeContainer,
                 $_dSetEscapePropertiesContainer, $_dSetSpecificTypeContainer, $_dSetSpecificPropertiesContainer]);
     }
@@ -76,11 +76,11 @@
 
         $_dElecContainer = $('<table>').appendTo($_oform.parent());
 
-        //1-n 電力計算
+        //1-n (1)電力計算
         SetElec();
 
         helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_2", "tabPanel",
-            ['電力計算'],
+            ['(1)電力計算'],
             [$_dElecContainer]);
     }
 
@@ -88,22 +88,32 @@
 
         var $_oform = $("#_tabs");
 
-        $_temp = $('<table>').appendTo($_oform.parent());
+        ////$_temp = $('<table>').appendTo($_oform.parent());
 
-        //////1-n 其它項目(3-6)
-        ////SetOther3_6();
+        ////helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_3", "tabPanel",
+        ////    ['空空2'],
+        ////    [$_temp]);
 
-        helper.bootstrap.genBootstrapTabpanel($_temp.parent(), "tabPanel_3", "tabPanel",
-            ['空空2'],
-            [$_temp]);
+        $_dSetCalsTypeContainer = $('<table>').appendTo($_oform.parent());
+        $_dSetCalsPropertiesContainer = $('<table>').appendTo($_oform.parent());
+
+        //1-n 3-6類別
+        SetCalsType();
+
+        //1-n 3-6類別項目
+        SetCalsProperties();
+
+        helper.bootstrap.genBootstrapTabpanel($_dSetCalsTypeContainer.parent(), "tabPanel_3", "tabPanel",
+            ['3-6類別', '3-6類別項目'],
+            [$_dSetCalsTypeContainer, $_dSetCalsPropertiesContainer]);
     }
 
-    //燃料計算
+    //(1)燃料計算
     function SetFuel() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabFuelList', function (_opt) { //取model option
 
-            _opt.title = '燃料計算';
+            _opt.title = '(1)燃料計算';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -154,12 +164,12 @@
         });
     };
 
-    //逸散種類
+    //(3)逸散種類
     function SetEscapeType() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabEscapeTypeList', function (_opt) { //取model option
 
-            _opt.title = '逸散種類';
+            _opt.title = '(3)逸散種類';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -182,12 +192,12 @@
         });
     };
 
-    //逸散氣體
+    //(3)逸散氣體
     function SetEscapeProperties() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabEscapePropertiesList', function (_opt) { //取model option
 
-            _opt.title = '逸散氣體';
+            _opt.title = '(3)逸散氣體';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -210,12 +220,12 @@
         });
     };
 
-    //製程種類
+    //(4)製程種類
     function SetSpecificType() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabSpecificTypeList', function (_opt) { //取model option
 
-            _opt.title = '逸散種類';
+            _opt.title = '(3)逸散種類';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -238,12 +248,12 @@
         });
     };
 
-    //製程原料
+    //(4)製程原料
     function SetSpecificProperties() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabSpecificPropertiesList', function (_opt) { //取model option
 
-            _opt.title = '逸散氣體';
+            _opt.title = '(3)逸散氣體';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -266,12 +276,12 @@
         });
     };
 
-    //電力計算
+    //(1)電力計算
     function SetElec() {
 
         $.getJSON(window.siteroot + 'Ar/GetTabElecList', function (_opt) { //取model option
 
-            _opt.title = '電力計算';
+            _opt.title = '(1)電力計算';
 
             //取消自動抓後端資料
             _opt.tableOptions.url = undefined;
@@ -294,9 +304,87 @@
         });
     };
 
-    //其它項目(3-6)
-    function SetOther3_6() {
+    //3-6類別
+    function SetCalsType() {
+        $.getJSON(window.siteroot + 'Ar/GetTabCalsTypeList', function (_opt) { //取model option
 
+            _opt.title = '3-6類別';
+
+            //取消自動抓後端資料
+            _opt.tableOptions.url = undefined;
+            _opt.editformSize = { minWidth: 700 };
+
+            _opt.addServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsType/Add', callback);
+            };
+
+            _opt.updateServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsType/Update', callback);
+            };
+
+            _opt.deleteServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsType/Delete', callback);
+            };
+
+            //實體Dou js
+            $_dSetCalsTypeContainer.DouEditableTable(_opt);
+        });
+    }
+
+    //3-6類別項目
+    function SetCalsProperties() {
+        $.getJSON(window.siteroot + 'Ar/GetTabCalsPropertiesList', function (_opt) { //取model option
+
+            _opt.title = '3-6類別項目';
+
+            //取消自動抓後端資料
+            _opt.tableOptions.url = undefined;
+            _opt.editformSize = { minWidth: 700 };
+
+            _opt.addServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsProperties/Add', callback);
+            };
+
+            _opt.updateServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsProperties/Update', callback);
+            };
+
+            _opt.deleteServerData = function (row, callback) {
+                transactionDouClientDataToServer(row, window.siteroot + 'CalsProperties/Delete', callback);
+            };
+
+            //實體Dou js
+            $d = $_dSetCalsPropertiesContainer.DouEditableTable(_opt);
+
+            $('.btn-confirm').click(function () {
+
+                var conditions = GetFilterParams($d)
+                var paras;
+                if (conditions.length > 0) {
+                    paras = { key: 'filter', value: JSON.stringify(conditions) };
+                }
+
+                helper.misc.showBusyIndicator();
+                $.ajax({
+                    url: window.siteroot + 'Cv/GetTabCalsPropertiesList',
+                    datatype: "json",
+                    type: "POST",
+                    data: { paras: [paras] },
+                    success: function (_opt) {
+                        var datas = _opt.datas;
+                        $d.instance.tableReload(datas, false);
+                    },
+                    complete: function () {
+                        helper.misc.hideBusyIndicator();
+                    },
+                    error: function (xhr, status, error) {
+                        var err = eval("(" + xhr.responseText + ")");
+                        alert(err.Message);
+                        helper.misc.hideBusyIndicator();
+                    }
+                });
+            });
+        });
     }
 })
 

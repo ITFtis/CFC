@@ -33,14 +33,7 @@ namespace CFC.Models.Prj
         {
             get
             {
-                ICollection<Sys_contentDetail> result = Sys_contentDetail.GetAllDatas().Where(a => a.MapId == this.Id).ToList();
-
-                //if (result.Count == 0)
-                //{
-                //    result = new List<Sys_contentDetail>() { new Sys_contentDetail { Title = "無資料，不可修改" } };
-                //}
-
-                return result;
+                return Sys_contentDetail.GetAllDatas().Where(a => a.ContentId == this.Id).ToList();
             }
         }
     }

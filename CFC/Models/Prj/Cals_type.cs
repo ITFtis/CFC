@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -20,12 +21,6 @@ namespace CFC.Models.Prj
         public string Id { get; set; }
 
         /// <summary>
-        /// 編號名稱
-        /// </summary>
-        [Display(Name = "編號名稱")]
-        public string IdText { get; set; }
-
-        /// <summary>
         /// 名稱
         /// </summary>
         [Display(Name = "名稱")]
@@ -36,6 +31,18 @@ namespace CFC.Models.Prj
         /// </summary>
         [Display(Name = "順序")]
         public int DisplayOrder { get; set; }
+
+        /// <summary>
+        /// 3-6類別項目
+        /// </summary>
+        [NotMapped]
+        public ICollection<Cals_properties> Details
+        {
+            get
+            {
+                return Cals_properties.GetAllDatas().Where(a => a.Type == this.Id).ToList();
+            }
+        }
     }
 
     public class CalsTypeSelectItems : Dou.Misc.Attr.SelectItemsClass
@@ -65,7 +72,7 @@ namespace CFC.Models.Prj
         }
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
-            return CalsTypeSelects.Select(s => new KeyValuePair<string, object>(s.Id.ToString(), s.IdText + "-" + s.Name));
+            return CalsTypeSelects.Select(s => new KeyValuePair<string, object>(s.Id.ToString(), s.Name));
         }
     }
 }

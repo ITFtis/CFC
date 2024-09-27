@@ -258,6 +258,45 @@ namespace CFC.Controllers.PrjNew
         }
 
         /// <summary>
+        /// (類別二)電力計算
+        /// </summary>
+        /// <returns></returns>
+        public virtual ActionResult GetTabElecList()
+        {
+            Dou.Models.DB.IModelEntity<Elec_properties> model = new Dou.Models.DB.ModelEntity<Elec_properties>(new DouModelContext());
+
+            var opts = Dou.Misc.DataManagerScriptHelper.GetDataManagerOptions<Elec_properties>();
+            opts.ctrlFieldAlign = "left";
+
+            foreach (var field in opts.fields)
+            {
+                field.visible = false;
+                field.visibleEdit = false;
+            }
+
+            //欄位控制
+            List<string> fs = new List<string>();
+            fs.AddRange(new List<string>() { "year", "Name", "Unit", "MinValue", "MaxValue" });
+
+            ///係數option
+            //fs.AddRange(new List<string>() { "xxxx", "xxxx" });
+
+            //set
+            foreach (var str in fs)
+            {
+                opts.GetFiled(str).visible = true;
+                opts.GetFiled(str).visibleEdit = true;
+            }
+
+            opts.datas = model.GetAll().AsEnumerable()
+                        .OrderBy(a => int.Parse(a.year));
+
+            var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
+
+        /// <summary>
         /// 3-6類別
         /// </summary>
         /// <returns></returns>
@@ -277,7 +316,7 @@ namespace CFC.Controllers.PrjNew
 
             //欄位控制
             List<string> fs = new List<string>();
-            fs.AddRange(new List<string>() { "Id", "IdText", "Name", "DisplayOrder" });
+            fs.AddRange(new List<string>() { "Id", "Name", "DisplayOrder" });
 
             ////係數option
             //fs.AddRange(new List<string>() { });

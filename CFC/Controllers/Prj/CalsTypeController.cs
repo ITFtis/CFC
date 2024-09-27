@@ -42,6 +42,17 @@ namespace CFC.Controllers.Prj
 
         protected override void DeleteDBObject(IModelEntity<Cals_type> dbEntity, IEnumerable<Cals_type> objs)
         {
+            var obj = objs.FirstOrDefault();
+
+            //DB沒關聯
+            var dbContext = new DouModelContext();
+
+            if (obj.Details != null)
+            {
+                Dou.Models.DB.IModelEntity<Cals_properties> details = new Dou.Models.DB.ModelEntity<Cals_properties>(dbContext);
+                details.Delete(obj.Details);
+            }
+
             base.DeleteDBObject(dbEntity, objs);
             CalsTypeSelectItems.Reset();
         }

@@ -2,7 +2,6 @@
 --1.新增資料表(Cals_type)
 CREATE TABLE [dbo].[Cals_type](
 	[Id] [nvarchar](20) NOT NULL,
-	[IdText] [nvarchar](20) NULL,
 	[Name] [nvarchar](100) NOT NULL,
 	[DisplayOrder] [int] NOT NULL,
  CONSTRAINT [PK_Cals_type] PRIMARY KEY CLUSTERED 
@@ -12,10 +11,10 @@ CREATE TABLE [dbo].[Cals_type](
 ) ON [PRIMARY]
 GO
 
-INSERT [dbo].[Cals_type] ([Id], [IdText], [Name], [DisplayOrder]) VALUES (N'FA', N'類別三', N'運輸', 1)
-INSERT [dbo].[Cals_type] ([Id], [IdText], [Name], [DisplayOrder]) VALUES (N'FB', N'類別四', N'組織使用產品', 2)
-INSERT [dbo].[Cals_type] ([Id], [IdText], [Name], [DisplayOrder]) VALUES (N'FC', N'類別五', N'使用組織產品', 3)
-INSERT [dbo].[Cals_type] ([Id], [IdText], [Name], [DisplayOrder]) VALUES (N'FD', N'類別六', N'其他排放', 4)
+INSERT [dbo].[Cals_type] ([Id], [Name], [DisplayOrder]) VALUES (N'FA', N'類別三-運輸', 1)
+INSERT [dbo].[Cals_type] ([Id], [Name], [DisplayOrder]) VALUES (N'FB', N'類別四-組織使用產品', 2)
+INSERT [dbo].[Cals_type] ([Id], [Name], [DisplayOrder]) VALUES (N'FC', N'類別五-使用組織產品', 3)
+INSERT [dbo].[Cals_type] ([Id], [Name], [DisplayOrder]) VALUES (N'FD', N'類別六-其他排放', 4)
 GO
 
 --2.新增資料表(Cals_properties)

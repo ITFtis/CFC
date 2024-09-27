@@ -27,5 +27,23 @@ namespace CFC.Controllers.Prj
         {
             return GetModelEntity().GetAll().OrderBy(s => s.DisplayOrder).ToArray();
         }
+
+        protected override void AddDBObject(IModelEntity<Cals_properties> dbEntity, IEnumerable<Cals_properties> objs)
+        {
+            base.AddDBObject(dbEntity, objs);
+            Cals_properties.ResetGetAllDatas();
+        }
+
+        protected override void UpdateDBObject(IModelEntity<Cals_properties> dbEntity, IEnumerable<Cals_properties> objs)
+        {
+            base.UpdateDBObject(dbEntity, objs);
+            Cals_properties.ResetGetAllDatas();
+        }
+
+        protected override void DeleteDBObject(IModelEntity<Cals_properties> dbEntity, IEnumerable<Cals_properties> objs)
+        {
+            base.DeleteDBObject(dbEntity, objs);
+            Cals_properties.ResetGetAllDatas();
+        }
     }
 }

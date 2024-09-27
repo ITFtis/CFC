@@ -1,20 +1,19 @@
 ﻿using CFC.Models.Prj;
+using CFC.Models;
+using Dou.Misc;
 using Dou.Models.DB;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CFC.Models;
-using Dou.Misc;
-using Newtonsoft.Json;
-using DouHelper;
 
 namespace CFC.Controllers.PrjNew
 {
-    public class Sys_contentDetailController : Dou.Controllers.AGenericModelController<Sys_contentDetail>
+    public class SysContentDetailController : Dou.Controllers.AGenericModelController<Sys_contentDetail>
     {
-        // GET: Sys_contentDetail
+        // GET: SysContentDetail
         public ActionResult Index()
         {
             return View();
@@ -55,6 +54,6 @@ namespace CFC.Controllers.PrjNew
             var jstr = JsonConvert.SerializeObject(opts, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
             jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
             return Content(jstr, "application/json");
-        }  
+        }
     }
 }
