@@ -139,25 +139,36 @@
             // 當選擇工廠時，顯示詳細資訊
             $('#factoryDropdown').on('change', function () {
 
+                
                 let selectedFactoryReg = $(this).val();
 
-                fetch(window.siteroot + "CFC/GetFactoryDetails", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ FactoryRegistration: selectedFactoryReg })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        // 更新網頁中的工廠相關欄位資料
-                        $('#factoryCity').text(data.FACTORY_CITY);
-                        $('#factoryDistrict').text(data.FACTORY_DISTRICT);
-                        $('#factoryAddress').text(data.FACTORY_ADDRESS);
-                        $('#factoryIndustrial').text(data.FACTORY_INDUSTRIAL);
-                        $('#factoryIndustrialArea').text(data.FACTORY_INDUSTRIAL_AREA);
-                        $('#IndustrialNo').text(data.FACTORY_REGISTRATION);
-                    });
+                if (selectedFactoryReg != null) {
+                    fetch(window.siteroot + "CFC/GetFactoryDetails", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ FactoryRegistration: selectedFactoryReg })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            // 更新網頁中的工廠相關欄位資料
+                            $('#factoryCity').text(data.FACTORY_CITY);
+                            $('#factoryDistrict').text(data.FACTORY_DISTRICT);
+                            $('#factoryAddress').text(data.FACTORY_ADDRESS);
+                            $('#factoryIndustrial').text(data.FACTORY_INDUSTRIAL);
+                            $('#factoryIndustrialArea').text(data.FACTORY_INDUSTRIAL_AREA);
+                            $('#IndustrialNo').text(data.FACTORY_REGISTRATION);
+                        });
+                }
+                else {
+                    $('#factoryCity').text("");
+                    $('#factoryDistrict').text("");
+                    $('#factoryAddress').text("");
+                    $('#factoryIndustrial').text("");
+                    $('#factoryIndustrialArea').text("");
+                    $('#IndustrialNo').text("");
+                }
 
             });
 

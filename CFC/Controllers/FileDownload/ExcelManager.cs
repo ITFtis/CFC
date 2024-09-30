@@ -102,10 +102,11 @@ namespace CFC.Controllers.FileDownload
             var newFileInfo = new FileInfo(temptFileAdd).CopyTo(newTemptFolder + "\\" + newTemptAdd);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
+            
             //取得工廠資料
             var factory = db.SysFactory
                             //.Where(f => f.FACTORY_REGISTRATION == "78699002")
-                            .Where(f => f.FACTORY_REGISTRATION == saveProject.FactoryRegistration)
+                            .Where(f => f.FACTORY_REGISTRATION == ((saveProject.FactoryRegistration ==null) ? "NONE" : saveProject.FactoryRegistration ) )
                             .Select(f => new
                             {
                                 f.FACTORY_NAME,
@@ -131,6 +132,9 @@ namespace CFC.Controllers.FileDownload
                 {
                     f.Name
                 }).FirstOrDefault();
+
+            
+            
 
             //取得人員資料
             var userInfo = db.userPropertiesAdvance
@@ -169,10 +173,22 @@ namespace CFC.Controllers.FileDownload
                 
 
                 var userInfoSheet = Ep.Workbook.Worksheets["廠商資料"];
-                new ItemManger().SetUserInfo(userInfoSheet, factory, company, 
-                                             userInfo.Manufacturing, userInfo.UNIT_TYPE, userInfo.UniformNumber,
-                                             userInfo.Contact, userInfo.POSITION,userInfo.PhoneNumber, userInfo.Email,
-                                             factoryIndustrialName.Name, factoryIndustrialAreaName.Name);
+                if (userInfo.Manufacturing == "製造業")
+                {
+                    new ItemManger().SetUserInfo(userInfoSheet, factory, company,
+                                                 userInfo.Manufacturing, userInfo.UNIT_TYPE, userInfo.UniformNumber,
+                                                 userInfo.Contact, userInfo.POSITION, userInfo.PhoneNumber, userInfo.Email,
+                                                 factoryIndustrialName.Name,
+                                                 factoryIndustrialAreaName.Name);
+                }
+                else
+                {
+                    new ItemManger().SetUserInfo(userInfoSheet, factory, company,
+                                                 userInfo.Manufacturing, userInfo.UNIT_TYPE, userInfo.UniformNumber,
+                                                 userInfo.Contact, userInfo.POSITION, userInfo.PhoneNumber, userInfo.Email,
+                                                 "",
+                                                 "");
+                }
 
 
 

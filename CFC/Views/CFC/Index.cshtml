@@ -491,7 +491,9 @@
                 });
 
                 // 自動觸發change事件
-                dropdown.trigger('change');
+                if (dropdown.val()) {
+                    dropdown.trigger('change');
+                }
             });
     });
 

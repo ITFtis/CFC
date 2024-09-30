@@ -133,7 +133,7 @@ $(document).ready(function () {
             body: JSON.stringify({
                 RowID: $("#CalRowID").attr("value"),
                 UserID: $("#UserID").attr("value"),
-                FactoryRegistration: $("#factoryDropdown").val(),
+                FactoryRegistration: $("#factoryDropdownM").val(),
             })
         }).then(e => e.json())
             .then(response => {
