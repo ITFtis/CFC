@@ -85,180 +85,193 @@ namespace CFC.Controllers.FileDownload
 
         public ReturnModel DownloadExcel(SaveProjectModel saveProject) {
 
-            // 確認輸入資料是否正確
-            var userInput = this.db.userInputAdvance.Where(e => e.RowID == saveProject.RowID
-                        && e.UserID == saveProject.UserID).FirstOrDefault();
-            if (userInput == null)
-                return new ReturnModel { isSucess = false, fileAdd = "查無此紀錄" };
-
-            // 取得模板檔案
-            String temptFileAdd = WebConfigurationManager.AppSettings["ExcelTemplate"].ToString();
-
-            // 取得工作目錄
-            String newTemptFolder = WebConfigurationManager.AppSettings["ExcelFolder"].ToString();
-            String newTemptAdd = getTemptFile(newTemptFolder , "xlsx");
-
-            // 複製到工作目錄中
-            var newFileInfo = new FileInfo(temptFileAdd).CopyTo(newTemptFolder + "\\" + newTemptAdd);
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
-            
-            //取得工廠資料
-            var factory = db.SysFactory
-                            //.Where(f => f.FACTORY_REGISTRATION == "78699002")
-                            .Where(f => f.FACTORY_REGISTRATION == ((saveProject.FactoryRegistration ==null) ? "NONE" : saveProject.FactoryRegistration ) )
-                            .Select(f => new
-                            {
-                                f.FACTORY_NAME,
-                                f.FACTORY_REGISTRATION,
-                                f.FACTORY_CITY,
-                                f.FACTORY_DISTRICT,
-                                f.FACTORY_ADDRESS,
-                                f.FACTORY_INDUSTRIAL,
-                                f.FACTORY_INDUSTRIAL_AREA
-                            }).FirstOrDefault();
-
-            //找INDUSTRIAL中文名字
-            var factoryIndustrialName = db.GlobalIndustrial
-                .Where(f => f.Id == factory.FACTORY_INDUSTRIAL)
-                .Select(f => new
-                {
-                    f.Name
-                }).FirstOrDefault();
-
-            var factoryIndustrialAreaName = db.GlobalIndustrialArea
-                .Where(f => f.Id == factory.FACTORY_INDUSTRIAL_AREA)
-                .Select(f => new
-                {
-                    f.Name
-                }).FirstOrDefault();
-
-            
-            
-
-            //取得人員資料
-            var userInfo = db.userPropertiesAdvance
-                            .Where(f => f.Id == saveProject.UserID)
-                            .Select(f => new
-                            {
-                                f.Id,
-                                //f.Name, //單位名稱
-                                f.UniformNumber, //統一編號
-                                f.Contact,
-                                f.POSITION,
-                                f.PhoneNumber,
-                                f.Email,
-                                Manufacturing = string.IsNullOrEmpty(f.UNIT_TYPE) ? "製造業" : "非製造業", //行業別, 如果是製造業, 會是空的, 非製製業才有值
-                                f.UNIT_TYPE
-                            }).FirstOrDefault();
-
-            //取得公司資料
-            var company = db.SysCompany
-                            .Where(f => f.COMP_UNIFORM_NUMBER == userInfo.UniformNumber)
-                            .Select(f => new
-                            {
-                                f.COMP_NAME,
-                                f.COMP_UNIFORM_NUMBER,
-                                f.COMP_SIZE
-                            }).FirstOrDefault();
-
-            //取得所有輸入的類別
-            //var totalCategory = this.GetVolumeData(saveProject.RowID);
-
-            // 產製檔案內容
             try
             {
-                ExcelPackage Ep = new ExcelPackage(newFileInfo);
+                // 確認輸入資料是否正確
+                var userInput = this.db.userInputAdvance.Where(e => e.RowID == saveProject.RowID
+                            && e.UserID == saveProject.UserID).FirstOrDefault();
+                if (userInput == null)
+                    return new ReturnModel { isSucess = false, fileAdd = "查無此紀錄" };
 
-                
+                // 取得模板檔案
+                String temptFileAdd = WebConfigurationManager.AppSettings["ExcelTemplate"].ToString();
 
-                var userInfoSheet = Ep.Workbook.Worksheets["廠商資料"];
-                if (userInfo.Manufacturing == "製造業")
-                {
-                    new ItemManger().SetUserInfo(userInfoSheet, factory, company,
-                                                 userInfo.Manufacturing, userInfo.UNIT_TYPE, userInfo.UniformNumber,
-                                                 userInfo.Contact, userInfo.POSITION, userInfo.PhoneNumber, userInfo.Email,
-                                                 factoryIndustrialName.Name,
-                                                 factoryIndustrialAreaName.Name);
-                }
-                else
-                {
-                    new ItemManger().SetUserInfo(userInfoSheet, factory, company,
-                                                 userInfo.Manufacturing, userInfo.UNIT_TYPE, userInfo.UniformNumber,
-                                                 userInfo.Contact, userInfo.POSITION, userInfo.PhoneNumber, userInfo.Email,
-                                                 "",
-                                                 "");
-                }
+                // 取得工作目錄
+                String newTemptFolder = WebConfigurationManager.AppSettings["ExcelFolder"].ToString();
+                String newTemptAdd = getTemptFile(newTemptFolder, "xlsx");
+
+                // 複製到工作目錄中
+                var newFileInfo = new FileInfo(temptFileAdd).CopyTo(newTemptFolder + "\\" + newTemptAdd);
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
 
+                //取得工廠資料
+                var factory = db.SysFactory
+                                //.Where(f => f.FACTORY_REGISTRATION == "78699002")
+                                .Where(f => f.FACTORY_REGISTRATION == ((saveProject.FactoryRegistration == null) ? "NONE" : saveProject.FactoryRegistration))
+                                .Select(f => new
+                                {
+                                    f.FACTORY_NAME,
+                                    f.FACTORY_REGISTRATION,
+                                    f.FACTORY_CITY,
+                                    f.FACTORY_DISTRICT,
+                                    f.FACTORY_ADDRESS,
+                                    f.FACTORY_INDUSTRIAL,
+                                    f.FACTORY_INDUSTRIAL_AREA
+                                }).FirstOrDefault();
 
-                var itemsSheet = Ep.Workbook.Worksheets["排放量計算"];
-                List<string[]> allCategory = new ItemManger().SetItems(itemsSheet , userInput);
-
-
-                var allCategorySheet = Ep.Workbook.Worksheets["排放源鑑別"];
-                new ItemManger().cleanAllCategory(allCategorySheet);
-                new ItemManger().setAllCategory(allCategorySheet, allCategory);
-
-                //var itemsSheet = Ep.Workbook.Worksheets["碳盤查彙整表"];
-                //new ItemManger().SetItems(itemsSheet, userInput);
-                //SetGraph
-
-                var stasticSheet = Ep.Workbook.Worksheets["碳盤查彙整表"];
-                //new StasticsManager().SetStatistics(stasticSheet, userInput);
-
-                new StasticsManager().SetGraph(stasticSheet);
-
-                Ep.Save();
-
-
-                // 取得回傳路徑
-                string ppp = "File/ExcelCreater/tempFolder/" + newTemptAdd;
-                
-                ////string siteRoot = WebConfigurationManager.AppSettings["SiteRoot"].ToString();                
-                ////string fileAdd = siteRoot + ppp;
-                
-                //to(ODF轉檔路徑)
-                string from = WebConfigurationManager.AppSettings["FileRoot"].ToString() + ppp;
-                string to_noExt = Path.GetDirectoryName(from) + "/" + Path.GetFileNameWithoutExtension(from);
-                string to = "";
-
-                //轉ODF
-                switch (Path.GetExtension(from))
-                {
-                    case ".xlsx":
-                        to = to_noExt + ".ods";                        
-                        break;
-                    default: 
-                        break;
-                }
-
-                if (to == "")
-                {
-                    return new ReturnModel { isSucess = false, fileAdd = "查無ODF轉換程式碼：" + from };
-                }
-                else
-                {
-                    bool done = ODFHelper.ExcelToODF(from, to_noExt);
-                    if (!done)
+                //找INDUSTRIAL中文名字
+                var factoryIndustrialName = db.GlobalIndustrial
+                    .Where(f => f.Id == factory.FACTORY_INDUSTRIAL)
+                    .Select(f => new
                     {
-                        return new ReturnModel { isSucess = false, fileAdd = "ODF轉換失敗" };
+                        f.Name
+                    }).FirstOrDefault();
+
+                var factoryIndustrialAreaName = db.GlobalIndustrialArea
+                    .Where(f => f.Id == factory.FACTORY_INDUSTRIAL_AREA)
+                    .Select(f => new
+                    {
+                        f.Name
+                    }).FirstOrDefault();
+
+
+
+
+                //取得人員資料
+                var userInfo = db.userPropertiesAdvance
+                                .Where(f => f.Id == saveProject.UserID)
+                                .Select(f => new
+                                {
+                                    f.Id,
+                                    //f.Name, //單位名稱
+                                    f.UniformNumber, //統一編號
+                                    f.Contact,
+                                    f.POSITION,
+                                    f.PhoneNumber,
+                                    f.Email,
+                                    Manufacturing = string.IsNullOrEmpty(f.UNIT_TYPE) ? "製造業" : "非製造業", //行業別, 如果是製造業, 會是空的, 非製製業才有值
+                                    f.UNIT_TYPE
+                                }).FirstOrDefault();
+
+                //取得公司資料
+                var company = db.SysCompany
+                                .Where(f => f.COMP_UNIFORM_NUMBER == userInfo.UniformNumber)
+                                .Select(f => new
+                                {
+                                    f.COMP_NAME,
+                                    f.COMP_UNIFORM_NUMBER,
+                                    f.COMP_SIZE
+                                }).FirstOrDefault();
+
+                //取得所有輸入的類別
+                //var totalCategory = this.GetVolumeData(saveProject.RowID);
+
+                // 產製檔案內容
+                try
+                {
+                    ExcelPackage Ep = new ExcelPackage(newFileInfo);
+
+
+
+                    var userInfoSheet = Ep.Workbook.Worksheets["廠商資料"];
+                    if (userInfo.Manufacturing == "製造業")
+                    {
+                        new ItemManger().SetUserInfo(userInfoSheet, factory, company,
+                                                     userInfo.Manufacturing, userInfo.UNIT_TYPE, userInfo.UniformNumber,
+                                                     userInfo.Contact, userInfo.POSITION, userInfo.PhoneNumber, userInfo.Email,
+                                                     factoryIndustrialName.Name,
+                                                     factoryIndustrialAreaName.Name);
                     }
                     else
                     {
-                        string fileAdd = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(to);
-                        //string fileAdd = Cm.PhysicalToUrl(to);
-                        return new ReturnModel { isSucess = true, fileAdd = fileAdd };
+                        new ItemManger().SetUserInfo(userInfoSheet, factory, company,
+                                                     userInfo.Manufacturing, userInfo.UNIT_TYPE, userInfo.UniformNumber,
+                                                     userInfo.Contact, userInfo.POSITION, userInfo.PhoneNumber, userInfo.Email,
+                                                     "",
+                                                     "");
                     }
+
+
+
+                    var itemsSheet = Ep.Workbook.Worksheets["排放量計算"];
+                    List<string[]> allCategory = new ItemManger().SetItems(itemsSheet, userInput);
+
+
+                    var allCategorySheet = Ep.Workbook.Worksheets["排放源鑑別"];
+                    new ItemManger().cleanAllCategory(allCategorySheet);
+                    new ItemManger().setAllCategory(allCategorySheet, allCategory);
+
+                    //var itemsSheet = Ep.Workbook.Worksheets["碳盤查彙整表"];
+                    //new ItemManger().SetItems(itemsSheet, userInput);
+                    //SetGraph
+
+                    var stasticSheet = Ep.Workbook.Worksheets["碳盤查彙整表"];
+                    //new StasticsManager().SetStatistics(stasticSheet, userInput);
+
+                    new StasticsManager().SetGraph(stasticSheet);
+
+                    Ep.Save();
+
+
+                    // 取得回傳路徑
+                    string ppp = "File/ExcelCreater/tempFolder/" + newTemptAdd;
+
+                    ////string siteRoot = WebConfigurationManager.AppSettings["SiteRoot"].ToString();                
+                    ////string fileAdd = siteRoot + ppp;
+
+                    //to(ODF轉檔路徑)
+                    string from = WebConfigurationManager.AppSettings["FileRoot"].ToString() + ppp;
+                    string to_noExt = Path.GetDirectoryName(from) + "/" + Path.GetFileNameWithoutExtension(from);
+                    string to = "";
+
+                    //轉ODF
+                    switch (Path.GetExtension(from))
+                    {
+                        case ".xlsx":
+                            to = to_noExt + ".ods";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if (to == "")
+                    {
+                        return new ReturnModel { isSucess = false, fileAdd = "查無ODF轉換程式碼：" + from };
+                    }
+                    else
+                    {
+                        bool done = ODFHelper.ExcelToODF(from, to_noExt);
+                        if (!done)
+                        {
+                            return new ReturnModel { isSucess = false, fileAdd = "ODF轉換失敗" };
+                        }
+                        else
+                        {
+                            string fileAdd = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(to);
+                            //string fileAdd = Cm.PhysicalToUrl(to);
+                            return new ReturnModel { isSucess = true, fileAdd = fileAdd };
+                        }
+                    }
+
+                    //return new ReturnModel { isSucess = true, fileAdd = fileAdd };
+                }
+                catch (Exception e)
+                {
+                    Logger.Log.For(null).Error("下載錯誤：" + e.Message);
+                    Logger.Log.For(null).Error(e.StackTrace);
+                    return new ReturnModel { isSucess = false, fileAdd = e.Message };
                 }
 
-                //return new ReturnModel { isSucess = true, fileAdd = fileAdd };
             }
-            catch (Exception e) {
-                Logger.Log.For(null).Error("下載錯誤：" + e.Message);
-                Logger.Log.For(null).Error(e.StackTrace);
-                return new ReturnModel { isSucess = false, fileAdd = e.Message };
+            catch (Exception ex)
+            {
+                Logger.Log.For(null).Error("下載錯誤：" + ex.Message);
+                Logger.Log.For(null).Error(ex.StackTrace);
+                return new ReturnModel { isSucess = false, fileAdd = ex.Message };
+
             }
+
         }
         
 
