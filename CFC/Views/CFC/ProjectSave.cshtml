@@ -24,6 +24,10 @@
         <div class="col-lg-8 col-12 input"><input class="form-control" type="text" id="projectName"></div>
     </div>
     <div class="row">
+        <div class="col-lg-4 col-6 title">備註</div>
+        <div class="col-lg-8 col-12 input"><input class="form-control" type="text" id="projectMemo"></div>
+    </div>
+    <div class="row">
         <div class="col-lg-4 col-6 title">盤查場域</div>
         <div class="col-lg-8 col-12 input"><select id="factoryDropdown" name="factoryDropdown"></select></div>
     </div>
@@ -35,12 +39,12 @@
     <div class="row">
         <!-- Display factory details here -->
         <div class="col-lg-4 col-6 title">工業區</div>
-        <div><label id="factoryIndustrial"></label></div>
+        <div><label id="factoryIndustrialArea"></label></div>
     </div>
     <div class="row">
         <!-- Display factory details here -->
         <div class="col-lg-4 col-6 title">產業類型</div>
-        <div><label id="factoryIndustrialArea"></label></div>
+        <div><label id="factoryIndustrial"></label></div>
     </div>
     @*<div class="row">
             <div class="col-lg-4 col-6 title">廠址</div>
@@ -61,32 +65,32 @@
         </div>
     </div>
 
-        @*<div class="row">
-                <div class="col-lg-4 col-6 title">縣市別</div>
-                <div class="col-lg-8 col-12">
-                    <select class="form-control input" id="projectCity">
-                        @foreach (var city in ViewBag.Cities as IEnumerable<Global_City>)
-                        {
-                            <option value="@city.Id">@city.Name</option>
-                        }
-                    </select>
-                </div>
-            </div>*@
-        @*<div class="row">
-                <div class="col-lg-4 col-6 title">行業別</div>
-                <div class="col-lg-8 col-12">
-                    <select class="form-control input" id="projectIndustrialType">
-                        @foreach (var type in ViewBag.IndustriaTypes as IEnumerable<Global_Industrial>)
-                        {
-                            <option value="@type.Id">@type.Name</option>
-                        }
-                    </select>
-                </div>
-            </div>*@
-        <div class="savePoject-container">
-            <button class="btn-green btn-s save">儲存專案</button>
-        </div>
+    @*<div class="row">
+            <div class="col-lg-4 col-6 title">縣市別</div>
+            <div class="col-lg-8 col-12">
+                <select class="form-control input" id="projectCity">
+                    @foreach (var city in ViewBag.Cities as IEnumerable<Global_City>)
+                    {
+                        <option value="@city.Id">@city.Name</option>
+                    }
+                </select>
+            </div>
+        </div>*@
+    @*<div class="row">
+            <div class="col-lg-4 col-6 title">行業別</div>
+            <div class="col-lg-8 col-12">
+                <select class="form-control input" id="projectIndustrialType">
+                    @foreach (var type in ViewBag.IndustriaTypes as IEnumerable<Global_Industrial>)
+                    {
+                        <option value="@type.Id">@type.Name</option>
+                    }
+                </select>
+            </div>
+        </div>*@
+    <div class="savePoject-container">
+        <button class="btn-green btn-s save">儲存專案</button>
     </div>
+</div>
 
     <script>
 
@@ -256,7 +260,8 @@
                         StartDate: formattedStartDate,
                         EndDate: formattedEndDate,
                         BDate: formattedDate,
-                        BId: $("#UserID").attr("value")
+                        BId: $("#UserID").attr("value"),
+                        ProjectMemo: $("#projectMemo").val()
                         //ProjectIndustrialID: $("#IndustrialNo").val(),
                         //ProjectAddress: $("#IndustrialAddress").val(),
                         //ProjectCity: $("#projectCity").val(),

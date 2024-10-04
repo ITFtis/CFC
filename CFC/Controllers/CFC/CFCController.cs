@@ -14,6 +14,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Helpers;
@@ -207,18 +208,32 @@ namespace CFC.Controllers.CFC
         [HttpPost]
         public JsonResult GetFactoryDetails(string factoryRegistration)
         {
-            var factory = db.SysFactory
-                            .Where(f => f.FACTORY_REGISTRATION == factoryRegistration)
-                            .Select(f => new
-                            {
-                                f.FACTORY_NAME,
-                                f.FACTORY_REGISTRATION,
-                                f.FACTORY_CITY,
-                                f.FACTORY_DISTRICT,
-                                f.FACTORY_ADDRESS,
-                                f.FACTORY_INDUSTRIAL,
-                                f.FACTORY_INDUSTRIAL_AREA
-                            }).FirstOrDefault();
+            //var factory = db.SysFactory
+            //                .Where(f => f.FACTORY_REGISTRATION == factoryRegistration)
+            //                .Select(f => new
+            //                {
+            //                    f.FACTORY_NAME,
+            //                    f.FACTORY_REGISTRATION,
+            //                    f.FACTORY_CITY,
+            //                    f.FACTORY_DISTRICT,
+            //                    f.FACTORY_ADDRESS,
+            //                    f.FACTORY_INDUSTRIAL,
+            //                    f.FACTORY_INDUSTRIAL_AREA
+            //                }).FirstOrDefault();
+            var factory = (from f in db.SysFactory
+                           join gi in db.GlobalIndustrial on f.FACTORY_INDUSTRIAL equals gi.Id
+                           join gia in db.GlobalIndustrialArea on f.FACTORY_INDUSTRIAL_AREA equals gia.Id
+                           where f.FACTORY_REGISTRATION == factoryRegistration
+                           select new
+                           {
+                               f.FACTORY_NAME,
+                               f.FACTORY_REGISTRATION,
+                               f.FACTORY_CITY,
+                               f.FACTORY_DISTRICT,
+                               f.FACTORY_ADDRESS,
+                               FACTORY_INDUSTRIAL = gi.Name,            // 替換成 Global_Industrial.Name
+                               FACTORY_INDUSTRIAL_AREA = gia.Name        // 替換成 Global_IndustrialArea.Name
+                           }).FirstOrDefault();
 
             return Json(factory, JsonRequestBehavior.AllowGet);
         }
@@ -269,6 +284,9 @@ namespace CFC.Controllers.CFC
             if (user.Pass == null || user.Pass.Trim() == "")
                 errorMes.Append("密碼不可為空<br/>");
 
+            if ( (user.UniformNumber.Length == 8 && user.UniformNumber.All(char.IsDigit))==false )
+                errorMes.Append("統一編號只能是數字且8碼<br/>");
+
             if (user.Name == null || user.Name.Trim() == "")
                 errorMes.Append("請填寫公司名稱<br/>");
 
@@ -277,6 +295,19 @@ namespace CFC.Controllers.CFC
 
             if (user.PhoneNumber == null || user.PhoneNumber.Trim() == "")
                 errorMes.Append("請填寫聯絡電話<br/>");
+
+            //若是製造業, 要檢查工廠登記證是不是都是數字或字母
+            if (user.Manufacturing == "Manufacturing")
+            {
+                for (int i = 0; i < user.FactoryList.Count; i++)
+                {
+                    string s = ((SYS_FACTORY)(user.FactoryList[i])).FACTORY_REGISTRATION;
+                    if (Regex.IsMatch(s, @"^[a-zA-Z0-9]+$") == false)
+                    {
+                        errorMes.Append("工廠登記證( "+ s + " )非數字或英文字母<br/>");
+                    }
+                }
+            }
 
             //if (user.IndustrialAreaId == null || user.IndustrialAreaId.Trim() == "")
             //    errorMes.Append("請填寫聯絡人職稱<br/>");
@@ -416,6 +447,7 @@ namespace CFC.Controllers.CFC
             //userInput.ProjectIndustrialID = saveProject.ProjectIndustrialID;
             userInput.BDate = saveProject.BDate;
             userInput.BId = saveProject.BId;
+            userInput.Memo = saveProject.ProjectMemo;
 
             try
             {

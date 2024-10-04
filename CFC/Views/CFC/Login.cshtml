@@ -92,7 +92,7 @@
 
                 <div class="row input">
                     <div class="col-sm-6 col-12">
-                        <span class="mustInfo">*</span>企業規模
+                        <span class="mustInfo">*</span>規模
                     </div>
                     <div class="col-sm-6 col-12 d-flex justify-content-end">
                         <!--<select id="CompanySize" class="w100" title="CompanySize">-->
@@ -600,6 +600,8 @@
             // 清空工業區的選單
             industryAreaDropdown.empty();
             industryAreaDropdown.append('<option value="0">選擇工業區</option>');
+            industryAreaDropdown.append('<option value="1">非工業區</option>');
+            industryAreaDropdown.append('<option value="150">其他工業區</option>');
 
             // 根據選擇的 CityName 過濾工業區
             var filteredAreas = industrialAreas.filter(function (area) {

@@ -59,28 +59,28 @@
                         <!--第一列-->
                         <!--20240830移到最上班, 所以這裡註解掉-->
                         <!--
-                    <div class="type-title type-primary-color" style="width:50vw">
-                        <h2 style="display: flex;">
-                            類別一　係數選擇:
-                            @if (!ViewBag.IsGuest)
-                            {
-                                <div class="calCoeGroup">
-                                    <button class="coeButton coeActive" style=" border-radius: 10px 0 0 10px" id="AR4">AR4</button>
-                                    <button class="coeButton" id="AR5">AR5</button>
-                                    <button class="coeButton" style="border-radius: 0 10px 10px 0;" id="AR6">AR6</button>
-                                </div>
-                            }
-                            else
-                            {
-                                //訪客預設AR4
-                                <div class="calCoeGroup">
-                                    <button class="coeButton coeActive" style=" border-radius: 10px 0 0 10px" id="AR4">AR4</button>
-                                </div>
-                            }
-                        </h2>
+                        <div class="type-title type-primary-color" style="width:50vw">
+                            <h2 style="display: flex;">
+                                類別一　係數選擇:
+                                @if (!ViewBag.IsGuest)
+                                {
+                                    <div class="calCoeGroup">
+                                        <button class="coeButton coeActive" style=" border-radius: 10px 0 0 10px" id="AR4">AR4</button>
+                                        <button class="coeButton" id="AR5">AR5</button>
+                                        <button class="coeButton" style="border-radius: 0 10px 10px 0;" id="AR6">AR6</button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    //訪客預設AR4
+                                    <div class="calCoeGroup">
+                                        <button class="coeButton coeActive" style=" border-radius: 10px 0 0 10px" id="AR4">AR4</button>
+                                    </div>
+                                }
+                            </h2>
 
-                    </div>
-                    -->
+                        </div>
+                        -->
                         <!-- 燃料計算 -->
                         <div class="count-rule-block">
                             <h2 class="type-subtitle">
@@ -456,8 +456,8 @@
             </div>
         }
     </div>
-</body>
-<script>
+
+    <script>
     var site_root = "@Url.Content("~/")";
     $(document).ready(function () {
 
@@ -534,74 +534,75 @@
             , autoclose: 5000
         });
     }
-</script>
+    </script>
 
-
-<script>
-    function changeUnit(subSelector) {
-        // 取得單位
-        var $__subSelector = $($(subSelector).find("option:selected")[0]);
-        var unit = $__subSelector.attr("data-unit");
-
-        // 塞進去
-        var $__unit = $($__subSelector.closest(".rule-row").find(".col-unit")[0]);
-        $__unit.text(unit);
-    }
-    function addNewItem(btn) {
-        var $__parent = $(btn).parent();
-        var $__conledItem = $($__parent.find(".rule-row")[0]).clone();
-        $__conledItem.find("select").val("null"); // 預設選項(類別/原料)
-        $__conledItem.find("input").val("0");// 預設選項(用量=0)
-        $__conledItem.find(".fa-trash").removeAttr("hidden");// 預設選項(刪除icon-垃圾桶)
-        $__conledItem.find(".fa-trash").attr("data-icon", "additionTrash");
-        $__parent.append($__conledItem);
-    }
-
-    function removeItem(btn) {
-        $(btn).closest(".rule-row").remove();
-    }
-</script>
-
-
-
-@if (!ViewBag.IsGuest)
-{
-    // 進階輸入時用到的
     <script>
-        function changeSubSelection(mainSelector) {
-            var $__mainSelector = $(mainSelector);
-            var mainType = $__mainSelector.find(":selected").val();
+        function changeUnit(subSelector) {
+            // 取得單位
+            var $__subSelector = $($(subSelector).find("option:selected")[0]);
+            var unit = $__subSelector.attr("data-unit");
 
-            var $__groupColume = $__mainSelector.closest(".col-group");
-            var $__subSelector = $($__groupColume.find("select")[1]);
-
-
-            // 如果分類不同，就把它影藏起來
-            $.each($__subSelector.find("option"), function (index, option) {
-                var $__option = $(option);
-                $__option.removeAttr("hidden");
-
-                if ($__option.attr("data-type") != mainType && $__option.attr("value") != 'null')
-                    $__option.attr("hidden", true);
-            });
-
-            // 重置
-            $__subSelector.val("null");
+            // 塞進去
             var $__unit = $($__subSelector.closest(".rule-row").find(".col-unit")[0]);
-            $__unit.text("");
-
+            $__unit.text(unit);
+        }
+        function addNewItem(btn) {
+            var $__parent = $(btn).parent();
+            var $__conledItem = $($__parent.find(".rule-row")[0]).clone();
+            $__conledItem.find("select").val("null"); // 預設選項(類別/原料)
+            $__conledItem.find("input").val("0");// 預設選項(用量=0)
+            $__conledItem.find(".fa-trash").removeAttr("hidden");// 預設選項(刪除icon-垃圾桶)
+            $__conledItem.find(".fa-trash").attr("data-icon", "additionTrash");
+            $__parent.append($__conledItem);
         }
 
-        $(document).ready(() => {
-            $(".calCoeGroup>.coeButton").click((e) => {
-                $(".calCoeGroup .coeButton").attr("class", "coeButton");
-                e.currentTarget.setAttribute("class", "coeButton coeActive");
-            });
-
-        })
-
+        function removeItem(btn) {
+            $(btn).closest(".rule-row").remove();
+        }
     </script>
-}
+
+    @if (!ViewBag.IsGuest)
+    {
+        // 進階輸入時用到的
+        <script>
+            function changeSubSelection(mainSelector) {
+                var $__mainSelector = $(mainSelector);
+                var mainType = $__mainSelector.find(":selected").val();
+
+                var $__groupColume = $__mainSelector.closest(".col-group");
+                var $__subSelector = $($__groupColume.find("select")[1]);
+
+
+                // 如果分類不同，就把它影藏起來
+                $.each($__subSelector.find("option"), function (index, option) {
+                    var $__option = $(option);
+                    $__option.removeAttr("hidden");
+
+                    if ($__option.attr("data-type") != mainType && $__option.attr("value") != 'null')
+                        $__option.attr("hidden", true);
+                });
+
+                // 重置
+                $__subSelector.val("null");
+                var $__unit = $($__subSelector.closest(".rule-row").find(".col-unit")[0]);
+                $__unit.text("");
+
+            }
+
+            $(document).ready(() => {
+                $(".calCoeGroup>.coeButton").click((e) => {
+                    $(".calCoeGroup .coeButton").attr("class", "coeButton");
+                    e.currentTarget.setAttribute("class", "coeButton coeActive");
+                });
+
+            })
+
+        </script>
+    }
+
+</body>
+
+
 
 </html>
 

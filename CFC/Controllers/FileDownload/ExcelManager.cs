@@ -266,7 +266,7 @@ namespace CFC.Controllers.FileDownload
             }
             catch (Exception ex)
             {
-                Logger.Log.For(null).Error("下載錯誤：" + ex.Message);
+                Logger.Log.For(null).Error("執行錯誤：" + ex.Message);
                 Logger.Log.For(null).Error(ex.StackTrace);
                 return new ReturnModel { isSucess = false, fileAdd = ex.Message };
 

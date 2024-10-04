@@ -86,6 +86,9 @@ namespace CFC.Models.Prj
         [Display(Name = "修改者ID")]
         public string UId { get; set; }
 
+        [Display(Name = "Memo")]
+        public string Memo { get; set; }
+
 
 
         // 類別3

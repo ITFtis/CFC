@@ -4,8 +4,9 @@
     }
 }
 
+//註解2024.10.04
 if (jQuery && jQuery.fn.jquery == '1.9.1') {
-    alert('不支援使用jquery'+jQuery.fn.jquery+'版本，請更新!!' );//bootstrap-table 1.15.1後版本有問題
+   alert('不支援使用jquery'+jQuery.fn.jquery+'版本，請更新!!' );//bootstrap-table 1.15.1後版本有問題
 }
 
 String.format = function () {

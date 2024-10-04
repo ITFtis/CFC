@@ -18,7 +18,7 @@ namespace CFC.Models.Api
 
         public string BId { get; set; }
 
-
+        public string ProjectMemo { get; set; }
 
 
 
