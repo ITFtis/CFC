@@ -134,9 +134,18 @@
     });
 
     // 帳號申請
+    //$(".btn-success").on("click", function () {
+    //    $(".modalView").modal("show");
+    //});
     $(".btn-success").on("click", function () {
-        $(".modalView").modal("show");
+        if ($(".modalView").length) {
+            // 顯示模態框
+            $(".modalView").modal("show");
+        } else {
+            console.error("Modal element not found!");
+        }
     });
+
 
     $(window).on('beforeunload', function () {
         helper.misc.showBusyIndicator(undefined, { content: window.linkmessage ? window.linkmessage : undefined });

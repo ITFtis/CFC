@@ -251,14 +251,14 @@ $(document).ready(function () {
     });
 
     //小提醒
-    helper.jspanel.jspAlertMsg(undefined, {
-        classes: 'reminder-info modal-lg', title: '使用前的貼心提醒', content: '<ol><li>請注意輸入的<span class="import-remind">用量單位</span>(燃料、電力、冷媒用量)。</li>' +
-            '<li>本計算工具僅供自行檢查溫室氣體排放量。<span class="import-remind">如需通過排放查證和盤查登錄要求</span>，須依照 ISO 相關規範和環保署的作業指引。</li>' +
-            '<li>本計算工具所獲得的相關資料(一般或技術、商業資料) ，負有<span class="import-remind">保密責任</span>。</li>' +
-            '<li>本計算工具所提供的相關技術資訊(含產品、技術或服務) ，在未經正式授權下，<span class="import-remind">不得任意擴散、複製、抄襲、引用</span>。</li>' +
-            '<li>本計算工具所使用相關排放係數、GWP值、熱值與逸散率因子皆是引用IPCC 2006年數據、AR4報告與環保署公告之溫室氣體排放係數管理表6.0.4版。</li></ol>'
-        , autoclose: Number.MAX_VALUE
-    });
+    //helper.jspanel.jspAlertMsg(undefined, {
+    //    classes: 'reminder-info modal-lg', title: '使用前的貼心提醒', content: '<ol><li>請注意輸入的<span class="import-remind">用量單位</span>(燃料、電力、冷媒用量)。</li>' +
+    //        '<li>本計算工具僅供自行檢查溫室氣體排放量。<span class="import-remind">如需通過排放查證和盤查登錄要求</span>，須依照 ISO 相關規範和環保署的作業指引。</li>' +
+    //        '<li>本計算工具所獲得的相關資料(一般或技術、商業資料) ，負有<span class="import-remind">保密責任</span>。</li>' +
+    //        '<li>本計算工具所提供的相關技術資訊(含產品、技術或服務) ，在未經正式授權下，<span class="import-remind">不得任意擴散、複製、抄襲、引用</span>。</li>' +
+    //        '<li>本計算工具所使用相關排放係數、GWP值、熱值與逸散率因子皆是引用IPCC 2006年數據、AR4報告與環保署公告之溫室氣體排放係數管理表6.0.4版。</li></ol>'
+    //    , autoclose: Number.MAX_VALUE
+    //});
     $('.fuel-alert-info').on('click', function () {
         helper.jspanel.jspAlertMsg(undefined, {
             classes: 'reminder-info p-alert-info', title: '燃料計算小提醒', content: '<ol><li>只要是公司內的作業含括標準燃料燃燒的項目，就該進行查核。申報單位的組織邊界內的所有石化燃料的溫室氣體排放量。</li>' +

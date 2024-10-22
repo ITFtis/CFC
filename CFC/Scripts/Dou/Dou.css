@@ -58,10 +58,10 @@
 }
 
 .dou-menu .dropdown-menu{
-    max-height:0;
-    padding:0;
+    /*max-height:0;*/
+    /*padding:0;*/
     overflow:hidden;
-    display:block;
+    /*display:block;*/
     border-width:0;
 }
 .dou-menu .open > .dropdown-menu, .dou-menu .show > .dropdown-menu {

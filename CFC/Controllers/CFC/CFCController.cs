@@ -284,8 +284,15 @@ namespace CFC.Controllers.CFC
             if (user.Pass == null || user.Pass.Trim() == "")
                 errorMes.Append("密碼不可為空<br/>");
 
-            if ( (user.UniformNumber.Length == 8 && user.UniformNumber.All(char.IsDigit))==false )
-                errorMes.Append("統一編號只能是數字且8碼<br/>");
+            if (user.UniformNumber == null || user.UniformNumber.Trim() == "")
+            {
+                errorMes.Append("統一編號不可為空<br/>");
+            }
+            else
+            {
+                if ((user.UniformNumber.Length == 8 && user.UniformNumber.All(char.IsDigit)) == false)
+                    errorMes.Append("統一編號只能是數字且8碼<br/>");
+            }
 
             if (user.Name == null || user.Name.Trim() == "")
                 errorMes.Append("請填寫公司名稱<br/>");
@@ -295,34 +302,38 @@ namespace CFC.Controllers.CFC
 
             if (user.PhoneNumber == null || user.PhoneNumber.Trim() == "")
                 errorMes.Append("請填寫聯絡電話<br/>");
+            else if (!user.PhoneNumber.All(char.IsDigit))
+                errorMes.Append("聯絡電話必須全為數字<br/>");
+
+            if (user.Email == null || user.Email.Trim() == "")
+                errorMes.Append("請填寫電子郵件<br/>");
+            else
+            {
+                // 定義檢查 Email 格式的正規表示式
+                string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+                if (!Regex.IsMatch(user.Email, emailPattern))
+                {
+                    errorMes.Append("請輸入有效的電子郵件地址<br/>");
+                }
+            }
 
             //若是製造業, 要檢查工廠登記證是不是都是數字或字母
             if (user.Manufacturing == "Manufacturing")
             {
-                for (int i = 0; i < user.FactoryList.Count; i++)
+                if (user.FactoryList != null)
                 {
-                    string s = ((SYS_FACTORY)(user.FactoryList[i])).FACTORY_REGISTRATION;
-                    if (Regex.IsMatch(s, @"^[a-zA-Z0-9]+$") == false)
+                    for (int i = 0; i < user.FactoryList.Count; i++)
                     {
-                        errorMes.Append("工廠登記證( "+ s + " )非數字或英文字母<br/>");
+                        string s = ((SYS_FACTORY)(user.FactoryList[i])).FACTORY_REGISTRATION;
+                        if (Regex.IsMatch(s, @"^[a-zA-Z0-9]+$") == false)
+                        {
+                            errorMes.Append("工廠登記證( " + s + " )非數字或英文字母<br/>");
+                        }
                     }
                 }
             }
 
-            //if (user.IndustrialAreaId == null || user.IndustrialAreaId.Trim() == "")
-            //    errorMes.Append("請填寫聯絡人職稱<br/>");
-
-            //if (user.CountyId == null || user.CountyId.Trim() == "")
-            //    errorMes.Append("請填寫公司地址<br/>");
-
-            //if (user.Email == null || user.Email.Trim() == "")
-            //    errorMes.Append("請填寫聯絡Email<br/>");
-
-            //if (user.IndustryId == null || user.IndustryId.Trim() == "")
-            //    errorMes.Append("請填寫帳號資料<br/>");
-
-            //if (user.IndustryId.Length != 8)
-            //    errorMes.Append("工商登記編號有問題<br/>");
 
             // 任何有錯誤都拋出去
             if (errorMes.Length != 0)
