@@ -1,0 +1,232 @@
+ALTER TABLE [dbo].[Refrigerant_type]
+  ADD    GWP_AR5 DECIMAL(18, 10) DEFAULT 0,
+             GWP_AR6 DECIMAL(18, 10) DEFAULT 0;
+
+ALTER TABLE [dbo].[Escape_properties]
+ADD CO2GWP_AR5 FLOAT DEFAULT 0,
+    CH4GWP_AR5 FLOAT DEFAULT 0,
+    N2OGWP_AR5 FLOAT DEFAULT 0,
+    HFCsGWP_AR5 FLOAT DEFAULT 0,
+    PFCsGWP_AR5 FLOAT DEFAULT 0,
+    SF6GWP_AR5 FLOAT DEFAULT 0,
+    NF3GWP_AR5 FLOAT DEFAULT 0,
+    CO2GWP_AR6 FLOAT DEFAULT 0,
+    CH4GWP_AR6 FLOAT DEFAULT 0,
+    N2OGWP_AR6 FLOAT DEFAULT 0,
+    HFCsGWP_AR6 FLOAT DEFAULT 0,
+    PFCsGWP_AR6 FLOAT DEFAULT 0,
+    SF6GWP_AR6 FLOAT DEFAULT 0,
+    NF3GWP_AR6 FLOAT DEFAULT 0;
+
+ALTER TABLE [dbo].[Specific_properties]
+ADD CO2GWP_AR5 FLOAT DEFAULT 0,
+    CH4GWP_AR5 FLOAT DEFAULT 0,
+    N2OGWP_AR5 FLOAT DEFAULT 0,
+    HFCsGWP_AR5 FLOAT DEFAULT 0,
+    PFCsGWP_AR5 FLOAT DEFAULT 0,
+    SF6GWP_AR5 FLOAT DEFAULT 0,
+    NF3GWP_AR5 FLOAT DEFAULT 0,
+    CO2GWP_AR6 FLOAT DEFAULT 0,
+    CH4GWP_AR6 FLOAT DEFAULT 0,
+    N2OGWP_AR6 FLOAT DEFAULT 0,
+    HFCsGWP_AR6 FLOAT DEFAULT 0,
+    PFCsGWP_AR6 FLOAT DEFAULT 0,
+    SF6GWP_AR6 FLOAT DEFAULT 0,
+    NF3GWP_AR6 FLOAT DEFAULT 0;
+	
+CREATE TABLE [dbo].[User_Properties_Advance_Detail] (
+    [Id] VARCHAR(100) NOT NULL,
+    [IndustryName] NVARCHAR(100) NULL,
+    [IndustryId] NVARCHAR(8) NULL,
+    [IndustryCity] NVARCHAR(30) NULL,
+    [IndustryDistrict] NVARCHAR(30) NULL,
+    [IndustryAddress] NVARCHAR(100) NULL,
+    [IndustrialAreaId] NVARCHAR(5) NULL,
+    [IndustrialTypeId] NVARCHAR(10) NULL,
+    [CreateTime] NVARCHAR(14) DEFAULT FORMAT(GETDATE(), 'yyyyMMddHHmmss'),
+	[CreateUserId] NVARCHAR(100) NOT NULL
+);
+------------------
+CREATE TABLE [dbo].[SYS_COMPANY](
+	[COMP_ID] [int] IDENTITY(1,1) NOT NULL,
+	[COMP_NAME] [nvarchar](100) NOT NULL,
+	[COMP_UNIFORM_NUMBER] [nvarchar](20) NOT NULL,
+	[COMP_SIZE] [nvarchar](50) NULL,
+	[BDate] [nvarchar](14) NULL,
+	[BId] [nvarchar](50) NULL,
+	[UDate] [nvarchar](14) NULL,
+	[UId] [nvarchar](50) NULL,
+ CONSTRAINT [PK__SYS_COMP__6065E2B2C4CA55AE] PRIMARY KEY CLUSTERED 
+(
+	[COMP_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[SYS_COMPANY] ADD  CONSTRAINT [DF__SYS_COMPA__CREAT__0A338187]  DEFAULT (getdate()) FOR [BDate]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'自動遞增的主鍵' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_ID'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'公司名稱' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_NAME'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'統一編號' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_UNIFORM_NUMBER'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'企業規模' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_SIZE'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'自動寫入建立時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'BDate'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'建立的人員' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'BId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改的時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'UDate'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改的人員' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'UId'
+GO
+
+--------------------
+-- 建立 SYS_FACTORY 表格
+CREATE TABLE [dbo].[SYS_FACTORY](
+	[FACTORY_ID] [int] IDENTITY(1,1) NOT NULL,
+	[FACTORY_NAME] [nvarchar](100) NULL,
+	[FACTORY_REGISTRATION] [nvarchar](50) NOT NULL,
+	[FACTORY_CITY] [nvarchar](50) NULL,
+	[FACTORY_DISTRICT] [nvarchar](50) NULL,
+	[FACTORY_ADDRESS] [nvarchar](200) NULL,
+	[FACTORY_INDUSTRIAL] [nvarchar](100) NULL,
+	[FACTORY_INDUSTRIAL_AREA] [nvarchar](100) NULL,
+	[BDate] [nvarchar](14) NULL,
+	[BId] [nvarchar](50) NULL,
+	[UDate] [nvarchar](14) NULL,
+	[UId] [nvarchar](50) NULL,
+ CONSTRAINT [PK__SYS_FACT__BE9E49EFB583EDE5] PRIMARY KEY CLUSTERED 
+(
+	[FACTORY_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [IX_SYS_FACTORY] UNIQUE NONCLUSTERED 
+(
+	[FACTORY_REGISTRATION] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[SYS_FACTORY] ADD  CONSTRAINT [DF__SYS_FACTO__CREAT__0FEC5ADD]  DEFAULT (FORMAT(GETDATE(), 'yyyyMMddHHmmss')) FOR [BDate]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'主鍵，自動遞增的工廠編號' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'FACTORY_ID'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'工廠名稱' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'FACTORY_NAME'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'登記證號碼' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'FACTORY_REGISTRATION'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'工廠地址所在的縣市' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'FACTORY_CITY'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'工廠地址所在的鄉鎮市區' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'FACTORY_DISTRICT'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'工廠地址詳細地址' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'FACTORY_ADDRESS'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'工廠所在的工業區' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'FACTORY_INDUSTRIAL'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'工廠的產業類型' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'FACTORY_INDUSTRIAL_AREA'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'建立時間，自動寫入當前時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'BDate'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'建立該工廠資料的使用者 ID' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'BId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改該工廠資料的時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'UDate'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改該工廠資料的使用者 ID' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY', @level2type=N'COLUMN',@level2name=N'UId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'工廠資料表' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_FACTORY'
+GO
+
+---------------------------
+
+
+
+
+ALTER TABLE [dbo].[User_Properties_Advance]
+ADD 
+    CITY NVARCHAR(50),
+    DISTRICT NVARCHAR(50),
+    ADDRESS NVARCHAR(200),
+    UNIT_TYPE NVARCHAR(50);
+
+ALTER TABLE [dbo].[User_Input_Advance] 
+ADD 
+    [FACTORY_REGISTRATION] NVARCHAR(20) ,  -- 工廠登記號
+    [StartDate] NVARCHAR(8),                         -- 區間開始日期
+    [EndDate] NVARCHAR(8),                           -- 區間結束日期
+    [BDate] NVARCHAR(14),                         -- 建立日期 (長度14)
+    [BId] NVARCHAR(50),                     -- 建立者ID (長度1000)
+    [UDate] NVARCHAR(14),                      -- 更新日期 (長度14)
+    [UId] NVARCHAR(50)                     -- 更新者ID (長度100)
+
+ALTER TABLE [dbo].[User_Properties_Advance]
+ADD [POSITION] NVARCHAR(50) NULL;
+
+
+ALTER TABLE [dbo].[Global_IndustrialArea]
+ADD CityName varchar(20);
+
+-------------------------
+
+CREATE TABLE [dbo].[G_USER_FACTORY](
+	[IDX] [int] IDENTITY(1,1) NOT NULL,
+	[USER_ID] [nvarchar](50) NOT NULL,
+	[FACTORY_REGISTRATION] [nvarchar](50) NOT NULL,
+	[BDate] [nvarchar](14) NULL,
+	[BId] [nvarchar](50) NULL,
+	[UDate] [nvarchar](14) NULL,
+	[UId] [nvarchar](50) NULL,
+ CONSTRAINT [PK__G_USER_F__C4971C0616E6B76B] PRIMARY KEY CLUSTERED 
+(
+	[IDX] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[G_USER_FACTORY] ADD  CONSTRAINT [DF__G_USER_FA__BDate__3335971A]  DEFAULT (FORMAT(GETDATE(), 'yyyyMMddHHmmss')) FOR [BDate]
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'主鍵，自動遞增的流水號' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'G_USER_FACTORY', @level2type=N'COLUMN',@level2name=N'IDX'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'員工ID' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'G_USER_FACTORY', @level2type=N'COLUMN',@level2name=N'USER_ID'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'工廠ID，對應到 SYS_FACTORY 表的主鍵' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'G_USER_FACTORY', @level2type=N'COLUMN',@level2name=N'FACTORY_REGISTRATION'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'建立時間，自動寫入當前時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'G_USER_FACTORY', @level2type=N'COLUMN',@level2name=N'BDate'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'建立資料的人員ID' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'G_USER_FACTORY', @level2type=N'COLUMN',@level2name=N'BId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改資料的時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'G_USER_FACTORY', @level2type=N'COLUMN',@level2name=N'UDate'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改資料的人員ID' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'G_USER_FACTORY', @level2type=N'COLUMN',@level2name=N'UId'
+GO
+
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'員工工廠關聯資料表' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'G_USER_FACTORY'
+GO

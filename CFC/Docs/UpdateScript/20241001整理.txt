@@ -1,0 +1,339 @@
+BEGIN TRANSACTION;
+
+ INSERT [dbo].[SYS_FACTORY] 
+  ([FACTORY_NAME],[FACTORY_REGISTRATION],[FACTORY_CITY],[FACTORY_DISTRICT],[FACTORY_ADDRESS],[FACTORY_INDUSTRIAL],[FACTORY_INDUSTRIAL_AREA]
+      ,[BDate],[BId],[UDate],[UId] )
+  VALUES
+  ('','NONE','','','','',''
+      ,'20241010105959','','','' );
+
+update [dbo].[Escape_properties]
+set
+      [CO2GWP_AR5]=0
+      ,[CH4GWP_AR5]=0
+      ,[N2OGWP_AR5]=0
+      ,[HFCsGWP_AR5]=0
+      ,[PFCsGWP_AR5]=0
+      ,[SF6GWP_AR5]=0
+      ,[NF3GWP_AR5]=0
+      ,[CO2GWP_AR6]=0
+      ,[CH4GWP_AR6]=0
+      ,[N2OGWP_AR6]=0
+      ,[HFCsGWP_AR6]=0
+      ,[PFCsGWP_AR6]=0
+      ,[SF6GWP_AR6]=0
+      ,[NF3GWP_AR6]=0;
+
+update  [dbo].[Specific_properties]
+set      [CO2GWP_AR5]=0
+      ,[CH4GWP_AR5]=0
+      ,[N2OGWP_AR5]=0
+      ,[HFCsGWP_AR5]=0
+      ,[PFCsGWP_AR5]=0
+      ,[SF6GWP_AR5]=0
+      ,[NF3GWP_AR5]=0
+      ,[CO2GWP_AR6]=0
+      ,[CH4GWP_AR6]=0
+      ,[N2OGWP_AR6]=0
+      ,[HFCsGWP_AR6]=0
+      ,[PFCsGWP_AR6]=0
+      ,[SF6GWP_AR6]=0
+      ,[NF3GWP_AR6]=0;
+
+
+--ALTER TABLE [dbo].[SYS_COMPANY] ADD  CONSTRAINT [DF__SYS_COMPA__CREAT__0A338187]  DEFAULT (getdate()) FOR [CREATE_TIME];
+--EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'自動遞增的主鍵' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_ID';
+--EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'公司名稱' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_NAME';
+--EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'統一編號' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_UNIFORM_Number';
+--EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'企業規模' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'COMP_SIZE';
+--EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'自動寫入建立時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'CREATE_TIME';
+--EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'建立的人員' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'CREATE_USERID';
+--EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改的時間' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'UPDATE_TIME'
+--EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'修改的人員' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'SYS_COMPANY', @level2type=N'COLUMN',@level2name=N'UPDATE_USERID'
+
+--------------------------------
+
+DELETE FROM [dbo].[Global_IndustrialArea];
+
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('1', '非工業區', 10, 'NONE');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('10', '大園工業區', 100, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('100', '台中軟體園區', 100, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('101', '豐洲科技工業區', 101, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('102', '仁化工業區(大里)', 102, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('103', '霧峰工業區', 103, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('104', '太平工業區', 104, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('105', '台中精密機械科技園區', 105, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('106', '中部科學園區(后里園區/后里七星', 106, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('107', '中部科學園區(台中園區)', 107, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('108', '社頭織襪工業區', 108, '彰化縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('109', '北斗工業區(社頭)', 109, '彰化縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('11', '中壢工業區', 110, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('110', '中部科學園區(二林園區)', 110, '彰化縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('111', '旺來產業園區(南投)', 111, '南投縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('112', '中部科學園區(中興園區)', 112, '南投縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('113', '雲林離島工業區', 113, '雲林縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('114', '中部科學園區(虎尾園區)', 114, '雲林縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('115', '大埔美精密機械園區', 115, '嘉義縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('116', '麻豆工業區', 116, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('117', '總頭寮工業區', 117, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('118', '保安工業區(仁德)', 118, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('119', '永康科技工業區', 119, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('12', '平鎮工業區', 120, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('120', '和順工業區', 120, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('121', '南部科學園區(台南園區)', 121, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('122', '臨海工業區', 122, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('123', '和發工業區', 123, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('124', '萬大工業區', 124, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('125', '允成工業區(路竹)', 125, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('126', '岡山本洲產業園區', 126, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('127', '楠梓科技產業園區(含二園區)', 127, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('128', '成功物流科技產業園區', 128, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('129', '臨廣科技產業源區', 129, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('13', '觀音工業區', 130, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('130', '高雄軟體園區', 130, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('131', '南部科學園區(高雄園區)', 131, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('132', '新竹科學園區(宜蘭園區)', 132, '宜蘭縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('14', '龜山工業區', 140, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('15', '林口特定區(工二)', 150, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('16', '林口特定區(工三)', 160, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('17', '桃園幼獅工業區', 170, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('18', '新竹工業區', 180, '新竹市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('19', '竹南工業區', 190, '苗栗縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('2', '龍德工業區', 20, '宜蘭縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('20', '銅鑼工業區', 200, '苗栗縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('21', '頭份工業區', 210, '苗栗縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('22', '大里工業區', 220, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('23', '大甲幼獅工業區', 230, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('24', '台中港關連工業區', 240, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('25', '台中工業區', 250, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('26', '竹山工業區', 260, '南投縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('27', '南崗工業區', 270, '南投縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('28', '田中工業區', 280, '彰化縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('29', '全興工業區', 290, '彰化縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('3', '利澤工業區', 30, '宜蘭縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('30', '芳苑工業區', 300, '彰化縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('31', '埤頭工業區', 310, '彰化縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('32', '福興工業區', 320, '彰化縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('33', '彰濱工業區', 330, '彰化縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('34', '社頭織襪工業區', 340, '彰化縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('35', '元長工業區', 350, '雲林縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('36', '斗六工業區', 360, '雲林縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('37', '豐田工業區', 370, '雲林縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('38', '雲林科技工業區', 380, '雲林縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('39', '雲林離島工業區', 390, '雲林縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('4', '大武崙工業區', 40, '基隆市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('40', '民雄工業區', 400, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('41', '朴子工業區', 410, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('42', '義竹工業區', 420, '嘉義縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('43', '嘉太工業區', 430, '嘉義縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('44', '頭橋工業區', 440, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('45', '永康工業區', 450, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('46', '官田工業區', 460, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('47', '新營工業區', 470, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('48', '安平工業區', 480, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('49', '台南科技工業區', 490, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('5', '南港軟體園區', 50, '台北市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('50', '大社工業區', 500, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('51', '大發工業區', 510, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('52', '永安工業區', 520, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('53', '鳳山工業區', 530, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('54', '仁武工業區', 540, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('55', '林園工業區', 550, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('56', '高雄臨海工業區', 560, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('57', '內埔工業區', 570, '屏東縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('58', '屏南工業區', 580, '屏東縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('59', '屏東工業區', 590, '屏東縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('6', '土城工業區', 60, '新北市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('60', '和平工業區', 600, '花蓮縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('61', '美崙工業區', 610, '花蓮縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('62', '光華工業區', 620, '花蓮縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('63', '豐樂工業區', 630, '台東縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('64', '新竹科學園區', 640, '新竹市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('65', '中部科學園區', 650, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('66', '南部科學園區', 660, '台南市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('67', '楠梓科技產業園區', 670, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('68', '前鎮科技產業園區', 680, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('69', '高雄軟體科技園區', 690, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('7', '瑞芳工業區', 70, '新北市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('70', '臺中潭子科技產業園區', 700, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('71', '臺中軟體園區', 710, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('72', '臺中港科技產業園區', 720, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('73', '臨廣科技產業源區', 730, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('74', '屏東科技產業園區', 740, '屏東縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('75', '北高雄產業園區', 750, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('76', '新市產業園區', 760, '新北市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('77', '其他工業區/科技產業園區/物流園', 770, '高雄市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('78', '六堵科技園區', 78, '基隆市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('79', '南港軟體園區', 79, '台北市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('8', '樹林工業區', 80, '新北市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('80', '林口工業區', 80, '新北市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('81', '永豐工業區', 81, '新北市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('82', '三興工業區', 82, '新北市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('83', '長發工業區', 83, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('84', '海湖坑口工業區', 84, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('85', '烏樹林工業區(龍潭)', 85, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('86', '桃園高科技工業城第四工業區(林', 86, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('87', '桃園科技工業區', 87, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('88', '大潭工業區', 88, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('89', '桃園環保科技園區', 89, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('9', '新北產業園區', 90, '新北市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('90', '桃幼擴大工業區', 90, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('91', '桃園市永安工業區', 91, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('92', '新竹科學園區(龍潭園區)', 92, '桃園市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('93', '新竹科學園區(新竹園區)', 93, '新竹市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('94', '新竹科學園區(生醫園區)', 94, '新竹縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('95', '中興工業區(銅鑼)', 95, '苗栗縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('96', '新竹科學園區(竹南園區)', 96, '苗栗縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('97', '新竹科學園區(銅鑼園區)', 97, '苗栗縣');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('98', '台中港科技產業園區', 98, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] (Id, Name, DisplayOrder, CityName) VALUES ('99', '潭子科技產業園區', 99, '台中市');
+INSERT INTO [dbo].[Global_IndustrialArea] 
+    ([Id], [Name], [DisplayOrder], [CityName])
+VALUES 
+    (150, '其他工業區', 11, 'NONE');
+
+---------------------------------------------
+
+SELECT *
+INTO [dbo].[Fuel_properties_bak]
+FROM [dbo].[Fuel_properties]
+WHERE TRY_CONVERT(INT, SUBSTRING(ID, 2, LEN(ID))) IN (3, 5, 15, 16, 35, 40);
+
+DELETE [dbo].[Fuel_properties]
+WHERE TRY_CONVERT(INT, SUBSTRING(ID, 2, LEN(ID))) IN (3, 5, 15, 16, 35, 40);
+------------------------------------------------------------------------------
+
+UPDATE [dbo].[Escape_type] SET Name='化糞池' WHERE Id='DT1';
+
+SELECT *
+  INTO [dbo].[Escape_type_bak] 
+  FROM [dbo].[Escape_type] 
+ WHERE Id IN ('DT2','DT3','DT4');
+
+DELETE [dbo].[Escape_type] 
+ WHERE Id IN ('DT2','DT3','DT4');
+ ----------------------------------------------------
+
+SELECT *
+INTO [dbo].[Refrigerant_equip_bak]
+FROM [dbo].[Refrigerant_equip];
+
+UPDATE [dbo].[Refrigerant_equip] SET Name='電冰箱(R-22)'	WHERE Id ='CE1';
+UPDATE [dbo].[Refrigerant_equip] SET Name='冷氣機(R-22)'	WHERE Id ='CE2';
+UPDATE [dbo].[Refrigerant_equip] SET Name='除濕機(R-22)'	WHERE Id ='CE3';
+UPDATE [dbo].[Refrigerant_equip] SET Name='熱泵熱水器(R-22)'	WHERE Id ='CE4';
+UPDATE [dbo].[Refrigerant_equip] SET Name='冰水機(R-22)'	WHERE Id ='CE5';
+UPDATE [dbo].[Refrigerant_equip] SET Name='冷凍機(R-22)'	WHERE Id ='CE6';
+UPDATE [dbo].[Refrigerant_equip] SET Name='冷凍乾燥機(R-22)'	WHERE Id ='CE7';
+UPDATE [dbo].[Refrigerant_equip] SET Name='熱泵系統(R-22)'	WHERE Id ='CE8';
+UPDATE [dbo].[Refrigerant_equip] SET Name='冷凍(藏)庫(R-22)'	WHERE Id ='CE9';
+UPDATE [dbo].[Refrigerant_equip] SET Name='大型冷凍(藏)庫(R-22)'	WHERE Id ='CE10';
+UPDATE [dbo].[Refrigerant_equip] SET Name='車用空調(R-22)'	WHERE Id ='CE11';
+UPDATE [dbo].[Refrigerant_equip] SET Name='冷凍物流車(R-22)'	WHERE Id ='CE12';
+
+DELETE  [dbo].[Refrigerant_equip] WHERE Id ='CE13';
+
+INSERT INTO [dbo].[Refrigerant_equip] 
+([Id],[Name] ,[EscapeRate] ,[MinValue] ,[MaxValue] ,[displayOrder])
+VALUES
+('CE15','滅火器(CO2)','0.0005',0,1000000,15);
+
+INSERT INTO [dbo].[Refrigerant_equip] 
+([Id],[Name] ,[EscapeRate] ,[MinValue] ,[MaxValue] ,[displayOrder])
+VALUES
+('CE16','氣體斷路器(GCB)','0.0005',0,1000000,16);
+----------------------------------------------------------
+
+SELECT *
+INTO [dbo].[Specific_type_bak]
+FROM [dbo].[Specific_type];
+
+DELETE [dbo].[Specific_type];
+
+INSERT INTO [dbo].[Specific_type]
+ ( [Id] ,[Name] ,[DisplayOrder] )
+VALUES
+ ( 'EE' ,'WD-40' ,0 );
+ INSERT INTO [dbo].[Specific_type]
+ ( [Id] ,[Name] ,[DisplayOrder] )
+VALUES
+ ( 'EF' ,'乙炔' ,0 );
+ INSERT INTO [dbo].[Specific_type]
+ ( [Id] ,[Name] ,[DisplayOrder] )
+VALUES
+ ( 'EG' ,'焊條(含碳量0.06%)' ,0 );
+ -----------------------------------
+ 
+WITH CTE AS (
+    SELECT 
+        [IndustryId], 
+        [IndustrialAreaId], 
+        [IndustrialTypeId],
+        ROW_NUMBER() OVER (PARTITION BY [IndustryId] ORDER BY [IndustrialAreaId], [IndustrialTypeId]) AS RowNum
+    FROM [dbo].[User_Properties_Advance]
+)
+MERGE INTO [dbo].[SYS_FACTORY] AS target
+USING (
+    SELECT 
+        [IndustryId], 
+        [IndustrialAreaId], 
+        [IndustrialTypeId]
+    FROM CTE
+    WHERE RowNum = 1
+) AS source
+ON target.[FACTORY_REGISTRATION] = source.[IndustryId]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([FACTORY_REGISTRATION], [FACTORY_INDUSTRIAL], [FACTORY_INDUSTRIAL_AREA])
+    VALUES (source.[IndustryId], source.[IndustrialAreaId], source.[IndustrialTypeId]);
+-------------------------------------
+
+MERGE INTO [dbo].[G_USER_FACTORY] AS target
+USING (
+    SELECT 
+        [Id], 
+        [IndustryId] 
+    FROM [dbo].[User_Properties_Advance]
+) AS source
+ON target.[USER_ID] = source.[Id]
+   AND target.[FACTORY_REGISTRATION] = source.[IndustryId]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([USER_ID], [FACTORY_REGISTRATION])
+    VALUES (source.[Id], source.[IndustryId]);
+---------------------------------------------------------
+
+ALTER TABLE [dbo].[User_Input_Advance]
+ADD [Memo] NVARCHAR(200);
+
+------------------------------------------------------------
+ALTER TABLE [dbo].[User_Properties_Advance]
+ADD [ENABLED] VARCHAR(5);
+
+ALTER TABLE [dbo].[User_Properties_Advance]
+ADD [STATUS] VARCHAR(5);
+
+EXEC sp_addextendedproperty 
+@name = N'MS_Description', 
+@value = N'是否啟用', 
+@level0type = N'SCHEMA', @level0name = dbo,
+@level1type = N'TABLE',  @level1name = N'User_Properties_Advance',
+@level2type = N'COLUMN', @level2name = N'ENABLED';
+
+EXEC sp_addextendedproperty 
+@name = N'MS_Description', 
+@value = N'0:舊系統會員, 1:新系統會員', 
+@level0type = N'SCHEMA', @level0name = dbo,
+@level1type = N'TABLE',  @level1name = N'User_Properties_Advance',
+@level2type = N'COLUMN', @level2name = N'STATUS';
+
+
+update [dbo].[Refrigerant_type]
+set [GWP_AR5]=0 ,[GWP_AR6]=0;
+
+COMMIT TRANSACTION;
+
+
+---------------------------------------------------------------
+
+
+	
+	
