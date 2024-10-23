@@ -413,3 +413,4 @@ FodyWeavers.xsd
 /CFC/bin/CFC.dll
 /CFC/Config/RecordCount.xml
 /CFC/File/ExcelCreater/tempFolder
+/CFC/Docs/DB
