@@ -49,6 +49,9 @@ namespace CFC.Controllers.CFC
             ViewBag.UserID = Session["loginUserId"];
             ViewBag.UserName = Session["loginUserName"];
 
+            if (Session["loginUserId"].ToString().Trim().ToUpper() == "GUEST")
+                isGuest = true;
+
             ViewBag.IsGuest = isGuest;
             if (STREAMLINE == m.Name)
                 ViewBag.STREAMLINE = m.Name;
