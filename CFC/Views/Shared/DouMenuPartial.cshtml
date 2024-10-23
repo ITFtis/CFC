@@ -11,7 +11,7 @@
     <li class="dropdown nav-item">
         @*a 下加label mousecursor 位置有問題 ，部分IE按下無反應(只能按最左顛才有反映)*@
         @*<a href="#" class="dropdown-toggle" data-toggle="dropdown">@Html.MenuImage(item.Icon != null ? Url.Content(item.Icon) : null) <label class=@(item.Id.Replace(".", "_"))><span>@(item.Name)</span></label><b class="caret"></b></a>*@
-        <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false">@Html.MenuImage(item.Icon != null ? Url.Content(item.Icon) : null)<span  class=@(item.Id.Replace(".", "_"))>@(item.Name)</span><b class="caret"></b></a>
+        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">@Html.MenuImage(item.Icon != null ? Url.Content(item.Icon) : null)<span  class=@(item.Id.Replace(".", "_"))>@(item.Name)</span><b class="caret"></b></a>
         @GenGroupMenu(item, item.Children)
     </li>
         }
