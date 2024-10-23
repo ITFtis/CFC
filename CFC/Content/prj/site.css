@@ -1,9 +1,0 @@
-﻿html {
-    font-size: 16px;
-}
-
-.nav-link.active {
-    color: var(--dou-action-color);
-    font-weight: bold;
-    font-size: larger;
-}
