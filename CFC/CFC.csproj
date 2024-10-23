@@ -384,7 +384,6 @@
     <None Include="ddou_Scripts\jquery.validate-vsdoc.js" />
     <Content Include="ddou_Scripts\jquery.validate.js" />
     <Content Include="ddou_Scripts\jquery.validate.min.js" />
-    <Content Include="ddou_Scripts\prj\cfc_n.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Images\banner-logo.png" />
