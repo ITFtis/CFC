@@ -19,23 +19,55 @@ namespace CFC
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new Bundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.bundle.min.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css"
-                      ));
+            
             bundles.Add(new StyleBundle("~/Scripts/gis/b3/style/css").Include( //路徑須符合b3/css/bootstrap.css可載入字型檔b3/fonts
                       "~/Scripts/gis/b3/css/bootstrap.css"
                       ));
             bundles.Add(new StyleBundle("~/Content/css/site").Include(
                       "~/Content/prj/site.css"
                       ));
-            //Dou 
+            //Dou
+            bundles.Add(new Bundle("~/bundles/bootstrap_dou").Include(
+                      "~/ddou_Scripts/bootstrap.bundle.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/css_dou").Include(
+                      "~/ddou_Content/bootstrap.css"
+                      ));
+
             bundles.Add(new ScriptBundle("~/dou/js").Include(
                       "~/Scripts/gis/bootstraptable/bootstrap-table.js",
                       "~/Scripts/gis/bootstraptable/extensions/mobile/bootstrap-table-mobile.js",
-                      "~/Scripts/gis/select/bselect/bootstrap-select.min.js",
+                      "~/ddou_Scripts/gis/select/bselect/bootstrap-select.min.js",
+                      "~/Scripts/Dou/datetimepicker/js/moment.js",
+                      //"~/ddou_Scripts/Scripts/Dou/datetimepicker/js/locales.min.js",
+                      "~/Scripts/Dou/datetimepicker/js/tempusdominus-bootstrap-4.min.js",
+                      "~/Scripts/gis/helper.js",
+                      "~/Scripts/gis/Main.js",
+                       "~/Scripts/Dou/Dou.js"
+                        ));
+
+
+            bundles.Add(new StyleBundle("~/Scripts/gis/b3/dou/css").Include( //~/Scripts/gis/b3/dou/css為了b3/css/bootstrap.css可載入字型檔
+                      "~/Scripts/gis/bootstraptable/bootstrap-table.css",
+                      "~/Scripts/gis/select/bselect/bootstrap-select.min.css",
+                      "~/Scripts/gis/b3/css/bootstrap.css",
+                      "~/Scripts/gis/Main.css",
+                       "~/Scripts/Dou/Dou.css",
+                       "~/Scripts/Dou/datetimepicker/css/tempusdominus-bootstrap-4.min.css"));
+
+
+            //Main
+            bundles.Add(new Bundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/bootstrap.bundle.min.js"));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css"
+                      ));
+
+            bundles.Add(new ScriptBundle("~/main/js").Include(
+                      "~/Scripts/gis/bootstraptable/bootstrap-table.js",
+                      "~/Scripts/gis/bootstraptable/extensions/mobile/bootstrap-table-mobile.js",
+                      "~/ddou_Scripts/Scripts/gis/select/bselect/bootstrap-select.min.js",
                       "~/Scripts/Dou/datetimepicker/js/moment.js",
                       //"~/Scripts/Dou/datetimepicker/js/locales.min.js",
                       "~/Scripts/Dou/datetimepicker/js/tempusdominus-bootstrap-4.min.js",
@@ -45,7 +77,7 @@ namespace CFC
                         ));
             
 
-            bundles.Add(new StyleBundle("~/Scripts/gis/b3/dou/css").Include( //~/Scripts/gis/b3/dou/css為了b3/css/bootstrap.css可載入字型檔
+            bundles.Add(new StyleBundle("~/Scripts/gis/b3/main/css").Include( //~/Scripts/gis/b3/dou/css為了b3/css/bootstrap.css可載入字型檔
                       "~/Scripts/gis/bootstraptable/bootstrap-table.css",
                       "~/Scripts/gis/select/bselect/bootstrap-select.min.css",
                       "~/Scripts/gis/b3/css/bootstrap.css",
