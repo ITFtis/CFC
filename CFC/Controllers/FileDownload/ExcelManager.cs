@@ -175,19 +175,29 @@ namespace CFC.Controllers.FileDownload
 
 
                     var userInfoSheet = Ep.Workbook.Worksheets["廠商資料"];
+                    
+                    string cUnitType = userInfo.UNIT_TYPE != null ? userInfo.UNIT_TYPE : string.Empty;
+                    string cUniformNumber = userInfo.UniformNumber != null ? userInfo.UniformNumber : string.Empty;
+                    string cContact = userInfo.Contact != null ? userInfo.Contact : string.Empty;
+                    string cPosition = userInfo.POSITION != null ? userInfo.POSITION : string.Empty;
+                    string cPhoneNumber = userInfo.PhoneNumber != null ? userInfo.PhoneNumber : string.Empty;
+                    string cEmail = userInfo.Email != null ? userInfo.Email : string.Empty;
+                    string cfactoryIndustrialName = factoryIndustrialName.Name != null ? factoryIndustrialName.Name : string.Empty;
+                    string cfactoryIndustrialAreaName = factoryIndustrialAreaName.Name != null ? factoryIndustrialAreaName.Name : string.Empty;
+
                     if (userInfo.Manufacturing == "製造業")
                     {
                         new ItemManger().SetUserInfo(userInfoSheet, factory, company,
-                                                     userInfo.Manufacturing, userInfo.UNIT_TYPE, userInfo.UniformNumber,
-                                                     userInfo.Contact, userInfo.POSITION, userInfo.PhoneNumber, userInfo.Email,
-                                                     factoryIndustrialName.Name,
-                                                     factoryIndustrialAreaName.Name);
+                                                     userInfo.Manufacturing, cUnitType, cUniformNumber,
+                                                     cContact, cPosition, cPhoneNumber, cEmail,
+                                                     cfactoryIndustrialName,
+                                                     cfactoryIndustrialAreaName);
                     }
                     else
                     {
                         new ItemManger().SetUserInfo(userInfoSheet, factory, company,
-                                                     userInfo.Manufacturing, userInfo.UNIT_TYPE, userInfo.UniformNumber,
-                                                     userInfo.Contact, userInfo.POSITION, userInfo.PhoneNumber, userInfo.Email,
+                                                     userInfo.Manufacturing, cUnitType, cUniformNumber,
+                                                     cContact, cPosition, cPhoneNumber, cEmail,
                                                      "",
                                                      "");
                     }

@@ -1,0 +1,24 @@
+
+
+WITH CTE AS (
+    SELECT 
+        [Name], 
+        [UniformNumber], 
+        [CompanySize],
+        ROW_NUMBER() OVER (PARTITION BY [UniformNumber] ORDER BY [UniformNumber], [Name]) AS RowNum
+    FROM [dbo].[User_Properties_Advance]
+)
+MERGE INTO [dbo].[SYS_COMPANY] AS target
+USING (
+    SELECT 
+        [Name], 
+        [UniformNumber], 
+        [CompanySize]
+    FROM CTE
+    WHERE RowNum = 1
+) AS source
+ON target.[COMP_UNIFORM_NUMBER] = source.[UniformNumber]
+WHEN NOT MATCHED BY TARGET THEN
+    INSERT ([COMP_NAME], [COMP_UNIFORM_NUMBER], [COMP_SIZE])
+    VALUES (source.[Name], source.[UniformNumber], source.[CompanySize]);
+

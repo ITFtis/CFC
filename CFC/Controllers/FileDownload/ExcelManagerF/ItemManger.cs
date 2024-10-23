@@ -312,9 +312,9 @@ namespace CFC.Controllers.FileDownload.ExcelManagerF
                                 string factoryIndustrialName, string factoryIndustrialAreaName)
         {
             sheet.Cells[3, 3].Value = uniformNumber;
-            sheet.Cells[4, 3].Value = cCompany.COMP_NAME;
+            sheet.Cells[4, 3].Value = (cCompany != null ) ? cCompany.COMP_NAME : string.Empty;
             sheet.Cells[5, 3].Value = manufacturing;
-            sheet.Cells[6, 3].Value = cCompany.COMP_SIZE;
+            sheet.Cells[6, 3].Value = (cCompany != null ) ? cCompany.COMP_SIZE : string.Empty;
             sheet.Cells[7, 3].Value = (manufacturing=="非製造業") ? unitType : "" ;
 
             if (manufacturing == "製造業")
