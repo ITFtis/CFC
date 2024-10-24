@@ -283,6 +283,7 @@
     <Compile Include="_applyClass\KeyValueParams.cs" />
     <Compile Include="_core\Cm.cs" />
     <Compile Include="_core\Constant.cs" />
+    <Compile Include="_core\DateFormat.cs" />
     <Compile Include="_core\ODFHelper.cs" />
   </ItemGroup>
   <ItemGroup>
