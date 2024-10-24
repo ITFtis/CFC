@@ -303,7 +303,7 @@
                     <div class="modal-footer">
                         <!--by Ivan, 20240827 因Freego偵查，註解-->
                         <h5 class="mustInfo" id="errorMes"></h5>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">關閉</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
                         <button type="button" class="btn btn-primary">申請帳號</button>
                     </div>
                 </div>
@@ -543,8 +543,14 @@
                     console.log(data);
                     // 在這裡可以進一步處理資料，例如更新頁面上的內容
                     // 例如：
-                    document.getElementById(`Name`).value = data.COMP_NAME;
-                    document.getElementById(`CompanySize`).value = data.COMP_SIZE;
+                    if (data) {
+                        document.getElementById(`Name`).value = data.COMP_NAME;
+                        document.getElementById(`CompanySize`).value = data.COMP_SIZE;
+                    }
+                    else {
+                        ocument.getElementById(`Name`).value = '';
+                        document.getElementById(`CompanySize`).value = '';
+                    }
 
 
 
@@ -837,7 +843,9 @@
                     $("#Email").val('')
                     $('#NonManufacturing_factoryAddress').val('');
                     $('#Position').val('');
-                    $('#FactoryNum').Val('0');
+                    if ($('#FactoryNum').length) {
+                        $('#FactoryNum').val('0');
+                    }
                     $('#factoriesForm').innerHTML = '';
                     location.reload(true);
                 }

@@ -257,6 +257,12 @@ namespace CFC.Controllers.CFC
             var CompanyProperties = DateViewController.All_SYS_COMPANY_properties.FirstOrDefault(e => e.COMP_UNIFORM_NUMBER.Equals(CompanyUniformNumber));
 
             // 將資料轉換為 JSON 格式返回前端
+            if (CompanyProperties == null)
+            {
+                CompanyProperties = new SYS_COMPANY();
+                CompanyProperties.COMP_NAME = "";
+                CompanyProperties.COMP_SIZE = "";
+            }
             return Json(CompanyProperties);
         }
 
