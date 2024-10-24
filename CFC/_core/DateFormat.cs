@@ -498,6 +498,11 @@ namespace CFC
         /// <returns></returns>
         public static string ToDate14(string date)
         {
+            if (date == null)
+            {
+                return "";
+            }
+
             string result = date;
 
             try
