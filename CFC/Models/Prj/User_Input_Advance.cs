@@ -73,6 +73,23 @@ namespace CFC.Models.Prj
         [Display(Name = "區間結束日期")]
         public string EndDate { get; set; }
 
+        [Display(Name = "區間開始日期_日期格式")]
+        public string StartDate_F
+        {
+            get
+            {
+                return DateFormat.ToDate14(this.StartDate);
+            }
+        }
+
+        [Display(Name = "區間結束日期_日期格式")]
+        public string EndDate_F
+        {
+            get
+            {
+                return DateFormat.ToDate14(this.EndDate);
+            }
+        }
 
         [Display(Name = "建檔日")]
         public string BDate { get; set; }
