@@ -182,8 +182,8 @@ namespace CFC.Controllers.FileDownload
                     string cPosition = userInfo.POSITION != null ? userInfo.POSITION : string.Empty;
                     string cPhoneNumber = userInfo.PhoneNumber != null ? userInfo.PhoneNumber : string.Empty;
                     string cEmail = userInfo.Email != null ? userInfo.Email : string.Empty;
-                    string cfactoryIndustrialName = factoryIndustrialName.Name != null ? factoryIndustrialName.Name : string.Empty;
-                    string cfactoryIndustrialAreaName = factoryIndustrialAreaName.Name != null ? factoryIndustrialAreaName.Name : string.Empty;
+                    string cfactoryIndustrialName = factoryIndustrialName != null ? factoryIndustrialName.Name : string.Empty;
+                    string cfactoryIndustrialAreaName = factoryIndustrialAreaName != null ? factoryIndustrialAreaName.Name : string.Empty;
 
                     if (userInfo.Manufacturing == "製造業")
                     {
