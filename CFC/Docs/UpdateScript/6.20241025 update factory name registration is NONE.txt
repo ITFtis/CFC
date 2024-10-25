@@ -1,0 +1,1 @@
+update [dbo].[SYS_FACTORY] set factory_name= FACTORY_REGISTRATION where FACTORY_REGISTRATION='NONE'
