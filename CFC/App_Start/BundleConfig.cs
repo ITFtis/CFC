@@ -67,7 +67,7 @@ namespace CFC
             bundles.Add(new ScriptBundle("~/main/js").Include(
                       "~/Scripts/gis/bootstraptable/bootstrap-table.js",
                       "~/Scripts/gis/bootstraptable/extensions/mobile/bootstrap-table-mobile.js",
-                      "~/ddou_Scripts/Scripts/gis/select/bselect/bootstrap-select.min.js",
+                      //"~/ddou_Scripts/Scripts/gis/select/bselect/bootstrap-select.min.js",
                       "~/Scripts/Dou/datetimepicker/js/moment.js",
                       //"~/Scripts/Dou/datetimepicker/js/locales.min.js",
                       "~/Scripts/Dou/datetimepicker/js/tempusdominus-bootstrap-4.min.js",
