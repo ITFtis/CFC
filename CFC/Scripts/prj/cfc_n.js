@@ -82,7 +82,8 @@ $(document).ready(function () {
             $('body').addClass('show-cal');
             $('#CalRowID').attr("value", "0");
             $.ajax({
-                url: site_root + 'api/cfc/cal',
+                //url: site_root + 'api/cfc/cal',
+                url: site_root + 'cfc/cal',
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 data: JSON.stringify(getUserInput()),
@@ -125,7 +126,8 @@ $(document).ready(function () {
     $(".download-container .download-cal").on("click", function () {
 
         helper.misc.showBusyIndicator();
-        fetch(site_root + 'api/DataPrint/Detail', {
+        //fetch(site_root + 'api/DataPrint/Detail', {
+        fetch(site_root + 'cfc/DownloadExcel', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

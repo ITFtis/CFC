@@ -3,9 +3,11 @@ using CFC.Models;
 using CFC.Models.Api;
 using CFC.Models.Prj;
 using Dou.Controllers;
+using Dou.Misc;
 using Dou.Models.DB;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Owin.Security;
+using Newtonsoft.Json;
 using Swashbuckle.Swagger;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
+using static CFC.Models.Api.ApiResultReturn;
 
 namespace CFC.Controllers.CFC
 {
@@ -611,6 +614,34 @@ namespace CFC.Controllers.CFC
             _RecordCount.Count++;
             _RecordCount.LastDateTime = DateTime.Now;
             DouHelper.Misc.SerializeBinary(_RecordCount, f);
+        }
+
+        //計算
+        [HttpPost]
+        public async Task<ActionResult> cal(CalInputModel input)
+        {
+            if (input.fuelInputs == null) input.fuelInputs = new List<FuelInputs>();
+            if (input.refrigerantInputs == null) input.refrigerantInputs = new List<RefrigerantInput>();
+            if (input.escapeInputs == null) input.escapeInputs = new List<EscapeInput>();
+            if (input.specialInputs == null) input.specialInputs = new List<SpecialInput>();
+
+            CFCDataController c = new CFCDataController();
+            var result = await c.CalAsync(input);
+
+            var jstr = JsonConvert.SerializeObject(result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+        }
+
+        //匯出Excel
+        public ActionResult DownloadExcel(SaveProjectModel input)
+        {
+            Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().DownloadExcel(input);
+
+            var jstr = JsonConvert.SerializeObject(result, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore });
+            jstr = jstr.Replace(DataManagerScriptHelper.JavaScriptFunctionStringStart, "(").Replace(DataManagerScriptHelper.JavaScriptFunctionStringEnd, ")");
+            return Content(jstr, "application/json");
+
         }
 
         public class RecordCount
