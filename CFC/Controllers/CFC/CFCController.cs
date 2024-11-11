@@ -364,6 +364,8 @@ namespace CFC.Controllers.CFC
                     // 使用 sCompany 進行後續操作
                     sCompany.COMP_NAME = user.Name;
                     sCompany.COMP_SIZE = user.CompanySize;
+                    sCompany.UId = user.Id;
+                    sCompany.UDate = DateFormat.ToDate4(DateTime.Now);
                 }
                 else
                 {
