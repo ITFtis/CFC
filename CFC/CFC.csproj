@@ -1687,6 +1687,7 @@
     <Content Include="Views\SysContent\Index.cshtml" />
     <Content Include="Views\CFC\MemberModify.cshtml" />
     <Content Include="Views\SYS_COMPANY\Index.cshtml" />
+    <Content Include="Views\UserCal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1695,7 +1696,6 @@
     <Folder Include="Views\CalsType\" />
     <Folder Include="Views\DataPrint\" />
     <Folder Include="Views\SysContentDetail\" />
-    <Folder Include="Views\UserCal\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
