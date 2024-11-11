@@ -142,12 +142,12 @@
                             <div class="col-sm-6 col-12">行業別</div>
                             <div class="col-sm-6 col-12">
                                 <label>
-                                    <input type="radio" id="radio_manu" name="option" value="option1" checked>
+                                    <input type="radio" id="radio_manu" name="IndustrialTypeId" value="99" checked>
                                     製造業　　
                                 </label>
 
                                 <label>
-                                    <input type="radio" id="radio_not_manu" name="option" value="option1">
+                                    <input type="radio" id="radio_not_manu" name="IndustrialTypeId" value="1">
                                     非製造業
                                 </label>
                             </div>
@@ -640,7 +640,7 @@
             factoriesForm.style.display = 'initial';
 
             // 監聽 radio_manu 的選擇變化
-            document.querySelectorAll('input[name="option"]').forEach(function (radio) {
+            document.querySelectorAll('input[name="IndustrialTypeId"]').forEach(function (radio) {
                 radio.addEventListener('change', function () {
                     if (radioManu.checked) {
                         manufacturingDiv.style.display = 'initial'; // 顯示 div
@@ -809,7 +809,8 @@
                 IndustrialAreaId: '',
                 //IndustrialAreaId: $("#IndustrialAreaId").val(),
                 //IndustrialTypeId: $("#IndustrialTypeId").val(),
-                IndustrialTypeId: $("#NonManufacturing_factoryIndustry").val(),
+                //IndustrialTypeId: $("#NonManufacturing_factoryIndustry").val(),
+                IndustrialTypeId: $('input[name=IndustrialTypeId]:checked').val(),  //1.非製造業 99製造業
                 CompanySize: $("#CompanySize").val(),
                 Contact: $("#Contact").val(),
                 PhoneNumber: $("#PhoneNumber").val(),

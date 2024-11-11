@@ -10,6 +10,8 @@ using System.Web.Mvc;
 using Dou.Controllers;
 using Dou.Models.DB;
 using CFC.Models;
+using CFC.Controllers.Api;
+using CFC.Models.Prj;
 
 namespace CFC.Controllers.PrjNew
 {
@@ -30,6 +32,8 @@ namespace CFC.Controllers.PrjNew
         protected override IEnumerable<UserCalList> GetDataDBObject(IModelEntity<UserCalList> dbEntity, params KeyValueParams[] paras)
         {
             List<UserCalList> result = new List<UserCalList>();
+
+            List<User_Properties_Advance> totalUser = DateViewController.AllUserProperties.ToList();
 
             //會員總人數
             result.Add(new UserCalList()

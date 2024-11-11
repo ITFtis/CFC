@@ -63,6 +63,9 @@ namespace CFC.Models.Prj
         [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string IndustrialAreaId { get; set; }
 
+        /// <summary>
+        /// 1.非製造業,其它製造業(ex.2,3,...99等)
+        /// </summary>
         [Display(Name = "行業別")]
         [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string IndustrialTypeId { get; set; }
