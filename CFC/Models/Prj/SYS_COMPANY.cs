@@ -38,15 +38,19 @@ namespace CFC.Models.Prj
         public string COMP_SIZE { get; set; }
 
         [Display(Name = "建檔日")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string BDate { get; set; }
 
         [Display(Name = "建檔者ID")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string BId { get; set; }
 
         [Display(Name = "修改日")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string UDate { get; set; }
 
         [Display(Name = "修改者ID")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string UId { get; set; }
 
 
