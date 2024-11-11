@@ -31,7 +31,7 @@ namespace CFC.Controllers.Prj
         protected override IQueryable<SYS_COMPANY> BeforeIQueryToPagedList(IQueryable<SYS_COMPANY> iquery, params KeyValueParams[] paras)
         {
             //預設排序
-            iquery = iquery.OrderByDescending(a => a.BId);
+            iquery = iquery.OrderByDescending(a => a.COMP_ID);
 
             return base.BeforeIQueryToPagedList(iquery, paras);
         }
