@@ -290,7 +290,7 @@ namespace CFC.Controllers.CFC
             StringBuilder errorMes = new StringBuilder();
             if (user.Id == null || user.Id.Trim() == "")
                 errorMes.Append("請填寫帳號資料<br/>");
-            else if (DateViewController.AllUserProperties.FirstOrDefault(e => e.Id.Equals(user.Id)) != null)
+            else if (DateViewController.AllUserProperties.Where(e => e.Id.Equals(user.Id)).FirstOrDefault() != null)
                 errorMes.Append("已有該帳號資料<br/>");
 
             if (user.Pass == null || user.Pass.Trim() == "")
@@ -371,6 +371,8 @@ namespace CFC.Controllers.CFC
                     newCompany.COMP_NAME = user.Name;
                     newCompany.COMP_SIZE = user.CompanySize;
                     newCompany.COMP_UNIFORM_NUMBER = user.UniformNumber;
+                    newCompany.BId = user.Id;
+                    newCompany.BDate = DateFormat.ToDate4(DateTime.Now);
                     this.db.SysCompany.Add(newCompany);
                     
                 }
@@ -387,6 +389,8 @@ namespace CFC.Controllers.CFC
                         var factoryProperties = DateViewController.All_SYS_FACTORY_properties.FirstOrDefault(e => e.FACTORY_REGISTRATION.Equals(cFactory.FACTORY_REGISTRATION));
                         if (factoryProperties == null)
                         {
+                            cFactory.BId = user.Id;
+                            cFactory.BDate = DateFormat.ToDate4(DateTime.Now);
                             this.db.SysFactory.Add(cFactory);
                         }
                         else
@@ -398,8 +402,10 @@ namespace CFC.Controllers.CFC
                             f.FACTORY_ADDRESS = cFactory.FACTORY_ADDRESS;
                             f.FACTORY_INDUSTRIAL = cFactory.FACTORY_INDUSTRIAL;
                             f.FACTORY_INDUSTRIAL_AREA = f.FACTORY_INDUSTRIAL_AREA;
-                            f.UDate = DateTime.Now.ToString("yyyymmddhhmmss");
-                            f.UId = cFactory.UId;
+                            //f.UDate = DateTime.Now.ToString("yyyymmddhhmmss");
+                            //f.UId = cFactory.UId;
+                            f.UId = user.Id;
+                            f.UDate = DateFormat.ToDate4(DateTime.Now);
                         }
 
                         //會員與工廠的關聯
