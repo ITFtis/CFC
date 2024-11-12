@@ -39,20 +39,20 @@ namespace CFC.Controllers.PrjNew
             result.Add(new UserCalList()
             {
                 Name = "會員總人數",
-                Count = 100,
+                Count = totalUser.Count,
             });
 
             //製造業會員人數
             result.Add(new UserCalList() { 
                 Name = "製造業會員人數",
-                Count = 60,
+                Count = totalUser.Where(a => a.IndustrialTypeId != "1").Count(),
             });
 
             //非製造業會員人數
             result.Add(new UserCalList()
             {
                 Name = "非製造業會員人數",
-                Count = 40,
+                Count = totalUser.Where(a => a.IndustrialTypeId == "1").Count(),
             });
 
             return result;
