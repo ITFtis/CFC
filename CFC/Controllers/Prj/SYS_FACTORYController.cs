@@ -12,7 +12,7 @@ using System.Web.Mvc;
 namespace CFC.Controllers.Prj
 {
 
-    [MenuDef(Name = "工廠", MenuPath = "工商登記資料", Action = "Index", Index = 2, Func = FuncEnum.ALL, AllowAnonymous = false)]
+    [MenuDef(Id = "SYS_FACTORY", Name = "工廠", MenuPath = "工商登記資料", Action = "Index", Index = 2, Func = FuncEnum.ALL, AllowAnonymous = false)]
     //[AutoLogger(Content = AutoLoggerAttribute.LogContent.All)]
     public class SYS_FACTORYController : AGenericModelController<SYS_FACTORY>
     {

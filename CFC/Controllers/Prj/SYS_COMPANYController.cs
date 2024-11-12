@@ -13,7 +13,7 @@ namespace CFC.Controllers.Prj
 {
 
 
-    [MenuDef(Name = "公司", MenuPath = "工商登記資料", Action = "Index", Index = 3, Func = FuncEnum.ALL, AllowAnonymous = false)]
+    [MenuDef(Id = "SYS_COMPANY", Name = "公司", MenuPath = "工商登記資料", Action = "Index", Index = 3, Func = FuncEnum.ALL, AllowAnonymous = false)]
     //[AutoLogger(Content = AutoLoggerAttribute.LogContent.All)]
     public class SYS_COMPANYController : APaginationModelController<SYS_COMPANY>
     {
