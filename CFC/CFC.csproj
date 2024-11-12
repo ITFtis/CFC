@@ -218,6 +218,7 @@
     <Compile Include="Controllers\PrjNew\CvController.cs" />
     <Compile Include="Controllers\PrjNew\SysContentDetailController.cs" />
     <Compile Include="Controllers\PrjNew\UserCalController.cs" />
+    <Compile Include="Controllers\PrjNew\UserInputCalController.cs" />
     <Compile Include="Controllers\Prj\CalsPropertiesController.cs" />
     <Compile Include="Controllers\Prj\CalsTypeController.cs" />
     <Compile Include="Controllers\Prj\ElecPropertiesController.cs" />
@@ -1688,6 +1689,7 @@
     <Content Include="Views\CFC\MemberModify.cshtml" />
     <Content Include="Views\SYS_COMPANY\Index.cshtml" />
     <Content Include="Views\UserCal\Index.cshtml" />
+    <Content Include="Views\UserInputCal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
