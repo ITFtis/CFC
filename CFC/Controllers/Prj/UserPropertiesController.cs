@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace CFC.Controllers.Prj
 {
-    [MenuDef(Name = "工商登記資料", MenuPath = "資料管理", Action = "Index", Index = 4, Func = FuncEnum.ALL, AllowAnonymous = false)]
+    [MenuDef(Name = "會員(員工)", MenuPath = "工商登記資料", Action = "Index", Index = 1, Func = FuncEnum.ALL, AllowAnonymous = false)]
     //[AutoLogger(Content = AutoLoggerAttribute.LogContent.All)]
     public class UserPropertiesController : AGenericModelController<User_Properties_Advance>
     {
