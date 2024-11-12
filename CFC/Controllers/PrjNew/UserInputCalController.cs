@@ -1,5 +1,8 @@
-﻿using CFC.Models;
+﻿using CFC.Controllers.Api;
+using CFC.Models;
+using CFC.Models.Prj;
 using Dou.Controllers;
+using Dou.Misc;
 using Dou.Misc.Attr;
 using Dou.Models.DB;
 using System;
@@ -7,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 
 namespace CFC.Controllers.PrjNew
@@ -26,9 +30,82 @@ namespace CFC.Controllers.PrjNew
 
         protected override IEnumerable<UserInputCalList> GetDataDBObject(IModelEntity<UserInputCalList> dbEntity, params KeyValueParams[] paras)
         {
-            return new List<UserInputCalList>();
+            //沒資料
+            //return new List<UserInputCalList>();
 
-            //return base.GetDataDBObject(dbEntity, paras);
+            //假資料
+            List<UserInputCalList> result = GetFakes();
+
+            return result;
+        }
+
+        public override DataManagerOptions GetDataManagerOptions()
+        {
+            var opts = base.GetDataManagerOptions();
+
+            opts.editable = false;
+
+            return opts;
+        }
+
+        private List<UserInputCalList> GetFakes()
+        {
+            List<UserInputCalList> result = new List<UserInputCalList>();
+
+            //假資料
+            DateTime date1 = DateTime.Parse("2024/09/03 10:00");
+            result.Add(new UserInputCalList()
+            {
+                Id = "測試人員1號",
+                ProjectName = "測試台積碳排量紀錄1",
+                ProjectDate = date1,
+                ProjectTime = DateFormat.ToDate12(date1),
+                T1Co2 = 50,
+                T2Co2 = 30,
+                T3Co2 = 24.26,
+                TotalCo2 = 104.26,
+            });
+
+            DateTime date2 = DateTime.Parse("2024/10/05 11:15");
+            result.Add(new UserInputCalList()
+            {
+                Id = "測試人員1號",
+                ProjectName = "測試台積碳排量紀錄2",
+                ProjectDate = date2,
+                ProjectTime = DateFormat.ToDate12(date2),
+                T1Co2 = 20,
+                T2Co2 = 70,
+                T3Co2 = 30.5,
+                TotalCo2 = 120.5,
+            });
+
+            DateTime date3 = DateTime.Parse("2024/11/01 15:20");
+            result.Add(new UserInputCalList()
+            {
+                Id = "測試人員1號",
+                ProjectName = "測試台積碳排量紀錄3",
+                ProjectDate = date3,
+                ProjectTime = DateFormat.ToDate12(date3),
+                T1Co2 = 18,
+                T2Co2 = 52,
+                T3Co2 = 33,
+                TotalCo2 = 103,
+            });
+
+            DateTime date4 = DateTime.Parse("2024/11/01 16:00");
+            result.Add(new UserInputCalList()
+            {
+                Id = "測試人員1號",
+                ProjectName = "測試台積碳排量紀錄4",
+                ProjectDate = date4,
+                ProjectTime = DateFormat.ToDate12(date4),
+                T1Co2 = 20,
+                T2Co2 = 40,
+                T3Co2 = 50,
+                TotalCo2 = 110,
+            });
+            
+            return result;
         }
     }
 
@@ -41,12 +118,34 @@ namespace CFC.Controllers.PrjNew
 
         //User_Properties_Advance
         [Display(Name = "會員帳號")]
-        [ColumnDef(Visible = false, Filter = true)]
+        [ColumnDef(Filter = true)]
         public string Id { get; set; }
 
         //User_Input_Advance
         [Display(Name = "專案名稱")]
-        [ColumnDef(Visible = false, Filter = true)]
+        [ColumnDef(Filter = true)]
         public string ProjectName { get; set; }
+
+        //User_Input_Advance
+        [Display(Name = "日期")]
+        [ColumnDef(EditType = EditType.Date)]
+        public DateTime ProjectDate { get; set; }
+
+        //User_Input_Advance
+        [Display(Name = "時間")]
+        public string ProjectTime { get; set; }
+
+        [Display(Name = "類別1")]
+        public double T1Co2 { get; set; }
+
+        [Display(Name = "類別2")]
+        public double T2Co2 { get; set; }
+
+        [Display(Name = "類別3")]
+        public double T3Co2 { get; set; }
+
+        //User_Input_Advance
+        [Display(Name = "總排放量")]
+        public double TotalCo2 { get; set; }
     }
 }
