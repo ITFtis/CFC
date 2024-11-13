@@ -17,13 +17,15 @@ namespace CFC
             bool result = false;
 
             var ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel.Workbook book = ExcelApp.Workbooks.Open(FromPath);
-            ////Microsoft.Office.Interop.Excel.XlFileFormat xlFormatPDF = (Microsoft.Office.Interop.Excel.XlFileFormat)57;
 
-            ////string PDFPath = TargetPath + ".pdf";
-            string ODFPath = TargetPath + ".ods";
             try
-            {
+            {               
+                Microsoft.Office.Interop.Excel.Workbook book = ExcelApp.Workbooks.Open(FromPath);
+                ////Microsoft.Office.Interop.Excel.XlFileFormat xlFormatPDF = (Microsoft.Office.Interop.Excel.XlFileFormat)57;
+
+                ////string PDFPath = TargetPath + ".pdf";
+                string ODFPath = TargetPath + ".ods";
+            
                 book.SaveAs(ODFPath, Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenDocumentSpreadsheet);
                 ////book.SaveAs(PDFPath, xlFormatPDF);
                 ExcelApp.Visible = false;
@@ -34,6 +36,11 @@ namespace CFC
             catch (Exception ex)
             {
                 string error = ex.Message;
+
+                Logger.Log.For(null).Error("Excel轉ODF(FromPath)：" + FromPath);
+                Logger.Log.For(null).Error("Excel轉ODF(TargetPath)：" + TargetPath);
+                Logger.Log.For(null).Error("ExcelToODF：" + error);
+
                 ExcelApp.Quit();
 
                 return false;

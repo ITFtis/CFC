@@ -9,6 +9,12 @@
     @Html.Partial("IndexScriptLinkPartial")
     <link rel="stylesheet" href="~/Content/font-awesome-4.7.0/css/font-awesome.css">
     <title>首頁</title>
+
+    <script>
+         window.app = window.app || {};
+         app.siteRoot = "@Url.Content("~/")";
+    </script>
+
 </head>
 <body class="@ViewBag.STREAMLINE">
     <div class="all-wrap index-page">

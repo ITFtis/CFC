@@ -125,28 +125,59 @@ $(document).ready(function () {
     // 下載細部內容
     $(".download-container .download-cal").on("click", function () {
 
-        helper.misc.showBusyIndicator();
-        //fetch(site_root + 'api/DataPrint/Detail', {
-        fetch(site_root + 'cfc/DownloadExcel', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                RowID: $("#CalRowID").attr("value"),
-                UserID: $("#UserID").attr("value"),
-                FactoryRegistration: $("#factoryDropdownM").val(),
-            })
-        }).then(e => e.json())
-            .then(response => {
-                helper.misc.hideBusyIndicator();
-                if (!response.isSucess)
-                    alert("檔案產製失敗，請洽管理人員。");
+        var input = {};
+        input.RowID = $("#CalRowID").attr("value");
+        input.UserID = $("#UserID").attr("value");
+        input.FactoryRegistration = $("#factoryDropdownM").val();
 
-                console.log(response.fileAdd);
-                //window.open(response.fileAdd);
-                location.href = response.fileAdd;
-            });
+        helper.misc.showBusyIndicator();
+        $.ajax({
+            url: site_root + 'CFC/DownloadExcel',
+            datatype: "json",
+            type: "POST",
+            data: { "input": input },
+            success: function (response) {
+                if (response.isSucess) {
+                    //location.href = app.siteRoot + response.fileAdd;
+                    location.href = response.fileAdd;
+                } else {
+                    alert("Excel匯出失敗：檔案產製失敗，請洽管理人員。");
+                }
+                helper.misc.hideBusyIndicator();
+            },
+            complete: function () {
+                helper.misc.hideBusyIndicator();
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+                helper.misc.hideBusyIndicator();
+            }
+        });
+
+
+        ////fetch(site_root + 'api/DataPrint/Detail', {
+        //fetch(site_root + 'cfc/DownloadExcel', {
+        //    method: "POST",
+        //    headers: {
+        //        "Content-Type": "application/json"
+        //    },
+        //    body: JSON.stringify({
+        //        RowID: $("#CalRowID").attr("value"),
+        //        UserID: $("#UserID").attr("value"),
+        //        FactoryRegistration: $("#factoryDropdownM").val(),
+        //    })
+        //}).then(e => e.json())
+        //    .then(response => {
+        //        helper.misc.hideBusyIndicator();
+        //        if (!response.isSucess)
+        //            alert("檔案產製失敗，請洽管理人員。");
+
+        //        console.log(response.fileAdd);
+        //        //window.open(response.fileAdd);
+
+        //        location.href = app.siteRoot + response.fileAdd;
+        //    });
     });
 
     // 取得使用者輸入參數
