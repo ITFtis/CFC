@@ -56,6 +56,7 @@ namespace CFC.Controllers.PrjNew
             DateTime date1 = DateTime.Parse("2024/09/03 10:00");
             result.Add(new UserInputCalList()
             {
+                UniformNumber = "12341111",
                 Id = "測試人員1號",
                 ProjectName = "測試台積碳排量紀錄1",
                 ProjectDate = date1,
@@ -69,6 +70,7 @@ namespace CFC.Controllers.PrjNew
             DateTime date2 = DateTime.Parse("2024/10/05 11:15");
             result.Add(new UserInputCalList()
             {
+                UniformNumber = "12341111",
                 Id = "測試人員1號",
                 ProjectName = "測試台積碳排量紀錄2",
                 ProjectDate = date2,
@@ -82,6 +84,7 @@ namespace CFC.Controllers.PrjNew
             DateTime date3 = DateTime.Parse("2024/11/01 15:20");
             result.Add(new UserInputCalList()
             {
+                UniformNumber = "12341111",
                 Id = "測試人員1號",
                 ProjectName = "測試台積碳排量紀錄3",
                 ProjectDate = date3,
@@ -95,6 +98,7 @@ namespace CFC.Controllers.PrjNew
             DateTime date4 = DateTime.Parse("2024/11/01 16:00");
             result.Add(new UserInputCalList()
             {
+                UniformNumber = "12341111",
                 Id = "測試人員1號",
                 ProjectName = "測試台積碳排量紀錄4",
                 ProjectDate = date4,
@@ -113,7 +117,7 @@ namespace CFC.Controllers.PrjNew
     {
         //SYS_COMPANY
         [Display(Name = "統一編號")]
-        [ColumnDef(Visible = false, Filter = true)]
+        [ColumnDef(Filter = true)]
         public string UniformNumber { get; set; }
 
         //User_Properties_Advance
