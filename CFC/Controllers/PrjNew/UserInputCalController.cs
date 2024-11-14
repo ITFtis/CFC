@@ -64,7 +64,10 @@ namespace CFC.Controllers.PrjNew
                 T1Co2 = 50,
                 T2Co2 = 30,
                 T3Co2 = 24.26,
-                TotalCo2 = 104.26,
+                T4Co2 = 20,
+                T5Co2 = 10,
+                T6Co2 = 30,
+                TotalCo2 = 164.26,
             });
 
             DateTime date2 = DateTime.Parse("2024/10/05 11:15");
@@ -78,7 +81,10 @@ namespace CFC.Controllers.PrjNew
                 T1Co2 = 20,
                 T2Co2 = 70,
                 T3Co2 = 30.5,
-                TotalCo2 = 120.5,
+                T4Co2 = 5,
+                T5Co2 = 8,
+                T6Co2 = 11,
+                TotalCo2 = 144.5,
             });
 
             DateTime date3 = DateTime.Parse("2024/11/01 15:20");
@@ -92,7 +98,10 @@ namespace CFC.Controllers.PrjNew
                 T1Co2 = 18,
                 T2Co2 = 52,
                 T3Co2 = 33,
-                TotalCo2 = 103,
+                T4Co2 = 3,
+                T5Co2 = 7,
+                T6Co2 = 10,
+                TotalCo2 = 123,
             });
 
             DateTime date4 = DateTime.Parse("2024/11/01 16:00");
@@ -106,7 +115,10 @@ namespace CFC.Controllers.PrjNew
                 T1Co2 = 20,
                 T2Co2 = 40,
                 T3Co2 = 50,
-                TotalCo2 = 110,
+                T4Co2 = 6,
+                T5Co2 = 9,
+                T6Co2 = 15,
+                TotalCo2 = 140,
             });
             
             return result;
@@ -147,6 +159,15 @@ namespace CFC.Controllers.PrjNew
 
         [Display(Name = "類別3")]
         public double T3Co2 { get; set; }
+
+        [Display(Name = "類別4")]
+        public double T4Co2 { get; set; }
+
+        [Display(Name = "類別5")]
+        public double T5Co2 { get; set; }
+
+        [Display(Name = "類別6")]
+        public double T6Co2 { get; set; }
 
         //User_Input_Advance
         [Display(Name = "總排放量")]
