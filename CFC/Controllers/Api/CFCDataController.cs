@@ -329,6 +329,7 @@ namespace CFC.Controllers.Api
                         BId = userInput.UserID,
                     });
                     this.db.SaveChanges();
+                    Log_count.ResetGetAllDatas();
 
                     input.fuelInputs.ForEach(fuelInput =>
                     {

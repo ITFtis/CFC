@@ -266,6 +266,7 @@ namespace CFC.Controllers.FileDownload
                                 BId = userInput.UserID,
                             });
                             this.db.SaveChanges();
+                            Log_count.ResetGetAllDatas();
 
                             string fileAdd = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(to);
                             //string fileAdd = Cm.PhysicalToUrl(to);

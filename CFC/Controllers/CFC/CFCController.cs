@@ -493,6 +493,7 @@ namespace CFC.Controllers.CFC
                     BId = userInput.UserID,
                 });
                 this.db.SaveChanges();
+                Log_count.ResetGetAllDatas();
 
                 return Json(new { success = true, desc = "紀錄成功" }, JsonRequestBehavior.DenyGet);
             }

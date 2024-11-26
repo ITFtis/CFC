@@ -34,6 +34,7 @@ namespace CFC.Controllers.PrjNew
             List<UserCalList> result = new List<UserCalList>();
 
             List<User_Properties_Advance> totalUser = DateViewController.AllUserProperties.ToList();
+            List<Log_count> LogCount = Log_count.GetAllDatas().ToList();
 
             //會員總人數
             result.Add(new UserCalList()
@@ -54,6 +55,27 @@ namespace CFC.Controllers.PrjNew
                 Name = "非製造業會員人數",
                 Count = totalUser.Where(a => a.IndustrialTypeId == "1").Count(),
             });
+
+            //LogCount次數 --------------------------------
+
+            result.Add(new UserCalList()
+            {
+                Name = "功能使用次數(計算)",
+                Count = LogCount.Where(a => a.Type == 1).Count(),
+            });
+
+            result.Add(new UserCalList()
+            {
+                Name = "功能使用次數(下載計算)",
+                Count = LogCount.Where(a => a.Type == 2).Count(),
+            });
+
+            result.Add(new UserCalList()
+            {
+                Name = "功能使用次數(儲存專案)",
+                Count = LogCount.Where(a => a.Type == 3).Count(),
+            });
+            //End LogCount次數 ----------------------------
 
             return result;
         }
