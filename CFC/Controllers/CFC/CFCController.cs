@@ -483,6 +483,17 @@ namespace CFC.Controllers.CFC
             try
             {
                 this.db.SaveChanges();
+
+                //(LogCount次數) 儲存專案
+                this.db.LogCount.Add(new Log_count()
+                {
+                    Type = 3,
+                    MapId = userInput.RowID,
+                    BDate = DateTime.Now,
+                    BId = userInput.UserID,
+                });
+                this.db.SaveChanges();
+
                 return Json(new { success = true, desc = "紀錄成功" }, JsonRequestBehavior.DenyGet);
             }
             catch (Exception e)

@@ -23,7 +23,7 @@ namespace CFC.Models
         // 針對您要包含在模型中的每種實體類型新增 DbSet。如需有關設定和使用
         // Code First 模型的詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=390109。
 
-        
+        public virtual DbSet<Log_count> LogCount { get; set; }
         public virtual DbSet<User_Properties> UserProperties { get; set; }
         public virtual DbSet<Fuel_properties> FuelProperties { get; set; }
         public virtual DbSet<Fuel_volume> FuelVolumes { get; set; }

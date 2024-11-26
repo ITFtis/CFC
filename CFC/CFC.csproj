@@ -254,6 +254,7 @@
     <Compile Include="Models\Prj\Elec_properties.cs" />
     <Compile Include="Models\Prj\Fuel_volume.cs" />
     <Compile Include="Models\Prj\G_USER_FACTORY.cs" />
+    <Compile Include="Models\Prj\Log_count.cs" />
     <Compile Include="Models\Prj\Refrigerant_value.cs" />
     <Compile Include="Models\Prj\Refrigerant_volume.cs" />
     <Compile Include="Models\Prj\Global_IndustrialArea.cs" />

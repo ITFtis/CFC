@@ -258,6 +258,15 @@ namespace CFC.Controllers.FileDownload
                         }
                         else
                         {
+                            //(LogCount次數) 下載計算3
+                            this.db.LogCount.Add(new Log_count()
+                            {
+                                Type = 2,                                
+                                BDate = DateTime.Now,
+                                BId = userInput.UserID,
+                            });
+                            this.db.SaveChanges();
+
                             string fileAdd = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(to);
                             //string fileAdd = Cm.PhysicalToUrl(to);
                             return new ReturnModel { isSucess = true, fileAdd = fileAdd };

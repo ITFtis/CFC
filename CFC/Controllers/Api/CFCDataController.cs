@@ -320,6 +320,16 @@ namespace CFC.Controllers.Api
                     };
                     await this.addUserInputAdvance(userInput);
 
+                    //(LogCount次數) 計算
+                    this.db.LogCount.Add(new Log_count()
+                    {
+                        Type = 1,
+                        MapId = userInput.RowID,
+                        BDate = DateTime.Now,
+                        BId = userInput.UserID,
+                    });
+                    this.db.SaveChanges();
+
                     input.fuelInputs.ForEach(fuelInput =>
                     {
                         this.db.FuelVolumes.Add(new Fuel_volume
