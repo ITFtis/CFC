@@ -1,3 +1,16 @@
 ﻿@using Dou.Misc.Extension
 @Html.MenuMap()
-@Html.DataManagerTable()
+@Html.DataManagerOptionsJavascript(null, "douoptions")
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-5">
+        <table id="_table"></table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#_table").DouEditableTable(douoptions);
+    })
+</script>

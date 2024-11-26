@@ -56,26 +56,27 @@ namespace CFC.Controllers.PrjNew
                 Count = totalUser.Where(a => a.IndustrialTypeId == "1").Count(),
             });
 
-            //LogCount次數 --------------------------------
+            //--標題列(功能使用次數) ----------------------------
+            result.Add(new UserCalList() { Name = "功能使用次數" });
 
             result.Add(new UserCalList()
             {
-                Name = "功能使用次數(計算)",
+                Name = "(計算)",
                 Count = LogCount.Where(a => a.Type == 1).Count(),
             });
 
             result.Add(new UserCalList()
             {
-                Name = "功能使用次數(下載計算)",
+                Name = "下載計算",
                 Count = LogCount.Where(a => a.Type == 2).Count(),
             });
 
             result.Add(new UserCalList()
             {
-                Name = "功能使用次數(儲存專案)",
+                Name = "儲存專案",
                 Count = LogCount.Where(a => a.Type == 3).Count(),
             });
-            //End LogCount次數 ----------------------------
+            //End 標題列(功能使用次數) ----------------------------
 
             return result;
         }
@@ -87,6 +88,6 @@ namespace CFC.Controllers.PrjNew
         public string Name { get; set; }
 
         [Display(Name = "會員人數")]
-        public int Count { get; set; }
+        public int? Count { get; set; }
     }
 }
