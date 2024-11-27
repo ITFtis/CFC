@@ -1691,6 +1691,7 @@
     <Content Include="Views\SYS_COMPANY\Index.cshtml" />
     <Content Include="Views\UserCal\Index.cshtml" />
     <Content Include="Views\UserInputCal\Index.cshtml" />
+    <Content Include="Views\SYS_FACTORY\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
