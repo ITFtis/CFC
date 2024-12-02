@@ -16,7 +16,8 @@ var transactionDouClientDataToServer = function (row, url, callback) {
                 }
                 else
                     if (r[f] && (r[f] + "").indexOf('/Date(') >= 0)
-                        r[f] = JsonDateStr2Datetime(r[f]).toJSON();//.DateFormat("yyyy/MM/dd HH:mm:ss.S");
+                        if (!isNaN(r[f]))         //日期格式(!isNaN(new Date(r[f])))
+                            r[f] = JsonDateStr2Datetime(r[f]).toJSON();//.DateFormat("yyyy/MM/dd HH:mm:ss.S");
                     else if (r[f] && Object.prototype.toString.call(r[f]) === '[object Date]' && !isNaN(r[f]))
                         r[f] = r[f].toJSON();
             }
