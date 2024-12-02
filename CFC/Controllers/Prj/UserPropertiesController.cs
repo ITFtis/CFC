@@ -1,6 +1,7 @@
 ﻿using CFC.Models;
 using CFC.Models.Prj;
 using Dou.Controllers;
+using Dou.Misc;
 using Dou.Misc.Attr;
 using Dou.Models.DB;
 using System;
@@ -29,6 +30,15 @@ namespace CFC.Controllers.Prj
         internal IEnumerable<User_Properties_Advance> GetAllData()
         {
             return GetModelEntity().GetAll().ToArray();
+        }
+
+        public override DataManagerOptions GetDataManagerOptions()
+        {
+            var opts = base.GetDataManagerOptions();
+
+            opts.ctrlFieldAlign = "left";
+
+            return opts;
         }
     }
 }

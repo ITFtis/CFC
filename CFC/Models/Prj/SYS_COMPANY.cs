@@ -66,4 +66,35 @@ namespace CFC.Models.Prj
             
         }
     }
+
+    public class SYS_COMPANYSelectNameItems : Dou.Misc.Attr.SelectItemsClass
+    {
+        public const string AssemblyQualifiedName = "CFC.Models.Prj.SYS_COMPANYSelectNameItems, CFC";
+
+        protected static IEnumerable<SYS_COMPANY> _sysCompany;
+        internal static IEnumerable<SYS_COMPANY> SysCompany
+        {
+            get
+            {
+                if (_sysCompany == null)
+                {
+                    using (var db = new DouModelContext())
+                    {
+                        _sysCompany = db.SysCompany.ToArray();
+                    }
+                }
+                return _sysCompany;
+            }
+        }
+
+
+        public static void Reset()
+        {
+            _sysCompany = null;
+        }
+        public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
+        {
+            return SysCompany.Select(s => new KeyValuePair<string, object>(s.COMP_UNIFORM_NUMBER + "", s.COMP_NAME));
+        }
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using CFC.Models;
 using CFC.Models.Prj;
 using Dou.Controllers;
+using Dou.Misc;
 using Dou.Misc.Attr;
 using Dou.Models.DB;
 using System;
@@ -25,6 +26,15 @@ namespace CFC.Controllers.Prj
         protected override IModelEntity<SYS_FACTORY> GetModelEntity()
         {
             return new Dou.Models.DB.ModelEntity<SYS_FACTORY>(new DouModelContext());
+        }
+
+        public override DataManagerOptions GetDataManagerOptions()
+        {
+            var opts = base.GetDataManagerOptions();
+
+            opts.ctrlFieldAlign = "left";
+
+            return opts;            
         }
 
         internal IEnumerable<SYS_FACTORY> GetAllData()

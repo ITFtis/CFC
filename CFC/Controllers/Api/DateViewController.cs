@@ -131,7 +131,7 @@ namespace CFC.Controllers.Api
             var user = UserPropertiesModelEntity.Find(kvs);
             if (insertnew && user == null)
             {
-                user = new User_Properties_Advance { IndustryId = id, Name = "系統自動產" };
+                user = new User_Properties_Advance { IndustryId = id };
                 UserPropertiesModelEntity.Add(user);
             }
             return user;

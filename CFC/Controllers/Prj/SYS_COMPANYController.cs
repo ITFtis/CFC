@@ -1,6 +1,7 @@
 ﻿using CFC.Models;
 using CFC.Models.Prj;
 using Dou.Controllers;
+using Dou.Misc;
 using Dou.Misc.Attr;
 using Dou.Models.DB;
 using System;
@@ -54,6 +55,15 @@ namespace CFC.Controllers.Prj
             f.UId = Dou.Context.CurrentUserBase.Id;            
 
             base.UpdateDBObject(dbEntity, objs);
+        }
+
+        public override DataManagerOptions GetDataManagerOptions()
+        {
+            var opts = base.GetDataManagerOptions();
+
+            opts.ctrlFieldAlign = "left";
+
+            return opts;
         }
 
         internal IEnumerable<SYS_COMPANY> GetAllData()

@@ -14,10 +14,13 @@ namespace CFC.Models.Prj
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
 
     [Table("User_Properties_Advance")]
     public partial class User_Properties_Advance
     {
+        private string _Name = "";
+
         /// <summary>
         /// 統一編號
         /// </summary>
@@ -34,23 +37,53 @@ namespace CFC.Models.Prj
         public string Pass { get; set; }
 
         /// <summary>
-        /// 統一編號
-        /// </summary>
-        [Display(Name = "統一編號")]
-        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
-        public string UniformNumber { get; set; }
-
-        /// <summary>
-        /// 公司名稱
+        /// 顯示公司名稱(存 統一編號)
         /// </summary>
         [Display(Name = "公司名稱")]
-        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
-        public string Name { get; set; }
+        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = CFC.Models.Prj.SYS_COMPANYSelectNameItems.AssemblyQualifiedName)]
+        //[ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
+        public string UniformNumber { get; set; }
+
+        /////// <summary>
+        /////// 公司名稱
+        /////// </summary>
+        ////[Display(Name = "公司名稱")]        
+        //////[ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
+        ////public string YName { 
+        ////    get
+        ////    {
+        ////        string str = "";
+        ////        var com = SYS_COMPANYSelectNameItems.SysCompany.Where(a => a.COMP_UNIFORM_NUMBER == this.UniformNumber).FirstOrDefault();
+        ////        if (com != null)
+        ////            str = com.COMP_NAME;
+
+        ////        return str;
+        ////    }
+            
+        ////}
+
+        /// <summary>
+        /// 公司名稱 (不要用，舊錯誤資料，加在User_Properties_Advance欄位)
+        /// </summary>
+        [Display(Name = "公司名稱")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public string Name {
+            get { return _Name; }
+            set
+            {
+                string str = "";
+                var com = SYS_COMPANYSelectNameItems.SysCompany.Where(a => a.COMP_UNIFORM_NUMBER == this.UniformNumber).FirstOrDefault();
+                if (com != null)
+                    str = com.COMP_NAME;
+
+                _Name = str;
+            }
+        }
 
         /// <summary>
         /// 工商登記編號
         /// </summary>
-       
+
         [Display(Name = "工商登記編號")]
         [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string IndustryId { get; set; }
