@@ -73,7 +73,8 @@ namespace CFC.Models
 
         public virtual DbSet<Sys_contentDetail> Sys_contentDetail { get; set; } //系統內容細項
 
-
+        public virtual DbSet<City> City { get; set; } //縣市
+        public virtual DbSet<Town> Town { get; set; } //鄉鎮
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // 定義組合鍵 USER_ID 和 FACTORY_REGISTRATION

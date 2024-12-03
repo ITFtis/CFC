@@ -215,8 +215,10 @@
     <Compile Include="Controllers\Manager\RoleController.cs" />
     <Compile Include="Controllers\Manager\UserController.cs" />
     <Compile Include="Controllers\PrjNew\ArController.cs" />
+    <Compile Include="Controllers\PrjNew\CityController.cs" />
     <Compile Include="Controllers\PrjNew\CvController.cs" />
     <Compile Include="Controllers\PrjNew\SysContentDetailController.cs" />
+    <Compile Include="Controllers\PrjNew\TownController.cs" />
     <Compile Include="Controllers\PrjNew\UserCalController.cs" />
     <Compile Include="Controllers\PrjNew\UserInputCalController.cs" />
     <Compile Include="Controllers\Prj\CalsPropertiesController.cs" />
@@ -251,6 +253,7 @@
     <Compile Include="Models\Manager\User.cs" />
     <Compile Include="Models\Prj\Cals_properties.cs" />
     <Compile Include="Models\Prj\Cals_type.cs" />
+    <Compile Include="Models\Prj\City.cs" />
     <Compile Include="Models\Prj\Elec_properties.cs" />
     <Compile Include="Models\Prj\Fuel_volume.cs" />
     <Compile Include="Models\Prj\G_USER_FACTORY.cs" />
@@ -274,6 +277,7 @@
     <Compile Include="Models\Prj\Sys_content.cs" />
     <Compile Include="Models\Prj\Sys_contentDetail.cs" />
     <Compile Include="Models\Prj\SYS_FACTORY.cs" />
+    <Compile Include="Models\Prj\Town.cs" />
     <Compile Include="Models\Prj\Type3Mark.cs" />
     <Compile Include="Models\Prj\User_Project_Log.cs" />
     <Compile Include="Models\Prj\User_Input_Advance.cs" />
@@ -1692,6 +1696,8 @@
     <Content Include="Views\UserCal\Index.cshtml" />
     <Content Include="Views\UserInputCal\Index.cshtml" />
     <Content Include="Views\SYS_FACTORY\Index.cshtml" />
+    <Content Include="Views\City\Index.cshtml" />
+    <Content Include="Views\Town\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
