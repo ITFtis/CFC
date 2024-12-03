@@ -45,7 +45,7 @@ namespace CFC.Controllers.Prj
             f.BId = Dou.Context.CurrentUserBase.Id;
 
             base.AddDBObject(dbEntity, objs);
-            SYS_COMPANYSelectNameItems.Reset();
+            SYS_COMPANYNameSelectItems.Reset();
         }
 
         protected override void UpdateDBObject(IModelEntity<SYS_COMPANY> dbEntity, IEnumerable<SYS_COMPANY> objs)
@@ -56,19 +56,20 @@ namespace CFC.Controllers.Prj
             f.UId = Dou.Context.CurrentUserBase.Id;            
 
             base.UpdateDBObject(dbEntity, objs);
-            SYS_COMPANYSelectNameItems.Reset();
+            SYS_COMPANYNameSelectItems.Reset();
         }
 
         protected override void DeleteDBObject(IModelEntity<SYS_COMPANY> dbEntity, IEnumerable<SYS_COMPANY> objs)
         {
             base.DeleteDBObject(dbEntity, objs);
-            SYS_COMPANYSelectNameItems.Reset();
+            SYS_COMPANYNameSelectItems.Reset();
         }
 
         public override DataManagerOptions GetDataManagerOptions()
         {
             var opts = base.GetDataManagerOptions();
 
+            opts.GetFiled("COMP_UNIFORM_NUMBER").editable = false;
             opts.ctrlFieldAlign = "left";
 
             return opts;

@@ -49,32 +49,32 @@ namespace CFC.Models.Prj
     {
         public const string AssemblyQualifiedName = "CFC.Models.Prj.Global_IndustrialSelectItems, CFC";
 
-        protected static IEnumerable<Global_Industrial> _globalIndustrialItems;
-        internal static IEnumerable<Global_Industrial> GlobalIndustrialItems
+        protected static IEnumerable<Global_Industrial> _global_Industrials;
+        internal static IEnumerable<Global_Industrial> GlobalIndustrials
         {
             get
             {
-                if (_globalIndustrialItems == null)
+                if (_global_Industrials == null)
                 {
                     using (var db = new DouModelContext())
                     {
-                        _globalIndustrialItems = db.GlobalIndustrial
+                        _global_Industrials = db.GlobalIndustrial
                                             .OrderBy(a => a.Id)
                                             .ToArray();
                     }
                 }
-                return _globalIndustrialItems;
+                return _global_Industrials;
             }
         }
 
 
         public static void Reset()
         {
-            _globalIndustrialItems = null;
+            _global_Industrials = null;
         }
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
-            return GlobalIndustrialItems.Select(s => new KeyValuePair<string, object>(s.Id, s.Name));
+            return GlobalIndustrials.Select(s => new KeyValuePair<string, object>(s.Id, s.Name));
         }
     }
 }

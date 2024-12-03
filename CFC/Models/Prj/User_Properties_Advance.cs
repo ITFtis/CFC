@@ -40,7 +40,7 @@ namespace CFC.Models.Prj
         /// 顯示公司名稱(存 統一編號)
         /// </summary>
         [Display(Name = "公司名稱")]
-        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = CFC.Models.Prj.SYS_COMPANYSelectNameItems.AssemblyQualifiedName)]
+        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = CFC.Models.Prj.SYS_COMPANYNameSelectItems.AssemblyQualifiedName)]
         //[ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string UniformNumber { get; set; }
 
@@ -72,7 +72,7 @@ namespace CFC.Models.Prj
             set
             {
                 string str = "";
-                var com = SYS_COMPANYSelectNameItems.SysCompany.Where(a => a.COMP_UNIFORM_NUMBER == this.UniformNumber).FirstOrDefault();
+                var com = SYS_COMPANYNameSelectItems.SysCompanys.Where(a => a.COMP_UNIFORM_NUMBER == this.UniformNumber).FirstOrDefault();
                 if (com != null)
                     str = com.COMP_NAME;
 

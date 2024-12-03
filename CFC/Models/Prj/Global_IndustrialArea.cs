@@ -35,32 +35,32 @@ namespace CFC.Models.Prj
     {
         public const string AssemblyQualifiedName = "CFC.Models.Prj.Global_IndustrialAreaSelectItems, CFC";
 
-        protected static IEnumerable<Global_IndustrialArea> _globalIndustrialAreaItems;
-        internal static IEnumerable<Global_IndustrialArea> GlobalIndustrialAreaItems
+        protected static IEnumerable<Global_IndustrialArea> _globalIndustrialAreas;
+        internal static IEnumerable<Global_IndustrialArea> GlobalIndustrialAreas
         {
             get
             {
-                if (_globalIndustrialAreaItems == null)
+                if (_globalIndustrialAreas == null)
                 {
                     using (var db = new DouModelContext())
                     {
-                        _globalIndustrialAreaItems = db.GlobalIndustrialArea
+                        _globalIndustrialAreas = db.GlobalIndustrialArea
                                             .OrderBy(a => a.CityName).ThenBy(a => a.DisplayOrder)
                                             .ToArray();
                     }
                 }
-                return _globalIndustrialAreaItems;
+                return _globalIndustrialAreas;
             }
         }
 
 
         public static void Reset()
         {
-            _globalIndustrialAreaItems = null;
+            _globalIndustrialAreas = null;
         }
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
-            return GlobalIndustrialAreaItems.Select(s => new KeyValuePair<string, object>(s.Id, s.Name));
+            return GlobalIndustrialAreas.Select(s => new KeyValuePair<string, object>(s.Id, s.Name));
         }
     }
 }

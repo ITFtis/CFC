@@ -67,34 +67,34 @@ namespace CFC.Models.Prj
         }
     }
 
-    public class SYS_COMPANYSelectNameItems : Dou.Misc.Attr.SelectItemsClass
+    public class SYS_COMPANYNameSelectItems : Dou.Misc.Attr.SelectItemsClass
     {
-        public const string AssemblyQualifiedName = "CFC.Models.Prj.SYS_COMPANYSelectNameItems, CFC";
+        public const string AssemblyQualifiedName = "CFC.Models.Prj.SYS_COMPANYNameSelectItems, CFC";
 
-        protected static IEnumerable<SYS_COMPANY> _sysCompany;
-        internal static IEnumerable<SYS_COMPANY> SysCompany
+        protected static IEnumerable<SYS_COMPANY> _sysCompanys;
+        internal static IEnumerable<SYS_COMPANY> SysCompanys
         {
             get
             {
-                if (_sysCompany == null)
+                if (_sysCompanys == null)
                 {
                     using (var db = new DouModelContext())
                     {
-                        _sysCompany = db.SysCompany.ToArray();
+                        _sysCompanys = db.SysCompany.ToArray();
                     }
                 }
-                return _sysCompany;
+                return _sysCompanys;
             }
         }
 
 
         public static void Reset()
         {
-            _sysCompany = null;
+            _sysCompanys = null;
         }
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
-            return SysCompany.Select(s => new KeyValuePair<string, object>(s.COMP_UNIFORM_NUMBER + "", s.COMP_NAME));
+            return SysCompanys.Select(s => new KeyValuePair<string, object>(s.COMP_UNIFORM_NUMBER + "", s.COMP_NAME));
         }
     }
 }
