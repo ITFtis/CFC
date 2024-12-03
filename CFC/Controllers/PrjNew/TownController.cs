@@ -23,5 +23,14 @@ namespace CFC.Controllers.PrjNew
         {
             return new Dou.Models.DB.ModelEntity<Town>(new DouModelContext());
         }
+
+        protected override IEnumerable<Town> GetDataDBObject(IModelEntity<Town> dbEntity, params KeyValueParams[] paras)
+        {
+            var result = base.GetDataDBObject(dbEntity, paras);
+
+            result = result.OrderBy(a => a.CitySort);
+
+            return result;
+        }
     }
 }

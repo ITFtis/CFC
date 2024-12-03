@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Microsoft.Ajax.Utilities;
 
 namespace CFC.Models.Prj
 {
@@ -32,6 +33,21 @@ namespace CFC.Models.Prj
         [ColumnDef(Index = 2)]
         [StringLength(20)]
         public string Name { get; set; }
+
+        [Display(Name = "縣市排序")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public int CitySort
+        {
+            get
+            {
+                int index = 0;
+                var city = CitySelectItems.CITIES.Where(a => a.CityCode == this.CityCode).FirstOrDefault();
+                if (city != null)
+                    index = city.Sort;
+
+                return index;
+            }
+        }
     }
 
     public class TownSelectItems : SelectItemsClass
@@ -62,7 +78,7 @@ namespace CFC.Models.Prj
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
             //return Towns.Select(s => new KeyValuePair<string, object>(s.ZIP, "{\"v\":\"" + s.Name + "\",\"CityCode\":\"" + s.CityCode + "\",\"PCityCode\":\"" + s.CityCode + "\"}"));
-            return Towns.Select(s => new KeyValuePair<string, object>(s.CityCode + "", s.Name));
+            return Towns.Select(s => new KeyValuePair<string, object>(s.CityCode + "", s.Name));            
         }
     }
 }

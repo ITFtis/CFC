@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using Antlr.Runtime;
 
 namespace CFC.Models.Prj
 {
@@ -43,7 +44,7 @@ namespace CFC.Models.Prj
                 {
                     using (var db = new DouModelContext())
                     {
-                        _cites = db.City.ToArray();
+                        _cites = db.City.OrderBy(a => a.Sort).ToArray();
                     }
                 }
                 return _cites;
