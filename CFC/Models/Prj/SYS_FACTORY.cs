@@ -43,9 +43,11 @@ namespace CFC.Models.Prj
         public string FACTORY_ADDRESS { get; set; }
 
         [Display(Name = "工業區")]
+        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = CFC.Models.Prj.Global_IndustrialAreaSelectItems.AssemblyQualifiedName)]
         public string FACTORY_INDUSTRIAL_AREA { get; set; }
 
         [Display(Name = "工廠產業類型")]
+        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = CFC.Models.Prj.Global_IndustrialSelectItems.AssemblyQualifiedName)]
         public string FACTORY_INDUSTRIAL { get; set; }
 
         [Display(Name = "建檔日")]

@@ -13,9 +13,10 @@ namespace CFC.Models.Prj
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
     /// <summary>
-    /// 燃料計算
+    /// 產業別
     /// </summary>
     public partial class Global_Industrial : GlobalBase
     {
@@ -42,5 +43,38 @@ namespace CFC.Models.Prj
 
         [Display(Name = "顯示順序")]
         public int DisplayOrder { get; set; }
+    }
+
+    public class Global_IndustrialSelectItems : Dou.Misc.Attr.SelectItemsClass
+    {
+        public const string AssemblyQualifiedName = "CFC.Models.Prj.Global_IndustrialSelectItems, CFC";
+
+        protected static IEnumerable<Global_Industrial> _globalIndustrialItems;
+        internal static IEnumerable<Global_Industrial> GlobalIndustrialItems
+        {
+            get
+            {
+                if (_globalIndustrialItems == null)
+                {
+                    using (var db = new DouModelContext())
+                    {
+                        _globalIndustrialItems = db.GlobalIndustrial
+                                            .OrderBy(a => a.Id)
+                                            .ToArray();
+                    }
+                }
+                return _globalIndustrialItems;
+            }
+        }
+
+
+        public static void Reset()
+        {
+            _globalIndustrialItems = null;
+        }
+        public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
+        {
+            return GlobalIndustrialItems.Select(s => new KeyValuePair<string, object>(s.Id, s.Name));
+        }
     }
 }

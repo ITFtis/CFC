@@ -13,9 +13,10 @@ namespace CFC.Models.Prj
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
     /// <summary>
-    /// 燃料計算
+    /// 工業區
     /// </summary>
     public partial class Global_IndustrialArea : GlobalBase
     {
@@ -28,5 +29,38 @@ namespace CFC.Models.Prj
 
         [Display(Name = "縣市")]
         public string CityName { get; set; }
+    }
+
+    public class Global_IndustrialAreaSelectItems : Dou.Misc.Attr.SelectItemsClass
+    {
+        public const string AssemblyQualifiedName = "CFC.Models.Prj.Global_IndustrialAreaSelectItems, CFC";
+
+        protected static IEnumerable<Global_IndustrialArea> _globalIndustrialAreaItems;
+        internal static IEnumerable<Global_IndustrialArea> GlobalIndustrialAreaItems
+        {
+            get
+            {
+                if (_globalIndustrialAreaItems == null)
+                {
+                    using (var db = new DouModelContext())
+                    {
+                        _globalIndustrialAreaItems = db.GlobalIndustrialArea
+                                            .OrderBy(a => a.CityName).ThenBy(a => a.DisplayOrder)
+                                            .ToArray();
+                    }
+                }
+                return _globalIndustrialAreaItems;
+            }
+        }
+
+
+        public static void Reset()
+        {
+            _globalIndustrialAreaItems = null;
+        }
+        public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
+        {
+            return GlobalIndustrialAreaItems.Select(s => new KeyValuePair<string, object>(s.Id, s.Name));
+        }
     }
 }
