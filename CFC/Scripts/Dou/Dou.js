@@ -184,19 +184,47 @@ var transactionDouClientDataToServer = function (row, url, callback) {
     var sortSelectItems = function (sitems) {
         var ritems = [];
         $.each(sitems, function (k, v) {//v如包含 @@，前是v，後是順序
-            var vs = (v+"").split(/@@/g);
-            ritems.push({ k: k, v: vs[0], s: vs[1] || 99 });
+            //var o = { k: k };
+            //if (typeof v === "object") {
+            //    o = $.extend(o, v);
+            //    //o.s == o.s == undefined ? 99 : o.s;
+            //}
+            //else
+            //    o.v = v;
+            ////if (typeof v === "string") {
+            //var vs = (o.v + "").split(/@@/g);
+            //o.v = vs[0].trim();
+            //o.s = vs[1] || 99;
+            //if (o.v.startsWith('{') && o.v.endsWith('}')) //ex:vs0={"v":"Dispaly","dcode":"15"}
+            //    $.extend(o, JSON.parse(o.v)); //o變成 { k: k, v: vs0, s: 99,,dcode:"15" };
+            ////}
+            ritems.push(v);
         });
         ritems.sort(function (a, b) { return a.s - b.s; });
         return ritems;
     }
 
+    //for douDatatype=select
     var getSelectItemDisplay = function (v, r, sitems) {
+        try {
+            return v === undefined || v === '' ? v : (sitems[v].v === undefined ? v : sitems[v].v);
+        } catch (e) {
+            return v;
+        }
         var _result = v;
         if (v != undefined) {
             _result = sitems[v] || v;
-            _result = (_result+"").split(/@@/g)[0];
+            if (typeof _result === "object") {
+                _result = _result.v;
+            }
+            //else if (typeof v === "string") {
+            _result = (_result + "").split(/@@/g)[0];
+            if (_result.startsWith('{') && _result.endsWith('}'))
+                _result = JSON.parse(_result).v;
+            //}
+
         }
+        _result = _result || v;
         return _result;
     }
 
@@ -493,8 +521,15 @@ var transactionDouClientDataToServer = function (row, url, callback) {
                     result.push("<option value='' title='所有" + this.title + "'>選擇" + this.title + "</option>");
 
                 var sitems = sortSelectItems(this.selectitems);//原資料v如包含@@，前是v，後是順序
+                //$.each(sitems, function () {
+                //    result.push("<option value='" + this.k + "' selected>" + this.v + "</option>");
+                //});
                 $.each(sitems, function () {
-                    result.push("<option value='" + this.k + "' selected>" + this.v + "</option>");
+                    var datahtml = [];
+                    for (var k in this) {
+                        datahtml.push("data-" + k + "='" + this[k] + "'");
+                    }
+                    result.push("<option value='" + this.k + "' " + datahtml.join(" ") + ">" + this.v + "</option>");
                 });
                 result.push("</select>");
                 //$_fieldContainer.append(result.join(' '));
@@ -779,8 +814,31 @@ var transactionDouClientDataToServer = function (row, url, callback) {
                     else
                         $.extend(this, { editFormtter: $.edittable_defaultEdit.default });
                 }
-                if ((this.datatype === "select" || this.datatype === "radio") && this.selectitems && typeof (this.selectitems) === "string") {
-                    this.selectitems = JSON.parse(this.selectitems);
+                if ((this.datatype === "select" || this.datatype === "radio" || this.datatype === "textlist") && this.selectitems) {
+                    if (typeof (this.selectitems) === "string")
+                        this.selectitems = JSON.parse(this.selectitems);
+                    for (var k in this.selectitems) {
+                        var tv = this.selectitems[k];
+                        if (typeof tv !== "object") {//值轉乘object
+                            if (typeof tv == "string") {
+                                tv = tv.trim();
+                                if (tv.startsWith('{') && tv.endsWith('}'))
+                                    this.selectitems[k] = JSON.parse(tv);
+                                else
+                                    this.selectitems[k] = { v: tv };
+                            }
+                            else
+                                this.selectitems[k] = { v: tv };
+                        }
+
+                        var vs = [this.selectitems[k].v];
+                        if (typeof this.selectitems[k].v === "string")
+                            vs = this.selectitems[k].v.split(/@@/g); //v值有可能含sort
+                        this.selectitems[k].k = k;
+                        this.selectitems[k].v = vs[0];
+                        this.selectitems[k].s = this.selectitems[k].s == undefined ? vs[1] || 99 : this.selectitems[k].s;
+                    }
+                    var sd = "";
                 }
                 if ((this.datatype === "select" || this.datatype === "radio") && this.selectitems && !this.listFormatter) {
                     this.listFormatter = function (v, row) {
