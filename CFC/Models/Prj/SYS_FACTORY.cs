@@ -33,10 +33,12 @@ namespace CFC.Models.Prj
         public string FACTORY_REGISTRATION { get; set; }
 
         [Display(Name = "縣市別")]
+        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = CityByNameSelectItems.AssemblyQualifiedName)]
         public string FACTORY_CITY { get; set; }
 
 
         [Display(Name = "鄉鎮市區")]
+        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = TownByNameSelectItems.AssemblyQualifiedName)]
         public string FACTORY_DISTRICT { get; set; }
 
         [Display(Name = "地址")]

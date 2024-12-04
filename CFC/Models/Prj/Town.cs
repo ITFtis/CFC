@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 
 namespace CFC.Models.Prj
 {
@@ -79,6 +80,17 @@ namespace CFC.Models.Prj
         {
             //return Towns.Select(s => new KeyValuePair<string, object>(s.ZIP, "{\"v\":\"" + s.Name + "\",\"CityCode\":\"" + s.CityCode + "\",\"PCityCode\":\"" + s.CityCode + "\"}"));
             return Towns.Select(s => new KeyValuePair<string, object>(s.CityCode + "", s.Name));            
+        }
+    }
+
+    public class TownByNameSelectItems : Dou.Misc.Attr.SelectItemsClass
+    {
+        public const string AssemblyQualifiedName = "CFC.Models.Prj.TownByNameSelectItems, CFC";
+
+        public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
+        {            
+            return TownSelectItems.Towns.Select(s => new KeyValuePair<string, object>(s.Name + "", s.Name));
+            //return TownSelectItems.Towns.Select(s => new KeyValuePair<string, object>(s.Name, JsonConvert.SerializeObject(new { v = s.Name, cityCode = s.CityCode })));
         }
     }
 }

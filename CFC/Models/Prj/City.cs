@@ -61,4 +61,14 @@ namespace CFC.Models.Prj
             return CITIES.Select(s => new KeyValuePair<string, object>(s.CityCode + "", s.Name));
         }
     }
+
+    public class CityByNameSelectItems : Dou.Misc.Attr.SelectItemsClass
+    {
+        public const string AssemblyQualifiedName = "CFC.Models.Prj.CityByNameSelectItems, CFC";
+       
+        public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
+        {
+            return CitySelectItems.CITIES.Select(s => new KeyValuePair<string, object>(s.Name + "", s.Name));
+        }
+    }
 }
