@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Antlr.Runtime;
+using Newtonsoft.Json;
 
 namespace CFC.Models.Prj
 {
@@ -58,7 +59,8 @@ namespace CFC.Models.Prj
         }
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
-            return CITIES.Select(s => new KeyValuePair<string, object>(s.CityCode + "", s.Name));
+            //return CITIES.Select(s => new KeyValuePair<string, object>(s.CityCode + "", s.Name));
+            return CITIES.Select(s => new KeyValuePair<string, object>(s.CityCode, JsonConvert.SerializeObject(new { v = s.Name, s = s.Sort })));
         }
     }
 
@@ -68,7 +70,8 @@ namespace CFC.Models.Prj
        
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
-            return CitySelectItems.CITIES.Select(s => new KeyValuePair<string, object>(s.Name + "", s.Name));
+            //return CitySelectItems.CITIES.Select(s => new KeyValuePair<string, object>(s.Name + "", s.Name));
+            return CitySelectItems.CITIES.Select(s => new KeyValuePair<string, object>(s.Name, JsonConvert.SerializeObject(new { v = s.Name, s = s.Sort })));
         }
     }
 }

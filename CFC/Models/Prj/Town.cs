@@ -79,7 +79,8 @@ namespace CFC.Models.Prj
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
             //return Towns.Select(s => new KeyValuePair<string, object>(s.ZIP, "{\"v\":\"" + s.Name + "\",\"CityCode\":\"" + s.CityCode + "\",\"PCityCode\":\"" + s.CityCode + "\"}"));
-            return Towns.Select(s => new KeyValuePair<string, object>(s.CityCode + "", s.Name));            
+            //return Towns.Select(s => new KeyValuePair<string, object>(s.CityCode + "", s.Name));
+            return Towns.Select(s => new KeyValuePair<string, object>(s.CityCode, JsonConvert.SerializeObject(new { v = s.Name, cityCode = s.CityCode, s = s.CitySort })));
         }
     }
 
@@ -89,8 +90,8 @@ namespace CFC.Models.Prj
 
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {            
-            return TownSelectItems.Towns.Select(s => new KeyValuePair<string, object>(s.Name + "", s.Name));
-            //return TownSelectItems.Towns.Select(s => new KeyValuePair<string, object>(s.Name, JsonConvert.SerializeObject(new { v = s.Name, cityCode = s.CityCode })));
+            //return TownSelectItems.Towns.Select(s => new KeyValuePair<string, object>(s.Name + "", s.Name));
+            return TownSelectItems.Towns.Select(s => new KeyValuePair<string, object>(s.Name, JsonConvert.SerializeObject(new { v = s.Name, cityCode = s.CityCode, s = s.CitySort })));
         }
     }
 }
