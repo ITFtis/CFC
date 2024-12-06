@@ -15,34 +15,86 @@ namespace CFC.Models.Prj
 
     public partial class G_USER_FACTORY
     {
+        [Key]
+        [Display(Name = "IDX")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public int IDX { get; set; }
 
-
-
-        //[Key]
-        //[Display(Name = "IDX", Order = 0)]
-        //[ColumnDef(Visible = false, VisibleEdit = true)]
-        //public string IDX { get; set; }
-
-        [Display(Name = "會員號碼", Order = 1)]
+        [Display(Name = "會員帳號")]
         //[ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string USER_ID { get; set; }
 
-        [Display(Name = "工廠登記證", Order = 2)]
+        /// <summary>
+        /// 聯絡人
+        /// </summary>
+        [Display(Name = "聯絡人")]
+        [ColumnDef(VisibleEdit = false)]
+        public string Contact
+        {
+            get
+            {
+                string str = "";
+                var u = User_Properties_Advance.GetAllDatas().Where(a => a.Id == this.USER_ID).FirstOrDefault();
+                if (u != null)
+                    str = u.Contact;
+
+                return str;
+            }
+        }
+
+        [Display(Name = "工廠登記證")]
         public string FACTORY_REGISTRATION { get; set; }
 
+        /// <summary>
+        /// 工廠名稱
+        /// </summary>
+        [Display(Name = "工廠名稱")]
+        [ColumnDef(VisibleEdit = false)]
+        public string FACTORY_NAME
+        {
+            get
+            {
+                string str = "";
+                var u = SYS_FACTORY.GetAllDatas().Where(a => a.FACTORY_REGISTRATION == this.FACTORY_REGISTRATION).FirstOrDefault();
+                if (u != null)
+                    str = u.FACTORY_NAME;
 
-        [Display(Name = "建檔日", Order = 3)]
+                return str;
+            }
+        }
+
+        [Display(Name = "建檔日")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string BDate { get; set; }
 
-        [Display(Name = "建檔者ID", Order = 4)]
+        [Display(Name = "建檔者ID")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string BId { get; set; }
 
-        [Display(Name = "修改日", Order = 5)]
+        [Display(Name = "修改日")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string UDate { get; set; }
 
-        [Display(Name = "修改者ID", Order = 6)]
+        [Display(Name = "修改者ID")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string UId { get; set; }
 
+        /// <summary>
+        /// 行業別 1.非製造業,其它製造業(ex.2,3,...99等)
+        /// </summary>
+        [Display(Name = "行業別")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public string IndustrialTypeId
+        {
+            get 
+            {
+                string str = "";
+                var u = User_Properties_Advance.GetAllDatas().Where(a => a.Id == this.USER_ID).FirstOrDefault();
+                if (u != null)
+                    str = u.IndustrialTypeId;
 
+                return str;
+            }  
+        }
     }
 }

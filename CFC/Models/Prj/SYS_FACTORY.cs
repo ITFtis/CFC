@@ -6,6 +6,7 @@ using System.Web;
 namespace CFC.Models.Prj
 {
     using Dou.Misc.Attr;
+    using DouHelper;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -68,6 +69,31 @@ namespace CFC.Models.Prj
         [ColumnDef(Visible = false, VisibleEdit = false)]
         public string UId { get; set; }
 
+        static object lockGetAllDatas = new object();
+        public static IEnumerable<SYS_FACTORY> GetAllDatas(int cachetimer = 0)
+        {
+            if (cachetimer == 0) cachetimer = Constant.cacheTime;
 
+            string key = "CFC.Models.Prj.SYS_FACTORY";
+            var allData = DouHelper.Misc.GetCache<IEnumerable<SYS_FACTORY>>(cachetimer, key);
+            lock (lockGetAllDatas)
+            {
+                if (allData == null)
+                {
+                    Dou.Models.DB.IModelEntity<SYS_FACTORY> modle = new Dou.Models.DB.ModelEntity<SYS_FACTORY>(new DouModelContext());
+                    allData = modle.GetAll().OrderByDescending(a => a.BDate).ToArray();
+
+                    DouHelper.Misc.AddCache(allData, key);
+                }
+            }
+
+            return allData;
+        }
+
+        public static void ResetGetAllDatas()
+        {
+            string key = "CFC.Models.Prj.SYS_FACTORY";
+            Misc.ClearCache(key);
+        }
     }
 }

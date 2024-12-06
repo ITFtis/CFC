@@ -221,6 +221,7 @@
     <Compile Include="Controllers\PrjNew\TownController.cs" />
     <Compile Include="Controllers\PrjNew\UserCalController.cs" />
     <Compile Include="Controllers\PrjNew\UserInputCalController.cs" />
+    <Compile Include="Controllers\PrjNew\UserPropertiesIndustController.cs" />
     <Compile Include="Controllers\Prj\CalsPropertiesController.cs" />
     <Compile Include="Controllers\Prj\CalsTypeController.cs" />
     <Compile Include="Controllers\Prj\ElecPropertiesController.cs" />
@@ -1700,6 +1701,7 @@
     <Content Include="Views\SYS_FACTORY\Index.cshtml" />
     <Content Include="Views\City\Index.cshtml" />
     <Content Include="Views\Town\Index.cshtml" />
+    <Content Include="Views\UserPropertiesIndust\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

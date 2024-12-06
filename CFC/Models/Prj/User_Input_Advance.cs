@@ -9,6 +9,7 @@
 
 namespace CFC.Models.Prj
 {
+    using DouHelper;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -147,5 +148,31 @@ namespace CFC.Models.Prj
         public string ProjectCity { get; set; }//專案縣市
         public string ProjectIndustrialType { get; set; }//專案行業別
 
+        static object lockGetAllDatas = new object();
+        public static IEnumerable<User_Input_Advance> GetAllDatas(int cachetimer = 0)
+        {
+            if (cachetimer == 0) cachetimer = Constant.cacheTime;
+
+            string key = "CFC.Models.Prj.User_Input_Advance";
+            var allData = DouHelper.Misc.GetCache<IEnumerable<User_Input_Advance>>(cachetimer, key);
+            lock (lockGetAllDatas)
+            {
+                if (allData == null)
+                {
+                    Dou.Models.DB.IModelEntity<User_Input_Advance> modle = new Dou.Models.DB.ModelEntity<User_Input_Advance>(new DouModelContext());
+                    allData = modle.GetAll().OrderByDescending(a => a.BDate).ToArray();
+
+                    DouHelper.Misc.AddCache(allData, key);
+                }
+            }
+
+            return allData;
+        }
+
+        public static void ResetGetAllDatas()
+        {
+            string key = "CFC.Models.Prj.User_Input_Advance";
+            Misc.ClearCache(key);
+        }
     }
 }

@@ -10,6 +10,7 @@
 namespace CFC.Models.Prj
 {
     using Dou.Misc.Attr;
+    using DouHelper;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -152,6 +153,34 @@ namespace CFC.Models.Prj
 
         [Display(Name = "職稱")]
         public string POSITION { get; set; }
+
+        static object lockGetAllDatas = new object();
+        public static IEnumerable<User_Properties_Advance> GetAllDatas(int cachetimer = 0)
+        {
+            if (cachetimer == 0) cachetimer = Constant.cacheTime;
+
+            string key = "CFC.Models.Prj.User_Properties_Advance";
+            var allData = DouHelper.Misc.GetCache<IEnumerable<User_Properties_Advance>>(cachetimer, key);
+            lock (lockGetAllDatas)
+            {
+                if (allData == null)
+                {
+                    Dou.Models.DB.IModelEntity<User_Properties_Advance> modle = new Dou.Models.DB.ModelEntity<User_Properties_Advance>(new DouModelContext());
+                    allData = modle.GetAll().OrderByDescending(a => a.Id).ToArray();
+
+                    DouHelper.Misc.AddCache(allData, key);
+                }
+            }
+
+            return allData;
+        }
+
+        public static void ResetGetAllDatas()
+        {
+            string key = "CFC.Models.Prj.User_Properties_Advance";
+            Misc.ClearCache(key);
+        }
+
     }
 
     public class Fac
