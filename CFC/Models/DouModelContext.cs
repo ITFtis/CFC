@@ -77,9 +77,9 @@ namespace CFC.Models
         public virtual DbSet<Town> Town { get; set; } //鄉鎮
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            // 定義組合鍵 USER_ID 和 FACTORY_REGISTRATION
-            modelBuilder.Entity<G_USER_FACTORY>()
-                .HasKey(uf => new { uf.USER_ID, uf.FACTORY_REGISTRATION });
+            ////// 定義組合鍵 USER_ID 和 FACTORY_REGISTRATION
+            ////modelBuilder.Entity<G_USER_FACTORY>()
+            ////    .HasKey(uf => new { uf.USER_ID, uf.FACTORY_REGISTRATION });
 
 
             // 類別1 燃料
