@@ -7,6 +7,7 @@ namespace CFC.Models.Prj
 {
     using Dou.Misc.Attr;
     using DouHelper;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -97,13 +98,20 @@ namespace CFC.Models.Prj
         }
     }
 
+    /// <summary>
+    /// 下拉工廠登記證
+    /// </summary>
     public class SYS_FACTORYSelectItems : Dou.Misc.Attr.SelectItemsClass
     {
         public const string AssemblyQualifiedName = "CFC.Models.Prj.SYS_FACTORYSelectItems, CFC";
 
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
-            return SYS_FACTORY.GetAllDatas().Select(s => new KeyValuePair<string, object>(s.FACTORY_REGISTRATION + "", s.FACTORY_NAME));
+            //return SYS_FACTORY.GetAllDatas().OrderByDescending(a => a.FACTORY_NAME)
+            //.Select(s => new KeyValuePair<string, object>(s.FACTORY_REGISTRATION + "", s.FACTORY_REGISTRATION + " => " + s.FACTORY_NAME));
+
+            return SYS_FACTORY.GetAllDatas().OrderByDescending(a => a.FACTORY_NAME)
+                .Select((s, index) => new KeyValuePair<string, object>(s.FACTORY_REGISTRATION, JsonConvert.SerializeObject(new { v = s.FACTORY_REGISTRATION + " (廠名：" + s.FACTORY_NAME + ")", s = index })));
         }
     }
 }

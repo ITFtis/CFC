@@ -42,27 +42,27 @@ namespace CFC.Models.Prj
             }
         }
 
-        [Display(Name = "工廠登記證")]
+        [Display(Name = "工廠登記證及名稱")]
         [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = SYS_FACTORYSelectItems.AssemblyQualifiedName)]
         public string FACTORY_REGISTRATION { get; set; }
 
-        /// <summary>
-        /// 工廠名稱
-        /// </summary>
-        [Display(Name = "工廠名稱")]
-        [ColumnDef(VisibleEdit = false)]
-        public string FACTORY_NAME
-        {
-            get
-            {
-                string str = "";
-                var u = SYS_FACTORY.GetAllDatas().Where(a => a.FACTORY_REGISTRATION == this.FACTORY_REGISTRATION).FirstOrDefault();
-                if (u != null)
-                    str = u.FACTORY_NAME;
+        /////// <summary>
+        /////// 工廠名稱
+        /////// </summary>
+        ////[Display(Name = "工廠名稱")]
+        ////[ColumnDef(VisibleEdit = false)]
+        ////public string FACTORY_NAME
+        ////{
+        ////    get
+        ////    {
+        ////        string str = "";
+        ////        var u = SYS_FACTORY.GetAllDatas().Where(a => a.FACTORY_REGISTRATION == this.FACTORY_REGISTRATION).FirstOrDefault();
+        ////        if (u != null)
+        ////            str = u.FACTORY_NAME;
 
-                return str;
-            }
-        }
+        ////        return str;
+        ////    }
+        ////}
 
         [Display(Name = "工業區")]
         [ColumnDef(VisibleEdit = false,

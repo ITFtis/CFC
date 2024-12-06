@@ -37,6 +37,24 @@ namespace CFC.Controllers.Prj
             return opts;            
         }
 
+        protected override void AddDBObject(IModelEntity<SYS_FACTORY> dbEntity, IEnumerable<SYS_FACTORY> objs)
+        {
+            base.AddDBObject(dbEntity, objs);
+            SYS_FACTORY.ResetGetAllDatas();
+        }
+
+        protected override void UpdateDBObject(IModelEntity<SYS_FACTORY> dbEntity, IEnumerable<SYS_FACTORY> objs)
+        {
+            base.UpdateDBObject(dbEntity, objs);
+            SYS_FACTORY.ResetGetAllDatas();
+        }
+
+        protected override void DeleteDBObject(IModelEntity<SYS_FACTORY> dbEntity, IEnumerable<SYS_FACTORY> objs)
+        {
+            base.DeleteDBObject(dbEntity, objs);
+            SYS_FACTORY.ResetGetAllDatas();
+        }
+
         internal IEnumerable<SYS_FACTORY> GetAllData()
         {
             return GetModelEntity().GetAll().ToArray();
