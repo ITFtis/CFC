@@ -46,23 +46,38 @@ namespace CFC.Models.Prj
         [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = SYS_FACTORYSelectItems.AssemblyQualifiedName)]
         public string FACTORY_REGISTRATION { get; set; }
 
-        /////// <summary>
-        /////// 工廠名稱
-        /////// </summary>
-        ////[Display(Name = "工廠名稱")]
-        ////[ColumnDef(VisibleEdit = false)]
-        ////public string FACTORY_NAME
-        ////{
-        ////    get
-        ////    {
-        ////        string str = "";
-        ////        var u = SYS_FACTORY.GetAllDatas().Where(a => a.FACTORY_REGISTRATION == this.FACTORY_REGISTRATION).FirstOrDefault();
-        ////        if (u != null)
-        ////            str = u.FACTORY_NAME;
+        /// <summary>
+        /// 工廠地址
+        /// </summary>
+        [Display(Name = "工廠地址")]
+        [ColumnDef(VisibleEdit = false)]
+        public string FACTORY_NAME
+        {
+            get
+            {
+                string str = "";
+                var u = SYS_FACTORY.GetAllDatas().Where(a => a.FACTORY_REGISTRATION == this.FACTORY_REGISTRATION).FirstOrDefault();
+                if (u != null)
+                {
+                    string cname = "";
+                    string tname = "";
+                    string addr = u.FACTORY_ADDRESS;
 
-        ////        return str;
-        ////    }
-        ////}
+                    var c = CitySelectItems.CITIES.Where(a => a.Name == u.FACTORY_CITY).FirstOrDefault();
+                    if(c != null)
+                        cname = c.Name;
+
+                    var t = TownSelectItems.Towns.Where(a => a.Name == u.FACTORY_CITY).FirstOrDefault();
+                    if (t != null)
+                        tname = t.Name;
+
+                    str = cname + tname + addr;
+                }
+                    
+
+                return str;
+            }
+        }
 
         [Display(Name = "工業區")]
         [ColumnDef(VisibleEdit = false,
