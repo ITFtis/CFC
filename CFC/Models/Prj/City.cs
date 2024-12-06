@@ -71,7 +71,7 @@ namespace CFC.Models.Prj
         public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
         {
             //return CitySelectItems.CITIES.Select(s => new KeyValuePair<string, object>(s.Name + "", s.Name));
-            return CitySelectItems.CITIES.Select(s => new KeyValuePair<string, object>(s.Name, JsonConvert.SerializeObject(new { v = s.Name, s = s.Sort })));
+            return CitySelectItems.CITIES.Select(s => new KeyValuePair<string, object>(s.Name, JsonConvert.SerializeObject(new { v = s.Name, cityCode = s.CityCode, s = s.Sort })));
         }
     }
 }

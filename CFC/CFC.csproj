@@ -1556,6 +1556,7 @@
     <Content Include="Scripts\popper.min.js.map" />
     <Content Include="Scripts\prj\Ar.js" />
     <Content Include="Scripts\prj\baseb.js" />
+    <Content Include="Scripts\prj\basefun.js" />
     <Content Include="Scripts\prj\cfc.js" />
     <Content Include="Scripts\prj\cfc_n.js" />
     <Content Include="Scripts\prj\Cv.js" />

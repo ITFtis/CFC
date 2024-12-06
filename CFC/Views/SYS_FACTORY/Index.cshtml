@@ -1,3 +1,35 @@
-﻿@using Dou.Misc.Extension
+﻿<script src="~/Scripts/prj/basefun.js?v=20241206001"></script>
+
+@using Dou.Misc.Extension
 @Html.MenuMap()
-@Html.DataManagerTable()
+@Html.DataManagerOptionsJavascript(null, "douoptions")
+<table id="_table"></table>
+
+
+<script>
+    $(document).ready(function () {
+
+        douoptions.afterCreateEditDataForm = function ($container, row) {
+
+            //縣市(citycode)：$('.modal-dialog [data-fn="FACTORY_CITY"]').find('option:selected').attr('data-citycode')
+            //鄉鎮(citycode)：$('.modal-dialog [data-fn="FACTORY_DISTRICT"]').find('option:selected').attr('data-citycode')
+
+            //設定鄉鎮
+            var oCity = $('.modal-dialog [data-fn="FACTORY_CITY"]')[0];
+            var oTown = $('.modal-dialog [data-fn="FACTORY_DISTRICT"]')[0];
+
+            var city = $(oCity).find('option:selected').attr('data-citycode');
+            var town = $(oTown).find('option:selected').val();
+            FilterCityTown(city, oTown);
+            $(oTown).val(town);
+
+            $(oCity).change(function () {
+                var city = $(this).find('option:selected').attr('data-citycode');
+                FilterCityTown(city, oTown);
+            });           
+        }
+
+        $("#_table").DouEditableTable(douoptions);        
+
+    })
+</script>
