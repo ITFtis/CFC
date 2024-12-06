@@ -1,2 +1,10 @@
-﻿@using Dou.Misc.Extension
-@Html.DataManagerTable()
+﻿<script src="~/Scripts/prj/UserProperties.js?v=20241206001"></script>
+
+@using Dou.Misc.Extension
+@Html.MenuMap()
+@Html.DataManagerOptionsJavascript(null, "douoptions")
+
+<div id="_tabs">
+    <table id="_table"></table>
+</div>
+
