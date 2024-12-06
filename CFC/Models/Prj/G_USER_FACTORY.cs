@@ -43,6 +43,7 @@ namespace CFC.Models.Prj
         }
 
         [Display(Name = "工廠登記證")]
+        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = SYS_FACTORYSelectItems.AssemblyQualifiedName)]
         public string FACTORY_REGISTRATION { get; set; }
 
         /// <summary>
@@ -58,6 +59,46 @@ namespace CFC.Models.Prj
                 var u = SYS_FACTORY.GetAllDatas().Where(a => a.FACTORY_REGISTRATION == this.FACTORY_REGISTRATION).FirstOrDefault();
                 if (u != null)
                     str = u.FACTORY_NAME;
+
+                return str;
+            }
+        }
+
+        [Display(Name = "工業區")]
+        [ColumnDef(VisibleEdit = false,
+            EditType = EditType.Select, SelectItemsClassNamespace = CFC.Models.Prj.Global_IndustrialAreaSelectItems.AssemblyQualifiedName)]
+        public string FACTORY_INDUSTRIAL_AREA 
+        {
+            get
+            {
+                string str = "";
+                var u = SYS_FACTORY.GetAllDatas().Where(a => a.FACTORY_REGISTRATION == this.FACTORY_REGISTRATION).FirstOrDefault();
+                if (u != null)
+                {
+                    var code = Global_IndustrialAreaSelectItems.GlobalIndustrialAreas.Where(a => a.Id == u.FACTORY_INDUSTRIAL_AREA).FirstOrDefault();
+                    if (code != null)
+                        str = code.Name;
+                }
+
+                return str;
+            }
+        }
+
+        [Display(Name = "工廠產業類型")]
+        [ColumnDef(VisibleEdit = false, 
+            EditType = EditType.Select, SelectItemsClassNamespace = CFC.Models.Prj.Global_IndustrialSelectItems.AssemblyQualifiedName)]
+        public string FACTORY_INDUSTRIAL
+        {
+            get
+            {
+                string str = "";
+                var u = SYS_FACTORY.GetAllDatas().Where(a => a.FACTORY_REGISTRATION == this.FACTORY_REGISTRATION).FirstOrDefault();
+                if (u != null)
+                {
+                    var code = Global_IndustrialSelectItems.GlobalIndustrials.Where(a => a.Id == u.FACTORY_INDUSTRIAL).FirstOrDefault();
+                    if (code != null)
+                        str = code.Name;
+                }
 
                 return str;
             }

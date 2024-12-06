@@ -96,4 +96,14 @@ namespace CFC.Models.Prj
             Misc.ClearCache(key);
         }
     }
+
+    public class SYS_FACTORYSelectItems : Dou.Misc.Attr.SelectItemsClass
+    {
+        public const string AssemblyQualifiedName = "CFC.Models.Prj.SYS_FACTORYSelectItems, CFC";
+
+        public override IEnumerable<KeyValuePair<string, object>> GetSelectItems()
+        {
+            return SYS_FACTORY.GetAllDatas().Select(s => new KeyValuePair<string, object>(s.FACTORY_REGISTRATION + "", s.FACTORY_NAME));
+        }
+    }
 }
