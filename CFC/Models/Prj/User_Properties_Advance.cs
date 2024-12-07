@@ -101,6 +101,7 @@ namespace CFC.Models.Prj
         /// 聯絡email
         /// </summary>
         [Display(Name = "聯絡email")]
+        [ColumnDef(Visible = false)]
         public string Email { get; set; }
 
         /// <summary>
