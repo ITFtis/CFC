@@ -82,25 +82,6 @@ namespace CFC.Models.Prj
         }
 
         /// <summary>
-        /// 工商登記編號
-        /// </summary>
-
-        [Display(Name = "工商登記編號")]
-        public string IndustryId { get; set; }
-
-        [Display(Name = "縣市別")]
-        public string CountyId { get; set; }
-
-        [Display(Name = "工業園區")]
-        public string IndustrialAreaId { get; set; }
-
-        /// <summary>
-        /// 1.非製造業,其它製造業(ex.2,3,...99等)
-        /// </summary>
-        [Display(Name = "行業別")]        
-        public string IndustrialTypeId { get; set; }
-
-        /// <summary>
         /// 公司規模
         /// </summary>
         [Display(Name = "公司規模")]
@@ -111,6 +92,9 @@ namespace CFC.Models.Prj
         /// </summary>
         [Display(Name = "聯絡人")]
         public string Contact { get; set; }
+
+        [Display(Name = "職稱")]
+        public string POSITION { get; set; }
 
         /// <summary>
         /// 連絡電話
@@ -125,15 +109,31 @@ namespace CFC.Models.Prj
         public string Email { get; set; }
 
         /// <summary>
-        /// xxx
+        /// 1.非製造業,其它製造業(ex.2,3,...99等)
         /// </summary>
-        [NotMapped]
-        [Display(Name = "工廠")]
-        public List<SYS_FACTORY> FactoryList { get; set; }
+        [Display(Name = "行業別")]
+        public string IndustrialTypeId { get; set; }
 
-        [NotMapped]
-        [Display(Name = "製造或非製造業")]
-        public string Manufacturing { get; set; }
+        /// <summary>
+        /// 行業別名稱(1.非製造業,其它製造業)
+        /// </summary>
+        [Display(Name = "行業別")]
+        [ColumnDef(VisibleEdit = false)]
+        public string IndustrialTypeName
+        {
+            get
+            {
+                string str = "";
+                var v = Global_Industrial.GetAllDatasYN().Where(a => a.Id == this.IndustrialTypeId).FirstOrDefault();
+                if (v != null)
+                    str = v.Name;
+
+                return str;
+            }
+        }
+
+        [Display(Name = "單位性質")]
+        public string UNIT_TYPE { get; set; }
 
         [Display(Name = "縣市")]
         public string CITY { get; set; }
@@ -144,11 +144,30 @@ namespace CFC.Models.Prj
         [Display(Name = "地址")]
         public string ADDRESS { get; set; }
 
-        [Display(Name = "單位性質")]
-        public string UNIT_TYPE { get; set; }
+        /// <summary>
+        /// 工商登記編號
+        /// </summary>
 
-        [Display(Name = "職稱")]
-        public string POSITION { get; set; }
+        [Display(Name = "工商登記編號")]
+        public string IndustryId { get; set; }
+
+        [Display(Name = "縣市別")]
+        public string CountyId { get; set; }
+
+        [Display(Name = "工業園區")]
+        public string IndustrialAreaId { get; set; }
+     
+        /// <summary>
+        /// xxx
+        /// </summary>
+        [NotMapped]
+        [Display(Name = "工廠")]
+        public List<SYS_FACTORY> FactoryList { get; set; }
+
+        [NotMapped]
+        [Display(Name = "製造或非製造業")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public string Manufacturing { get; set; }
 
         static object lockGetAllDatas = new object();
         public static IEnumerable<User_Properties_Advance> GetAllDatas(int cachetimer = 0)

@@ -26,6 +26,24 @@ namespace CFC.Models.Prj
         [Key]
         [Display(Name = "行業別編號")]
         public override string Id { get; set; }
+
+        static object lockGetAllDatas = new object();
+
+        /// <summary>
+        /// 特殊 是否製造業(1否,其它全是)
+        /// </summary>
+        /// <param name="cachetimer"></param>
+        /// <returns></returns>
+        public static IEnumerable<Global_Industrial> GetAllDatasYN(int cachetimer = 0)
+        {
+            var allData = User_Properties_Advance.GetAllDatas().Select(a => new Global_Industrial
+            {
+                Id = a.IndustrialTypeId,
+                Name = a.IndustrialTypeId == "1" ? "非製造業" : "製造業",
+            });
+
+            return allData;
+        }
     }
 
     public class GlobalBase
