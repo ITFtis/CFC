@@ -130,12 +130,15 @@ namespace CFC.Models.Prj
         }
 
         [Display(Name = "單位性質")]
+        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = CFC.GetUserUNIT_TYPESelectItems.AssemblyQualifiedName)]
         public string UNIT_TYPE { get; set; }
 
         [Display(Name = "縣市")]
+        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = CityByNameSelectItems.AssemblyQualifiedName)]
         public string CITY { get; set; }
 
         [Display(Name = "鄉鎮市區")]
+        [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = TownByNameSelectItems.AssemblyQualifiedName)]
         public string DISTRICT { get; set; }
 
         [Display(Name = "地址")]
