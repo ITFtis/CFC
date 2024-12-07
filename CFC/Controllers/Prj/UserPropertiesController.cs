@@ -1,4 +1,5 @@
-﻿using CFC.Models;
+﻿using CFC.Controllers.FileDownload.ExcelManagerF;
+using CFC.Models;
 using CFC.Models.Prj;
 using Dou.Controllers;
 using Dou.Misc;
@@ -27,6 +28,24 @@ namespace CFC.Controllers.Prj
             return new Dou.Models.DB.ModelEntity<User_Properties_Advance>(new DouModelContext());
         }
 
+        protected override void AddDBObject(IModelEntity<User_Properties_Advance> dbEntity, IEnumerable<User_Properties_Advance> objs)
+        {
+            var f = objs.First();
+            if (!SetIni(f))
+                throw new Exception("資料更新失敗，請通知網站負責人");
+
+            base.AddDBObject(dbEntity, objs);
+        }
+
+        protected override void UpdateDBObject(IModelEntity<User_Properties_Advance> dbEntity, IEnumerable<User_Properties_Advance> objs)
+        {
+            var f = objs.First();
+            if (!SetIni(f))
+                throw new Exception("資料更新失敗，請通知網站負責人");
+
+            base.UpdateDBObject(dbEntity, objs);
+        }
+
         internal IEnumerable<User_Properties_Advance> GetAllData()
         {
             return GetModelEntity().GetAll().ToArray();
@@ -39,6 +58,36 @@ namespace CFC.Controllers.Prj
             opts.ctrlFieldAlign = "left";
 
             return opts;
+        }
+
+        private bool SetIni(User_Properties_Advance f)
+        {
+            bool result = false;
+
+            try
+            {
+                if (f.IndustrialTypeId == "1")
+                {
+                    //非製造業
+                }
+                else
+                {
+                    //製造業
+                    f.UNIT_TYPE = null;
+                    f.CITY = null;
+                    f.DISTRICT = null;
+                    f.ADDRESS = null;
+                }
+
+                result = true;
+            }
+            catch (Exception ex)
+            {
+                Logger.Log.For(null).Error("執行錯誤：" + ex.Message);
+                Logger.Log.For(null).Error(ex.StackTrace);                
+            }
+
+            return result;
         }
     }
 }

@@ -107,9 +107,10 @@ namespace CFC.Models.Prj
         /// <summary>
         /// 1.非製造業,其它製造業(ex.2,3,...99等)  修改
         /// </summary>
+        [Required]
         [Display(Name = "行業別")]
         [ColumnDef(Visible = false, 
-                EditType = EditType.Select, SelectItemsClassNamespace = CFC.GetYNGlobal_IndustrialSelectItems.AssemblyQualifiedName)]        
+                EditType = EditType.Radio, SelectItemsClassNamespace = CFC.GetYNGlobal_IndustrialSelectItems.AssemblyQualifiedName)]        
         public string IndustrialTypeId { get; set; }
 
         /// <summary>
