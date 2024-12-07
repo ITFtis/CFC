@@ -11,6 +11,9 @@ namespace CFC.Models.Prj
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    /// <summary>
+    /// 會員工廠對應表
+    /// </summary>
     [Table("G_USER_FACTORY")]
 
     public partial class G_USER_FACTORY
