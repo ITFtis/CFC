@@ -29,11 +29,10 @@ namespace CFC.Models.Prj
         public string COMP_NAME { get; set; }
 
         [Display(Name = "統一編號")] 
-        //[ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
+        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string COMP_UNIFORM_NUMBER { get; set; }
 
         [Display(Name = "公司規模")] //中小企業, 或大企業
-        //[ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string COMP_SIZE { get; set; }
 
         [Display(Name = "建檔日")]
