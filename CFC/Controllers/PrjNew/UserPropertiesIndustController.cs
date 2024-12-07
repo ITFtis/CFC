@@ -12,7 +12,7 @@ using System.Web.Mvc;
 
 namespace CFC.Controllers.PrjNew
 {
-    [MenuDef(Id = "UserPropertiesIndust", Name = "會員(製造業管理)", MenuPath = "工商登記資料", Action = "Index", Index = 2, Func = FuncEnum.ALL, AllowAnonymous = false)]
+    [MenuDef(Id = "UserPropertiesIndust", Name = "製造業會員(工廠)", MenuPath = "工商登記資料", Action = "Index", Index = 2, Func = FuncEnum.ALL, AllowAnonymous = false)]
     public class UserPropertiesIndustController : AGenericModelController<G_USER_FACTORY>
     {
         // GET: UserPropertiesIndust
