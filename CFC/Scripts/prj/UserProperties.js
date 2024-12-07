@@ -26,9 +26,39 @@
         $(oCity).change(function () {
             var city = $(this).find('option:selected').attr('data-citycode');
             FilterCityTown(city, oTown);
-        });    
+        });
+
+        //(下拉)非製造業
+        SetUIDialog();
+        $('.modal-dialog [data-fn="IndustrialTypeId"]').change(function () {
+            SetUIDialog();
+        });
     }
 
     var $_masterTable = $("#_table").DouEditableTable(douoptions);
 
+    function SetUIDialog() {
+        //(下拉)非製造業
+        var oIndustrialTypeId = $('.modal-dialog [data-fn="IndustrialTypeId"]');
+        var IndustrialTypeId = $(oIndustrialTypeId).find(':checked').val();
+        if (IndustrialTypeId == 1) {
+            //非製造業
+            $('.modal-dialog').find("[data-field=UNIT_TYPE]").show();
+            $('.modal-dialog').find("[data-field=CITY]").show();
+            $('.modal-dialog').find("[data-field=DISTRICT]").show();
+            $('.modal-dialog').find("[data-field=ADDRESS]").show();
+        }
+        else {
+            //製造業
+            $('.modal-dialog [data-fn="UNIT_TYPE"]').val('');
+            $('.modal-dialog [data-fn="CITY"]').val('');
+            $('.modal-dialog [data-fn="DISTRICT"]').val('');
+            $('.modal-dialog [data-fn="ADDRESS"]').val('');
+
+            $('.modal-dialog').find("[data-field=UNIT_TYPE]").hide();
+            $('.modal-dialog').find("[data-field=CITY]").hide();
+            $('.modal-dialog').find("[data-field=DISTRICT]").hide();
+            $('.modal-dialog').find("[data-field=ADDRESS]").hide();
+        }
+    }
 })
