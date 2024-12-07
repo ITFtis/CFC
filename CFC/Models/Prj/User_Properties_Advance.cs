@@ -104,13 +104,15 @@ namespace CFC.Models.Prj
         public string Email { get; set; }
 
         /// <summary>
-        /// 1.非製造業,其它製造業(ex.2,3,...99等)
+        /// 1.非製造業,其它製造業(ex.2,3,...99等)  修改
         /// </summary>
         [Display(Name = "行業別")]
+        [ColumnDef(Visible = false, 
+                EditType = EditType.Select, SelectItemsClassNamespace = CFC.GetYNGlobal_IndustrialSelectItems.AssemblyQualifiedName)]        
         public string IndustrialTypeId { get; set; }
 
         /// <summary>
-        /// 行業別名稱(1.非製造業,其它製造業)
+        /// 行業別名稱(1.非製造業,其它製造業)  清單顯示
         /// </summary>
         [Display(Name = "行業別")]
         [ColumnDef(VisibleEdit = false)]
@@ -144,12 +146,15 @@ namespace CFC.Models.Prj
         /// </summary>
 
         [Display(Name = "工商登記編號")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string IndustryId { get; set; }
 
         [Display(Name = "縣市別")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string CountyId { get; set; }
 
         [Display(Name = "工業園區")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string IndustrialAreaId { get; set; }
      
         /// <summary>
