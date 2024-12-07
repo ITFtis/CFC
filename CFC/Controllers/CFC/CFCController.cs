@@ -378,6 +378,7 @@ namespace CFC.Controllers.CFC
                     this.db.SysCompany.Add(newCompany);
                     
                 }
+                SYS_COMPANYNameSelectItems.Reset();
 
                 //製造業才有1對多個工廠的關係
                 if (user.Manufacturing == "Manufacturing")
@@ -409,6 +410,8 @@ namespace CFC.Controllers.CFC
                             f.UId = user.Id;
                             f.UDate = DateFormat.ToDate4(DateTime.Now);
                         }
+
+                        SYS_FACTORY.ResetGetAllDatas();
 
                         //會員與工廠的關聯
                         G_USER_FACTORY uf = new G_USER_FACTORY();

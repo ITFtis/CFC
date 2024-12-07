@@ -38,53 +38,48 @@ namespace CFC.Models.Prj
         public string Pass { get; set; }
 
         /// <summary>
-        /// 顯示公司名稱(存 統一編號)
+        /// 統一編號(顯示公司名稱)
         /// </summary>
         [Display(Name = "公司名稱")]
         [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = CFC.Models.Prj.SYS_COMPANYNameSelectItems.AssemblyQualifiedName)]
         //[ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string UniformNumber { get; set; }
 
-        /////// <summary>
-        /////// 公司名稱
-        /////// </summary>
-        ////[Display(Name = "公司名稱")]        
-        //////[ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
-        ////public string YName { 
-        ////    get
-        ////    {
-        ////        string str = "";
-        ////        var com = SYS_COMPANYSelectNameItems.SysCompany.Where(a => a.COMP_UNIFORM_NUMBER == this.UniformNumber).FirstOrDefault();
-        ////        if (com != null)
-        ////            str = com.COMP_NAME;
-
-        ////        return str;
-        ////    }
-            
-        ////}
+        [Display(Name = "統一編號")]
+        public string UniformNumberNo
+        {
+            get { return this.UniformNumber; }
+        }
 
         /// <summary>
-        /// 公司名稱 (不要用，舊錯誤資料，加在User_Properties_Advance欄位)
+        /// 公司名稱(舊欄位)
         /// </summary>
         [Display(Name = "公司名稱")]
         [ColumnDef(Visible = false, VisibleEdit = false)]
-        public string Name {
-            get { return _Name; }
-            set
-            {
-                string str = "";
-                var com = SYS_COMPANYNameSelectItems.SysCompanys.Where(a => a.COMP_UNIFORM_NUMBER == this.UniformNumber).FirstOrDefault();
-                if (com != null)
-                    str = com.COMP_NAME;
-
-                _Name = str;
-            }
-        }
+        public string Name { get; set; }
 
         /// <summary>
         /// 公司規模
         /// </summary>
         [Display(Name = "公司規模")]
+        public string CompanySizeNew
+        {
+            get
+            {
+                string str = "";
+                var com = SYS_COMPANYNameSelectItems.SysCompanys.Where(a => a.COMP_UNIFORM_NUMBER == this.UniformNumber).FirstOrDefault();
+                if (com != null)
+                    str = com.COMP_SIZE;
+
+                return str;
+            }
+        }
+
+        /// <summary>
+        /// 公司規模(舊欄位)
+        /// </summary>
+        [Display(Name = "公司規模")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
         public string CompanySize { get; set; }
 
         /// <summary>
