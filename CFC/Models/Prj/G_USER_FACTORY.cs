@@ -24,7 +24,7 @@ namespace CFC.Models.Prj
         public int IDX { get; set; }
 
         [Display(Name = "會員帳號")]
-        //[ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
+        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string USER_ID { get; set; }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace CFC.Models.Prj
         public int FACTORY_ID { get; set; }
 
         [Display(Name = "工廠名稱")]
-        [ColumnDef(Visible = true, VisibleEdit = true)]
+        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string FACTORY_NAME { get; set; }
 
         [Display(Name = "登記證")]

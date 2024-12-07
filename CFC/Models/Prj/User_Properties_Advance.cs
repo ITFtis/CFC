@@ -26,15 +26,15 @@ namespace CFC.Models.Prj
         /// 統一編號
         /// </summary>
         [Key]
-        [Display(Name = "登入帳號", Order = 0)]
-        //[ColumnDef(Visible = false)]
+        [Display(Name = "帳號", Order = 0)]        
+        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string Id { get; set; }
 
         /// <summary>
         /// 登入密碼
         /// </summary>
-        [Display(Name = "登入密碼", Order = 1)]
-        [ColumnDef(Visible = true , VisibleEdit =true)]
+        [Display(Name = "密碼", Order = 1)]
+        [ColumnDef(Visible = true , VisibleEdit = true)]
         public string Pass { get; set; }
 
         /// <summary>
@@ -86,22 +86,18 @@ namespace CFC.Models.Prj
         /// </summary>
 
         [Display(Name = "工商登記編號")]
-        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string IndustryId { get; set; }
 
         [Display(Name = "縣市別")]
-        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string CountyId { get; set; }
 
         [Display(Name = "工業園區")]
-        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string IndustrialAreaId { get; set; }
 
         /// <summary>
         /// 1.非製造業,其它製造業(ex.2,3,...99等)
         /// </summary>
-        [Display(Name = "行業別")]
-        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
+        [Display(Name = "行業別")]        
         public string IndustrialTypeId { get; set; }
 
         /// <summary>
