@@ -68,7 +68,7 @@ namespace CFC.Controllers.Prj
                 result = result.Where(a => a.CompanySizeNew.Contains(companySizeNew));
             }
 
-            int n = result.Count();
+            ////int n = result.Count();
 
             return result;
         }

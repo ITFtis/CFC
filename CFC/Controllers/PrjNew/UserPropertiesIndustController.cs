@@ -32,6 +32,14 @@ namespace CFC.Controllers.PrjNew
 
             //製造業會員
             result = result.Where(a => a.IndustrialTypeId != "1");
+            
+            var filterFACTORYName = KeyValue.GetFilterParaValue(paras, "FilterFACTORYName");
+            if (!string.IsNullOrEmpty(filterFACTORYName))
+            {
+                result = result.Where(a => a.FilterFACTORYName.Contains(filterFACTORYName));
+            }
+
+            ////int n = result.Count();
 
             return result;
         }

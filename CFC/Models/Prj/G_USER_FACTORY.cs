@@ -54,7 +54,7 @@ namespace CFC.Models.Prj
         /// </summary>
         [Display(Name = "工廠地址")]
         [ColumnDef(VisibleEdit = false)]
-        public string FACTORY_NAME
+        public string FACTORY_ADDR
         {
             get
             {
@@ -154,6 +154,25 @@ namespace CFC.Models.Prj
 
                 return str;
             }  
+        }
+
+        [Display(Name = "工廠名稱")]        
+        [ColumnDef(Visible = false, VisibleEdit = false, 
+                Filter = true, FilterAssign = FilterAssignType.Contains)]        
+        public string FilterFACTORYName
+        { 
+            get
+            {
+                string str = "";
+                var u = SYS_FACTORY.GetAllDatas().Where(a => a.FACTORY_REGISTRATION == this.FACTORY_REGISTRATION).FirstOrDefault();
+                if (u != null)
+                {
+                    str = u.FACTORY_NAME;
+                }
+
+
+                return str;
+            }
         }
     }
 }
