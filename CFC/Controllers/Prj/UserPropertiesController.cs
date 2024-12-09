@@ -32,23 +32,26 @@ namespace CFC.Controllers.Prj
         {
             var result = base.GetDataDBObject(dbEntity, paras);
 
-            var IndustrialTypeName = KeyValue.GetFilterParaValue(paras, "IndustrialTypeName");
+            var industrialTypeName = KeyValue.GetFilterParaValue(paras, "IndustrialTypeName");
+            var filterName = KeyValue.GetFilterParaValue(paras, "FilterName");
 
             //行業別條件
-            if (IndustrialTypeName != null)
+            if (!string.IsNullOrEmpty(industrialTypeName))
             {
-                if (IndustrialTypeName == "")
-                {
-                    //全部
-                }
-                else if (IndustrialTypeName == "1")
+                if (industrialTypeName == "1")
                 {
                     result = result.Where(a => a.IndustrialTypeId == "1");
                 }
-                else if (IndustrialTypeName != "1")
+                else if (industrialTypeName != "1")
                 {
                     result = result.Where(a => a.IndustrialTypeId != "1");
                 }
+            }
+
+            //公司名稱
+            if (!string.IsNullOrEmpty(filterName))
+            {
+                result = result.Where(a => a.FilterName.Contains(filterName));
             }
 
             int n = result.Count();

@@ -162,7 +162,25 @@ namespace CFC.Models.Prj
         [Display(Name = "工業園區")]
         [ColumnDef(Visible = false, VisibleEdit = false)]
         public string IndustrialAreaId { get; set; }
-     
+
+        /// <summary>
+        /// 篩選：公司名稱
+        /// </summary>
+        [Display(Name = "公司名稱")]
+        [ColumnDef(Visible = false, VisibleEdit = false,
+                Filter = true, FilterAssign = FilterAssignType.Contains)]
+        public string FilterName { 
+            get
+            {
+                string str = "";
+                var com = SYS_COMPANYNameSelectItems.SysCompanys.Where(a => a.COMP_UNIFORM_NUMBER == this.UniformNumber).FirstOrDefault();
+                if (com != null)
+                    str = com.COMP_NAME;
+
+                return str;
+            }
+        }
+
         /// <summary>
         /// xxx
         /// </summary>
