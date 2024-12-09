@@ -28,6 +28,34 @@ namespace CFC.Controllers.Prj
             return new Dou.Models.DB.ModelEntity<User_Properties_Advance>(new DouModelContext());
         }
 
+        protected override IEnumerable<User_Properties_Advance> GetDataDBObject(IModelEntity<User_Properties_Advance> dbEntity, params KeyValueParams[] paras)
+        {
+            var result = base.GetDataDBObject(dbEntity, paras);
+
+            var IndustrialTypeName = KeyValue.GetFilterParaValue(paras, "IndustrialTypeName");
+
+            //行業別條件
+            if (IndustrialTypeName != null)
+            {
+                if (IndustrialTypeName == "")
+                {
+                    //全部
+                }
+                else if (IndustrialTypeName == "1")
+                {
+                    result = result.Where(a => a.IndustrialTypeId == "1");
+                }
+                else if (IndustrialTypeName != "1")
+                {
+                    result = result.Where(a => a.IndustrialTypeId != "1");
+                }
+            }
+
+            int n = result.Count();
+
+            return result;
+        }
+
         protected override void AddDBObject(IModelEntity<User_Properties_Advance> dbEntity, IEnumerable<User_Properties_Advance> objs)
         {
             var f = objs.First();

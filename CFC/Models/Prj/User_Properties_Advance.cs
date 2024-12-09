@@ -117,7 +117,8 @@ namespace CFC.Models.Prj
         /// 行業別名稱(1.非製造業,其它製造業)  清單顯示
         /// </summary>
         [Display(Name = "行業別")]
-        [ColumnDef(VisibleEdit = false)]
+        [ColumnDef(VisibleEdit = false,
+                Filter = true, EditType = EditType.Select, SelectItemsClassNamespace = CFC.GetYNGlobal_IndustrialSelectItems.AssemblyQualifiedName)]
         public string IndustrialTypeName
         {
             get
