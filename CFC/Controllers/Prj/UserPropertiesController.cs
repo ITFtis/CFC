@@ -33,6 +33,8 @@ namespace CFC.Controllers.Prj
             var result = base.GetDataDBObject(dbEntity, paras);
 
             var industrialTypeName = KeyValue.GetFilterParaValue(paras, "IndustrialTypeName");
+            var uniformNumberNo = KeyValue.GetFilterParaValue(paras, "UniformNumberNo");
+            var companySizeNew = KeyValue.GetFilterParaValue(paras, "CompanySizeNew");
             var filterName = KeyValue.GetFilterParaValue(paras, "FilterName");
 
             //行業別條件
@@ -52,6 +54,18 @@ namespace CFC.Controllers.Prj
             if (!string.IsNullOrEmpty(filterName))
             {
                 result = result.Where(a => a.FilterName.Contains(filterName));
+            }
+
+            //統一編號
+            if (!string.IsNullOrEmpty(uniformNumberNo))
+            {
+                result = result.Where(a => a.UniformNumber.Contains(uniformNumberNo));
+            }
+
+            //公司規模
+            if (!string.IsNullOrEmpty(companySizeNew))
+            {
+                result = result.Where(a => a.CompanySizeNew.Contains(companySizeNew));
             }
 
             int n = result.Count();

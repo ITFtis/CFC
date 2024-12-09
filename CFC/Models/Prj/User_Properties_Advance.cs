@@ -46,6 +46,7 @@ namespace CFC.Models.Prj
         public string UniformNumber { get; set; }
 
         [Display(Name = "統一編號")]
+        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string UniformNumberNo
         {
             get { return this.UniformNumber; }
@@ -62,6 +63,7 @@ namespace CFC.Models.Prj
         /// 公司規模
         /// </summary>
         [Display(Name = "公司規模")]
+        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string CompanySizeNew
         {
             get
