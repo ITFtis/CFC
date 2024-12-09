@@ -1,2 +1,14 @@
 --使用次數查詢
 --1.新增資料表(Log_count)
+CREATE TABLE [dbo].[Log_count](
+	[Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Type] [int] NOT NULL,
+	[MapId] [int] NULL,
+	[BDate] [datetime] NULL,
+	[BId] [nvarchar](50) NULL,
+ CONSTRAINT [PK_LogCount] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
