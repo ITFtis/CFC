@@ -333,6 +333,11 @@ namespace CFC.Controllers.CFC
             //若是製造業, 要檢查工廠登記證是不是都是數字或字母
             if (user.Manufacturing == "Manufacturing")
             {
+                if (user.FactoryList == null || user.FactoryList.Count == 0)
+                {
+                    errorMes.Append("製造業會員必須填寫工廠資料<br/>");
+                }
+
                 if (user.FactoryList != null)
                 {
                     for (int i = 0; i < user.FactoryList.Count; i++)
