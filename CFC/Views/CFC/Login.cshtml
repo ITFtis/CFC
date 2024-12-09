@@ -674,6 +674,12 @@
             let factoryRegs = new Set(); // 用來儲存已出現過的登記證
 
             for (let i = 1; i <= numFactories; i++) {
+
+                if (document.getElementById('factoryReg' + i) == null) {
+                    alert('無法讀取工廠資料，請點選「產生工廠清單」：' + i.toString() + '筆');
+                    return false;  // 停止函數的執行，程式不再繼續
+                }
+
                 let factoryReg = document.getElementById('factoryReg' + i).value;  // 取得登記證
 
                 // 檢查是否已經存在於 Set 中
