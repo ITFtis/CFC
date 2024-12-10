@@ -80,6 +80,7 @@ namespace CFC.Controllers.PrjNew
             opts.GetFiled("UserID").visible = true;
             opts.GetFiled("StartDate_F").visible = true;
             opts.GetFiled("EndDate_F").visible = true;
+            opts.GetFiled("ProjectName").visible = true;
 
             opts.GetFiled("UserID").filter = true;
             opts.GetFiled("FilterStartS").filter = true;

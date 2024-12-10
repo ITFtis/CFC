@@ -39,7 +39,14 @@ namespace CFC.Models.Prj
         {
             get
             {
-                return new DouModelContext().userPropertiesAdvance.Where(e => e.Id == this.UserID).FirstOrDefault().Name;
+                string str = "";
+                var v = User_Properties_Advance.GetAllDatas().Where(e => e.Id == this.UserID).FirstOrDefault();
+                if (v != null)
+                    str = v.Name;
+
+                return str;
+
+                //return new DouModelContext().userPropertiesAdvance.Where(e => e.Id == this.UserID).FirstOrDefault().Name;
             }
             set
             {
@@ -69,6 +76,9 @@ namespace CFC.Models.Prj
 
         [Display(Name = "工廠登記證")]
         public string FACTORY_REGISTRATION { get; set; }
+
+        [Display(Name = "專案名稱")]
+        public string ProjectName { get; set; }//專案名稱
 
         [Display(Name = "區間開始日期")]
         public string StartDate { get; set; }
@@ -166,7 +176,7 @@ namespace CFC.Models.Prj
 
         // 專案需求
         public bool IsSave { get; set; }// 是否儲存為專案
-        public string ProjectName { get; set; }//專案名稱
+        
         public string ProjectIndustrialID { get; set; }//專案場登
         public string ProjectAddress { get; set; }//專案地址
         public string ProjectCity { get; set; }//專案縣市
