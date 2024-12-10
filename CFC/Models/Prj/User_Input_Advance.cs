@@ -31,6 +31,7 @@ namespace CFC.Models.Prj
         /// 使用者編號
         /// </summary>
         [Display(Name = "使用者編號")]
+        [ColumnDef(FilterAssign = FilterAssignType.Contains)]
         public string UserID { get; set; }
 
         [NotMapped]

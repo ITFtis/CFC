@@ -34,7 +34,9 @@ namespace CFC.Controllers.PrjNew
             var filterStartS = KeyValue.GetFilterParaValue(paras, "FilterStartS");
             var filterStartE = KeyValue.GetFilterParaValue(paras, "FilterStartE");
 
-            //
+            //有儲存專案
+            iquery = iquery.Where(a => a.IsSave);
+            
             if (!string.IsNullOrEmpty(filterStartS))
             {
                 var e = iquery.AsEnumerable();
@@ -79,6 +81,7 @@ namespace CFC.Controllers.PrjNew
             opts.GetFiled("StartDate_F").visible = true;
             opts.GetFiled("EndDate_F").visible = true;
 
+            opts.GetFiled("UserID").filter = true;
             opts.GetFiled("FilterStartS").filter = true;
             opts.GetFiled("FilterStartE").filter = true;
 
