@@ -1,6 +1,10 @@
-﻿using Dou.Controllers;
+﻿using CFC.Models;
+using CFC.Models.Prj;
+using Dou.Controllers;
+using Dou.Misc;
 using Dou.Misc.Attr;
 using Dou.Models.DB;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,8 +14,8 @@ using System.Web.Mvc;
 
 namespace CFC.Controllers.PrjNew
 {
-    [Dou.Misc.Attr.MenuDef(Id = "UserInputProject", Name = "專案盤查清冊檔案下載", MenuPath = "管理", Action = "Index", Index = 2, Func = Dou.Misc.Attr.FuncEnum.Update, AllowAnonymous = false)]
-    public class UserInputProjectController : AGenericModelController<vwe_UserInputProject>
+    [Dou.Misc.Attr.MenuDef(Id = "UserInputProject", Name = "專案盤查清冊檔案下載", MenuPath = "管理", Action = "Index", Index = 2, Func = Dou.Misc.Attr.FuncEnum.None, AllowAnonymous = false)]
+    public class UserInputProjectController : APaginationModelController<User_Input_Advance>
     {
         // GET: UserInputProject
         public ActionResult Index()
@@ -20,35 +24,67 @@ namespace CFC.Controllers.PrjNew
         }
 
 
-        protected override Dou.Models.DB.IModelEntity<vwe_UserInputProject> GetModelEntity()
+        protected override Dou.Models.DB.IModelEntity<User_Input_Advance> GetModelEntity()
         {
-            return null;
+            return new Dou.Models.DB.ModelEntity<User_Input_Advance>(new DouModelContext());
         }
 
-
-        protected override IEnumerable<vwe_UserInputProject> GetDataDBObject(IModelEntity<vwe_UserInputProject> dbEntity, params KeyValueParams[] paras)
+        protected override IQueryable<User_Input_Advance> BeforeIQueryToPagedList(IQueryable<User_Input_Advance> iquery, params KeyValueParams[] paras)
         {
-            return new List<vwe_UserInputProject>().AsEnumerable();
+            var filterStartS = KeyValue.GetFilterParaValue(paras, "FilterStartS");
+            var filterStartE = KeyValue.GetFilterParaValue(paras, "FilterStartE");
 
-            ////return base.GetDataDBObject(dbEntity, paras);
+            //
+            if (!string.IsNullOrEmpty(filterStartS))
+            {
+                var e = iquery.AsEnumerable();
+                DateTime date = DateTime.Parse(filterStartS);
+                e = e.Where(a => a.FilterStartS != DateTime.MinValue);
+                e = e.Where(a => a.FilterStartS >= date);
+                iquery = e.AsQueryable();
+            }
+            if (!string.IsNullOrEmpty(filterStartE))
+            {
+                var e = iquery.AsEnumerable();
+                DateTime date = DateTime.Parse(filterStartE);
+                e = e.Where(a => a.FilterStartE != DateTime.MinValue);
+                e = e.Where(a => a.FilterStartE <= date);
+                iquery = e.AsQueryable();
+            }
+
+            try
+            {
+                var aaa = iquery.ToList();
+            }
+            catch (Exception ex)
+            {
+                string str = ex.Message;
+            }
+
+            return base.BeforeIQueryToPagedList(iquery, paras);
         }
-    }
 
-    public class vwe_UserInputProject
-    {
-        [Display(Name = "使用者帳號")]
-        [ColumnDef(Visible = true, VisibleEdit = false)]
-        public string UserID { get; set; }
+        public override DataManagerOptions GetDataManagerOptions()
+        {
+            var opts = base.GetDataManagerOptions();
 
-        [Required]
-        [Display(Name = "區間開始日期")]
-        [ColumnDef(VisibleEdit = false)]
-        public string StartDate { get; set; }
+            //全部欄位排序
+            foreach (var field in opts.fields)
+            {
+                field.visible = false;
+                field.filter = false;
+            }
 
-        [Required]
-        [Display(Name = "區間結束日期")]
-        [ColumnDef(VisibleEdit = false)]
-        public string EndDate { get; set; }
+            opts.GetFiled("UserID").visible = true;
+            opts.GetFiled("StartDate_F").visible = true;
+            opts.GetFiled("EndDate_F").visible = true;
+
+            opts.GetFiled("FilterStartS").filter = true;
+            opts.GetFiled("FilterStartE").filter = true;
+
+            return opts;
+        }
+
 
     }
 }

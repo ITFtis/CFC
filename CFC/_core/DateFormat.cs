@@ -525,6 +525,35 @@ namespace CFC
             return result;
         }
 
+        public static DateTime ToDate14_2(string date)
+        {
+            DateTime result = DateTime.MinValue;
+
+            if (date == null)
+            {
+                return result;
+            }   
+
+            try
+            {
+                string y = date.Substring(0, 4);
+                string m = date.Substring(4, 2);
+                string d = date.Substring(6, 2);
+
+                DateTime t = DateTime.MinValue;
+                if (DateTime.TryParse(y + "/" + m + "/" + d, out t))
+                {
+                    result = t;
+                }
+            }
+            catch (Exception ex)
+            {
+                return result;
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// 西元轉民國：2004-12-20 00:00:00.000 => 091/01/01
         /// </summary>

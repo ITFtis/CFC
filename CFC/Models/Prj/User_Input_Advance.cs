@@ -9,6 +9,7 @@
 
 namespace CFC.Models.Prj
 {
+    using Dou.Misc.Attr;
     using DouHelper;
     using System;
     using System.Collections.Generic;
@@ -89,6 +90,28 @@ namespace CFC.Models.Prj
             get
             {
                 return DateFormat.ToDate14(this.EndDate);
+            }
+        }
+
+        //虛擬欄位
+        [Display(Name = "篩選開始日期(起)")]
+        [ColumnDef(Visible = false, VisibleEdit = false, EditType = EditType.Date)]
+        public DateTime FilterStartS
+        {
+            get
+            {
+                return DateFormat.ToDate14_2(this.StartDate);
+            }
+        }
+
+        //虛擬欄位
+        [Display(Name = "區間結束日期")]
+        [ColumnDef(Visible = false, VisibleEdit = false, EditType = EditType.Date)]
+        public DateTime FilterStartE
+        {
+            get
+            {
+                return DateFormat.ToDate14_2(this.StartDate);
             }
         }
 
