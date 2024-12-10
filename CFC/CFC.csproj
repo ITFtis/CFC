@@ -221,6 +221,7 @@
     <Compile Include="Controllers\PrjNew\TownController.cs" />
     <Compile Include="Controllers\PrjNew\UserCalController.cs" />
     <Compile Include="Controllers\PrjNew\UserInputCalController.cs" />
+    <Compile Include="Controllers\PrjNew\UserInputProjectController.cs" />
     <Compile Include="Controllers\PrjNew\UserPropertiesIndustController.cs" />
     <Compile Include="Controllers\Prj\CalsPropertiesController.cs" />
     <Compile Include="Controllers\Prj\CalsTypeController.cs" />
@@ -1563,6 +1564,7 @@
     <Content Include="Scripts\prj\cfc_n.js" />
     <Content Include="Scripts\prj\Cv.js" />
     <Content Include="Scripts\prj\SysContent.js" />
+    <Content Include="Scripts\prj\UserInputProject.js" />
     <Content Include="Scripts\prj\UserProperties.js" />
     <Content Include="Scripts\README.md" />
     <Content Include="Scripts\src\index.js" />
@@ -1703,6 +1705,7 @@
     <Content Include="Views\City\Index.cshtml" />
     <Content Include="Views\Town\Index.cshtml" />
     <Content Include="Views\UserPropertiesIndust\Index.cshtml" />
+    <Content Include="Views\UserInputProject\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

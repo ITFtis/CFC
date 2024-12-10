@@ -15,7 +15,7 @@ using System.Web.Mvc;
 
 namespace CFC.Controllers.PrjNew
 {
-    [Dou.Misc.Attr.MenuDef(Id = "UserInputCal", Name = "會員計算紀錄明細", MenuPath = "管理", Action = "Index", Index = 2, Func = Dou.Misc.Attr.FuncEnum.Update, AllowAnonymous = false)]
+    [Dou.Misc.Attr.MenuDef(Id = "UserInputCal", Name = "會員計算紀錄明細", MenuPath = "管理", Action = "Index", Index = 3, Func = Dou.Misc.Attr.FuncEnum.Update, AllowAnonymous = false)]
     public class UserInputCalController : AGenericModelController<UserInputCalList>
     {
         // GET: UserInputCal
