@@ -126,6 +126,40 @@ namespace CFC.Models.Prj
             }
         }
 
+        //虛擬欄位
+        [Display(Name = "行業別")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public string IndustrialTypeId
+        {
+            get
+            {
+                string str = "";
+
+                var v = User_Properties_Advance.GetAllDatas().Where(a => a.Id == this.UserID).FirstOrDefault();
+                if (v != null)
+                    str = v.IndustrialTypeId;
+
+                return str;
+            }
+        }
+
+        //虛擬欄位
+        [Display(Name = "行業別名稱")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public string IndustrialTypeName
+        {
+            get
+            {
+                string str = "";
+
+                var v = User_Properties_Advance.GetAllDatas().Where(a => a.Id == this.UserID).FirstOrDefault();
+                if (v != null)
+                    str = v.IndustrialTypeName;
+
+                return str;
+            }
+        }
+
         [Display(Name = "建檔日")]
         public string BDate { get; set; }
 

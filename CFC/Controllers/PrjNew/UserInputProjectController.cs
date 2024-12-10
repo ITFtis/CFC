@@ -36,7 +36,8 @@ namespace CFC.Controllers.PrjNew
 
             //有儲存專案
             iquery = iquery.Where(a => a.IsSave);
-            
+            iquery = iquery.Where(a => a.UserID != "查無此紀錄");
+
             if (!string.IsNullOrEmpty(filterStartS))
             {
                 var e = iquery.AsEnumerable();
@@ -51,6 +52,13 @@ namespace CFC.Controllers.PrjNew
                 DateTime date = DateTime.Parse(filterStartE);
                 e = e.Where(a => a.FilterStartE != DateTime.MinValue);
                 e = e.Where(a => a.FilterStartE <= date);
+                iquery = e.AsQueryable();
+            }
+
+            if (1 == 1)
+            {
+                var e = iquery.AsEnumerable();
+                e = e.Where(a => a.IndustrialTypeId != "1");
                 iquery = e.AsQueryable();
             }
 
@@ -81,6 +89,7 @@ namespace CFC.Controllers.PrjNew
             opts.GetFiled("StartDate_F").visible = true;
             opts.GetFiled("EndDate_F").visible = true;
             opts.GetFiled("ProjectName").visible = true;
+            opts.GetFiled("IndustrialTypeName").visible = true;
 
             opts.GetFiled("UserID").filter = true;
             opts.GetFiled("FilterStartS").filter = true;
