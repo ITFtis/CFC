@@ -295,6 +295,7 @@
     <Compile Include="_core\Constant.cs" />
     <Compile Include="_core\DateFormat.cs" />
     <Compile Include="_core\ODFHelper.cs" />
+    <Compile Include="_report\Rpt_ProjectList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\Log4netConfig.xml" />

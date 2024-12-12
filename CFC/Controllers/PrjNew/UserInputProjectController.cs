@@ -103,12 +103,10 @@ namespace CFC.Controllers.PrjNew
             return opts;
         }
 
-        //產出清冊
+        //產出專案清冊
         public ActionResult ExportProjectList()
         {
-            //Rpt_EmpPPtNew rep = new Rpt_EmpPPtNew();
-            //string url = rep.Export(Fnos, ".docx");
-
+            //Valid
             var sessionList = Dou.Help.DouUnobtrusiveSession.Session["SessionList"];
             if (sessionList == null)
             {
@@ -121,21 +119,17 @@ namespace CFC.Controllers.PrjNew
                 return Json(new { result = false, errorMessage = "清單無資料" });
             }
 
-            string url = "";
-
-            url = "123";
+            Rpt_ProjectList rep = new Rpt_ProjectList();
+            string url = rep.Export(datas);
 
             if (url == "")
-            {
-                return Json(new { result = false, errorMessage = "測試錯誤了11" }, JsonRequestBehavior.AllowGet);
-                //return Json(new { result = false, errorMessage = rep.ErrorMessage }, JsonRequestBehavior.AllowGet);
+            {                
+                return Json(new { result = false, errorMessage = rep.ErrorMessage }, JsonRequestBehavior.AllowGet);
             }
             else
             {
                 return Json(new { result = true, url = url }, JsonRequestBehavior.AllowGet);
             }
-
-            ////return Json(new { result = true }, JsonRequestBehavior.AllowGet);
         }
     }
 }
