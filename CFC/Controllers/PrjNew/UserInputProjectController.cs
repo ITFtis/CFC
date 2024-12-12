@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Http.Results;
 using System.Web.Mvc;
 
 namespace CFC.Controllers.PrjNew
@@ -31,6 +32,8 @@ namespace CFC.Controllers.PrjNew
 
         protected override IQueryable<User_Input_Advance> BeforeIQueryToPagedList(IQueryable<User_Input_Advance> iquery, params KeyValueParams[] paras)
         {
+            Dou.Help.DouUnobtrusiveSession.Session.Remove("SessionList");
+
             var filterStartS = KeyValue.GetFilterParaValue(paras, "FilterStartS");
             var filterStartE = KeyValue.GetFilterParaValue(paras, "FilterStartE");
 
@@ -71,6 +74,8 @@ namespace CFC.Controllers.PrjNew
                 string str = ex.Message;
             }
 
+            Dou.Help.DouUnobtrusiveSession.Session.Add("SessionList", iquery.ToList());
+
             return base.BeforeIQueryToPagedList(iquery, paras);
         }
 
@@ -103,6 +108,18 @@ namespace CFC.Controllers.PrjNew
         {
             //Rpt_EmpPPtNew rep = new Rpt_EmpPPtNew();
             //string url = rep.Export(Fnos, ".docx");
+
+            var sessionList = Dou.Help.DouUnobtrusiveSession.Session["SessionList"];
+            if (sessionList == null)
+            {
+                return Json(new { result = false, errorMessage = "session(sessionList)：null，請通知系統管理者" });
+            }
+
+            List<User_Input_Advance> datas = (List<User_Input_Advance>)sessionList;
+            if (datas.Count == 0)
+            {
+                return Json(new { result = false, errorMessage = "清單無資料" });
+            }
 
             string url = "";
 
