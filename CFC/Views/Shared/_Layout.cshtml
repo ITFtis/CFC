@@ -7,6 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>中小企業碳盤查計算機</title>
     <link rel="SHORTCUT ICON" href="~/images/logo.png" data-logo />
+
+    <script>
+     window.app = window.app || {};
+     app.siteRoot = "@Url.Content("~/")";
+    </script>
+
     @Styles.Render("~/Content/css_dou")
     @Styles.Render("~/Scripts/gis/b3/dou/css")
     @Styles.Render("~/Content/css/site")
@@ -26,15 +32,15 @@
             position: relative;
         }
 
-        .nav .dropdown-submenu > .dropdown-menu {
-            top: 0;
-            left: 100%;
-            margin-top: -6px;
-            margin-left: -1px;
-            -webkit-border-radius: 0 6px 6px 6px;
-            -moz-border-radius: 0 6px 6px 6px;
-            border-radius: 0 6px 6px 6px;
-        }
+            .nav .dropdown-submenu > .dropdown-menu {
+                top: 0;
+                left: 100%;
+                margin-top: -6px;
+                margin-left: -1px;
+                -webkit-border-radius: 0 6px 6px 6px;
+                -moz-border-radius: 0 6px 6px 6px;
+                border-radius: 0 6px 6px 6px;
+            }
 
         .dropdown-submenu:hover > .dropdown-menu {
             display: block;

@@ -98,6 +98,27 @@ namespace CFC.Controllers.PrjNew
             return opts;
         }
 
+        //產出清冊
+        public ActionResult ExportProjectList()
+        {
+            //Rpt_EmpPPtNew rep = new Rpt_EmpPPtNew();
+            //string url = rep.Export(Fnos, ".docx");
 
+            string url = "";
+
+            url = "123";
+
+            if (url == "")
+            {
+                return Json(new { result = false, errorMessage = "測試錯誤了11" }, JsonRequestBehavior.AllowGet);
+                //return Json(new { result = false, errorMessage = rep.ErrorMessage }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { result = true, url = url }, JsonRequestBehavior.AllowGet);
+            }
+
+            ////return Json(new { result = true }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
