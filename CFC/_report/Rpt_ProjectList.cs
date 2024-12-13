@@ -48,7 +48,7 @@ namespace CFC
             {
                 int n = 0;
 
-                var f = datas.First();
+                //var f = datas.First();
 
                 //指定儲存資料夾路徑(清冊匯出作業區)
                 string epFolder = WebConfigurationManager.AppSettings["FileRoot"].ToString() + "File/ExcelCreater/tempFolder/epFolder/";
@@ -57,20 +57,38 @@ namespace CFC
                     Directory.CreateDirectory(epFolder);
                 }
 
+                //1.刪除非今日.zip
+
                 //指定儲存資料夾路徑
                 DateTime date = DateTime.Now;
-                string to_folder = epFolder + DateFormat.ToDate15(date) + "_" + f.UserID + "/";
+                string to_folder = epFolder + DateFormat.ToDate15(date) + "_" + Dou.Context.CurrentUser<User>().Id + "/";
                 if (!Directory.Exists(to_folder))
                 {
                     Directory.CreateDirectory(to_folder);
                 }
 
-                Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f);
-
-                if (result.isSucess)
-                {
-                    url = result.fileAdd;
+                //2.清冊ListFolder (to_folder目錄下全部)
+                int aaa = 0;
+                foreach (var f in datas)
+                {                    
+                    Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f);
+                    aaa++;
+                    if (aaa == 2)
+                        break;
                 }
+
+                //3.壓縮(.zip)
+
+                //4.刪除ListFolder
+
+                //5.回傳zip路徑
+
+                url = "sssss";
+
+                //if (result.isSucess)
+                //{
+                //    url = result.fileAdd;
+                //}
             }
             catch (Exception ex)
             {
