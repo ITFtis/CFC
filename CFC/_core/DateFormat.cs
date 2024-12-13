@@ -555,6 +555,31 @@ namespace CFC
         }
 
         /// <summary>
+        /// yyyy-MM-dd_HHmmss
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static string ToDate15(object date)
+        {
+            string result = "";
+
+            if (date == null)
+                return "";
+
+            try
+            {
+                DateTime dd = DateTime.Parse(date.ToString());
+                result = string.Format("{0:yyyy-MM-dd_HHmmss}", dd);
+            }
+            catch
+            {
+                return null;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// 西元轉民國：2004-12-20 00:00:00.000 => 091/01/01
         /// </summary>
         /// <param name="date"></param>

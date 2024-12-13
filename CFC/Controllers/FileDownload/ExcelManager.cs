@@ -127,7 +127,8 @@ namespace CFC.Controllers.FileDownload
                 String temptFileAdd = WebConfigurationManager.AppSettings["ExcelTemplate"].ToString();
 
                 // 取得工作目錄
-                String newTemptFolder = WebConfigurationManager.AppSettings["ExcelFolder"].ToString();
+                //String newTemptFolder = WebConfigurationManager.AppSettings["ExcelFolder"].ToString();
+                String newTemptFolder = to_folder;
                 String newTemptAdd = getTemptFile(newTemptFolder, "xlsx");
 
                 // 複製到工作目錄中

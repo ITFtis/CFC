@@ -4,6 +4,7 @@ using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
@@ -49,8 +50,21 @@ namespace CFC
 
                 var f = datas.First();
 
+                //指定儲存資料夾路徑(清冊匯出作業區)
+                string epFolder = WebConfigurationManager.AppSettings["FileRoot"].ToString() + "File/ExcelCreater/tempFolder/epFolder/";
+                if (!Directory.Exists(epFolder))
+                {
+                    Directory.CreateDirectory(epFolder);
+                }
+
                 //指定儲存資料夾路徑
-                string to_folder = WebConfigurationManager.AppSettings["FileRoot"].ToString() + "File/ExcelCreater/tempFolder/";
+                DateTime date = DateTime.Now;
+                string to_folder = epFolder + DateFormat.ToDate15(date) + "_" + f.UserID + "/";
+                if (!Directory.Exists(to_folder))
+                {
+                    Directory.CreateDirectory(to_folder);
+                }
+
                 Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f);
 
                 if (result.isSucess)
