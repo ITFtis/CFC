@@ -31,11 +31,29 @@ namespace CFC
         {
             string url = "";
 
+            if (datas == null)
+            {
+                _errorMessage = "執行失敗(datas)：Null";
+                return "";
+            }
+            else if (datas.Count == 0)
+            {
+                _errorMessage = "執行失敗：無專案資料";
+                return "";
+            }
+
             try
             {
                 int n = 0;
 
-                url = "abc";
+                var f = datas.First();
+
+                Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(f.UserID, f.FACTORY_REGISTRATION, f);
+
+                if (result.isSucess)
+                {
+                    url = result.fileAdd;
+                }
             }
             catch (Exception ex)
             {

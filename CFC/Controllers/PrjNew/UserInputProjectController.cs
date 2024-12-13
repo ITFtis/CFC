@@ -58,21 +58,22 @@ namespace CFC.Controllers.PrjNew
                 iquery = e.AsQueryable();
             }
 
-            if (1 == 1)
-            {
-                var e = iquery.AsEnumerable();
-                e = e.Where(a => a.IndustrialTypeId != "1");
-                iquery = e.AsQueryable();
-            }
+            ////限定製造業
+            //if (1 == 1)
+            //{
+            //    var e = iquery.AsEnumerable();
+            //    e = e.Where(a => a.IndustrialTypeId != "1");
+            //    iquery = e.AsQueryable();
+            //}
 
-            try
-            {
-                var aaa = iquery.ToList();
-            }
-            catch (Exception ex)
-            {
-                string str = ex.Message;
-            }
+            ////try
+            ////{
+            ////    var aaa = iquery.ToList();
+            ////}
+            ////catch (Exception ex)
+            ////{
+            ////    string str = ex.Message;
+            ////}
 
             Dou.Help.DouUnobtrusiveSession.Session.Add("SessionList", iquery.ToList());
 

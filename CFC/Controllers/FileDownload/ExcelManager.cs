@@ -82,8 +82,14 @@ namespace CFC.Controllers.FileDownload
             return result;
         }
 
-
-        public ReturnModel DownloadExcel(SaveProjectModel saveProject) {
+        /// <summary>
+        /// 下載Excel
+        /// </summary>
+        /// <param name="saveProject"></param>
+        /// <returns></returns>
+        public ReturnModel DownloadExcel(SaveProjectModel saveProject)
+        {
+            ReturnModel result = new ReturnModel();
 
             try
             {
@@ -93,6 +99,27 @@ namespace CFC.Controllers.FileDownload
                 if (userInput == null)
                     return new ReturnModel { isSucess = false, fileAdd = "查無此紀錄" };
 
+                result = GetReportValExcel(saveProject.UserID, saveProject.FactoryRegistration, userInput);
+            }
+            catch (Exception ex)
+            {
+                Logger.Log.For(null).Error("執行錯誤：" + ex.Message);
+                Logger.Log.For(null).Error(ex.StackTrace);
+                return new ReturnModel { isSucess = false, fileAdd = ex.Message };
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 計算結果產出Excel資料
+        /// </summary>
+        /// <param name="userInput"></param>
+        /// <returns></returns>
+        public ReturnModel GetReportValExcel(string UserID, string FactoryRegistration, User_Input_Advance userInput) {
+
+            try
+            {
                 // 取得模板檔案
                 String temptFileAdd = WebConfigurationManager.AppSettings["ExcelTemplate"].ToString();
 
@@ -108,7 +135,7 @@ namespace CFC.Controllers.FileDownload
                 //取得工廠資料
                 var factory = db.SysFactory
                                 //.Where(f => f.FACTORY_REGISTRATION == "78699002")
-                                .Where(f => f.FACTORY_REGISTRATION == ((saveProject.FactoryRegistration == null) ? "NONE" : saveProject.FactoryRegistration))
+                                .Where(f => f.FACTORY_REGISTRATION == ((FactoryRegistration == null) ? "NONE" : FactoryRegistration))
                                 .Select(f => new
                                 {
                                     f.FACTORY_NAME,
@@ -140,7 +167,7 @@ namespace CFC.Controllers.FileDownload
 
                 //取得人員資料
                 var userInfo = db.userPropertiesAdvance
-                                .Where(f => f.Id == saveProject.UserID)
+                                .Where(f => f.Id == UserID)
                                 .Select(f => new
                                 {
                                     f.Id,

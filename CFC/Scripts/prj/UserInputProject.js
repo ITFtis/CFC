@@ -13,7 +13,7 @@
             type: "Post",
             success: function (data) {
                 if (data.result) {
-                    //location.href = app.siteRoot + data.url;
+                    //location.href = data.url;
                     alert("產出清冊成功");
                 } else {
                     alert("產出清冊失敗：\n" + data.errorMessage);
