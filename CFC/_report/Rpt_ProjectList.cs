@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Web;
+using System.Web.Configuration;
 
 namespace CFC
 {
@@ -48,7 +49,9 @@ namespace CFC
 
                 var f = datas.First();
 
-                Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(f.UserID, f.FACTORY_REGISTRATION, f);
+                //指定儲存資料夾路徑
+                string to_folder = WebConfigurationManager.AppSettings["FileRoot"].ToString() + "File/ExcelCreater/tempFolder/";
+                Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f);
 
                 if (result.isSucess)
                 {

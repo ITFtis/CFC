@@ -99,7 +99,9 @@ namespace CFC.Controllers.FileDownload
                 if (userInput == null)
                     return new ReturnModel { isSucess = false, fileAdd = "查無此紀錄" };
 
-                result = GetReportValExcel(saveProject.UserID, saveProject.FactoryRegistration, userInput);
+                //指定儲存資料夾路徑
+                string to_folder = WebConfigurationManager.AppSettings["FileRoot"].ToString() + "File/ExcelCreater/tempFolder/";
+                result = GetReportValExcel(to_folder, saveProject.UserID, saveProject.FactoryRegistration, userInput);
             }
             catch (Exception ex)
             {
@@ -114,9 +116,10 @@ namespace CFC.Controllers.FileDownload
         /// <summary>
         /// 計算結果產出Excel資料
         /// </summary>
+        /// <param name="to_folder">指定儲存資料夾路徑</param>
         /// <param name="userInput"></param>
         /// <returns></returns>
-        public ReturnModel GetReportValExcel(string UserID, string FactoryRegistration, User_Input_Advance userInput) {
+        public ReturnModel GetReportValExcel(string to_folder, string UserID, string FactoryRegistration, User_Input_Advance userInput) {
 
             try
             {
@@ -250,15 +253,8 @@ namespace CFC.Controllers.FileDownload
 
                     Ep.Save();
 
-
-                    // 取得回傳路徑
-                    string ppp = "File/ExcelCreater/tempFolder/" + newTemptAdd;
-
-                    ////string siteRoot = WebConfigurationManager.AppSettings["SiteRoot"].ToString();                
-                    ////string fileAdd = siteRoot + ppp;
-
                     //to(ODF轉檔路徑)
-                    string from = WebConfigurationManager.AppSettings["FileRoot"].ToString() + ppp;
+                    string from = to_folder + newTemptAdd;
                     string to_noExt = Path.GetDirectoryName(from) + "/" + Path.GetFileNameWithoutExtension(from);
                     string to = "";
 
@@ -285,6 +281,9 @@ namespace CFC.Controllers.FileDownload
                         }
                         else
                         {
+                            //移除原excel
+                            System.IO.File.Delete(from);
+
                             //(LogCount次數) 下載計算3
                             this.db.LogCount.Add(new Log_count()
                             {
