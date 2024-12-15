@@ -69,6 +69,10 @@
     <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\..\CVS_SRC\SourceCode\Logger\bin\Debug\log4net.dll</HintPath>
     </Reference>
@@ -295,6 +299,7 @@
     <Compile Include="_core\Constant.cs" />
     <Compile Include="_core\DateFormat.cs" />
     <Compile Include="_core\ODFHelper.cs" />
+    <Compile Include="_core\ZipHelper.cs" />
     <Compile Include="_report\Rpt_ProjectList.cs" />
   </ItemGroup>
   <ItemGroup>

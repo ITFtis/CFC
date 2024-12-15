@@ -82,11 +82,19 @@ namespace CFC
                     Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f, newTemptAdd);
                     sno++;
 
-                    ////if (sno > 2)
-                    ////    break;
+                    if (sno > 2)
+                        break;
                 }
 
                 //3.壓縮(.zip)
+                //string zFile = "D:\\SourceCode\\CFC\\CFC\\File\\ExcelCreater\\tempFolder\\epFolder\\2024-12-15_162931_admin";
+                string zipName = "c11";
+                bool doZip = ZipHelper.ZipFiles(to_folder, zipName, string.Empty, string.Empty);
+                if (!doZip)
+                {
+                    _errorMessage = "壓縮zip失敗";
+                    return "";
+                }
 
                 //4.刪除ListFolder
 
