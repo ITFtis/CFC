@@ -12,10 +12,12 @@ namespace CFC
         /// </summary>
         /// <param name="imagesurl1"></param>
         /// <returns></returns>
-        public static string PhysicalToUrl(string imagesurl1)
+        public static string PhysicalToUrl(string imagesurl1, string tmpRootDir = "")
         {
-
-            string tmpRootDir = HttpContext.Current.Server.MapPath(System.Web.HttpContext.Current.Request.ApplicationPath.ToString());//獲取程式根目錄
+            if (tmpRootDir == "")
+            {
+                tmpRootDir = HttpContext.Current.Server.MapPath(System.Web.HttpContext.Current.Request.ApplicationPath.ToString());//獲取程式根目錄
+            }
 
             string imagesurl2 = imagesurl1.Replace(tmpRootDir, ""); //轉換成相對路徑
 

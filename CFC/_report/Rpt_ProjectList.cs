@@ -119,7 +119,8 @@ namespace CFC
                 Directory.Delete(to_folder, true);
 
                 //5.回傳zip路徑
-                url = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(GoPath);
+                string tmpRootDir = WebConfigurationManager.AppSettings["FileRoot"].ToString();
+                url = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(GoPath, tmpRootDir);
             }
             catch (Exception ex)
             {
