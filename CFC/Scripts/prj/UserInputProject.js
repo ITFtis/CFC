@@ -15,8 +15,9 @@
             timeout: 0,
             success: function (data) {
                 if (data.result) {
+                    window.open(data.url, '_blank');
                     //location.href = data.url;
-                    alert("產出清冊成功");
+                    //alert("產出清冊成功");
                 } else {
                     alert("產出清冊失敗：\n" + data.errorMessage);
                 }

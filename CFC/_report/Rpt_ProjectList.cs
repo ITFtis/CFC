@@ -60,6 +60,22 @@ namespace CFC
                 }
 
                 //1.刪除非今日.zip
+                var oldFiles = ZipHelper.GetFiles(epFolder);
+                foreach (var fName in oldFiles)
+                {
+                    string str = Path.GetFileNameWithoutExtension(fName.ToString()).Split('_')[0];
+                    DateTime delDate = DateTime.MinValue;
+                    DateTime today = DateTime.Now.Date;
+                    if (DateTime.TryParse(str, out delDate))
+                    {
+                        if (delDate < today)
+                        {
+                            //移除舊的.zip
+                            if (Path.GetExtension(fName.ToString()) == ".zip")
+                                System.IO.File.Delete(fName.ToString());
+                        }
+                    }
+                }
 
                 //指定儲存資料夾路徑
                 DateTime date = DateTime.Now;
@@ -75,13 +91,6 @@ namespace CFC
                 int sno = 1;
                 foreach (var f in datas)
                 {
-                    //////debug
-                    ////if (sno >= 180 && sno <= 200)
-                    ////{
-                    ////    string newTemptAdd = sno.ToString() + "_" + f.UserID + "_" + f.ProjectName + "_" + f.StartDate_F;
-                    ////    Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f, newTemptAdd);                      
-                    ////}
-
                     string newTemptAdd = sno.ToString() + "_" + f.UserID + "_" + f.ProjectName + "_" + f.StartDate_F;
                     Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f, newTemptAdd);
                     sno++;
@@ -110,7 +119,7 @@ namespace CFC
                 Directory.Delete(to_folder, true);
 
                 //5.回傳zip路徑
-                url = GoPath;
+                url = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(GoPath);
             }
             catch (Exception ex)
             {

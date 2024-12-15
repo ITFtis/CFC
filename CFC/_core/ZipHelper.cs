@@ -132,7 +132,7 @@ namespace CFC
         }
 
         //讀取目錄下所有檔案
-        private static ArrayList GetFiles(string path)
+        public static ArrayList GetFiles(string path)
         {
             ArrayList files = new ArrayList();
 
