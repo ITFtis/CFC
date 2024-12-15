@@ -133,7 +133,8 @@ namespace CFC.Controllers.FileDownload
                 if (newTemptAdd != "")
                 {
                     //限定產.xlsx
-                    newTemptAdd = Path.GetFileNameWithoutExtension(newTemptAdd) + ".xlsx";
+                    newTemptAdd = newTemptAdd.Replace("/", "").Replace("\\", "");
+                    newTemptAdd = newTemptAdd + ".xlsx";
                 }
                 else
                 {

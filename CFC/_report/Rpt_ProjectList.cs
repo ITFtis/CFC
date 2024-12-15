@@ -68,14 +68,22 @@ namespace CFC
                 }
 
                 //2.清冊ListFolder (to_folder目錄下全部)
-                int aaa = 0;
+                int sno = 1;
                 foreach (var f in datas)
                 {
-                    string newTemptAdd = f.UserID + "_" + f.ProjectName + "_" + f.StartDate_F;
+                    //////debug
+                    ////if (sno >= 180 && sno <= 200)
+                    ////{
+                    ////    string newTemptAdd = sno.ToString() + "_" + f.UserID + "_" + f.ProjectName + "_" + f.StartDate_F;
+                    ////    Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f, newTemptAdd);                      
+                    ////}
+
+                    string newTemptAdd = sno.ToString() + "_" + f.UserID + "_" + f.ProjectName + "_" + f.StartDate_F;
                     Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f, newTemptAdd);
-                    aaa++;
-                    if (aaa == 2)
-                        break;
+                    sno++;
+
+                    ////if (sno > 2)
+                    ////    break;
                 }
 
                 //3.壓縮(.zip)

@@ -6,11 +6,13 @@
     a.event = 'click .glyphicon-download-alt';
     a.callback = function importQdate(evt) {
 
-        helper.misc.showBusyIndicator();
+        var $element = $('body');
+        helper.misc.showBusyIndicator($element, { timeout: 3 * 60 * 60 * 1000 });
         $.ajax({
             url: app.siteRoot + 'UserInputProject/ExportProjectList',
             datatype: "json",
             type: "Post",
+            timeout: 0,
             success: function (data) {
                 if (data.result) {
                     //location.href = data.url;
@@ -18,6 +20,8 @@
                 } else {
                     alert("產出清冊失敗：\n" + data.errorMessage);
                 }
+
+                helper.misc.hideBusyIndicator();
             },
             complete: function () {
                 helper.misc.hideBusyIndicator();
