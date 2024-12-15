@@ -1,5 +1,6 @@
 ﻿using CFC.Models.Manager;
 using CFC.Models.Prj;
+using DouHelper;
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
+using System.Web.Http.Results;
 
 namespace CFC
 {
@@ -61,7 +63,9 @@ namespace CFC
 
                 //指定儲存資料夾路徑
                 DateTime date = DateTime.Now;
-                string to_folder = epFolder + DateFormat.ToDate15(date) + "_" + Dou.Context.CurrentUser<User>().Id + "/";
+                string new_folderName = DateFormat.ToDate15(date) + "_" + Dou.Context.CurrentUser<User>().Id;
+                
+                string to_folder = epFolder + new_folderName + "/";
                 if (!Directory.Exists(to_folder))
                 {
                     Directory.CreateDirectory(to_folder);
@@ -86,26 +90,32 @@ namespace CFC
                         break;
                 }
 
+                //資料夾(to_folder)使用中，卡住
+                System.Threading.Thread.Sleep(300);
+
                 //3.壓縮(.zip)
                 //string zFile = "D:\\SourceCode\\CFC\\CFC\\File\\ExcelCreater\\tempFolder\\epFolder\\2024-12-15_162931_admin";
-                string zipName = "c11";
-                bool doZip = ZipHelper.ZipFiles(to_folder, zipName, string.Empty, string.Empty);
+                bool doZip = ZipHelper.ZipFiles(to_folder, new_folderName, string.Empty, string.Empty);
                 if (!doZip)
                 {
                     _errorMessage = "壓縮zip失敗";
                     return "";
                 }
 
-                //4.刪除ListFolder
+                //移動壓縮檔案(.zip)
+                string FromPath = to_folder + new_folderName + ".zip";
+                string GoPath = epFolder + new_folderName + ".zip";
+                System.IO.File.Move(FromPath, GoPath);
+
+
+                //4.刪除ListFolder (to_folder目錄下全部)
+                // 利用 FileInfo
+                string aaa = "D:\\SourceCode\\CFC\\CFC\\File\\ExcelCreater\\tempFolder\\epFolder\\2024-12-15_174111_admin";
+                System.IO.File.SetAttributes(aaa, System.IO.FileAttributes.Normal);
+                System.IO.File.Delete(aaa);
 
                 //5.回傳zip路徑
-
-                url = "sssss";
-
-                //if (result.isSucess)
-                //{
-                //    url = result.fileAdd;
-                //}
+                url = GoPath;
             }
             catch (Exception ex)
             {
