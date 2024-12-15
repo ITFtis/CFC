@@ -118,8 +118,9 @@ namespace CFC.Controllers.FileDownload
         /// </summary>
         /// <param name="to_folder">指定儲存資料夾路徑</param>
         /// <param name="userInput"></param>
+        /// <param name="newTemptAdd">新增檔名(不含副檔名)，不提供則隨機取名</param>
         /// <returns></returns>
-        public ReturnModel GetReportValExcel(string to_folder, string UserID, string FactoryRegistration, User_Input_Advance userInput) {
+        public ReturnModel GetReportValExcel(string to_folder, string UserID, string FactoryRegistration, User_Input_Advance userInput, string newTemptAdd = "") {
 
             try
             {
@@ -129,7 +130,15 @@ namespace CFC.Controllers.FileDownload
                 // 取得工作目錄
                 //String newTemptFolder = WebConfigurationManager.AppSettings["ExcelFolder"].ToString();
                 String newTemptFolder = to_folder;
-                String newTemptAdd = getTemptFile(newTemptFolder, "xlsx");
+                if (newTemptAdd != "")
+                {
+                    //限定產.xlsx
+                    newTemptAdd = Path.GetFileNameWithoutExtension(newTemptAdd) + ".xlsx";
+                }
+                else
+                {
+                    newTemptAdd = getTemptFile(newTemptFolder, "xlsx");
+                }
 
                 // 複製到工作目錄中
                 var newFileInfo = new FileInfo(temptFileAdd).CopyTo(newTemptFolder + "\\" + newTemptAdd);

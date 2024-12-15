@@ -70,8 +70,9 @@ namespace CFC
                 //2.清冊ListFolder (to_folder目錄下全部)
                 int aaa = 0;
                 foreach (var f in datas)
-                {                    
-                    Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f);
+                {
+                    string newTemptAdd = f.UserID + "_" + f.ProjectName + "_" + f.StartDate_F;
+                    Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f, newTemptAdd);
                     aaa++;
                     if (aaa == 2)
                         break;
