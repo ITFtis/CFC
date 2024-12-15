@@ -94,7 +94,6 @@ namespace CFC
                 System.Threading.Thread.Sleep(300);
 
                 //3.壓縮(.zip)
-                //string zFile = "D:\\SourceCode\\CFC\\CFC\\File\\ExcelCreater\\tempFolder\\epFolder\\2024-12-15_162931_admin";
                 bool doZip = ZipHelper.ZipFiles(to_folder, new_folderName, string.Empty, string.Empty);
                 if (!doZip)
                 {
@@ -107,12 +106,8 @@ namespace CFC
                 string GoPath = epFolder + new_folderName + ".zip";
                 System.IO.File.Move(FromPath, GoPath);
 
-
-                //4.刪除ListFolder (to_folder目錄下全部)
-                // 利用 FileInfo
-                string aaa = "D:\\SourceCode\\CFC\\CFC\\File\\ExcelCreater\\tempFolder\\epFolder\\2024-12-15_174111_admin";
-                System.IO.File.SetAttributes(aaa, System.IO.FileAttributes.Normal);
-                System.IO.File.Delete(aaa);
+                //4.(目錄)刪除ListFolder (to_folder目錄)
+                Directory.Delete(to_folder, true);
 
                 //5.回傳zip路徑
                 url = GoPath;
