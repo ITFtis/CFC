@@ -53,4 +53,7 @@
     //Fitler日期
     $('.filter-toolbar-plus [data-fn="FilterStartS"] input').val('');
     $('.filter-toolbar-plus [data-fn="FilterStartE"] input').val('');
+
+    //讓系統跑預設值
+    $('.fixed-table-toolbar .btn-confirm').trigger("click");
 })

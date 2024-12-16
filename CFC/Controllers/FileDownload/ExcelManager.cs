@@ -122,7 +122,7 @@ namespace CFC.Controllers.FileDownload
         /// <returns></returns>
         public ReturnModel GetReportValExcel(string to_folder, string UserID, string FactoryRegistration, User_Input_Advance userInput, string newTemptAdd = "") {
 
-            //後台清冊多筆列印，因技術問題(ODF轉換開啟Excel，Local可關閉但網站無法關閉)
+            //後台清冊多筆列印，因技術問題(ODF轉換開啟Excel，Local可關閉但網站無法關閉) 工作管理員清單
             //故不轉ODF(Excel=>ODF)
             bool isODF = false;
 
@@ -136,12 +136,13 @@ namespace CFC.Controllers.FileDownload
                 String newTemptFolder = to_folder;
                 if (newTemptAdd != "")
                 {
-                    //限定產.xlsx
+                    //多筆：指定檔案名稱(限定.xlsx)，後台
                     newTemptAdd = newTemptAdd.Replace("/", "").Replace("\\", "");
                     newTemptAdd = newTemptAdd + ".xlsx";
                 }
                 else
                 {
+                    //單筆：無指定檔案名稱，前台
                     isODF = true;
                     newTemptAdd = getTemptFile(newTemptFolder, "xlsx");
                 }

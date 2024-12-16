@@ -91,6 +91,8 @@ namespace CFC.Controllers.PrjNew
                 field.filter = false;
             }
 
+            opts.GetFiled("UserID").defaultvalue = "csts01";
+
             opts.GetFiled("UserID").visible = true;
             opts.GetFiled("StartDate_F").visible = true;
             opts.GetFiled("EndDate_F").visible = true;
