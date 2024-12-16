@@ -122,6 +122,10 @@ namespace CFC.Controllers.FileDownload
         /// <returns></returns>
         public ReturnModel GetReportValExcel(string to_folder, string UserID, string FactoryRegistration, User_Input_Advance userInput, string newTemptAdd = "") {
 
+            //後台清冊多筆列印，因技術問題(ODF轉換開啟Excel，Local可關閉但網站無法關閉)
+            //故不轉ODF(Excel=>ODF)
+            bool isODF = false;
+
             try
             {
                 // 取得模板檔案
@@ -138,6 +142,7 @@ namespace CFC.Controllers.FileDownload
                 }
                 else
                 {
+                    isODF = true;
                     newTemptAdd = getTemptFile(newTemptFolder, "xlsx");
                 }
 
@@ -264,53 +269,59 @@ namespace CFC.Controllers.FileDownload
 
                     Ep.Save();
 
-                    //to(ODF轉檔路徑)
-                    string from = to_folder + newTemptAdd;
-                    string to_noExt = Path.GetDirectoryName(from) + "/" + Path.GetFileNameWithoutExtension(from);
-                    string to = "";
+                    if (isODF)
+                    {
+                        //to(ODF轉檔路徑)
+                        string from = to_folder + newTemptAdd;
+                        string to_noExt = Path.GetDirectoryName(from) + "/" + Path.GetFileNameWithoutExtension(from);
+                        string to = "";
 
-                    //轉ODF
-                    switch (Path.GetExtension(from))
-                    {
-                        case ".xlsx":
-                            to = to_noExt + ".ods";
-                            break;
-                        default:
-                            break;
-                    }
-
-                    if (to == "")
-                    {
-                        return new ReturnModel { isSucess = false, fileAdd = "查無ODF轉換程式碼：" + from };
-                    }
-                    else
-                    {
-                        bool done = ODFHelper.ExcelToODF(from, to_noExt);
-                        if (!done)
+                        //轉ODF
+                        switch (Path.GetExtension(from))
                         {
-                            return new ReturnModel { isSucess = false, fileAdd = "ODF轉換失敗" };
+                            case ".xlsx":
+                                to = to_noExt + ".ods";
+                                break;
+                            default:
+                                break;
+                        }
+
+                        if (to == "")
+                        {
+                            return new ReturnModel { isSucess = false, fileAdd = "查無ODF轉換程式碼：" + from };
                         }
                         else
                         {
-                            //移除原excel
-                            System.IO.File.Delete(from);
-
-                            //(LogCount次數) 下載計算3
-                            this.db.LogCount.Add(new Log_count()
+                            bool done = ODFHelper.ExcelToODF(from, to_noExt);
+                            if (!done)
                             {
-                                Type = 2,                                
-                                BDate = DateTime.Now,
-                                BId = userInput.UserID,
-                            });
-                            this.db.SaveChanges();
-                            Log_count.ResetGetAllDatas();
+                                return new ReturnModel { isSucess = false, fileAdd = "ODF轉換失敗" };
+                            }
+                            else
+                            {
+                                //移除原excel
+                                System.IO.File.Delete(from);
 
-                            string fileAdd = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(to);
-                            //string fileAdd = Cm.PhysicalToUrl(to);
-                            return new ReturnModel { isSucess = true, fileAdd = fileAdd };
+                                //(LogCount次數) 下載計算3
+                                this.db.LogCount.Add(new Log_count()
+                                {
+                                    Type = 2,
+                                    BDate = DateTime.Now,
+                                    BId = userInput.UserID,
+                                });
+                                this.db.SaveChanges();
+                                Log_count.ResetGetAllDatas();
+
+                                string fileAdd = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(to);
+                                //string fileAdd = Cm.PhysicalToUrl(to);
+                                return new ReturnModel { isSucess = true, fileAdd = fileAdd };
+                            }
                         }
                     }
-
+                    else
+                    {
+                        return new ReturnModel { isSucess = true };
+                    }
                     //return new ReturnModel { isSucess = true, fileAdd = fileAdd };
                 }
                 catch (Exception e)
