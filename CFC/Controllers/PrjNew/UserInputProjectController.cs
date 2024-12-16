@@ -58,13 +58,13 @@ namespace CFC.Controllers.PrjNew
                 iquery = e.AsQueryable();
             }
 
-            ////限定製造業
-            //if (1 == 1)
-            //{
-            //    var e = iquery.AsEnumerable();
-            //    e = e.Where(a => a.IndustrialTypeId != "1");
-            //    iquery = e.AsQueryable();
-            //}
+            //限定製造業
+            if (1 == 1)
+            {
+                var e = iquery.AsEnumerable();
+                e = e.Where(a => a.IndustrialTypeId != "1");
+                iquery = e.AsQueryable();
+            }
 
             ////try
             ////{
