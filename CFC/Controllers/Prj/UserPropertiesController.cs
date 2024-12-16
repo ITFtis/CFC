@@ -80,6 +80,8 @@ namespace CFC.Controllers.Prj
                 throw new Exception("資料更新失敗，請通知網站負責人");
 
             base.AddDBObject(dbEntity, objs);
+            
+            User_Properties_Advance.ResetGetAllDatas();
         }
 
         protected override void UpdateDBObject(IModelEntity<User_Properties_Advance> dbEntity, IEnumerable<User_Properties_Advance> objs)
@@ -89,6 +91,15 @@ namespace CFC.Controllers.Prj
                 throw new Exception("資料更新失敗，請通知網站負責人");
 
             base.UpdateDBObject(dbEntity, objs);
+
+            User_Properties_Advance.ResetGetAllDatas();
+        }
+
+        protected override void DeleteDBObject(IModelEntity<User_Properties_Advance> dbEntity, IEnumerable<User_Properties_Advance> objs)
+        {
+            base.DeleteDBObject(dbEntity, objs);
+
+            User_Properties_Advance.ResetGetAllDatas();
         }
 
         internal IEnumerable<User_Properties_Advance> GetAllData()
