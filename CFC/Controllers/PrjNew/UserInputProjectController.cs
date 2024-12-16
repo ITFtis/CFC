@@ -75,6 +75,7 @@ namespace CFC.Controllers.PrjNew
             ////    string str = ex.Message;
             ////}
 
+            var aaa = iquery.ToList();
             Dou.Help.DouUnobtrusiveSession.Session.Add("SessionList", iquery.ToList());
 
             return base.BeforeIQueryToPagedList(iquery, paras);

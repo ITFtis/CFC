@@ -55,5 +55,8 @@
     $('.filter-toolbar-plus [data-fn="FilterStartE"] input').val('');
 
     //讓系統跑預設值
-    $('.fixed-table-toolbar .btn-confirm').trigger("click");
+    setTimeout(function () {
+        $('.fixed-table-toolbar .btn-confirm').trigger("click");
+    }, 1 * 1000);
+    
 })
