@@ -95,8 +95,8 @@ namespace CFC
                     Controllers.FileDownload.ExcelManagerF.ReturnModel result = new Controllers.FileDownload.ExcelManager().GetReportValExcel(to_folder, f.UserID, f.FACTORY_REGISTRATION, f, newTemptAdd);
                     sno++;
 
-                    if (sno > 2)
-                        break;
+                    ////if (sno > 2)
+                    ////    break;
                 }
 
                 //資料夾(to_folder)使用中，卡住
