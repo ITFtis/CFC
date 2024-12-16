@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 
 namespace CFC
@@ -19,17 +20,17 @@ namespace CFC
             var ExcelApp = new Microsoft.Office.Interop.Excel.Application();
 
             try
-            {               
+            {
                 Microsoft.Office.Interop.Excel.Workbook book = ExcelApp.Workbooks.Open(FromPath);
-                ////Microsoft.Office.Interop.Excel.XlFileFormat xlFormatPDF = (Microsoft.Office.Interop.Excel.XlFileFormat)57;
 
-                ////string PDFPath = TargetPath + ".pdf";
                 string ODFPath = TargetPath + ".ods";
-            
+
                 book.SaveAs(ODFPath, Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenDocumentSpreadsheet);
+
+                //finally關閉excel
                 ////book.SaveAs(PDFPath, xlFormatPDF);
-                ExcelApp.Visible = false;
-                ExcelApp.Quit();
+                //ExcelApp.Visible = false;
+                //ExcelApp.Quit();
 
                 result = true;
             }
@@ -41,12 +42,18 @@ namespace CFC
                 Logger.Log.For(null).Error("Excel轉ODF(TargetPath)：" + TargetPath);
                 Logger.Log.For(null).Error("ExcelToODF：" + error);
 
-                ExcelApp.Quit();
-
-                return false;
+                ////finally關閉excel
+                //ExcelApp.Quit();
+            }
+            finally
+            {
+                ExcelHelper.KillExcel(ExcelApp);
+                System.Threading.Thread.Sleep(100);
             }
 
             return result;
         }
+
+        
     }
 }
