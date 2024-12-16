@@ -29,8 +29,8 @@ namespace CFC
 
                 //finally關閉excel
                 ////book.SaveAs(PDFPath, xlFormatPDF);
-                //ExcelApp.Visible = false;
-                //ExcelApp.Quit();
+                ExcelApp.Visible = false;
+                ExcelApp.Quit();
 
                 result = true;
             }
@@ -42,8 +42,8 @@ namespace CFC
                 Logger.Log.For(null).Error("Excel轉ODF(TargetPath)：" + TargetPath);
                 Logger.Log.For(null).Error("ExcelToODF：" + error);
 
-                ////finally關閉excel
-                //ExcelApp.Quit();
+                //finally關閉excel
+                ExcelApp.Quit();
             }
             finally
             {
