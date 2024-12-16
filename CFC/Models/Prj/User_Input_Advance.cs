@@ -116,7 +116,7 @@ namespace CFC.Models.Prj
         }
 
         //虛擬欄位
-        [Display(Name = "區間結束日期")]
+        [Display(Name = "篩選開始日期(迄)")]
         [ColumnDef(Visible = false, VisibleEdit = false, EditType = EditType.Date)]
         public DateTime FilterStartE
         {

@@ -92,6 +92,8 @@ namespace CFC.Controllers.PrjNew
             }
 
             opts.GetFiled("UserID").defaultvalue = "csts01";
+            opts.GetFiled("StartDate_F").title = "開始日期";
+            opts.GetFiled("EndDate_F").title = "結束日期";
 
             opts.GetFiled("UserID").visible = true;
             opts.GetFiled("StartDate_F").visible = true;
