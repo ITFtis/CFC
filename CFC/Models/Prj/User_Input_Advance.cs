@@ -9,6 +9,7 @@
 
 namespace CFC.Models.Prj
 {
+    using CFC.Models.Api;
     using Dou.Misc.Attr;
     using DouHelper;
     using System;
@@ -236,11 +237,14 @@ namespace CFC.Models.Prj
         //會員計算記錄明細
         [Display(Name = "類別1")]
         [ColumnDef(Visible = false, VisibleEdit = false)]
-        public double VClass1 
+        public decimal VClass1 
         { 
             get
             {
-                return 0;
+                CalInputModel calInput = Rpt_UserInputCal.ToCalInputModel(this);
+
+                decimal value = Rpt_UserInputCal.GetCal(1, calInput);
+                return value;
             }
         }
 
