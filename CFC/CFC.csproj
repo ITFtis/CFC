@@ -1571,6 +1571,7 @@
     <Content Include="Scripts\prj\cfc_n.js" />
     <Content Include="Scripts\prj\Cv.js" />
     <Content Include="Scripts\prj\SysContent.js" />
+    <Content Include="Scripts\prj\UserInputCal.js" />
     <Content Include="Scripts\prj\UserInputProject.js" />
     <Content Include="Scripts\prj\UserProperties.js" />
     <Content Include="Scripts\README.md" />

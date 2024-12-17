@@ -27,6 +27,23 @@ namespace CFC.Models.Prj
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RowID { get; set; }
 
+        [Display(Name = "統一編號")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public string UniformNumber
+        {
+            get
+            {
+                string str = "";
+                var u = User_Properties_Advance.GetAllDatas().Where(a => a.Id == this.UserID).FirstOrDefault();
+                if (u != null)
+                {
+                    str = u.UniformNumber;
+                }
+
+                return str;
+            }
+        }
+
         /// <summary>
         /// 使用者編號
         /// </summary>
@@ -215,6 +232,77 @@ namespace CFC.Models.Prj
         public string ProjectAddress { get; set; }//專案地址
         public string ProjectCity { get; set; }//專案縣市
         public string ProjectIndustrialType { get; set; }//專案行業別
+
+        //會員計算記錄明細
+        [Display(Name = "類別1")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public double VClass1 
+        { 
+            get
+            {
+                return 0;
+            }
+        }
+
+        [Display(Name = "類別2")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public double VClass2
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
+        [Display(Name = "類別3")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public double VClass3
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
+        [Display(Name = "類別4")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public double VClass4
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
+        [Display(Name = "類別5")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public double VClass5
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
+        [Display(Name = "類別6")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public double VClass6
+        {
+            get
+            {
+                return 0;
+            }
+        }
+
+        [Display(Name = "總排放量")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public double VClassTotal
+        {
+            get
+            {
+                return 0;
+            }
+        }       
 
         static object lockGetAllDatas = new object();
         public static IEnumerable<User_Input_Advance> GetAllDatas(int cachetimer = 0)
