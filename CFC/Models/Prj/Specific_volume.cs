@@ -9,10 +9,12 @@
 
 namespace CFC.Models.Prj
 {
+    using DouHelper;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
 
     /// <summary>
     /// 冷媒種類
@@ -80,5 +82,32 @@ namespace CFC.Models.Prj
         /// </summary>
         [Display(Name = "特定製程分類")]
         public String OtherType { get; set; }
+
+        static object lockGetAllDatas = new object();
+        public static IEnumerable<Specific_volume> GetAllDatas(int cachetimer = 0)
+        {
+            if (cachetimer == 0) cachetimer = Constant.cacheTime;
+
+            string key = "CFC.Models.Prj.Specific_volume";
+            var allData = DouHelper.Misc.GetCache<IEnumerable<Specific_volume>>(cachetimer, key);
+            lock (lockGetAllDatas)
+            {
+                if (allData == null)
+                {
+                    Dou.Models.DB.IModelEntity<Specific_volume> modle = new Dou.Models.DB.ModelEntity<Specific_volume>(new DouModelContext());
+                    allData = modle.GetAll().OrderByDescending(a => a.RowId).ToArray();
+
+                    DouHelper.Misc.AddCache(allData, key);
+                }
+            }
+
+            return allData;
+        }
+
+        public static void ResetGetAllDatas()
+        {
+            string key = "CFC.Models.Prj.Specific_volume";
+            Misc.ClearCache(key);
+        }
     }
 }

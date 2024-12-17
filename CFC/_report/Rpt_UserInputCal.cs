@@ -1,4 +1,5 @@
 ﻿using CFC.Controllers.Api;
+using CFC.Controllers.FileDownload.ExcelManagerF;
 using CFC.Models.Api;
 using CFC.Models.Prj;
 using System;
@@ -23,6 +24,68 @@ namespace CFC
 
             try
             {
+                CalInputModel o = new CalInputModel();
+                o.calModel = input.ARType;
+
+                //類別(1)
+                //燃料計算 - 固態燃料
+                o.fuelInputs = new List<FuelInputs>();
+                var fuelInputs = Fuel_volume.GetAllDatas().Where(a => a.RowId == input.RowID).ToList();
+                o.fuelInputs = fuelInputs.Select(a => new FuelInputs
+                {
+                    FuelId = a.FuelId,
+                    UseVolume = a.UseVolume
+                }).ToList();
+
+                //////燃料計算 - 液態燃料
+                //////燃料計算 - 氣態燃料
+                //////移動源
+
+                //冷媒逸散計算(冷媒設備)
+                o.refrigerantInputs = new List<RefrigerantInput>();
+                var refrigerantInputs = Refrigerant_volume.GetAllDatas().Where(a => a.RowId == input.RowID).ToList();
+                o.refrigerantInputs = refrigerantInputs.Select(a => new RefrigerantInput
+                {
+                    RefrigerantType = a.RefrigerantType,
+                    RefrigerantEquip = a.RefrigerantEquip,
+                    UseVolume = a.UseVolume
+                }).ToList();
+
+                //其他逸散
+                o.escapeInputs = new List<CFC.Models.Api.EscapeInput>();
+                var escapeInputs = Escape_volume.GetAllDatas().Where(a => a.RowId == input.RowID).ToList();
+                o.escapeInputs = escapeInputs.Select(a => new CFC.Models.Api.EscapeInput
+                {
+                    EscapeId = a.EscapeId,
+                    EscapeType = a.EscapeType,
+                    UseVolume = a.UseVolume,
+                }).ToList();
+
+                //特殊製程計算
+                o.specialInputs = new List<SpecialInput>();
+                var specialInputs = Specific_volume.GetAllDatas().Where(a => a.RowId == input.RowID).ToList();
+                o.specialInputs = specialInputs.Select(a => new SpecialInput
+                {
+                    CreateId = a.CreateId,
+                    CreateType = a.CreateType,
+                    UseVolume = a.UseVolume
+                }).ToList();
+
+                //類別(2)
+                //電力計算
+
+
+                //蒸氣計算
+
+                //類別(3)
+
+                //類別(4)
+
+                //類別(5)
+
+                //類別(6)
+
+                result = o;
             }
             catch (Exception ex)
             {

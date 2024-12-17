@@ -244,7 +244,7 @@ namespace CFC.Models.Prj
                 CalInputModel calInput = Rpt_UserInputCal.ToCalInputModel(this);
 
                 decimal value = Rpt_UserInputCal.GetCal(1, calInput);
-                return value;
+                return Math.Round(value, 2);
             }
         }
 
