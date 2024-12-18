@@ -1,5 +1,6 @@
 ﻿using CFC.Controllers.Api;
 using CFC.Controllers.FileDownload.ExcelManagerF;
+using CFC.Controllers.PrjNew;
 using CFC.Models.Api;
 using CFC.Models.Prj;
 using System;
@@ -18,7 +19,7 @@ namespace CFC
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public static CalInputModel ToCalInputModel(User_Input_Advance input)
+        public static CalInputModel ToCalInputModel(vw_UserInputCal input)
         {
             CalInputModel result = null;
 

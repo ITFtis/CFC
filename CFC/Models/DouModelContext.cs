@@ -1,4 +1,5 @@
-﻿using CFC.Models.Manager;
+﻿using CFC.Controllers.PrjNew;
+using CFC.Models.Manager;
 using CFC.Models.Prj;
 using System;
 using System.Data.Entity;
@@ -75,6 +76,7 @@ namespace CFC.Models
 
         public virtual DbSet<City> City { get; set; } //縣市
         public virtual DbSet<Town> Town { get; set; } //鄉鎮
+        public virtual DbSet<vw_UserInputCal> vw_UserInputCal { get; set; } //(view)報表 會員計算紀錄明細
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             ////// 定義組合鍵 USER_ID 和 FACTORY_REGISTRATION
