@@ -48,7 +48,17 @@ namespace CFC
                     f.序號 = serial;
                     serial++;
                     f.姓名 = data.Name;   //ooooooooooo                    
-                    
+                    f.公司名稱 = data.UniformNumber;
+                    f.統一編號 = data.UniformNumberNo;
+                    f.公司規模 = data.CompanySizeNew;
+                    f.聯絡人 = data.Contact;
+                    f.職稱 = data.POSITION;
+                    f.連絡電話 = data.PhoneNumber;
+                    f.行業別 = data.IndustrialTypeName;
+                    f.單位性質 = data.UNIT_TYPE;
+                    f.縣市 = data.CITY;
+                    f.鄉鎮市區 = data.DISTRICT;
+                    f.地址 = data.ADDRESS;
 
                     f.SheetName = fileTitle;//sheep.名稱;
                     list.Add(f);
