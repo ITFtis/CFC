@@ -73,17 +73,38 @@ namespace CFC
 
                 //類別(2)
                 //電力計算
-
+                o.electInput = new ElectInput();
+                o.electInput.elecYear = input.elecYear;
+                o.electInput.elecVolume = input.elecVolume;
 
                 //蒸氣計算
+                o.steamInput = new SteamInput();
+                o.steamInput.SteamVolume = input.SteamVolume;
+                o.steamInput.SteamCoe = input.SteamCoe;
 
-                //類別(3)
+                //類別(3) Tr01
+                o.Tr01 = input.Tr01;
+                o.Tr02 = input.Tr02;
+                o.Tr03 = input.Tr03;
+                o.Tr04 = input.Tr04;
 
-                //類別(4)
+                //類別(4) Cp01
+                o.Cp01 = input.Cp01;
+                o.Cp02 = input.Cp02;
+                o.Cp03 = input.Cp03;
+                o.Cp04 = input.Cp04;
+                o.Cp05 = input.Cp05;
 
-                //類別(5)
+                //類別(5) Us01
+                o.Us01 = input.Us01;
+                o.Us02 = input.Us02;
+                o.Us03 = input.Us03;
+                o.Us04 = input.Us04;
+                o.Us05 = input.Us05;
+                o.Us06 = input.Us06;
 
-                //類別(6)
+                //類別(6) Other
+                o.Other = input.Other;
 
                 result = o;
             }
@@ -223,22 +244,52 @@ namespace CFC
                 else if (vType == 2)
                 {
                     //*******類別2*******
+                    //(蒸氣 - 間接排放)
+                    if (input.steamInput.SteamVolume >= 0 && input.steamInput.SteamCoe > 0)
+                    {
+                        sum = sum + (decimal)(input.steamInput.SteamVolume * (double)input.steamInput.SteamCoe);
+                    }
+
+                    //R4(電力 - 間接排放)
+                    if (input.electInput.elecVolume > 0)
+                    {
+                        var selectYear = DateViewController.AllElecProperties.Where(e => e.year == input.electInput.elecYear).FirstOrDefault();
+
+                        if (selectYear != null)
+                            sum += (decimal)input.electInput.elecVolume * selectYear.Co2e;
+                    }
                 }
                 else if (vType == 3)
                 {
                     //*******類別3*******
+                    sum += (decimal)input.Tr01;
+                    sum += (decimal)input.Tr02;
+                    sum += (decimal)input.Tr03;
+                    sum += (decimal)input.Tr04;
                 }
                 else if (vType == 4)
                 {
                     //*******類別4*******
+                    sum += (decimal)input.Cp01;
+                    sum += (decimal)input.Cp02;
+                    sum += (decimal)input.Cp03;
+                    sum += (decimal)input.Cp04;
+                    sum += (decimal)input.Cp05;
                 }
                 else if (vType == 5)
                 {
                     //*******類別5*******
+                    sum += (decimal)input.Us01;
+                    sum += (decimal)input.Us02;
+                    sum += (decimal)input.Us03;
+                    sum += (decimal)input.Us04;
+                    sum += (decimal)input.Us05;
+                    sum += (decimal)input.Us06;
                 }
                 else if (vType == 6)
                 {
                     //*******類別6*******
+                    sum += (decimal)input.Other;
                 }
 
                 result = sum;

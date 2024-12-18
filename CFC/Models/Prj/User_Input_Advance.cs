@@ -250,57 +250,72 @@ namespace CFC.Models.Prj
 
         [Display(Name = "類別2")]
         [ColumnDef(Visible = false, VisibleEdit = false)]
-        public double VClass2
+        public decimal VClass2
         {
             get
             {
-                return 0;
+                CalInputModel calInput = Rpt_UserInputCal.ToCalInputModel(this);
+
+                decimal value = Rpt_UserInputCal.GetCal(2, calInput);
+                return Math.Round(value, 2);
             }
         }
 
         [Display(Name = "類別3")]
         [ColumnDef(Visible = false, VisibleEdit = false)]
-        public double VClass3
+        public decimal VClass3
         {
             get
             {
-                return 0;
+                CalInputModel calInput = Rpt_UserInputCal.ToCalInputModel(this);
+
+                decimal value = Rpt_UserInputCal.GetCal(3, calInput);
+                return Math.Round(value, 2);
             }
         }
 
         [Display(Name = "類別4")]
         [ColumnDef(Visible = false, VisibleEdit = false)]
-        public double VClass4
+        public decimal VClass4
         {
             get
             {
-                return 0;
+                CalInputModel calInput = Rpt_UserInputCal.ToCalInputModel(this);
+
+                decimal value = Rpt_UserInputCal.GetCal(4, calInput);
+                return Math.Round(value, 2);
             }
         }
 
         [Display(Name = "類別5")]
         [ColumnDef(Visible = false, VisibleEdit = false)]
-        public double VClass5
+        public decimal VClass5
         {
             get
             {
-                return 0;
+                CalInputModel calInput = Rpt_UserInputCal.ToCalInputModel(this);
+
+                decimal value = Rpt_UserInputCal.GetCal(5, calInput);
+                return Math.Round(value, 2);
             }
         }
 
         [Display(Name = "類別6")]
         [ColumnDef(Visible = false, VisibleEdit = false)]
-        public double VClass6
+        public decimal VClass6
         {
             get
             {
-                return 0;
+                CalInputModel calInput = Rpt_UserInputCal.ToCalInputModel(this);
+
+                decimal value = Rpt_UserInputCal.GetCal(6, calInput);
+                return Math.Round(value, 2);
             }
         }
 
         [Display(Name = "總排放量")]
         [ColumnDef(Visible = false, VisibleEdit = false)]
-        public double VClassTotal
+        public decimal VClassTotal
         {
             get
             {
