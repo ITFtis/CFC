@@ -1,4 +1,5 @@
-﻿using CFC.Models.Manager;
+﻿using CFC.Controllers.FileDownload.ExcelManagerF;
+using CFC.Models.Manager;
 using CFC.Models.Prj;
 using Microsoft.Office.Interop.Excel;
 using System;
@@ -75,9 +76,48 @@ namespace CFC
                 //"0":不調整width,"1":自動調整長度(效能差:資料量多),"2":字串長度調整width,"3":字串長度調整width(展開)
                 int autoSizeColumn = 2;
 
+                bool isODF = true;
+
                 //產出excel
                 string fileName = ExcelSpecHelper.GenerateExcelByLinqF1(fileTitle, titles, list, folder, autoSizeColumn);
-                string path = folder + fileName;
+                if (isODF) 
+                {
+                    //檔名不可"/"或"\\"
+                    fileName = fileName.Replace("/", "").Replace("\\", "");
+                }
+
+                string path = folder + fileName;       
+                if (isODF)
+                {
+                    //to(ODF轉檔路徑)
+                    string from = path;
+                    string to_noExt = Path.GetDirectoryName(from) + "/" + Path.GetFileNameWithoutExtension(from);
+                    string to = "";
+
+                    //轉ODF
+                    switch (Path.GetExtension(from))
+                    {
+                        case ".xlsx":
+                            to = to_noExt + ".ods";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    bool done = ODFHelper.ExcelToODF(from, to_noExt);
+                    if (!done)
+                    {
+                        _errorMessage = "ODF轉換失敗";
+                        return "";
+                    }
+                    else
+                    {
+                        //移除原excel
+                        System.IO.File.Delete(from);
+
+                        path = to.Replace("\\", "/");
+                    }
+                }
 
                 string tmpRootDir = WebConfigurationManager.AppSettings["FileRoot"].ToString();
                 url = WebConfigurationManager.AppSettings["SiteRoot"].ToString() + Cm.PhysicalToUrl(path, tmpRootDir);
