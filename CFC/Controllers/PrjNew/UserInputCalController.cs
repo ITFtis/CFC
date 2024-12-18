@@ -111,11 +111,13 @@ namespace CFC.Controllers.PrjNew
             //csts01
             opts.GetFiled("UserID").defaultvalue = defaultUserID;
             opts.GetFiled("StartDate_F").title = "開始日期";
+            opts.GetFiled("ARType").title = "AR版本";
 
             opts.GetFiled("UniformNumber").visible = true;
             opts.GetFiled("UserID").visible = true;
             opts.GetFiled("StartDate_F").visible = true;
             opts.GetFiled("ProjectName").visible = true;
+            opts.GetFiled("ARType").visible = true;
             opts.GetFiled("VClass1").visible = true;
             opts.GetFiled("VClass2").visible = true;
             opts.GetFiled("VClass3").visible = true;
@@ -203,10 +205,7 @@ namespace CFC.Controllers.PrjNew
 
         [Display(Name = "蒸氣係數")]
         public decimal SteamCoe { get; set; }
-
-        [Display(Name = "ARType")]
-        public string ARType { get; set; }
-
+        
         [Display(Name = "工廠登記證")]
         public string FACTORY_REGISTRATION { get; set; }
 
@@ -258,6 +257,9 @@ namespace CFC.Controllers.PrjNew
                 return DateFormat.ToDate14_2(this.StartDate);
             }
         }
+
+        [Display(Name = "ARType")]
+        public string ARType { get; set; }
 
         //虛擬欄位
         [Display(Name = "行業別")]
