@@ -1,5 +1,17 @@
 ﻿$(document).ready(function () {
 
+    $(douoptions.fields).each(function () {
+        //資料列click事件(工時)
+        var columnName = this.field;
+
+        if (columnName.indexOf("VClassTotal") > -1) {
+            this.formatter = function (v, d) {
+                value = d.VClass1 + d.VClass2 + d.VClass3 + d.VClass4 + d.VClass5 + d.VClass6;
+                return MathRound(value, 2);
+            }
+        }
+    })
+
     douoptions.queryFilter = function (params, callback) {
 
         var FilterStartS = params.find(a => a.key == "FilterStartS");

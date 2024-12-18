@@ -19,3 +19,9 @@ function FilterCityTown(city, oTown) {
     //預設鄉鎮選項
     $(oTown).val('');
 }
+
+//四捨五入，小數位數
+function MathRound(number, decimalPlaces) {
+    const factor = 10 ** decimalPlaces;
+    return Math.round(number * factor) / factor;
+}
