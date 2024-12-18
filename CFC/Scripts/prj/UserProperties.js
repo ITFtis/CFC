@@ -14,8 +14,8 @@
             timeout: 0,
             success: function (data) {
                 if (data.result) {                    
-                    //location.href = data.url;
-                    alert("會員匯出清單成功");
+                    location.href = data.url;
+                    //alert("會員匯出清單成功");
                 } else {
                     alert("會員匯出清單失敗：\n" + data.errorMessage);
                 }
