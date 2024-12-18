@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -17,20 +18,23 @@ namespace CFC
         {
             bool result = false;
 
-            var ExcelApp = new Microsoft.Office.Interop.Excel.Application();
-
             try
             {
-                Microsoft.Office.Interop.Excel.Workbook book = ExcelApp.Workbooks.Open(FromPath);
+                var application = new Microsoft.Office.Interop.Excel.Application();
+                var workbooks = application.Workbooks;
+                var workbook = workbooks.Open(FromPath);
 
                 string ODFPath = TargetPath + ".ods";
+                Logger.Log.For(null).Error("aaa");
+                workbook.SaveAs(ODFPath, Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenDocumentSpreadsheet);
+                
+                workbook.Close(false, null, null);
+                Marshal.ReleaseComObject(workbook);
+                Marshal.ReleaseComObject(workbooks);
+                application.Visible = false;
+                Marshal.ReleaseComObject(application);
 
-                book.SaveAs(ODFPath, Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenDocumentSpreadsheet);
-
-                //finally關閉excel
-                ////book.SaveAs(PDFPath, xlFormatPDF);
-                ExcelApp.Visible = false;
-                ExcelApp.Quit();
+                System.Threading.Thread.Sleep(100);
 
                 result = true;
             }
@@ -41,14 +45,6 @@ namespace CFC
                 Logger.Log.For(null).Error("Excel轉ODF(FromPath)：" + FromPath);
                 Logger.Log.For(null).Error("Excel轉ODF(TargetPath)：" + TargetPath);
                 Logger.Log.For(null).Error("ExcelToODF：" + error);
-
-                //finally關閉excel
-                ExcelApp.Quit();
-            }
-            finally
-            {
-                ExcelHelper.KillExcel(ExcelApp);
-                System.Threading.Thread.Sleep(100);
             }
 
             return result;
