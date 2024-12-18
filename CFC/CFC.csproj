@@ -303,6 +303,7 @@
     <Compile Include="_core\ZipHelper.cs" />
     <Compile Include="_report\Rpt_ProjectList.cs" />
     <Compile Include="_report\Rpt_UserInputCal.cs" />
+    <Compile Include="_report\Rpt_UserProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\Log4netConfig.xml" />

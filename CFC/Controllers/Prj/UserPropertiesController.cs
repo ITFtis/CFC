@@ -30,6 +30,8 @@ namespace CFC.Controllers.Prj
 
         protected override IEnumerable<User_Properties_Advance> GetDataDBObject(IModelEntity<User_Properties_Advance> dbEntity, params KeyValueParams[] paras)
         {
+            Dou.Help.DouUnobtrusiveSession.Session.Remove("SessionList");
+
             var result = base.GetDataDBObject(dbEntity, paras);
 
             var industrialTypeName = KeyValue.GetFilterParaValue(paras, "IndustrialTypeName");
@@ -68,7 +70,8 @@ namespace CFC.Controllers.Prj
                 result = result.Where(a => a.CompanySizeNew.Contains(companySizeNew));
             }
 
-            ////int n = result.Count();
+            //var aaa = result.ToList();
+            Dou.Help.DouUnobtrusiveSession.Session.Add("SessionList", result.ToList());
 
             return result;
         }
@@ -144,6 +147,35 @@ namespace CFC.Controllers.Prj
             }
 
             return result;
+        }
+
+        //會員匯出清單
+        public ActionResult ExportUserList()
+        {
+            //Valid
+            var sessionList = Dou.Help.DouUnobtrusiveSession.Session["SessionList"];
+            if (sessionList == null)
+            {
+                return Json(new { result = false, errorMessage = "session(sessionList)：null，請通知系統管理者" });
+            }
+
+            List<User_Properties_Advance> datas = (List<User_Properties_Advance>)sessionList;
+            if (datas.Count == 0)
+            {
+                return Json(new { result = false, errorMessage = "清單無資料" });
+            }
+
+            Rpt_UserProperties rep = new Rpt_UserProperties();
+            string url = rep.Export(datas);
+
+            if (url == "")
+            {
+                return Json(new { result = false, errorMessage = rep.ErrorMessage }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { result = true, url = url }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

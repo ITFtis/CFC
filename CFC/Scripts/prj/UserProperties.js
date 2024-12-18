@@ -1,5 +1,40 @@
 ﻿$(document).ready(function () {
 
+    //匯出Excel
+    var a = {};
+    a.item = '<span class="btn btn-secondary glyphicon glyphicon-download-alt"> 匯出Excel</span>';
+    a.event = 'click .glyphicon-download-alt';
+    a.callback = function importQdate(evt) {
+        var $element = $('body');
+        helper.misc.showBusyIndicator($element, { timeout: 3 * 60 * 60 * 1000 });
+        $.ajax({
+            url: app.siteRoot + 'UserProperties/ExportUserList',
+            datatype: "json",
+            type: "Post",
+            timeout: 0,
+            success: function (data) {
+                if (data.result) {                    
+                    //location.href = data.url;
+                    alert("會員匯出清單成功");
+                } else {
+                    alert("會員匯出清單失敗：\n" + data.errorMessage);
+                }
+
+                helper.misc.hideBusyIndicator();
+            },
+            complete: function () {
+                helper.misc.hideBusyIndicator();
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+                helper.misc.hideBusyIndicator();
+            }
+        });
+    };
+
+    douoptions.appendCustomToolbars = [a];
+
     douoptions.afterCreateEditDataForm = function ($container, row) {
 
         var isAdd = JSON.stringify(row) == '{}';
