@@ -57,6 +57,6 @@
     //讓系統跑預設值
     setTimeout(function () {
         $('.fixed-table-toolbar .btn-confirm').trigger("click");
-    }, 1 * 1000);
+    }, 0.3 * 1000);
     
 })
