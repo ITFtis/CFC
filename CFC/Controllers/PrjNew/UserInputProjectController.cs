@@ -92,7 +92,23 @@ namespace CFC.Controllers.PrjNew
                 field.filter = false;
             }
 
-            opts.GetFiled("UserID").defaultvalue = "csts01";
+            //預設查詢帳號
+            string defaultUserID = "";
+
+            //有儲存專案
+            var iquery = GetModelEntity().GetAll();
+            iquery = iquery.Where(a => a.IsSave);
+            iquery = iquery.Where(a => a.UserID != "查無此紀錄");
+            //限定製造業
+            var e = iquery.AsEnumerable();
+            e = e.Where(a => a.IndustrialTypeId != "1");
+            //有統一編號
+            e = e.Where(a => !string.IsNullOrEmpty(a.UniformNumber));
+            var v = e.FirstOrDefault();
+            defaultUserID = v != null ? v.UserID : defaultUserID;
+
+            //csts01
+            opts.GetFiled("UserID").defaultvalue = defaultUserID;
             opts.GetFiled("StartDate_F").title = "開始日期";
             opts.GetFiled("EndDate_F").title = "結束日期";
 
