@@ -165,6 +165,22 @@ namespace CFC.Models.Prj
         [ColumnDef(Visible = false, VisibleEdit = false)]
         public string IndustrialAreaId { get; set; }
 
+        [Display(Name = "建檔日")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public DateTime? BDate { get; set; }
+
+        [Display(Name = "建檔者ID")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public string BId { get; set; }
+
+        [Display(Name = "修改日")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public DateTime? UDate { get; set; }
+
+        [Display(Name = "修改者ID")]
+        [ColumnDef(Visible = false, VisibleEdit = false)]
+        public string UId { get; set; }
+
         /// <summary>
         /// 篩選：公司名稱
         /// </summary>
@@ -207,7 +223,7 @@ namespace CFC.Models.Prj
                 if (allData == null)
                 {
                     Dou.Models.DB.IModelEntity<User_Properties_Advance> modle = new Dou.Models.DB.ModelEntity<User_Properties_Advance>(new DouModelContext());
-                    allData = modle.GetAll().OrderByDescending(a => a.Id).ToArray();
+                    allData = modle.GetAll().OrderByDescending(a => a.BDate).ToArray();
 
                     DouHelper.Misc.AddCache(allData, key);
                 }

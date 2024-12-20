@@ -1,5 +1,6 @@
 ﻿using CFC.Controllers.FileDownload.ExcelManagerF;
 using CFC.Models;
+using CFC.Models.Manager;
 using CFC.Models.Prj;
 using Dou.Controllers;
 using Dou.Misc;
@@ -70,6 +71,8 @@ namespace CFC.Controllers.Prj
                 result = result.Where(a => a.CompanySizeNew.Contains(companySizeNew));
             }
 
+            result = result.OrderByDescending(a => a.BDate);
+
             //var aaa = result.ToList();
             Dou.Help.DouUnobtrusiveSession.Session.Add("SessionList", result.ToList());
 
@@ -82,6 +85,9 @@ namespace CFC.Controllers.Prj
             if (!SetIni(f))
                 throw new Exception("資料更新失敗，請通知網站負責人");
 
+            f.BDate = DateTime.Now;
+            f.BId = Dou.Context.CurrentUserBase.Id;
+
             base.AddDBObject(dbEntity, objs);
             
             User_Properties_Advance.ResetGetAllDatas();
@@ -92,6 +98,12 @@ namespace CFC.Controllers.Prj
             var f = objs.First();
             if (!SetIni(f))
                 throw new Exception("資料更新失敗，請通知網站負責人");
+
+            var v = dbEntity.GetAll().Where(a => a.Id == f.Id).FirstOrDefault();
+
+            f.BDate = v.BDate;
+            f.UDate = DateTime.Now;
+            f.UId = Dou.Context.CurrentUserBase.Id;
 
             base.UpdateDBObject(dbEntity, objs);
 
