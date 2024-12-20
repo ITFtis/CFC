@@ -433,6 +433,9 @@ namespace CFC.Controllers.CFC
                     }
                 }
 
+                user.BDate = DateTime.Now;
+                user.BId = user.Id;
+
                 this.db.userPropertiesAdvance.Add(user);
 
                 try
