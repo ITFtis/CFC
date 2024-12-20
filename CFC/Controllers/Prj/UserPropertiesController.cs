@@ -85,6 +85,10 @@ namespace CFC.Controllers.Prj
             if (!SetIni(f))
                 throw new Exception("資料更新失敗，請通知網站負責人");
 
+            //配合前台保留欄位
+            f.Name = SYS_COMPANYNameSelectItems.SysCompanys.Where(a => a.COMP_UNIFORM_NUMBER == f.UniformNumber).First().COMP_NAME;
+            f.CompanySize = f.CompanySizeNew;
+
             f.BDate = DateTime.Now;
             f.BId = Dou.Context.CurrentUserBase.Id;
 
@@ -98,6 +102,10 @@ namespace CFC.Controllers.Prj
             var f = objs.First();
             if (!SetIni(f))
                 throw new Exception("資料更新失敗，請通知網站負責人");
+
+            //配合前台保留欄位
+            f.Name = SYS_COMPANYNameSelectItems.SysCompanys.Where(a => a.COMP_UNIFORM_NUMBER == f.UniformNumber).First().COMP_NAME;
+            f.CompanySize = f.CompanySizeNew;
 
             var v = dbEntity.GetAll().Where(a => a.Id == f.Id).FirstOrDefault();
 
