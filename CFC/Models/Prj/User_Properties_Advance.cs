@@ -26,14 +26,14 @@ namespace CFC.Models.Prj
         /// 統一編號
         /// </summary>
         [Key]
-        [Display(Name = "帳號", Order = 0)]        
+        [Display(Name = "帳號")]        
         [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string Id { get; set; }
 
         /// <summary>
         /// 登入密碼
         /// </summary>
-        [Display(Name = "密碼", Order = 1)]
+        [Display(Name = "密碼")]
         [ColumnDef(Visible = true , VisibleEdit = true)]
         public string Pass { get; set; }
 
@@ -46,7 +46,8 @@ namespace CFC.Models.Prj
         public string UniformNumber { get; set; }
 
         [Display(Name = "統一編號")]
-        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
+        [ColumnDef(VisibleEdit = false,
+            Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string UniformNumberNo
         {
             get { return this.UniformNumber; }
@@ -63,7 +64,8 @@ namespace CFC.Models.Prj
         /// 公司規模
         /// </summary>
         [Display(Name = "公司規模")]
-        [ColumnDef(Filter = true, FilterAssign = FilterAssignType.Contains)]
+        [ColumnDef(VisibleEdit = false,
+            Filter = true, FilterAssign = FilterAssignType.Contains)]
         public string CompanySizeNew
         {
             get
@@ -165,7 +167,7 @@ namespace CFC.Models.Prj
         [ColumnDef(Visible = false, VisibleEdit = false)]
         public string IndustrialAreaId { get; set; }
 
-        [Display(Name = "建檔日")]
+        [Display(Name = "建檔日", Order = 0)]
         [ColumnDef(Visible = false, VisibleEdit = false)]
         public DateTime? BDate { get; set; }
 
