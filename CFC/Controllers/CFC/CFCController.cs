@@ -62,6 +62,23 @@ namespace CFC.Controllers.CFC
             string userID = Convert.ToString(ViewBag.UserID);
             m.Id = userID;
 
+            Dou.Models.DB.IModelEntity<User_Properties_Advance> model = new Dou.Models.DB.ModelEntity<User_Properties_Advance>(new DouModelContext());
+            var u = model.GetAll().Where(a => a.Id == m.Id).FirstOrDefault();
+            if (u != null)
+            {
+                //舊會員尚未修改                
+                if (u.BDate != null)
+                {
+                    if ((DateTime)u.BDate <= DateTime.Parse("2024-09-01")
+                        &&
+                        u.UDate == null)
+                    {
+                        //重點提醒
+                        ViewBag.PointTitle = "系統近期更新，請洽後台管理者補齊資料";
+                    }
+                }
+            }
+
             // 專案儲存用
             ViewBag.IndustriaTypes = DateViewController.AllIndustrialType.OrderBy(e => e.DisplayOrder);
             ViewBag.Cities = DateViewController.AllCity.OrderBy(e => e.DisplayOrder);
