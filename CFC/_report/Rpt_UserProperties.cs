@@ -55,7 +55,13 @@ namespace CFC
                     f.聯絡人 = data.Contact;
                     f.職稱 = data.POSITION;
                     f.連絡電話 = data.PhoneNumber;
-                    f.行業別 = data.IndustrialTypeName;
+                    string industrialTypeName = "";
+                    var fs = Code.GetYNGlobal_Industrial().Where(a => a.Key == data.IndustrialTypeId);
+                    if (fs.Count() > 0)
+                    {
+                        industrialTypeName = fs.First().Value.ToString();
+                    }
+                    f.行業別 = industrialTypeName;
                     f.單位性質 = data.UNIT_TYPE;
                     f.縣市 = data.CITY;
                     f.鄉鎮市區 = data.DISTRICT;

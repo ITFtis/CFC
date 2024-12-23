@@ -113,28 +113,9 @@ namespace CFC.Models.Prj
         /// </summary>
         [Required]
         [Display(Name = "行業別")]
-        [ColumnDef(Visible = false, 
+        [ColumnDef(
                 EditType = EditType.Radio, SelectItemsClassNamespace = CFC.GetYNGlobal_IndustrialSelectItems.AssemblyQualifiedName)]        
         public string IndustrialTypeId { get; set; }
-
-        /// <summary>
-        /// 行業別名稱(1.非製造業,其它製造業)  清單顯示
-        /// </summary>
-        [Display(Name = "行業別")]
-        [ColumnDef(VisibleEdit = false,
-                Filter = true, EditType = EditType.Select, SelectItemsClassNamespace = CFC.GetYNGlobal_IndustrialSelectItems.AssemblyQualifiedName)]
-        public string IndustrialTypeName
-        {
-            get
-            {
-                string str = "";
-                var v = Global_Industrial.GetAllDatasYN().Where(a => a.Id == this.IndustrialTypeId).FirstOrDefault();
-                if (v != null)
-                    str = v.Name;
-
-                return str;
-            }
-        }
 
         [Display(Name = "單位性質")]
         [ColumnDef(EditType = EditType.Select, SelectItemsClassNamespace = CFC.GetUserUNIT_TYPESelectItems.AssemblyQualifiedName)]

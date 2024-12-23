@@ -289,7 +289,11 @@ namespace CFC.Controllers.PrjNew
 
                 var v = User_Properties_Advance.GetAllDatas().Where(a => a.Id == this.UserID).FirstOrDefault();
                 if (v != null)
-                    str = v.IndustrialTypeName;
+                {
+                    var fs = Code.GetYNGlobal_Industrial().Where(a => a.Key == v.IndustrialTypeId);
+                    if (fs.Count() > 0)
+                        str = fs.First().Value.ToString();                    
+                }
 
                 return str;
             }
