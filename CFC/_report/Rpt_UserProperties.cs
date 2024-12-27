@@ -48,9 +48,15 @@ namespace CFC
                     dynamic f = new ExpandoObject();
                     f.序號 = serial;
                     serial++;
-                    f.姓名 = data.Name;   //ooooooooooo                    
-                    f.公司名稱 = data.UniformNumber;
-                    f.統一編號 = data.UniformNumberNo;
+                    f.帳號 = data.Id;   //ooooooooooo
+                    string compName = "";
+                    var coms = SYS_COMPANYNameSelectItems.SysCompanys.Where(a => a.COMP_UNIFORM_NUMBER == data.UniformNumber);
+                    if (coms.Count() > 0)
+                    {
+                        compName = coms.First().COMP_NAME;
+                    }
+                    f.公司名稱 = compName;
+                    f.統一編號 = data.UniformNumber;
                     f.公司規模 = data.CompanySizeNew;
                     f.聯絡人 = data.Contact;
                     f.職稱 = data.POSITION;
