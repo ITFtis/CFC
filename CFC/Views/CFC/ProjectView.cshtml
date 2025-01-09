@@ -87,21 +87,25 @@
                     $("#elecVolume").val(data.electInput.elecVolume)
 
                     //冷媒
+                    var indexS1 = 0;
                     $(data.refrigerantInputs).each((index, item) => {
-                        if (index == 0)
+                        if (indexS1 > 0)
                             $(".new-refrigerant").click();
                         $('select[name="refrigeType"]').eq(index).val(item.RefrigerantType);
                         $('select[name="quipType"]').eq(index).val(item.RefrigerantEquip);
                         $('input[name="refrigeVolume"]').eq(index).val(item.UseVolume);
+                        indexS1++;
                     });
 
                     // 逸散氣體
+                    var indexS2 = 0;
                     $(data.escapeInputs).each((index, item) => {
-                        if (index == 0)
+                        if (indexS2 > 0)
                             $(".new-escape").click();
                         $('select[name="escapeType"]').eq(index).val(item.EscapeType);
                         $('select[name="escpaeItem"]').eq(index).val(item.EscapeId);
                         $('input[name="escpaeVolume"]').eq(index).val(item.UseVolume);
+                        indexS2++;
                     });
 
                     // 蒸氣
@@ -109,12 +113,14 @@
                     $("#evap-volume").val(data.steamInput.SteamVolume)
 
                     // 特殊製程
+                    var indexS3 = 0;
                     $(data.specialInputs).each((index, item) => {
-                        if (index == 0)
+                        if (indexS3 > 0)
                             $(".new-specific").click();
                         $('select[name="advanceType"]').eq(index).val(item.CreateType);
                         $('select[name="advanceItem"]').eq(index).val(item.CreateId);
                         $('input[name="advanceVolume"]').eq(index).val(item.UseVolume);
+                        indexS3++;
                     });
 
                     // 其他範疇
